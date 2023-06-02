@@ -20,4 +20,8 @@ Keys = {
 
     # https://docs.stadiamaps.com/
     "STADIAMAPS_KEY": "",
+
+    # https://developers.deutschebahn.com/db-api-marketplace/apis/
+    "DBTRAININFORMATION_CLIENT": "",
+    "DBTRAININFORMATION_SECRET": "",
 }

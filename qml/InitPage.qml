@@ -31,7 +31,7 @@ PageEmptyPL {
     BusyModal {
         id: busy
         running: true
-        text: app.tr("Mein Test")
+        text: app.tr("Initializing")
     }
 
     Connections {
