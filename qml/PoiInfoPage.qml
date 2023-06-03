@@ -45,7 +45,7 @@ PagePL {
     property bool hasCoordinate: poi && poi.coordinate ? true : false
     property var  poi
     property bool shortlisted: false
-    property bool isTrainStation: poi && poi.poiType == "Railway platform" ? true : false
+    property bool isTrainStation: poi && ("railway" in poi.poiType.lower()) ? true : false
 
     Column {
         id: column
@@ -285,24 +285,17 @@ PagePL {
             visible: text
         }
 
-        ListItemLabel {
-            color: styler.themeHighlightColor
-            height: implicitHeight + styler.themePaddingMedium
-            text: poi.address ? poi.address : ""
-            truncMode: truncModes.none
-            verticalAlignment: Text.AlignTop
-            visible: text
-            wrapMode: Text.WordWrap
-        }
-
-        ListItemLabel {
-            color: styler.themeHighlightColor
-            height: implicitHeight + styler.themePaddingMedium
-            text: poi.postcode ? app.tr("Postal code: %1", poi.postcode) : ""
-            truncMode: truncModes.none
-            verticalAlignment: Text.AlignTop
-            visible: text
-            wrapMode: Text.WordWrap
+        IconListItem {
+            visible: isTrainStation
+            enabled: true
+            icon: styler.iconShare
+            label: "Load Timetable for Station"
+            onClicked: {
+                app.showMenu(Qt.resolvedUrl("NearbyPage.qml"), {
+                                 "near": [poi.coordinate.longitude, poi.coordinate.latitude],
+                                 "nearText": poi.title,
+                             });
+            }
         }
     }
 
