@@ -45,7 +45,7 @@ PagePL {
     property bool hasCoordinate: poi && poi.coordinate ? true : false
     property var  poi
     property bool shortlisted: false
-    property bool isTrainStation: poi && ("railway" in poi.poiType.lower()) ? true : false
+    property bool isTrainStation: poi && ("Railway" in poi.poiType) ? true : false
 
     Column {
         id: column
