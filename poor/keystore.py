@@ -65,7 +65,7 @@ HEADERS = {
     "OPENCAGE": HeaderDesc(_('Register at <a href="https://opencagedata.com">https://opencagedata.com</a> and create your own API key'), "OpenCage"),
     "STADIAMAPS": HeaderDesc(_('Register at <a href="https://stadiamaps.com">https://stadiamaps.com</a> and create your own API key'), "Stadia Maps"),
     "HERE": HeaderDesc(_('Register at <a href="https://developer.here.com">https://developer.here.com</a> and create your own App API Key'), "HERE"),
-    "DBTRAININFORMATION": HeaderDesc(_('Register at <a href="https://developers.deutschebahn.com/db-api-marketplace/apis/">https://developers.deutschebahn.com/db-api-marketplace/apis/</a> and create your own App API Key'), "DB-Traininformation")
+    "DBTRAININFORMATION": HeaderDesc(_('Register at <a href="https://developers.deutschebahn.com">https://developers.deutschebahn.com</a> and create your own Client ID and Client Secret keys'), "DB-Traininformation")
 }
 
 KEYDESC = {

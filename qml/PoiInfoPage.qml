@@ -45,6 +45,7 @@ PagePL {
     property bool hasCoordinate: poi && poi.coordinate ? true : false
     property var  poi
     property bool shortlisted: false
+    property bool isTrainStation: poi && poi.poiType == "Railway platform" ? true : false
 
     Column {
         id: column
@@ -272,6 +273,36 @@ PagePL {
                 if (poi.poiId !== poiId) return;
                 page.setPoi(pois.getById(poiId));
             }
+        }
+
+        Spacer {
+            height: styler.themePaddingMedium
+        }
+
+        SectionHeaderPL {
+            height: implicitHeight + styler.themePaddingMedium
+            text: isTrainStation ? app.tr("Traininformation") : ""
+            visible: text
+        }
+
+        ListItemLabel {
+            color: styler.themeHighlightColor
+            height: implicitHeight + styler.themePaddingMedium
+            text: poi.address ? poi.address : ""
+            truncMode: truncModes.none
+            verticalAlignment: Text.AlignTop
+            visible: text
+            wrapMode: Text.WordWrap
+        }
+
+        ListItemLabel {
+            color: styler.themeHighlightColor
+            height: implicitHeight + styler.themePaddingMedium
+            text: poi.postcode ? app.tr("Postal code: %1", poi.postcode) : ""
+            truncMode: truncModes.none
+            verticalAlignment: Text.AlignTop
+            visible: text
+            wrapMode: Text.WordWrap
         }
     }
 
