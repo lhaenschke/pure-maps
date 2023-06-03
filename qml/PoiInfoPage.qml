@@ -45,7 +45,7 @@ PagePL {
     property bool hasCoordinate: poi && poi.coordinate ? true : false
     property var  poi
     property bool shortlisted: false
-    property bool isTrainStation: poi && ("Railway" in poi.poiType) ? true : false
+    property bool isTrainStation: poi && (poi.poiType == "Railway platform" || poi.poiType == "Railway station") ? true : false
 
     Column {
         id: column
@@ -281,7 +281,7 @@ PagePL {
 
         SectionHeaderPL {
             height: implicitHeight + styler.themePaddingMedium
-            text: isTrainStation ? app.tr("Traininformation") : ""
+            text: isTrainStation ? app.tr("Timetables") : ""
             visible: text
         }
 
