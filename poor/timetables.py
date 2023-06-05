@@ -36,12 +36,9 @@ class TimetableManager:
     def search(self, latitude, longitude):
         conn = http.client.HTTPSConnection("apis.deutschebahn.com")
 
-        print(self._clientID)
-        print(self._clientSecret)
-
         headers = {
-            'DB-Api-Key': self._clientID,
-            'DB-Client-Id': self._clientSecret,
+            'DB-Api-Key': self._clientSecret,
+            'DB-Client-Id': self._clientID,
             'Accept': "application/vnd.de.db.ris+json"
             }
 
