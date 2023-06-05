@@ -37,6 +37,7 @@ PagePL {
     }
 
     property var  poi
+    property int selectedTime: 0
 
     Column {
         id: column
@@ -99,12 +100,12 @@ PagePL {
             property var values: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23 ]
             currentIndex: 3
             Component.onCompleted: {
-                var value = app.conf.timetablesTime;
-                timeRangeComboBox.currentIndex = timeRangeComboBox.values.indexOf(value);
+                selectedTime = parseInt(Qt.formatTime(new Date(),"hh"))
+                timeRangeComboBox.currentIndex = timeRangeComboBox.values.indexOf(selectedTime);
             }
             onCurrentIndexChanged: {
                 var index = timeRangeComboBox.currentIndex;
-                app.conf.set("timetablesTime", timeRangeComboBox.values[index]);
+                selectedTime = timeRangeComboBox.values[index];
             }
             
         }
