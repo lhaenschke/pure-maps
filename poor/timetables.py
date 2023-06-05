@@ -30,7 +30,6 @@ class TimetableManager:
 
     def __init__(self):
         """Initialize a :class:`TimetableManager` instance."""
-        self._location = (0, 0)
         self._clientID = poor.key.get("DBTRAININFORMATION_CLIENT")
         self._clientSecret = poor.key.get("DBTRAININFORMATION_SECRET")
 

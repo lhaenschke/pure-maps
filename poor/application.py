@@ -34,6 +34,7 @@ class Application:
         # after handling of all licenses
         random.seed()
         self.history = poor.HistoryManager()
+
         self.magfield = poor.MagField()
         self.sun = poor.Sun()
         self._voice = {}
@@ -48,6 +49,7 @@ class Application:
         self.set_geocoder(poor.conf.geocoder)
         self.set_guide(poor.conf.guide)
         self.set_router(poor.conf.router)
+        self.timetables = poor.TimetableManager()
 
     def get_attribution(self, type, providers):
         """Return attribution entries for given providers."""
