@@ -99,12 +99,19 @@ PagePL {
             }   
         }
 
+        ListItemLabel {
+            text: ""
+            truncMode: truncModes.none
+            visible: true
+            wrapMode: Text.WordWrap
+        }
+
         ButtonPL {
             anchors.horizontalCenter: parent.horizontalCenter
             preferredWidth: styler.themeButtonWidthLarge
             text: app.tr("Search")
             onClicked: {
-                py.call_sync("poor.app.timetables.search", [51.3547, 7.12235]);
+                py.call_sync("poor.app.timetables.search", [poi.coordinate.latitude, poi.coordinate.longitude]);
             }
         }
 
