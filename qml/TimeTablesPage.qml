@@ -83,16 +83,6 @@ PagePL {
             height: styler.themePaddingMedium
         }
 
-        ListItemLabel {
-            color: styler.themeHighlightColor
-            height: implicitHeight + styler.themePaddingMedium
-            text: app.tr("Time-Range")
-            truncMode: truncModes.none
-            verticalAlignment: Text.AlignTop
-            visible: text
-            wrapMode: Text.WordWrap
-        }
-
         ComboBoxPL {
             id: timeRangeComboBox
             label: app.tr("Time-Range")
@@ -106,8 +96,16 @@ PagePL {
             onCurrentIndexChanged: {
                 var index = timeRangeComboBox.currentIndex;
                 selectedTime = timeRangeComboBox.values[index];
+            }   
+        }
+
+        ButtonPL {
+            anchors.horizontalCenter: parent.horizontalCenter
+            preferredWidth: styler.themeButtonWidthLarge
+            text: app.tr("Search")
+            onClicked: {
+                py.call_sync("poor.app.timetables.search", [51.3547, 7.12235]);
             }
-            
         }
 
     }
