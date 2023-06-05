@@ -45,7 +45,6 @@ PagePL {
     property bool hasCoordinate: poi && poi.coordinate ? true : false
     property var  poi
     property bool shortlisted: false
-    // property bool isTrainStation: poi && (poi.poiType == "Railway platform" || poi.poiType == "Railway station") ? true : false
     property bool isTrainStation: poi && (poi.poiType.indexOf("Railway") != -1) ? true : false
 
     Column {
@@ -290,11 +289,10 @@ PagePL {
             visible: isTrainStation
             enabled: true
             icon: styler.iconShare
-            label: "Load Timetable for Station"
+            label: app.tr("Load Timetable for Station")
             onClicked: {
-                app.showMenu(Qt.resolvedUrl("NearbyPage.qml"), {
-                                 "near": [poi.coordinate.longitude, poi.coordinate.latitude],
-                                 "nearText": poi.title,
+                app.showMenu(Qt.resolvedUrl("TimeTablesPage.qml"), {
+                                 "poi": poi,
                              });
             }
         }
