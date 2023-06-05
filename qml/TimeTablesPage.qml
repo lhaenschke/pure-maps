@@ -27,7 +27,7 @@ PagePL {
 
     pageMenu: PageMenuPL {
         PageMenuItemPL {
-            enabled: page.active
+            enabled: true
             iconName: styler.iconEdit
             text: app.tr("Reload")
             onClicked: {
@@ -36,7 +36,6 @@ PagePL {
         }
     }
 
-    property bool active: false
     property var  poi
 
     Column {
@@ -46,41 +45,11 @@ PagePL {
         ListItemLabel {
             color: styler.themeHighlightColor
             height: implicitHeight + styler.themePaddingMedium
-            text: poi.poiType ? poi.poiType : ""
+            text: poi.title ? poi.title : ""
             truncMode: truncModes.none
             verticalAlignment: Text.AlignTop
             visible: text
             wrapMode: Text.WordWrap
-        }
-
-        ListItemLabel {
-            color: styler.themeHighlightColor
-            font.pixelSize: styler.themeFontSizeSmall
-            height: implicitHeight + styler.themePaddingMedium
-            text: hasCoordinate ? app.tr("Latitude: %1", poi.coordinate.latitude) + "\n" +
-                                  app.tr("Longitude: %2", poi.coordinate.longitude) : ""
-            truncMode: truncModes.none
-            verticalAlignment: Text.AlignTop
-            visible: text
-            wrapMode: Text.WordWrap
-        }
-
-        ListItemLabel {
-            color: styler.themeHighlightColor
-            font.pixelSize: styler.themeFontSizeSmall
-            height: implicitHeight + styler.themePaddingMedium
-            text: hasCoordinate ? app.tr("Plus code: %1",
-                                         py.call_sync("poor.util.format_location_olc",
-                                                      [poi.coordinate.longitude,
-                                                       poi.coordinate.latitude])) : ""
-            truncMode: truncModes.none
-            verticalAlignment: Text.AlignTop
-            visible: text
-            wrapMode: Text.WordWrap
-        }
-
-        Spacer {
-            height: styler.themePaddingMedium
         }
 
         SectionHeaderPL {
@@ -109,5 +78,36 @@ PagePL {
             wrapMode: Text.WordWrap
         }
         
+        Spacer {
+            height: styler.themePaddingMedium
+        }
+
+        ListItemLabel {
+            color: styler.themeHighlightColor
+            height: implicitHeight + styler.themePaddingMedium
+            text: app.tr("Time-Range")
+            truncMode: truncModes.none
+            verticalAlignment: Text.AlignTop
+            visible: text
+            wrapMode: Text.WordWrap
+        }
+
+        ComboBoxPL {
+            id: timeRangeComboBox
+            label: app.tr("Time-Range")
+            model: [ "0:00", "1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00", "8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00" ]
+            property var values: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23 ]
+            currentIndex: 3
+            Component.onCompleted: {
+                var value = app.conf.timetablesTime;
+                timeRangeComboBox.currentIndex = timeRangeComboBox.values.indexOf(value);
+            }
+            onCurrentIndexChanged: {
+                var index = timeRangeComboBox.currentIndex;
+                app.conf.set("timetablesTime", timeRangeComboBox.values[index]);
+            }
+            
+        }
+
     }
 }

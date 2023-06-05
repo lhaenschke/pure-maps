@@ -81,6 +81,7 @@ Item {
     property bool   tiltWhenNavigating
     property int    trafficRerouteTime: -1
     property string units
+    property int    timetablesTime: Qt.formatTime(new Date(),"hh").toInt()
     property string voiceGender
     property bool   voiceNavigation
 
@@ -135,6 +136,7 @@ Item {
         "tiltWhenNavigating": "tilt_when_navigating",
         "trafficRerouteTime": "traffic_reroute_time",
         "units": "units",
+        "timetablesTime": "timetablesTime",
         "voiceGender": "voice_gender",
         "voiceNavigation": "voice_navigation"
     }
