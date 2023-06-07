@@ -111,7 +111,7 @@ PagePL {
             preferredWidth: styler.themeButtonWidthLarge
             text: app.tr("Search")
             onClicked: {
-                py.call_sync("poor.app.timetables.search", [poi.coordinate.latitude, poi.coordinate.longitude]);
+                py.call_sync("poor.app.timetables.search", [poi.coordinate.latitude, poi.coordinate.longitude, selectedTime]);
             }
         }
 
