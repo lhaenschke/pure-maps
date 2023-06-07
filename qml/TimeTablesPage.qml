@@ -23,18 +23,7 @@ import "platform"
 
 PagePL {
     id: page
-    title: app.tr("Timetables for") + poi.title
-
-    pageMenu: PageMenuPL {
-        PageMenuItemPL {
-            enabled: true
-            iconName: styler.iconEdit
-            text: app.tr("Reload")
-            onClicked: {
-                
-            }
-        }
-    }
+    title: app.tr("Timetables for ") + poi.title
 
     property var  poi
     property int selectedTime: 0
@@ -46,22 +35,6 @@ PagePL {
         ListItemLabel {
             color: styler.themeHighlightColor
             height: implicitHeight + styler.themePaddingMedium
-            text: poi.title ? poi.title : ""
-            truncMode: truncModes.none
-            verticalAlignment: Text.AlignTop
-            visible: text
-            wrapMode: Text.WordWrap
-        }
-
-        SectionHeaderPL {
-            height: implicitHeight + styler.themePaddingMedium
-            text: poi.address || poi.postcode ? app.tr("Address") : ""
-            visible: text
-        }
-
-        ListItemLabel {
-            color: styler.themeHighlightColor
-            height: implicitHeight + styler.themePaddingMedium
             text: poi.address ? poi.address : ""
             truncMode: truncModes.none
             verticalAlignment: Text.AlignTop
@@ -69,16 +42,6 @@ PagePL {
             wrapMode: Text.WordWrap
         }
 
-        ListItemLabel {
-            color: styler.themeHighlightColor
-            height: implicitHeight + styler.themePaddingMedium
-            text: poi.postcode ? app.tr("Postal code: %1", poi.postcode) : ""
-            truncMode: truncModes.none
-            verticalAlignment: Text.AlignTop
-            visible: text
-            wrapMode: Text.WordWrap
-        }
-        
         Spacer {
             height: styler.themePaddingMedium
         }
@@ -112,7 +75,129 @@ PagePL {
             text: app.tr("Search")
             onClicked: {
                 py.call_sync("poor.app.timetables.search", [poi.coordinate.latitude, poi.coordinate.longitude, selectedTime]);
+                fillModel()
             }
+        }
+
+        Spacer {
+            height: styler.themePaddingMedium
+        }
+
+        currentIndex: -1
+
+        delegate: ListItemPL {
+            id: listItem
+            contentHeight: titleItem.height + detailsItem.height + textItem.height + spacer.height*2
+
+            Spacer {
+                id: spacer
+                height: styler.themePaddingLarge/2
+            }
+
+            ListItemLabel {
+                id: titleItem
+                anchors.leftMargin: page.searchField.textLeftMargin
+                anchors.top: spacer.bottom
+                color: listItem.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
+                height: implicitHeight + styler.themePaddingSmall
+                text: (model.title ? model.title : app.tr("Unnamed point")) + (model.bookmarked ? " ☆" : "") + (model.shortlisted ? " ☰" : "")
+                verticalAlignment: Text.AlignTop
+            }
+
+            ListItemLabel {
+                id: detailsItem
+                anchors.leftMargin: page.searchField.textLeftMargin
+                anchors.top: titleItem.bottom
+                color: listItem.highlighted ? styler.themeSecondaryHighlightColor : styler.themeSecondaryColor
+                font.pixelSize: styler.themeFontSizeSmall
+                height: text ? implicitHeight + styler.themePaddingSmall : 0
+                text: {
+                    if (model.poiType && model.address) return model.poiType + ", " + model.address;
+                    if (model.poiType) return model.poiType;
+                    return model.address;
+                }
+                verticalAlignment: Text.AlignTop
+                wrapMode: Text.WordWrap
+            }
+
+            ListItemLabel {
+                id: textItem
+                anchors.leftMargin: page.searchField.textLeftMargin
+                anchors.top: detailsItem.bottom
+                anchors.topMargin: styler.themePaddingSmall
+                color: listItem.highlighted ? styler.themeSecondaryHighlightColor : styler.themeSecondaryColor
+                font.pixelSize: styler.themeFontSizeExtraSmall
+                height: text ? implicitHeight : 0
+                maximumLineCount: 1
+                text: model.text
+                truncMode: truncModes.elide
+                verticalAlignment: Text.AlignTop
+            }
+
+            // menu: ContextMenuPL {
+            //     id: contextMenu
+            //     ContextMenuItemPL {
+            //         iconName: styler.iconAbout
+            //         text: app.tr("View")
+            //         onClicked: {
+            //             var poi = pois.getById(model.poiId);
+            //             if (!poi) return;
+            //             app.push(Qt.resolvedUrl("PoiInfoPage.qml"),
+            //                     {"active": true, "poi": poi});
+            //         }
+            //     }
+            //     ContextMenuItemPL {
+            //         iconName: styler.iconEdit
+            //         text: app.tr("Edit")
+            //         onClicked: {
+            //             var poi = pois.getById(model.poiId);
+            //             if (!poi) return;
+            //             var dialog = app.push(Qt.resolvedUrl("PoiEditPage.qml"),
+            //                                 {"poi": poi});
+            //             dialog.accepted.connect(function() {
+            //                 pois.update(dialog.poi);
+            //             })
+            //         }
+            //     }
+            //     ContextMenuItemPL {
+            //         iconName: styler.iconDelete
+            //         text: app.tr("Remove")
+            //         onClicked: {
+            //             pois.remove(model.poiId);
+            //         }
+            //     }
+            // }
+
+            // onClicked: {
+            //     var p = pois.getById(model.poiId);
+            //     if (!p) {
+            //         // poi got missing, let's refill
+            //         fillModel(lastQuery);
+            //         return;
+            //     }
+            //     app.stateId = "pois";
+            //     pois.show(p, true);
+            //     map.setCenter(
+            //                 p.coordinate.longitude,
+            //                 p.coordinate.latitude);
+            //     app.hideMenu(app.tr("Bookmarks"));
+            // }
+
+        }
+
+        model: ListModel {}
+
+        placeholderEnabled: pois.pois.length === 0
+        placeholderText: app.tr("An unknown problem has occurred. Possibly no connection to the Internet could be established or the station could not be found.")
+
+        Component.onCompleted: {
+            fillModel();
+        }
+
+        function fillModel() {
+            var data = py.call_sync("poor.util.format_location_olc", [poi.coordinate.longitude, poi.coordinate.latitude])) : ""
+            page.model.clear();
+            data.forEach(function (p) { page.model.append(p); });
         }
 
     }

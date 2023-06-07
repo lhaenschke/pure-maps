@@ -35,26 +35,27 @@ class TimetableManager:
         """Initialize a :class:`TimetableManager` instance."""
         self._clientID = poor.key.get("DBTRAININFORMATION_CLIENT")
         self._clientSecret = poor.key.get("DBTRAININFORMATION_SECRET")
+        self.trains = []
 
     def search(self, latitude: str, longitude: str, hour: int):
         eva_number = self.__get_eva_number__(latitude, longitude)
         
         xml_root = ET.fromstring(self.__get_timetable_str(eva_number, hour))
-        trains = []
+        self.trains = []
 
         for train in xml_root.iter('s'):
-            trains.append(Traininformation(
+            self.trains.append(Traininformation(
                 train_type = train.find('tl').attrib['c'],
                 name = train.find('ar').attrib['l'],
                 dep_time = train.find('dp').attrib['pt'],
                 track = train.find('dp').attrib['pp'],
-                destination = train.find('dp').attrib['ppth'].split('|')[-1]
+                next_stops = train.find('dp').attrib['ppth'].split('|')
             ))
 
-        trains = sorted(trains, key=lambda x: x.dep_time)
+        self.trains = sorted(self.trains, key=lambda x: x.dep_time)
 
-        for train in trains:
-            print(train.type, train.name, train.dep_time_hh, train.dep_time_mm, train.track, train.destination)
+        for train in self.trains:
+            print(train.type, train.name, train.dep_time_hh, train.dep_time_mm, train.track, train.next_stops)
 
 
     def __get_eva_number__(self, latitude: str, longitude: str) -> str:
@@ -103,11 +104,11 @@ class Traininformation:
 
         """Store train-informations"""
 
-        def __init__(self, train_type: str, name: str, dep_time: str, track: str, destination: str):
+        def __init__(self, train_type: str, name: str, dep_time: str, track: str, next_stops: str):
             self.type = train_type
             self.name = name
             self.dep_time = dep_time
             self.dep_time_hh = self.dep_time[6:8]
             self.dep_time_mm = self.dep_time[8:]
             self.track = track
-            self.destination = destination
+            self.next_stops = next_stops
