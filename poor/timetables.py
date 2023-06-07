@@ -46,8 +46,7 @@ class TimetableManager:
             trains.append(Traininformation(
                 train_type = train.find('tl').attrib['c'],
                 name = train.find('ar').attrib['l'],
-                dep_time_hh = train.find('dp').attrib['pt'][6:8],
-                dep_time_mm = train.find('dp').attrib['pt'][8:],
+                dep_time = train.find('dp').attrib['pt'],
                 track = train.find('dp').attrib['pp'],
                 destination = train.find('dp').attrib['ppth'].split('|')[-1]
             ))
@@ -104,10 +103,11 @@ class Traininformation:
 
         """Store train-informations"""
 
-        def __init__(self, train_type: str, name: str, dep_time_hh: str, dep_time_mm: str, track: str, destination: str):
+        def __init__(self, train_type: str, name: str, dep_time: str, track: str, destination: str):
             self.type = train_type
             self.name = name
-            self.dep_time_hh = dep_time_hh
-            self.dep_time_mm = dep_time_mm
+            self.dep_time = dep_time
+            self.dep_time_hh = self.dep_time[6:8]
+            self.dep_time_mm = self.dep_time[8:]
             self.track = track
             self.destination = destination
