@@ -44,7 +44,7 @@ class TimetableManager:
 
         for train in xml_root.iter('s'):
             trains.append(Traininformation(
-                train_type = train.find('tl').attrib['c'],
+                type = train.find('tl').attrib['c'],
                 name = train.find('ar').attrib['l'],
                 dep_time = train.find('dp').attrib['pt'],
                 track = train.find('dp').attrib['pp'],
@@ -54,7 +54,7 @@ class TimetableManager:
         trains = sorted(trains, key=lambda x: x.dep_time)
 
         for train in trains:
-            print(f"Der Zug {train.train_type} {train.name} und fährt um {train.dep_time[6:8]}:{train.dep_time[8:]} von Gleis {train.track} ab nach {train.destination}.")
+            print(train.type, train.name, train.dep_time, train.track, train.destination)
 
 
     def __get_eva_number__(self, latitude: str, longitude: str) -> str:
@@ -104,7 +104,7 @@ class Traininformation:
         """Store train-informations"""
 
         def __init__(self, train_type: str, name: str, dep_time: str, track: str, destination: str):
-            self.train_type = train_type
+            self.type = train_type
             self.name = name
             self.dep_time = dep_time
             self.track = track
