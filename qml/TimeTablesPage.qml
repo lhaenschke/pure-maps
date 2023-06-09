@@ -195,7 +195,7 @@ PagePL {
         }
 
         function fillModel() {
-            var data = py.call_sync("poor.app.timetables.get_trains", []));
+            var data = py.call_sync("poor.app.timetables.get_trains", []);
             page.model.clear();
             data.forEach(function (p) { page.model.append(p); });
         }
