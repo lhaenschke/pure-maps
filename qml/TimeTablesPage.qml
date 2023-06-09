@@ -187,9 +187,6 @@ PagePL {
 
         model: ListModel {}
 
-        placeholderEnabled: pois.pois.length === 0
-        placeholderText: app.tr("An unknown problem has occurred. Possibly no connection to the Internet could be established or the station could not be found.")
-
         Component.onCompleted: {
             fillModel();
         }
