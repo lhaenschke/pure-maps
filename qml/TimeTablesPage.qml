@@ -195,7 +195,7 @@ PagePL {
         }
 
         function fillModel() {
-            var data = py.call_sync("poor.util.format_location_olc", [poi.coordinate.longitude, poi.coordinate.latitude])) : "";
+            var data = py.call_sync("poor.app.timetables.get_trains", []));
             page.model.clear();
             data.forEach(function (p) { page.model.append(p); });
         }
