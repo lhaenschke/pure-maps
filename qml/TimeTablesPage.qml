@@ -83,118 +83,25 @@ PagePL {
             height: styler.themePaddingMedium
         }
 
-        currentIndex: -1
+        ListView {
+            id: timetablesListView
+            model: ListModel {}
+            currentIndex: -1
 
-        delegate: ListItemPL {
-            id: listItem
-            contentHeight: titleItem.height + detailsItem.height + textItem.height + spacer.height*2
+            delegate ListItemPL {
 
-            Spacer {
-                id: spacer
-                height: styler.themePaddingLarge/2
+                
+
             }
 
-            ListItemLabel {
-                id: titleItem
-                anchors.leftMargin: page.searchField.textLeftMargin
-                anchors.top: spacer.bottom
-                color: listItem.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
-                height: implicitHeight + styler.themePaddingSmall
-                text: (model.title ? model.title : app.tr("Unnamed point")) + (model.bookmarked ? " ☆" : "") + (model.shortlisted ? " ☰" : "")
-                verticalAlignment: Text.AlignTop
+            function populate(latitude, longitude, selectedTime) {
+                // Load nearby results from the Python backend.
+                timetablesListView.model.clear();
+                py.call("poor.app.timetables.search", [poi.coordinate.latitude, poi.coordinate.longitude, selectedTime], function(results) {
+                    console.log(results)
+                });
             }
 
-            ListItemLabel {
-                id: detailsItem
-                anchors.leftMargin: page.searchField.textLeftMargin
-                anchors.top: titleItem.bottom
-                color: listItem.highlighted ? styler.themeSecondaryHighlightColor : styler.themeSecondaryColor
-                font.pixelSize: styler.themeFontSizeSmall
-                height: text ? implicitHeight + styler.themePaddingSmall : 0
-                text: {
-                    if (model.poiType && model.address) return model.poiType + ", " + model.address;
-                    if (model.poiType) return model.poiType;
-                    return model.address;
-                }
-                verticalAlignment: Text.AlignTop
-                wrapMode: Text.WordWrap
-            }
-
-            ListItemLabel {
-                id: textItem
-                anchors.leftMargin: page.searchField.textLeftMargin
-                anchors.top: detailsItem.bottom
-                anchors.topMargin: styler.themePaddingSmall
-                color: listItem.highlighted ? styler.themeSecondaryHighlightColor : styler.themeSecondaryColor
-                font.pixelSize: styler.themeFontSizeExtraSmall
-                height: text ? implicitHeight : 0
-                maximumLineCount: 1
-                text: model.text
-                truncMode: truncModes.elide
-                verticalAlignment: Text.AlignTop
-            }
-
-            // menu: ContextMenuPL {
-            //     id: contextMenu
-            //     ContextMenuItemPL {
-            //         iconName: styler.iconAbout
-            //         text: app.tr("View")
-            //         onClicked: {
-            //             var poi = pois.getById(model.poiId);
-            //             if (!poi) return;
-            //             app.push(Qt.resolvedUrl("PoiInfoPage.qml"),
-            //                     {"active": true, "poi": poi});
-            //         }
-            //     }
-            //     ContextMenuItemPL {
-            //         iconName: styler.iconEdit
-            //         text: app.tr("Edit")
-            //         onClicked: {
-            //             var poi = pois.getById(model.poiId);
-            //             if (!poi) return;
-            //             var dialog = app.push(Qt.resolvedUrl("PoiEditPage.qml"),
-            //                                 {"poi": poi});
-            //             dialog.accepted.connect(function() {
-            //                 pois.update(dialog.poi);
-            //             })
-            //         }
-            //     }
-            //     ContextMenuItemPL {
-            //         iconName: styler.iconDelete
-            //         text: app.tr("Remove")
-            //         onClicked: {
-            //             pois.remove(model.poiId);
-            //         }
-            //     }
-            // }
-
-            // onClicked: {
-            //     var p = pois.getById(model.poiId);
-            //     if (!p) {
-            //         // poi got missing, let's refill
-            //         fillModel(lastQuery);
-            //         return;
-            //     }
-            //     app.stateId = "pois";
-            //     pois.show(p, true);
-            //     map.setCenter(
-            //                 p.coordinate.longitude,
-            //                 p.coordinate.latitude);
-            //     app.hideMenu(app.tr("Bookmarks"));
-            // }
-
-        }
-
-        model: ListModel {}
-
-        Component.onCompleted: {
-            fillModel();
-        }
-
-        function fillModel() {
-            var data = py.call_sync("poor.app.timetables.get_trains", []);
-            page.model.clear();
-            data.forEach(function (p) { page.model.append(p); });
         }
 
     }

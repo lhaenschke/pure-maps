@@ -57,6 +57,8 @@ class TimetableManager:
         for train in self.trains:
             print(train.type, train.name, train.dep_time_hh, train.dep_time_mm, train.track, train.next_stops)
 
+        return 
+
 
     def get_trains(self):
         return self.trains
