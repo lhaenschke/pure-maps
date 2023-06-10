@@ -75,7 +75,6 @@ PagePL {
             text: app.tr("Search")
             onClicked: {
                 py.call_sync("poor.app.timetables.search", [poi.coordinate.latitude, poi.coordinate.longitude, selectedTime]);
-                fillModel();
             }
         }
 
@@ -101,15 +100,6 @@ PagePL {
         //         }
                 
         //     }
-
-        //     function populate(latitude, longitude, selectedTime) {
-        //         // Load nearby results from the Python backend.
-        //         timetablesListView.model.clear();
-        //         py.call("poor.app.timetables.search", [poi.coordinate.latitude, poi.coordinate.longitude, selectedTime], function(results) {
-        //             console.log(results)
-        //         });
-        //     }
-
         // }
 
         Rectangle {
@@ -128,7 +118,7 @@ PagePL {
 
             ListView {
                 anchors.fill: parent
-                model: ContactModel {}
+                model: ListModel {}
                 delegate: contactDelegate
                 highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
                 focus: true
