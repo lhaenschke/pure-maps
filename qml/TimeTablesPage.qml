@@ -89,9 +89,17 @@ PagePL {
             currentIndex: -1
 
             delegate ListItemPL {
+                id: listItem
+                contentHeight: titleLabel.height + titleLabel.anchors.topMargin
 
+                ListItemLabel {
+                    id: titleLabel
+                    color: styler.themeHighlightColor
+                    height: implicitHeight + app.listItemVerticalMargin
+                    text: "Test"
+                    verticalAlignment: Text.AlignBottom
+                }
                 
-
             }
 
             function populate(latitude, longitude, selectedTime) {
