@@ -116,7 +116,7 @@ PagePL {
             property int activeItem: -1
 
             function fillModel() {
-                page.model.clear();
+                page.list.model.clear();
                 py.call("poor.app.timetables.get_trains", [], function(results) {
                     console.log(results);
                     page.list.model = results;
