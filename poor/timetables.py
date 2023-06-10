@@ -54,9 +54,6 @@ class TimetableManager:
 
         self.trains = sorted(self.trains, key=lambda x: x.dep_time)
 
-        for train in self.trains:
-            print(train.type, train.name, train.dep_time_hh, train.dep_time_mm, train.track, train.next_stops)
-
     def get_trains(self):
         return [dict(
             type=train.type,
