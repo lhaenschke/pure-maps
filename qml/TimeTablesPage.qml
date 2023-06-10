@@ -75,6 +75,7 @@ PagePL {
             text: app.tr("Search")
             onClicked: {
                 py.call_sync("poor.app.timetables.search", [poi.coordinate.latitude, poi.coordinate.longitude, selectedTime]);
+                list.fillModel();
             }
         }
 
@@ -82,6 +83,9 @@ PagePL {
             height: styler.themePaddingMedium
         }
 
+        SectionHeaderPL {
+            text: app.tr("Timetables")
+        }
         
         Repeater {
             id: list
@@ -97,7 +101,7 @@ PagePL {
                     anchors.rightMargin: styler.themeHorizontalPageMargin
                     color: styler.themePrimaryColor
                     height: implicitHeight + styler.themePaddingSmall
-                    text: model.
+                    text: model.type
                     verticalAlignment: Text.AlignTop
                     wrapMode: Text.WordWrap
                 }
