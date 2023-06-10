@@ -57,11 +57,15 @@ class TimetableManager:
         for train in self.trains:
             print(train.type, train.name, train.dep_time_hh, train.dep_time_mm, train.track, train.next_stops)
 
-        return 
-
-
     def get_trains(self):
-        return self.trains
+        return [dict(
+            type=train.type,
+            name=train.name,
+            dep_time_hh=train.dep_time_hh,
+            dep_time_mm=train.dep_time_mm,
+            track=train.track,
+            next_stops=train.next_stops,
+        ) for train in self.trains]
 
     def __get_eva_number__(self, latitude: str, longitude: str) -> str:
         conn = http.client.HTTPSConnection("apis.deutschebahn.com")

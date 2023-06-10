@@ -82,45 +82,43 @@ PagePL {
             height: styler.themePaddingMedium
         }
 
-        ListView {
-            id: timetablesListView
-            model: ListModel {}
-            currentIndex: -1
-
-            delegate Component {
+        
+        Repeater {
+            id: list
+            width: parent.width
+            delegate: ListItemPL {
                 id: listItem
-                contentHeight: titleLabel.height + titleLabel.anchors.topMargin
+                contentHeight: narrativeLabel.height
 
-                ListItemLabel {
-                    id: titleLabel
-                    color: styler.themeHighlightColor
-                    height: implicitHeight + app.listItemVerticalMargin
-                    text: "Test"
-                    verticalAlignment: Text.AlignBottom
+                LabelPL {
+                    id: narrativeLabel
+                    anchors.leftMargin: styler.themePaddingMedium
+                    anchors.right: parent.right
+                    anchors.rightMargin: styler.themeHorizontalPageMargin
+                    color: styler.themePrimaryColor
+                    height: implicitHeight + styler.themePaddingSmall
+                    text: model.
+                    verticalAlignment: Text.AlignTop
+                    wrapMode: Text.WordWrap
                 }
-                
+
+                onClicked: {
+                    console.log("Clicked");
+                }
+
             }
+
+            model: ListModel {}
+            property int activeItem: -1
+
+            function fillModel() {
+                page.model.clear();
+                py.call("poor.app.timetables.get_trains", [], function(results) {
+                    page.list.model = results;
+                });
+            }
+            
         }
-
-        // Rectangle {
-
-        //     Component {
-        //         id: contactDelegate
-        //         Item {
-        //             Column {
-        //                 Text { text: '<b>Name:</b> ' + "Test" }
-        //                 Text { text: '<b>Number:</b> ' + "Test" }
-        //             }
-        //         }
-        //     }
-
-        //     ListView {
-        //         anchors.fill: parent
-        //         model: ListModel {}
-        //         delegate: contactDelegate
-        //         focus: true
-        //     }
-        // }
 
     }
 }
