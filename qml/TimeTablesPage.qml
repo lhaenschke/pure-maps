@@ -119,9 +119,9 @@ PagePL {
                 model.clear();
                 py.call("poor.app.timetables.get_trains", [], function(results) {
                     model = results;
-                    
+
                     for (var i = 0; i < results.length; i++) {
-                        console.log(model[i])
+                        console.log(model[i][0])
                     }
 
                 });
