@@ -104,6 +104,8 @@ PagePL {
                     id: infoLabel
                     color: styler.themeHighlightColor
                     height: implicitHeight + styler.themePaddingMedium
+                    anchors.top: nameLabel.bottom
+                    anchors.topMargin: styler.themePaddingSmall
                     text: "Departure from Track " + model['track'] + " at " + model['dep_time_hh'] + ":" + model['dep_time_mm']
                 }
 
