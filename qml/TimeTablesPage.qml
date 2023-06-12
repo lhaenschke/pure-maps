@@ -99,8 +99,6 @@ PagePL {
                     height: implicitHeight + styler.themePaddingLarge
                     color: styler.themeHighlightColor
                     text: model['type'] + " " + model['name'] + " -> " + model['destination']
-                    wrapMode: Text.WordWrap
-                    truncMode: truncModes.none
                 }
 
                 ListItemLabel {
@@ -108,8 +106,6 @@ PagePL {
                     color: styler.themeHighlightColor
                     height: implicitHeight + styler.themePaddingMedium
                     text: "Departure from Track " + model['track'] + " at " + model['dep_time_hh'] + ":" + model['dep_time_mm']
-                    truncMode: truncModes.none
-                    wrapMode: Text.WordWrap
                 }
 
                 Spacer {
