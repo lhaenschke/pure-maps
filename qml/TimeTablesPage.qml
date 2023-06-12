@@ -119,10 +119,10 @@ PagePL {
             function fillModel() {
                 model.clear();
                 py.call("poor.app.timetables.get_trains", [], function(results) {
-                    results.forEach( function (p) { model.append(p); });
+                    // results.forEach( function (p) { model.append(p); });
                     
                     console.log(model);
-                    console.log(model[0]);
+                    console.log(model['name']);
 
                 });
             }
