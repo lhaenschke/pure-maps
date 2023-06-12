@@ -61,6 +61,7 @@ class TimetableManager:
             dep_time_hh=train.dep_time_hh,
             dep_time_mm=train.dep_time_mm,
             track=train.track,
+            destination=train.next_stops[-1],
             next_stops=train.next_stops,
         ) for train in self.trains]
 

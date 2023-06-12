@@ -80,7 +80,7 @@ PagePL {
         }
 
         Spacer {
-            height: styler.themePaddingMedium
+            height: styler.themePaddingLarge
         }
 
         SectionHeaderPL {
@@ -94,14 +94,28 @@ PagePL {
                 id: listItem
                 contentHeight: nameLabel.height
 
-                LabelPL {
+                SectionHeaderPL {
                     id: nameLabel
-                    height: implicitHeight + styler.themePaddingMedium
+                    height: implicitHeight + styler.themePaddingLarge
                     color: styler.themeHighlightColor
-                    text: model['type'] + " " + model['name']
+                    text: model['type'] + " " + model['name'] + " -> " + model['destination']
                     wrapMode: Text.WordWrap
                     truncMode: truncModes.none
                     verticalAlignment: Text.AlignTop
+                }
+
+                ListItemLabel {
+                    color: styler.themeHighlightColor
+                    height: implicitHeight + styler.themePaddingMedium
+                    text: "Departure from Track " + model['track'] + " at " + model['dep_time_hh'] + ":" + model['dep_time_mm']
+                    truncMode: truncModes.none
+                    verticalAlignment: Text.AlignTop
+                    visible: text
+                    wrapMode: Text.WordWrap
+                }
+
+                Spacer {
+                    height: styler.themePaddingMedium
                 }
 
                 onClicked: {
