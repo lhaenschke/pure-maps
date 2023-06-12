@@ -129,14 +129,15 @@ PagePL {
                     // model = results;
 
                     for (var i = 0; i < results.length; i++) {
-                        console.log(model[i][0])
+                        model.append();
+                        model[i].type = results[i][0];
+                        model[i].name = results[i][1];
+                        model[i].depTimeHH = results[i][2];
+                        model[i].depTimeMM = results[i][3];
+                        model[i].track = results[i][4];
+                        model[i].nextStops = results[i][5];
 
-                        model[i].type = results[i][0]
-                        model[i].name = results[i][1]
-                        model[i].depTimeHH = results[i][2]
-                        model[i].depTimeMM = results[i][3]
-                        model[i].track = results[i][4]
-                        model[i].nextStops = results[i][5]
+                        console.log(model[i][0]);
 
                     }
 
