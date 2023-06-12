@@ -92,18 +92,16 @@ PagePL {
             width: parent.width
             delegate: ListItemPL {
                 id: listItem
-                contentHeight: narrativeLabel.height
+                contentHeight: nameLabel.height
 
                 LabelPL {
-                    id: narrativeLabel
-                    anchors.leftMargin: styler.themePaddingMedium
-                    anchors.right: parent.right
-                    anchors.rightMargin: styler.themeHorizontalPageMargin
-                    color: styler.themePrimaryColor
-                    height: implicitHeight + styler.themePaddingSmall
-                    text: model['type']
-                    verticalAlignment: Text.AlignTop
+                    id: nameLabel
+                    height: implicitHeight + styler.themePaddingMedium
+                    color: styler.themeHighlightColor
+                    text: model['type'] + " " + model['name']
                     wrapMode: Text.WordWrap
+                    truncMode: truncModes.none
+                    verticalAlignment: Text.AlignTop
                 }
 
                 onClicked: {
@@ -120,11 +118,6 @@ PagePL {
                 model.clear();
                 py.call("poor.app.timetables.get_trains", [], function(results) {
                     results.forEach( function (p) { model.append(p); });
-                    
-                    for (var i = 0; i < 3; i++) {
-                        console.log(model[i]['name']);
-                    }
-
                 });
             }
             
