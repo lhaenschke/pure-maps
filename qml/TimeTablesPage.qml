@@ -117,7 +117,7 @@ PagePL {
                     id: infoLabelhidden
                     color: styler.themeHighlightColor
                     height: implicitHeight + styler.themePaddingSmall
-                    anchors.top: nameLabel.bottom
+                    anchors.top: infoLabel.bottom
                     anchors.topMargin: styler.themePaddingSmall
                     text: "Departure from Track " + model['track'] + " at " + model['dep_time_hh'] + ":" + model['dep_time_mm']
                     visible: isVisible
@@ -126,7 +126,7 @@ PagePL {
                 Spacer {
                     id: test
                     height: styler.themePaddingMedium
-                    anchors.top: infoLabel.bottom
+                    anchors.top: infoLabelhidden.bottom
                 }
 
                 onClicked: {
