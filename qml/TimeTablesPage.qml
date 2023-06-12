@@ -101,7 +101,7 @@ PagePL {
                     anchors.rightMargin: styler.themeHorizontalPageMargin
                     color: styler.themePrimaryColor
                     height: implicitHeight + styler.themePaddingSmall
-                    text: model.type
+                    text: "Test"
                     verticalAlignment: Text.AlignTop
                     wrapMode: Text.WordWrap
                 }
