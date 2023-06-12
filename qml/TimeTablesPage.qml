@@ -38,7 +38,6 @@ PagePL {
             text: poi.address ? poi.address : ""
             truncMode: truncModes.none
             verticalAlignment: Text.AlignTop
-            visible: text
             wrapMode: Text.WordWrap
         }
 
@@ -65,7 +64,6 @@ PagePL {
         ListItemLabel {
             text: ""
             truncMode: truncModes.none
-            visible: true
             wrapMode: Text.WordWrap
         }
 
@@ -85,18 +83,22 @@ PagePL {
 
         SectionHeaderPL {
             text: app.tr("Timetables")
+            anchor.bottomMargin: styler.themePaddingSmall
         }
         
         Repeater {
             id: list
             width: parent.width
+            
             delegate: ListItemPL {
                 id: listItem
                 contentHeight: nameLabel.height + infoLabel.height + test.height
 
+                property bool isVisible: false
+
                 SectionHeaderPL {
                     id: nameLabel
-                    height: implicitHeight + styler.themePaddingMedium
+                    height: implicitHeight + styler.themePaddingSmall
                     text: model['type'] + " " + model['name'] + " -> " + model['destination']
                 }
 
@@ -109,6 +111,16 @@ PagePL {
                     text: "Departure from Track " + model['track'] + " at " + model['dep_time_hh'] + ":" + model['dep_time_mm']
                 }
 
+                ListItemLabel {
+                    id: infoLabel
+                    color: styler.themeHighlightColor
+                    height: implicitHeight + styler.themePaddingSmall
+                    anchors.top: nameLabel.bottom
+                    anchors.topMargin: styler.themePaddingSmall
+                    text: "Departure from Track " + model['track'] + " at " + model['dep_time_hh'] + ":" + model['dep_time_mm']
+                    visible: isVisible
+                }
+
                 Spacer {
                     id: test
                     height: styler.themePaddingMedium
@@ -117,6 +129,7 @@ PagePL {
 
                 onClicked: {
                     console.log("Clicked");
+                    isVisible = true
                 }
 
             }
