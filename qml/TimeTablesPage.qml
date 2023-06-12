@@ -92,7 +92,7 @@ PagePL {
             width: parent.width
             delegate: ListItemPL {
                 id: listItem
-                contentHeight: nameLabel.height
+                contentHeight: nameLabel.height + infoLabel.height
 
                 SectionHeaderPL {
                     id: nameLabel
@@ -101,16 +101,14 @@ PagePL {
                     text: model['type'] + " " + model['name'] + " -> " + model['destination']
                     wrapMode: Text.WordWrap
                     truncMode: truncModes.none
-                    verticalAlignment: Text.AlignTop
                 }
 
                 ListItemLabel {
+                    id: infoLabel
                     color: styler.themeHighlightColor
                     height: implicitHeight + styler.themePaddingMedium
                     text: "Departure from Track " + model['track'] + " at " + model['dep_time_hh'] + ":" + model['dep_time_mm']
                     truncMode: truncModes.none
-                    verticalAlignment: Text.AlignTop
-                    visible: text
                     wrapMode: Text.WordWrap
                 }
 
