@@ -113,12 +113,12 @@ PagePL {
             }
 
             model: ListModel {
-                property string type
-                property string name
-                property string depTimeHH
-                property string depTimeMM
-                property string track
-                property var nextStops
+                // property string type
+                // property string name
+                // property string depTimeHH
+                // property string depTimeMM
+                // property string track
+                // property var nextStops
             }
 
             property int activeItem: -1
@@ -128,17 +128,21 @@ PagePL {
                 py.call("poor.app.timetables.get_trains", [], function(results) {
                     // model = results;
 
-                    for (var i = 0; i < results.length; i++) {
-                        console.log(model[i][0])
+                    // for (var i = 0; i < results.length; i++) {
+                    //     console.log(model[i][0])
 
-                        model[i].type = results[i][0]
-                        model[i].name = results[i][1]
-                        model[i].depTimeHH = results[i][2]
-                        model[i].depTimeMM = results[i][3]
-                        model[i].track = results[i][4]
-                        model[i].nextStops = results[i][5]
+                    //     model[i].type = results[i][0]
+                    //     model[i].name = results[i][1]
+                    //     model[i].depTimeHH = results[i][2]
+                    //     model[i].depTimeMM = results[i][3]
+                    //     model[i].track = results[i][4]
+                    //     model[i].nextStops = results[i][5]
 
-                    }
+                    // }
+
+                    results.forEach(function (p) { model.append(p); });
+
+                    console.log(model)
 
                 });
             }
