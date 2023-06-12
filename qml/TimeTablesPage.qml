@@ -112,6 +112,7 @@ PagePL {
                 Spacer {
                     id: test
                     height: styler.themePaddingMedium
+                    anchors.top: infoLabel.bottom
                 }
 
                 onClicked: {
