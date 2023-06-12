@@ -83,7 +83,7 @@ PagePL {
 
         SectionHeaderPL {
             text: app.tr("Timetables")
-            anchor.bottomMargin: styler.themePaddingSmall
+            anchors.bottomMargin: styler.themePaddingSmall
         }
         
         Repeater {
