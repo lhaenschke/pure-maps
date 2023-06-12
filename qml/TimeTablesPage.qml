@@ -112,7 +112,7 @@ PagePL {
                 }
 
                 ListItemLabel {
-                    id: infoLabel
+                    id: infoLabelhidden
                     color: styler.themeHighlightColor
                     height: implicitHeight + styler.themePaddingSmall
                     anchors.top: nameLabel.bottom
