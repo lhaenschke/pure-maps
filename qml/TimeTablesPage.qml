@@ -97,7 +97,6 @@ PagePL {
                 SectionHeaderPL {
                     id: nameLabel
                     height: implicitHeight + styler.themePaddingLarge
-                    color: styler.themeHighlightColor
                     text: model['type'] + " " + model['name'] + " -> " + model['destination']
                 }
 
