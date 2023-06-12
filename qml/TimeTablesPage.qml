@@ -92,15 +92,11 @@ PagePL {
             width: parent.width
             delegate: ListItemPL {
                 id: listItem
-                contentHeight: nameLabel.height + infoLabel.height
-
-                Spacer {
-                    height: styler.themePaddingMedium
-                }
+                contentHeight: nameLabel.height + infoLabel.height + test.height
 
                 SectionHeaderPL {
                     id: nameLabel
-                    height: implicitHeight + styler.themePaddingLarge
+                    height: implicitHeight + styler.themePaddingMedium
                     text: model['type'] + " " + model['name'] + " -> " + model['destination']
                 }
 
@@ -111,6 +107,11 @@ PagePL {
                     anchors.top: nameLabel.bottom
                     anchors.topMargin: styler.themePaddingSmall
                     text: "Departure from Track " + model['track'] + " at " + model['dep_time_hh'] + ":" + model['dep_time_mm']
+                }
+
+                Spacer {
+                    id: test
+                    height: styler.themePaddingMedium
                 }
 
                 onClicked: {
