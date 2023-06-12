@@ -101,7 +101,7 @@ PagePL {
                     anchors.rightMargin: styler.themeHorizontalPageMargin
                     color: styler.themePrimaryColor
                     height: implicitHeight + styler.themePaddingSmall
-                    text: "Test"
+                    text: model['type']
                     verticalAlignment: Text.AlignTop
                     wrapMode: Text.WordWrap
                 }
@@ -120,7 +120,7 @@ PagePL {
                 model.clear();
                 py.call("poor.app.timetables.get_trains", [], function(results) {
                     // results.forEach( function (p) { model.append(p); });
-                    
+                    model = results
                     console.log(model);
                     console.log(model['name']);
 
