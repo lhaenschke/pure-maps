@@ -94,6 +94,10 @@ PagePL {
                 id: listItem
                 contentHeight: nameLabel.height + infoLabel.height
 
+                Spacer {
+                    height: styler.themePaddingMedium
+                }
+
                 SectionHeaderPL {
                     id: nameLabel
                     height: implicitHeight + styler.themePaddingLarge
@@ -103,14 +107,10 @@ PagePL {
                 ListItemLabel {
                     id: infoLabel
                     color: styler.themeHighlightColor
-                    height: implicitHeight + styler.themePaddingMedium
+                    height: implicitHeight + styler.themePaddingSmall
                     anchors.top: nameLabel.bottom
                     anchors.topMargin: styler.themePaddingSmall
                     text: "Departure from Track " + model['track'] + " at " + model['dep_time_hh'] + ":" + model['dep_time_mm']
-                }
-
-                Spacer {
-                    height: styler.themePaddingMedium
                 }
 
                 onClicked: {
