@@ -116,10 +116,10 @@ PagePL {
             property int activeItem: -1
 
             function fillModel() {
-                page.column.list.model.clear();
+                model.clear();
                 py.call("poor.app.timetables.get_trains", [], function(results) {
                     console.log(results);
-                    page.column.list.model = results;
+                    model = results;
                 });
             }
             
