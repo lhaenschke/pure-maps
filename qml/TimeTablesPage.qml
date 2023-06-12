@@ -68,11 +68,13 @@ PagePL {
         }
 
         ButtonPL {
+            id: searchButton
             anchors.horizontalCenter: parent.horizontalCenter
             preferredWidth: styler.themeButtonWidthLarge
             text: app.tr("Search")
             onClicked: {
                 py.call_sync("poor.app.timetables.search", [poi.coordinate.latitude, poi.coordinate.longitude, selectedTime]);
+                searchButton.text = app.tr("Loading")
                 list.fillModel();
             }
         }
@@ -142,6 +144,7 @@ PagePL {
                 model.clear();
                 py.call("poor.app.timetables.get_trains", [], function(results) {
                     results.forEach( function (p) { model.append(p); });
+                    searchButton.text = "Search"
                 });
             }
             

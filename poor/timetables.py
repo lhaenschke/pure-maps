@@ -44,12 +44,16 @@ class TimetableManager:
         self.trains = []
 
         for train in xml_root.iter('s'):
+            name = train.find('dp').attrib.get('l') if train.find('dp') != None else train.find('ar').attrib.get('l')
+            if name is None:
+                name = ""
+
             self.trains.append(Traininformation(
-                train_type = train.find('tl').attrib['c'],
-                name = train.find('ar').attrib['l'],
-                dep_time = train.find('dp').attrib['pt'],
-                track = train.find('dp').attrib['pp'],
-                next_stops = train.find('dp').attrib['ppth'].split('|')
+                train_type = train.find('tl').attrib.get('c'),
+                name = name,
+                dep_time = train.find('dp').attrib.get('pt') if train.find('dp') != None else train.find('ar').attrib.get('pt'),
+                track = train.find('dp').attrib.get('pp') if train.find('dp') != None else train.find('ar').attrib.get('pp'),
+                next_stops = train.find('dp').attrib.get('ppth').split('|') if train.find('dp') != None else train.find('ar').attrib.get('ppth').split('|')
             ))
 
         self.trains = sorted(self.trains, key=lambda x: x.dep_time)
