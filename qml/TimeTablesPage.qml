@@ -94,7 +94,9 @@ PagePL {
             
             delegate: ListItemPL {
                 id: listItem
-                contentHeight: nameLabel.height + infoLabel.height + test.height
+                contentHeight: nameLabel.height + infoLabel.height + infoLabelhidden.height + listSpacer.height
+
+                property bool isVisible: false
 
                 SectionHeaderPL {
                     id: nameLabel
@@ -118,16 +120,18 @@ PagePL {
                     anchors.top: infoLabel.bottom
                     anchors.topMargin: styler.themePaddingSmall
                     text: "Departure from Track " + model['track'] + " at " + model['dep_time_hh'] + ":" + model['dep_time_mm']
+                    visible: isVisible
                 }
 
                 Spacer {
-                    id: test
+                    id: listSpacer
                     height: styler.themePaddingMedium
                     anchors.top: infoLabelhidden.bottom
                 }
 
                 onClicked: {
                     console.log(index);
+                    isVisible = !isVisible
                 }
 
             }
