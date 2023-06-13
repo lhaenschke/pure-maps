@@ -96,8 +96,6 @@ PagePL {
                 id: listItem
                 contentHeight: nameLabel.height + infoLabel.height + test.height
 
-                property bool isVisible: false
-
                 SectionHeaderPL {
                     id: nameLabel
                     height: implicitHeight + styler.themePaddingSmall
@@ -120,7 +118,6 @@ PagePL {
                     anchors.top: infoLabel.bottom
                     anchors.topMargin: styler.themePaddingSmall
                     text: "Departure from Track " + model['track'] + " at " + model['dep_time_hh'] + ":" + model['dep_time_mm']
-                    visible: model['is_visible']
                 }
 
                 Spacer {
@@ -130,8 +127,7 @@ PagePL {
                 }
 
                 onClicked: {
-                    console.log("Clicked");
-                    model['is_visible'] = !model['is_visible']
+                    console.log(index);
                 }
 
             }
