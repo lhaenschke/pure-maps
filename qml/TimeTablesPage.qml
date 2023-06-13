@@ -120,7 +120,7 @@ PagePL {
                     anchors.top: infoLabel.bottom
                     anchors.topMargin: styler.themePaddingSmall
                     text: "Departure from Track " + model['track'] + " at " + model['dep_time_hh'] + ":" + model['dep_time_mm']
-                    visible: false
+                    visible: model['is_visible']
                 }
 
                 Spacer {
@@ -131,7 +131,7 @@ PagePL {
 
                 onClicked: {
                     console.log("Clicked");
-                    infoLabelhidden.visible = true
+                    model['is_visible'] = !model['is_visible']
                 }
 
             }

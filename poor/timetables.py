@@ -67,6 +67,7 @@ class TimetableManager:
             track=train.track,
             destination=train.next_stops[-1],
             next_stops=train.next_stops,
+            is_visible=False,
         ) for train in self.trains]
 
     def __get_eva_number__(self, latitude: str, longitude: str) -> str:
