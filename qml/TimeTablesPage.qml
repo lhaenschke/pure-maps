@@ -132,13 +132,12 @@ PagePL {
                 }
 
                 onClicked: {
-                    // nextStopsText = "";
-                    // model['next_stops'].forEach( function (p) { 
-                    //     nextStopsText += p;
-                    //     nextStopsText += '\n';
-                    //     });
+                    nextStopsText = "";
+                    str = model['next_stops'].split('|');
+                    // str[3] = 'h';
+                    // str = str.join('');
 
-                    console.log(model['next_stops']);
+                    console.log(str);
 
                     isVisible = !isVisible;
                     
