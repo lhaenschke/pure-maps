@@ -94,9 +94,9 @@ PagePL {
             
             delegate: ListItemPL {
                 id: listItem
-                contentHeight: nameLabel.height + infoLabel.height + infoLabelhidden.height + listSpacer.height
-
                 property bool isVisible: false
+                property var itemContentHeight: nameLabel.height + infoLabel.height + listSpacer.height
+                contentHeight: itemContentHeight
 
                 SectionHeaderPL {
                     id: nameLabel
@@ -132,6 +132,7 @@ PagePL {
                 onClicked: {
                     console.log(index);
                     isVisible = !isVisible
+                    itemContentHeight = nameLabel.height + infoLabel.height + listSpacer.height + infoLabelhidden.height
                 }
 
             }
