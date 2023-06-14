@@ -136,9 +136,8 @@ PagePL {
                     var arr = model['next_stops'].split('|');
                     for (var i = 0; i < arr.length; i++) {
                         arr[i] = arr [i] + '\n';
+                        nextStopsText += arr[i];
                     }
-
-                    console.log(arr);
 
                     isVisible = !isVisible;
                     
