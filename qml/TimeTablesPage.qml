@@ -134,7 +134,9 @@ PagePL {
                 onClicked: {
                     nextStopsText = "";
                     var arr = model['next_stops'].split('|');
-                    arr.forEach( function (p) { p += '\n'; });
+                    for (var i = 0; i < arr.length; i++) {
+                        arr[i] = arr [i] + '\n';
+                    }
 
                     console.log(arr);
 
