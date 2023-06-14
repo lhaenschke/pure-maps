@@ -53,7 +53,7 @@ class TimetableManager:
                 name = name,
                 dep_time = train.find('dp').attrib.get('pt') if train.find('dp') != None else train.find('ar').attrib.get('pt'),
                 track = train.find('dp').attrib.get('pp') if train.find('dp') != None else train.find('ar').attrib.get('pp'),
-                next_stops = train.find('dp').attrib.get('ppth').split('|') if train.find('dp') != None else train.find('ar').attrib.get('ppth').split('|')
+                next_stops = train.find('dp').attrib.get('ppth') if train.find('dp') != None else train.find('ar').attrib.get('ppth')
             ))
 
         self.trains = sorted(self.trains, key=lambda x: x.dep_time)
@@ -65,9 +65,8 @@ class TimetableManager:
             dep_time_hh=train.dep_time_hh,
             dep_time_mm=train.dep_time_mm,
             track=train.track,
-            destination=train.next_stops[-1],
+            destination=train.next_stops.split('|')[-1],
             next_stops=train.next_stops,
-            is_visible=False,
         ) for train in self.trains]
 
     def __get_eva_number__(self, latitude: str, longitude: str) -> str:

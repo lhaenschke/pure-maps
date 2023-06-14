@@ -138,9 +138,7 @@ PagePL {
                     //     nextStopsText += '\n';
                     //     });
 
-                    for( var i = 0; i < model['next_stops'].rowCount(); i++ ) {
-                        console.log( model['next_stops'].get(i) );
-                    }
+                    console.log(model['next_stops']);
 
                     isVisible = !isVisible;
                     
