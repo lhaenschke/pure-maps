@@ -119,7 +119,7 @@ PagePL {
                     height: implicitHeight + styler.themePaddingSmall
                     anchors.top: infoLabel.bottom
                     anchors.topMargin: styler.themePaddingSmall
-                    text: "Departure from Track " + model['track'] + " at " + model['dep_time_hh'] + ":" + model['dep_time_mm']
+                    text: "Departure from Track " + model['track'] + " at\n" + model['dep_time_hh'] + ":" + model['dep_time_mm']
                     visible: isVisible
                 }
 
@@ -157,4 +157,5 @@ PagePL {
         }
 
     }
+
 }
