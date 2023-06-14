@@ -135,7 +135,7 @@ PagePL {
                     nextStopsText = "";
                     var arr = model['next_stops'].split('|');
                     arr.forEach( function (p) { arr += '\n'; });
-                    var str = str.join('');
+                    var str = arr.join('');
 
                     console.log(str);
 
