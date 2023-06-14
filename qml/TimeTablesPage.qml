@@ -139,7 +139,7 @@ PagePL {
                     //     });
 
                     for( var i = 0; i < model['next_stops'].rowCount(); i++ ) {
-                        console.log( model['next_stops'].get(i) );
+                        console.log( model['next_stops'].get(i).text );
                     }
 
                     isVisible = !isVisible;
