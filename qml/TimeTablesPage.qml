@@ -94,9 +94,11 @@ PagePL {
             
             delegate: ListItemPL {
                 id: listItem
+                contentHeight: itemContentHeight
+
                 property bool isVisible: false
                 property var itemContentHeight: nameLabel.height + infoLabel.height + listSpacer.height
-                contentHeight: itemContentHeight
+                property string nextStopsText: ""
 
                 SectionHeaderPL {
                     id: nameLabel
@@ -119,7 +121,7 @@ PagePL {
                     height: implicitHeight + styler.themePaddingSmall
                     anchors.top: infoLabel.bottom
                     anchors.topMargin: styler.themePaddingSmall
-                    text: "Departure from Track " + model['track'] + " at\n" + model['dep_time_hh'] + ":" + model['dep_time_mm']
+                    text: nextStopsText
                     visible: isVisible
                 }
 
@@ -130,12 +132,19 @@ PagePL {
                 }
 
                 onClicked: {
-                    isVisible = !isVisible
+                    nextStopsText = "";
+                    model['next_stops'].forEach( function (p) { 
+                        nextStopsText += p;
+                        nextStopsText += '\n';
+                        });
+
+                    isVisible = !isVisible;
                     
                     if (isVisible) {
-                        itemContentHeight = nameLabel.height + infoLabel.height + listSpacer.height + infoLabelhidden.height
+                        itemContentHeight = nameLabel.height + infoLabel.height + listSpacer.height + infoLabelhidden.height;
                     } else {
-                        itemContentHeight = nameLabel.height + infoLabel.height + listSpacer.height
+                        itemContentHeight = nameLabel.height + infoLabel.height + listSpacer.height;
+                        nextStopsText = "";
                     }
                     
                 }
