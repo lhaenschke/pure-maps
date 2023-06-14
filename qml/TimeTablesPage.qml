@@ -130,9 +130,14 @@ PagePL {
                 }
 
                 onClicked: {
-                    console.log(index);
                     isVisible = !isVisible
-                    itemContentHeight = nameLabel.height + infoLabel.height + listSpacer.height + infoLabelhidden.height
+                    
+                    if (isVisible) {
+                        itemContentHeight = nameLabel.height + infoLabel.height + listSpacer.height + infoLabelhidden.height
+                    } else {
+                        itemContentHeight = nameLabel.height + infoLabel.height + listSpacer.height
+                    }
+                    
                 }
 
             }
