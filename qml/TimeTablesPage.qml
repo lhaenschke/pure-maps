@@ -133,7 +133,7 @@ PagePL {
 
                 onClicked: {
                     nextStopsText = "";
-                    str = model['next_stops'].split('|');
+                    var str = model['next_stops'].split('|');
                     // str[3] = 'h';
                     // str = str.join('');
 
