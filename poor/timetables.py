@@ -38,7 +38,7 @@ class TimetableManager:
         self._clientSecret = poor.key.get("DBTRAININFORMATION_SECRET")
         self.trains = []
 
-    def search_by_coor(self, latitude: str, longitude: str, hour: int):
+    def search(self, latitude: str, longitude: str, hour: int):
         eva_number = self.__get_eva_number_coor__(latitude, longitude)
         
         xml_root = ET.fromstring(self.__get_timetable_str(eva_number, hour))
@@ -55,12 +55,7 @@ class TimetableManager:
             dep_time = train.find('dp').attrib.get('pt') if train.find('dp') != None else train.find('ar').attrib.get('pt')
             track = train.find('dp').attrib.get('pp') if train.find('dp') != None else train.find('ar').attrib.get('pp')
             next_stops = train.find('dp').attrib.get('ppth') if train.find('dp') != None else train.find('ar').attrib.get('ppth')
-            (dest_arr_time, dest_track) = (None, "")
-            for i in range(3):
-                (dest_arr_time, dest_track) = self.__get_time_from_destination__(train.attrib.get('id'), next_stops.split('|')[-1], hour + i)    
-                if dest_arr_time is not None:
-                    break
-
+            
             self.trains.append(Traininformation(
                 train_type = train_type,
                 name = name,
@@ -68,16 +63,27 @@ class TimetableManager:
                 dep_time = dep_time,
                 track = track,
                 next_stops = next_stops,
-                dest_arr_time = dest_arr_time,
-                dest_track = dest_track
+                dest_arr_time = None,
+                dest_track = ""
             ))
 
         self.trains = sorted(self.trains, key=lambda x: x.dep_time)
+
+    def load_destination_informations(self, train_id: str, dest_name: str, hour: int):
+        (dest_arr_time, dest_track) = (None, "")
+        for i in range(3):
+            (dest_arr_time, dest_track) = self.__get_time_from_destination__(train_id, dest_name, hour + i)    
+            if dest_arr_time is not None:
+                for i in range(len(self.trains)):
+                    if self.trains[i].train_id == train_id:
+                        self.trains[i].dest_arr_time = dest_arr_time
+                        self.trains[i].dest_track = dest_track
 
     def get_trains(self):
         return [dict(
             type=train.type,
             name=train.name,
+            train_id=train.train_id,
             dep_time_hh=train.dep_time[6:8],
             dep_time_mm=train.dep_time[8:],
             track=train.track,

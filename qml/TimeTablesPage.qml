@@ -63,7 +63,7 @@ PagePL {
 
         ListItemLabel {
             color: styler.themeHighlightColor
-            height: implicitHeight + styler.themePaddingMedium
+            height: implicitHeight + styler.themePaddingSmall
             text: ""
         }
 
@@ -74,7 +74,7 @@ PagePL {
             text: app.tr("Search")
             onClicked: {
                 searchButton.text = app.tr("Loading");
-                py.call_sync("poor.app.timetables.search_by_coor", [poi.coordinate.latitude, poi.coordinate.longitude, selectedTime]);
+                py.call_sync("poor.app.timetables.search", [poi.coordinate.latitude, poi.coordinate.longitude, selectedTime]);
                 list.fillModel();
             }
         }
@@ -85,6 +85,8 @@ PagePL {
 
         SectionHeaderPL {
             id: timetableHeader
+            anchors.horizontalCenter: parent.horizontalCenter
+            horizontalAlignment: Text.AlignHCenter
             text: "timetableHeader"
             visible: text
         }
@@ -192,21 +194,26 @@ PagePL {
                 }
 
                 onClicked: {
-                    nextStopsText = "";
-                    var arr = model['next_stops'].split('|');
-                    for (var i = 0; i < arr.length; i++) {
-                        arr[i] = arr [i] + '\n';
-                        nextStopsText += arr[i];
-                    }
+                    py.call_sync("poor.app.timetables.load_destination_informations", [model['train_id'], model['destination'], selectedTime]);
+                    list.fillModel()
 
-                    isVisible = !isVisible;
+                    directionItem.text = " " + model['destination'] + model['dest_arr_time_hh'] + ":" + model['dest_arr_time_mm']
+
+                    // nextStopsText = "";
+                    // var arr = model['next_stops'].split('|');
+                    // for (var i = 0; i < arr.length; i++) {
+                    //     arr[i] = arr [i] + '\n';
+                    //     nextStopsText += arr[i];
+                    // }
+
+                    // isVisible = !isVisible;
                     
-                    if (isVisible) {
-                        itemContentHeight = nameLabel.height + infoLabel.height + listSpacer.height + infoLabelhidden.height;
-                    } else {
-                        itemContentHeight = nameLabel.height + infoLabel.height + listSpacer.height;
-                        nextStopsText = "";
-                    }
+                    // if (isVisible) {
+                    //     itemContentHeight = nameLabel.height + infoLabel.height + listSpacer.height + infoLabelhidden.height;
+                    // } else {
+                    //     itemContentHeight = nameLabel.height + infoLabel.height + listSpacer.height;
+                    //     nextStopsText = "";
+                    // }
                     
                 }
 
