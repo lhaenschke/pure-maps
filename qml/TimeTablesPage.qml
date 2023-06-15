@@ -193,9 +193,9 @@ PagePL {
 
                 onClicked: {
                     py.call_sync("poor.app.timetables.load_destination_informations", [model['train_id'], model['destination'], selectedTime]);
-                    list.fillModel()
+                    fillModel();
 
-                    directionItem.text = " " + model['destination'] + model['dest_arr_time_hh'] + ":" + model['dest_arr_time_mm']
+                    directionItem.text = " " + model['destination'] + model['dest_arr_time_hh'] + ":" + model['dest_arr_time_mm'];
 
                     // nextStopsText = "";
                     // var arr = model['next_stops'].split('|');
