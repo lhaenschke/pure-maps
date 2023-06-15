@@ -73,8 +73,8 @@ PagePL {
             preferredWidth: styler.themeButtonWidthLarge
             text: app.tr("Search")
             onClicked: {
+                searchButton.text = app.tr("Loading");
                 py.call_sync("poor.app.timetables.search_by_coor", [poi.coordinate.latitude, poi.coordinate.longitude, selectedTime]);
-                searchButton.text = app.tr("Loading")
                 list.fillModel();
             }
         }
@@ -106,7 +106,7 @@ PagePL {
                 id: depTimeHeader
                 width: headerRow.itemWidth
                 horizontalAlignment: Text.AlignLeft
-                text: app.tr("   Dep. Time")
+                text: app.tr("  Dep. Time")
             }
 
             LabelPL {
@@ -152,7 +152,7 @@ PagePL {
                     id: row
                     height: Math.max(depTimeItem.height, nameItem.height, directionItem.height, trackItem.height)
                     width: parent.width
-                    anchors.bottomMargin: 20
+                    anchors.bottomMargin: 70
 
                     property real itemWidth: width / 4
 
@@ -174,7 +174,7 @@ PagePL {
                         id: directionItem
                         width: row.itemWidth + styler.themePaddingMedium
                         horizontalAlignment: Text.AlignLeft
-                        text: model['destination']
+                        text: " " + model['destination']
                     }
 
                     LabelPL {
@@ -221,7 +221,7 @@ PagePL {
                 py.call("poor.app.timetables.get_trains", [], function(results) {
                     results.forEach( function (p) { model.append(p); });
                     searchButton.text = "Search"
-                    timetableHeader.text = app.tr('Timetables for ') + Qt.formatDateTime(new Date(), "dd.MM.yyyy")
+                    timetableHeader.text = app.tr('Timetables for ') + Qt.formatDateTime(new Date(), "dd.MM.yyyy") + " at "Qt.formatTime(new Date(),"hh") + ":00"
                 });
             }
             
