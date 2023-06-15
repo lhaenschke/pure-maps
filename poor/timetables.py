@@ -75,7 +75,7 @@ class TimetableManager:
             (dest_arr_time, dest_track) = self.__get_time_from_destination__(train_id, dest_name, hour + i)    
             if dest_arr_time is not None:
                 for i in range(len(self.trains)):
-                    if self.trains[i].train_id == train_id:
+                    if self.trains[i].id == train_id:
                         self.trains[i].dest_arr_time = dest_arr_time
                         self.trains[i].dest_track = dest_track
 
@@ -83,7 +83,7 @@ class TimetableManager:
         return [dict(
             type=train.type,
             name=train.name,
-            train_id=train.train_id,
+            train_id=train.id,
             dep_time_hh=train.dep_time[6:8],
             dep_time_mm=train.dep_time[8:],
             track=train.track,
