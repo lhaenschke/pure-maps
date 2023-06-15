@@ -107,22 +107,22 @@ PagePL {
             LabelPL {
                 id: rerouteItem
                 width: row.itemWidth
-                horizontalAlignment: Text.AlignHCenter
+                horizontalAlignment: Text.AlignLeft
                 text: app.tr("Type/Name")
             }
 
             LabelPL {
                 id: clearItem
-                width: row.itemWidth
-                horizontalAlignment: Text.AlignHCenter
+                width: row.itemWidth + styler.themePaddingMedium
+                horizontalAlignment: Text.AlignLeft
                 text: app.tr("Direction")
             }
 
             LabelPL {
                 id: trackItem
-                width: row.itemWidth
-                horizontalAlignment: Text.AlignHCenter
-                text: app.tr("Track")
+                width: row.itemWidth - styler.themePaddingMedium
+                horizontalAlignment: Text.AlignRight
+                text: app.tr("Track   ")
             }
 
         }
