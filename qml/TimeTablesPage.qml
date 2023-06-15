@@ -86,7 +86,6 @@ PagePL {
         SectionHeaderPL {
             id: timetableHeader
             anchors.horizontalCenter: parent.horizontalCenter
-            horizontalAlignment: Text.AlignHCenter
             text: "timetableHeader"
             visible: text
         }
