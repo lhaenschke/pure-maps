@@ -61,9 +61,15 @@ PagePL {
             }   
         }
 
+        ListItemLabel {
+            color: styler.themeHighlightColor
+            height: implicitHeight + styler.themePaddingMedium
+            text: ""
+        }
+
         ButtonPL {
             id: searchButton
-            anchors.topMargin: styler.themePaddingLarge
+            anchors.horizontalCenter: parent.horizontalCenter
             preferredWidth: styler.themeButtonWidthLarge
             text: app.tr("Search")
             onClicked: {
