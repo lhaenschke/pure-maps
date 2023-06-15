@@ -98,40 +98,22 @@ PagePL {
             property real contentWidth: width - 2 * styler.themeHorizontalPageMargin
             property real itemWidth: contentWidth / 3
 
-            ToolItemPL {
+            LabelPL {
                 id: beginItem
                 width: row.itemWidth + styler.themeHorizontalPageMargin
-                icon.iconHeight: styler.themeIconSizeMedium
-                icon.iconName: (app.mode === modes.navigate || app.mode === modes.navigatePost) ? styler.iconPause : styler.iconStart
                 text: (app.mode === modes.navigate || app.mode === modes.navigatePost) ? app.tr("Pause") : app.tr("Navigate")
-                onClicked: {
-                    app.hideNavigationPages();
-                    app.navigator.running = !app.navigator.running;
-                }
             }
 
-            ToolItemPL {
+            LabelPL {
                 id: rerouteItem
                 width: row.itemWidth
-                icon.iconHeight: styler.themeIconSizeMedium
-                icon.iconName: styler.iconRefresh
                 text: app.tr("Reroute")
-                onClicked: {
-                    app.navigator.reroute();
-                    app.hideNavigationPages();
-                }
             }
 
-            ToolItemPL {
+            LabelPL {
                 id: clearItem
                 width: row.itemWidth + styler.themeHorizontalPageMargin
-                icon.iconHeight: styler.themeIconSizeMedium
-                icon.iconName: styler.iconClear
                 text: app.tr("Clear")
-                onClicked: {
-                    app.navigator.clearRoute();
-                    app.showMap();
-                }
             }
 
         }
