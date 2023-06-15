@@ -136,6 +136,13 @@ PagePL {
             width: parent.width
             
             delegate: ListItemPL {
+                id: listItem
+                contentHeight: itemContentHeight
+
+                property bool isVisible: false
+                property var itemContentHeight: row.height
+                property string nextStopsText: ""
+
 
                 Row {
                     id: row
@@ -174,12 +181,7 @@ PagePL {
 
                 }
 
-                // id: listItem
-                // contentHeight: itemContentHeight
-
-                // property bool isVisible: false
-                // property var itemContentHeight: nameLabel.height + infoLabel.height + listSpacer.height
-                // property string nextStopsText: ""
+                
 
                 // SectionHeaderPL {
                 //     id: nameLabel
@@ -242,7 +244,7 @@ PagePL {
                 py.call("poor.app.timetables.get_trains", [], function(results) {
                     results.forEach( function (p) { model.append(p); });
                     searchButton.text = "Search"
-                    timetableHeader.text = app.tr('Timetables for ') + Qt.formatTime(new Date(),"dd.MM.yyyy")
+                    timetableHeader.text = app.tr('Timetables for ') + Qt.formatDateTime(new Date(), "dd.MM.yyyy")
                 });
             }
             
