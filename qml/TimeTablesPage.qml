@@ -92,7 +92,7 @@ PagePL {
 
         Row {
             id: headerRow
-            height: Math.max(beginItem.height, rerouteItem.height, clearItem.height)
+            height: Math.max(depTimeHeader.height, depNameHeader.height, depDirectionHeader.height, depTrackHeader.height)
             width: parent.width
 
             property real contentWidth: width - 2 * styler.themeHorizontalPageMargin
