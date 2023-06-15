@@ -100,25 +100,25 @@ PagePL {
 
             ListItemLabel {
                 id: depTimeHeader
-                width: row.itemWidth
+                width: headerRow.itemWidth
                 text: app.tr("Dep. Time")
             }
 
             ListItemLabel {
                 id: depNameHeader
-                width: row.itemWidth
+                width: headerRow.itemWidth
                 text: app.tr("Name")
             }
 
             ListItemLabel {
                 id: depDirectionHeader
-                width: row.itemWidth
+                width: headerRow.itemWidth
                 text: app.tr("Direction")
             }
 
             ListItemLabel {
                 id: depTrackHeader
-                width: row.itemWidth
+                width: headerRow.itemWidth
                 text: app.tr("Track")
             }
 
