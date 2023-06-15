@@ -92,16 +92,16 @@ PagePL {
 
         Row {
             id: row
-            height: Math.max(beginItem.height, rerouteItem.height, clearItem.height)
+            height: Math.max(beginItem.height, rerouteItem.height, clearItem.height, trackItem.height)
             width: parent.width
 
             property real contentWidth: width - 2 * styler.themeHorizontalPageMargin
-            property real itemWidth: contentWidth / 3
+            property real itemWidth: contentWidth / 4
 
             LabelPL {
                 id: beginItem
                 width: row.itemWidth + styler.themeHorizontalPageMargin
-                text: (app.mode === modes.navigate || app.mode === modes.navigatePost) ? app.tr("Pause") : app.tr("Navigate")
+                text: app.tr("Navigate")
             }
 
             LabelPL {
@@ -112,8 +112,14 @@ PagePL {
 
             LabelPL {
                 id: clearItem
-                width: row.itemWidth + styler.themeHorizontalPageMargin
+                width: row.itemWidth
                 text: app.tr("Clear")
+            }
+
+            LabelPL {
+                id: trackItem
+                width: row.itemWidth + styler.themeHorizontalPageMargin
+                text: app.tr("Track")
             }
 
         }
