@@ -83,44 +83,37 @@ PagePL {
             height: styler.themePaddingLarge
         }
 
-        SectionHeaderPL {
-            id: timetableHeader
-            text: ""
-            anchors.bottomMargin: styler.themePaddingMedium
-            visible: text
-        }
-
         Row {
-            id: row
-            height: Math.max(beginItem.height, rerouteItem.height, clearItem.height, trackItem.height)
+            id: headerRow
+            height: Math.max(depTimeHeader.height, nameHeader.height, directionHeader.height, trackItem.height)
             width: parent.width
 
             property real itemWidth: width / 4
 
             LabelPL {
-                id: beginItem
-                width: row.itemWidth
+                id: depTimeHeader
+                width: headerRow.itemWidth
                 horizontalAlignment: Text.AlignHCenter
                 text: app.tr("Dep. Time")
             }
 
             LabelPL {
-                id: rerouteItem
-                width: row.itemWidth
+                id: nameHeader
+                width: headerRow.itemWidth
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Type/Name")
             }
 
             LabelPL {
-                id: clearItem
-                width: row.itemWidth + styler.themePaddingMedium
+                id: directionHeader
+                width: headerRow.itemWidth + styler.themePaddingMedium
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Direction")
             }
 
             LabelPL {
                 id: trackItem
-                width: row.itemWidth - styler.themePaddingMedium
+                width: headerRow.itemWidth - styler.themePaddingMedium
                 horizontalAlignment: Text.AlignRight
                 text: app.tr("Track   ")
             }
@@ -128,7 +121,14 @@ PagePL {
         }
 
         Spacer {
-            height: styler.themePaddingLarge
+            height: styler.themePaddingSmall
+        }
+
+        SectionHeaderPL {
+            id: timetableHeader
+            text: ""
+            anchors.bottomMargin: styler.themePaddingMedium
+            visible: text
         }
         
         Repeater {
@@ -136,62 +136,100 @@ PagePL {
             width: parent.width
             
             delegate: ListItemPL {
-                id: listItem
-                contentHeight: itemContentHeight
 
-                property bool isVisible: false
-                property var itemContentHeight: nameLabel.height + infoLabel.height + listSpacer.height
-                property string nextStopsText: ""
+                Row {
+                    id: row
+                    height: Math.max(depTimeItem.height, nameItem.height, directionItem.height, trackItem.height)
+                    width: parent.width
 
-                SectionHeaderPL {
-                    id: nameLabel
-                    height: implicitHeight + styler.themePaddingSmall
-                    text: model['type'] + " " + model['name'] + " -> " + model['destination']
-                }
+                    property real itemWidth: width / 4
 
-                ListItemLabel {
-                    id: infoLabel
-                    color: styler.themeHighlightColor
-                    height: implicitHeight + styler.themePaddingSmall
-                    anchors.top: nameLabel.bottom
-                    anchors.topMargin: styler.themePaddingSmall
-                    text: "Departure from Track " + model['track'] + " at " + model['dep_time_hh'] + ":" + model['dep_time_mm']
-                }
-
-                ListItemLabel {
-                    id: infoLabelhidden
-                    color: styler.themeHighlightColor
-                    height: implicitHeight + styler.themePaddingSmall
-                    anchors.top: infoLabel.bottom
-                    anchors.topMargin: styler.themePaddingSmall
-                    text: nextStopsText
-                    visible: isVisible
-                }
-
-                Spacer {
-                    id: listSpacer
-                    height: styler.themePaddingMedium
-                    anchors.top: infoLabelhidden.bottom
-                }
-
-                onClicked: {
-                    nextStopsText = "";
-                    var arr = model['next_stops'].split('|');
-                    for (var i = 0; i < arr.length; i++) {
-                        arr[i] = arr [i] + '\n';
-                        nextStopsText += arr[i];
+                    LabelPL {
+                        id: depTimeItem
+                        width: row.itemWidth
+                        horizontalAlignment: Text.AlignHCenter
+                        text: model['dep_time_hh'] + ":" + model['dep_time_mm']
                     }
 
-                    isVisible = !isVisible;
-                    
-                    if (isVisible) {
-                        itemContentHeight = nameLabel.height + infoLabel.height + listSpacer.height + infoLabelhidden.height;
-                    } else {
-                        itemContentHeight = nameLabel.height + infoLabel.height + listSpacer.height;
-                        nextStopsText = "";
+                    LabelPL {
+                        id: nameItem
+                        width: row.itemWidth
+                        horizontalAlignment: Text.AlignLeft
+                        text: model['type'] + " " + model['name']
                     }
-                    
+
+                    LabelPL {
+                        id: directionItem
+                        width: row.itemWidth + styler.themePaddingMedium
+                        horizontalAlignment: Text.AlignLeft
+                        text: model['destination']
+                    }
+
+                    LabelPL {
+                        id: trackItem
+                        width: row.itemWidth - styler.themePaddingMedium
+                        horizontalAlignment: Text.AlignRight
+                        text: model['track'] + "   "
+                    }
+
                 }
+
+                // id: listItem
+                // contentHeight: itemContentHeight
+
+                // property bool isVisible: false
+                // property var itemContentHeight: nameLabel.height + infoLabel.height + listSpacer.height
+                // property string nextStopsText: ""
+
+                // SectionHeaderPL {
+                //     id: nameLabel
+                //     height: implicitHeight + styler.themePaddingSmall
+                //     text: model['type'] + " " + model['name'] + " -> " + model['destination']
+                // }
+
+                // ListItemLabel {
+                //     id: infoLabel
+                //     color: styler.themeHighlightColor
+                //     height: implicitHeight + styler.themePaddingSmall
+                //     anchors.top: nameLabel.bottom
+                //     anchors.topMargin: styler.themePaddingSmall
+                //     text: "Departure from Track " + model['track'] + " at " + model['dep_time_hh'] + ":" + model['dep_time_mm']
+                // }
+
+                // ListItemLabel {
+                //     id: infoLabelhidden
+                //     color: styler.themeHighlightColor
+                //     height: implicitHeight + styler.themePaddingSmall
+                //     anchors.top: infoLabel.bottom
+                //     anchors.topMargin: styler.themePaddingSmall
+                //     text: nextStopsText
+                //     visible: isVisible
+                // }
+
+                // Spacer {
+                //     id: listSpacer
+                //     height: styler.themePaddingMedium
+                //     anchors.top: infoLabelhidden.bottom
+                // }
+
+                // onClicked: {
+                //     nextStopsText = "";
+                //     var arr = model['next_stops'].split('|');
+                //     for (var i = 0; i < arr.length; i++) {
+                //         arr[i] = arr [i] + '\n';
+                //         nextStopsText += arr[i];
+                //     }
+
+                //     isVisible = !isVisible;
+                    
+                //     if (isVisible) {
+                //         itemContentHeight = nameLabel.height + infoLabel.height + listSpacer.height + infoLabelhidden.height;
+                //     } else {
+                //         itemContentHeight = nameLabel.height + infoLabel.height + listSpacer.height;
+                //         nextStopsText = "";
+                //     }
+                    
+                // }
 
             }
 
@@ -204,7 +242,7 @@ PagePL {
                 py.call("poor.app.timetables.get_trains", [], function(results) {
                     results.forEach( function (p) { model.append(p); });
                     searchButton.text = "Search"
-                    timetableHeader.text = app.tr('Timetables for ') + Qt.formatTime(new Date(),"DD.MM.YYYY")
+                    timetableHeader.text = app.tr('Timetables for ') + Qt.formatTime(new Date(),"dd.MM.yyyy")
                 });
             }
             

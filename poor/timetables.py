@@ -55,9 +55,11 @@ class TimetableManager:
             dep_time = train.find('dp').attrib.get('pt') if train.find('dp') != None else train.find('ar').attrib.get('pt')
             track = train.find('dp').attrib.get('pp') if train.find('dp') != None else train.find('ar').attrib.get('pp')
             next_stops = train.find('dp').attrib.get('ppth') if train.find('dp') != None else train.find('ar').attrib.get('ppth')
-            (dest_arr_time, dest_track) = self.__get_time_from_destination__(train.attrib.get('id'), next_stops.split('|')[-1], hour)
-            if dest_arr_time is None:
-                (dest_arr_time, dest_track) = self.__get_time_from_destination__(train.attrib.get('id'), next_stops.split('|')[-1], hour + 1)
+            (dest_arr_time, dest_track) = (None, "")
+            for i in range(5):
+                (dest_arr_time, dest_track) = self.__get_time_from_destination__(train.attrib.get('id'), next_stops.split('|')[-1], hour + i)    
+                if dest_arr_time is not None:
+                    break
 
             self.trains.append(Traininformation(
                 train_type = train_type,
