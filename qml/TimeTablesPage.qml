@@ -95,12 +95,11 @@ PagePL {
             height: Math.max(beginItem.height, rerouteItem.height, clearItem.height, trackItem.height)
             width: parent.width
 
-            property real contentWidth: width - 2 * styler.themeHorizontalPageMargin
-            property real itemWidth: contentWidth / 4
+            property real itemWidth: width / 4
 
             LabelPL {
                 id: beginItem
-                width: row.itemWidth + styler.themeHorizontalPageMargin
+                width: row.itemWidth
                 text: app.tr("Navigate")
             }
 
@@ -118,7 +117,7 @@ PagePL {
 
             LabelPL {
                 id: trackItem
-                width: row.itemWidth + styler.themeHorizontalPageMargin
+                width: row.itemWidth
                 text: app.tr("Track")
             }
 
