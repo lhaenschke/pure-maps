@@ -83,17 +83,16 @@ PagePL {
             height: styler.themePaddingLarge
         }
 
+        SectionHeaderPL {
+            id: timetableHeader
+            text: "timetableHeader"
+            visible: text
+        }
+
         ListItemLabel {
             color: styler.themeHighlightColor
             height: implicitHeight
             text: ""
-        }
-
-        SectionHeaderPL {
-            id: timetableHeader
-            text: "timetableHeader"
-            anchors.bottomMargin: 20
-            visible: text
         }
 
         Row {
@@ -190,7 +189,6 @@ PagePL {
                 Spacer {
                     id: listSpacer
                     height: styler.themePaddingMedium
-                    anchors.top: row.bottom
                 }
 
                 onClicked: {
