@@ -100,24 +100,28 @@ PagePL {
             LabelPL {
                 id: beginItem
                 width: row.itemWidth
-                text: app.tr("Navigate")
+                horizontalAlignment = HorizontalAlignment.CENTER
+                text: app.tr("Dep. Time")
             }
 
             LabelPL {
                 id: rerouteItem
                 width: row.itemWidth
-                text: app.tr("Reroute")
+                horizontalAlignment = HorizontalAlignment.CENTER
+                text: app.tr("Type/Name")
             }
 
             LabelPL {
                 id: clearItem
                 width: row.itemWidth
-                text: app.tr("Clear")
+                horizontalAlignment = HorizontalAlignment.CENTER
+                text: app.tr("Direction")
             }
 
             LabelPL {
                 id: trackItem
                 width: row.itemWidth
+                horizontalAlignment = HorizontalAlignment.CENTER
                 text: app.tr("Track")
             }
 
