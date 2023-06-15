@@ -57,15 +57,21 @@ PagePL {
         }   
     }
 
-    ListItemLabel {
-        color: styler.themeHighlightColor
-        height: implicitHeight + styler.themePaddingMedium
-        text: ""
-    }
+    // ListItemLabel {
+    //     color: styler.themeHighlightColor
+    //     height: implicitHeight + styler.themePaddingMedium
+    //     text: ""
+    // }
 
     ButtonPL {
         id: searchButton
         anchors.horizontalCenter: parent.horizontalCenter
+        anchors.left: parent.left
+        anchors.leftMargin: styler.themePaddingMedium
+        anchors.right: parent.right
+        anchors.rightMargin: styler.themePaddingMedium
+        anchors.top: timeRangeComboBox.bottom
+        anchors.topMargin: styler.themePaddingSmall
         preferredWidth: styler.themeButtonWidthLarge
         text: app.tr("Search")
         onClicked: {
