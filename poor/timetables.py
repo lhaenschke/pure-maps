@@ -79,6 +79,7 @@ class TimetableManager:
                     if self.trains[i].id == train_id:
                         self.trains[i].dest_arr_time = dest_arr_time
                         self.trains[i].dest_track = dest_track
+                        break
 
     def get_trains(self):
         return [dict(

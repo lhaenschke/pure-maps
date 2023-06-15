@@ -192,7 +192,7 @@ PagePL {
                 }
 
                 onClicked: {
-                    py.call_sync("poor.app.timetables.load_destination_informations", [list.model['train_id'], list.model['destination'], selectedTime]);
+                    py.call_sync("poor.app.timetables.load_destination_informations", [model['train_id'], model['destination'], selectedTime]);
                     list.fillModel()
 
                     directionItem.text = " " + list.model['destination'] + list.model['dest_arr_time_hh'] + ":" + list.model['dest_arr_time_mm']
