@@ -22,6 +22,7 @@ import http.client
 import json
 from datetime import datetime
 import xml.etree.ElementTree as ET
+import urllib.parse
 
 from poor.i18n import _
 
@@ -37,23 +38,36 @@ class TimetableManager:
         self._clientSecret = poor.key.get("DBTRAININFORMATION_SECRET")
         self.trains = []
 
-    def search(self, latitude: str, longitude: str, hour: int):
-        eva_number = self.__get_eva_number__(latitude, longitude)
+    def search_by_coor(self, latitude: str, longitude: str, hour: int):
+        eva_number = self.__get_eva_number_coor__(latitude, longitude)
         
         xml_root = ET.fromstring(self.__get_timetable_str(eva_number, hour))
         self.trains = []
 
         for train in xml_root.iter('s'):
+            train_type = train.find('tl').attrib.get('c')
+            
             name = train.find('dp').attrib.get('l') if train.find('dp') != None else train.find('ar').attrib.get('l')
             if name is None:
                 name = ""
 
+            train_id = train.attrib.get('id')
+            dep_time = train.find('dp').attrib.get('pt') if train.find('dp') != None else train.find('ar').attrib.get('pt')
+            track = train.find('dp').attrib.get('pp') if train.find('dp') != None else train.find('ar').attrib.get('pp')
+            next_stops = train.find('dp').attrib.get('ppth') if train.find('dp') != None else train.find('ar').attrib.get('ppth')
+            (dest_arr_time, dest_track) = self.__get_time_from_destination__(train.attrib.get('id'), next_stops.split('|')[-1], hour)
+            if dest_arr_time is None:
+                (dest_arr_time, dest_track) = self.__get_time_from_destination__(train.attrib.get('id'), next_stops.split('|')[-1], hour + 1)
+
             self.trains.append(Traininformation(
-                train_type = train.find('tl').attrib.get('c'),
+                train_type = train_type,
                 name = name,
-                dep_time = train.find('dp').attrib.get('pt') if train.find('dp') != None else train.find('ar').attrib.get('pt'),
-                track = train.find('dp').attrib.get('pp') if train.find('dp') != None else train.find('ar').attrib.get('pp'),
-                next_stops = train.find('dp').attrib.get('ppth') if train.find('dp') != None else train.find('ar').attrib.get('ppth')
+                train_id = train_id,
+                dep_time = dep_time,
+                track = track,
+                next_stops = next_stops,
+                dest_arr_time = dest_arr_time,
+                dest_track = dest_track
             ))
 
         self.trains = sorted(self.trains, key=lambda x: x.dep_time)
@@ -62,14 +76,29 @@ class TimetableManager:
         return [dict(
             type=train.type,
             name=train.name,
-            dep_time_hh=train.dep_time_hh,
-            dep_time_mm=train.dep_time_mm,
+            dep_time_hh=train.dep_time[6:8],
+            dep_time_mm=train.dep_time[8:],
             track=train.track,
             destination=train.next_stops.split('|')[-1],
+            dest_arr_time_hh=train.dest_arr_time[6:8] if train.dest_arr_time is not None else "",
+            dest_arr_time_mm=train.dest_arr_time[8:] if train.dest_arr_time is not None else "",
             next_stops=train.next_stops,
+            dest_track=train.dest_track,
         ) for train in self.trains]
 
-    def __get_eva_number__(self, latitude: str, longitude: str) -> str:
+
+    def __get_time_from_destination__(self, train_id: str, dest_name: str, min_hour: int) -> str:
+        eva_number = self.__get_eva_number_dest_name__(dest_name)
+        
+        xml_root = ET.fromstring(self.__get_timetable_str(eva_number, min_hour))
+        for train in xml_root.iter('s'):
+            if train.attrib.get('id')[:30] == train_id[:30]:
+                return (train.find('ar').attrib.get('pt'), train.find('dp').attrib.get('pp') if train.find('dp') != None else train.find('ar').attrib.get('pp'))
+
+        return (None, "")
+
+    
+    def __get_eva_number_coor__(self, latitude: str, longitude: str) -> str:
         conn = http.client.HTTPSConnection("apis.deutschebahn.com")
 
         headers = {
@@ -83,6 +112,25 @@ class TimetableManager:
             "?latitude={}".format(latitude),
             "&longitude={}".format(longitude),
             "&groupBy=SALES&limit=1",
+        )), "", headers)
+
+        res = conn.getresponse()
+        data = res.read()
+        json_data = json.loads(data.decode('utf-8'))
+
+        return json_data['stopPlaces'][0]['evaNumber']
+
+    def __get_eva_number_dest_name__(self, dest_name: str) -> str:
+        conn = http.client.HTTPSConnection("apis.deutschebahn.com")
+
+        headers = {
+            'DB-Api-Key': self._clientSecret,
+            'DB-Client-Id': self._clientID,
+            'Accept': "application/vnd.de.db.ris+json"
+            }
+
+        conn.request("GET", "".join((
+            "/db-api-marketplace/apis/ris-stations/v1/stop-places/by-name/{}".format(urllib.parse.quote(dest_name).replace('/', '%2F'))
         )), "", headers)
 
         res = conn.getresponse()
@@ -115,11 +163,12 @@ class Traininformation:
 
         """Store train-informations"""
 
-        def __init__(self, train_type: str, name: str, dep_time: str, track: str, next_stops: str):
+        def __init__(self, train_type: str, name: str, train_id: str, dep_time: str, track: str, next_stops: str, dest_arr_time: str, dest_track: str):
             self.type = train_type
             self.name = name
+            self.id = train_id
             self.dep_time = dep_time
-            self.dep_time_hh = self.dep_time[6:8]
-            self.dep_time_mm = self.dep_time[8:]
             self.track = track
             self.next_stops = next_stops
+            self.dest_arr_time = dest_arr_time
+            self.dest_track = dest_track

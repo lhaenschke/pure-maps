@@ -73,7 +73,7 @@ PagePL {
             preferredWidth: styler.themeButtonWidthLarge
             text: app.tr("Search")
             onClicked: {
-                py.call_sync("poor.app.timetables.search", [poi.coordinate.latitude, poi.coordinate.longitude, selectedTime]);
+                py.call_sync("poor.app.timetables.search_by_coor", [poi.coordinate.latitude, poi.coordinate.longitude, selectedTime]);
                 searchButton.text = app.tr("Loading")
                 list.fillModel();
             }
@@ -84,6 +84,7 @@ PagePL {
         }
 
         SectionHeaderPL {
+            id: timetableHeader
             text: app.tr("Timetables")
             anchors.bottomMargin: styler.themePaddingSmall
         }
@@ -161,6 +162,7 @@ PagePL {
                 py.call("poor.app.timetables.get_trains", [], function(results) {
                     results.forEach( function (p) { model.append(p); });
                     searchButton.text = "Search"
+                    timetableHeader.text = app.tr('Timetables for ') + "15.06.2023"
                 });
             }
             
