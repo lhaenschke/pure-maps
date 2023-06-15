@@ -63,8 +63,7 @@ PagePL {
 
         ButtonPL {
             id: searchButton
-            anchors.top: timeRangeComboBox.bottom
-            anchors.topMargin: styler.themePaddingSmall
+            anchors.topMargin: styler.themePaddingLarge
             preferredWidth: styler.themeButtonWidthLarge
             text: app.tr("Search")
             onClicked: {
