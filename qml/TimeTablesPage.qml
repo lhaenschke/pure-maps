@@ -85,8 +85,47 @@ PagePL {
 
         SectionHeaderPL {
             id: timetableHeader
-            text: app.tr("Timetables")
-            anchors.bottomMargin: styler.themePaddingSmall
+            text: ""
+            anchors.bottomMargin: styler.themePaddingMedium
+            visible: text
+        }
+
+        Row {
+            id: headerRow
+            height: Math.max(beginItem.height, rerouteItem.height, clearItem.height)
+            width: parent.width
+
+            property real contentWidth: width - 2 * styler.themeHorizontalPageMargin
+            property real itemWidth: contentWidth / 4
+
+            ListItemLabel {
+                id: depTimeHeader
+                width: row.itemWidth
+                text: app.tr("Dep. Time")
+            }
+
+            ListItemLabel {
+                id: depNameHeader
+                width: row.itemWidth
+                text: app.tr("Name")
+            }
+
+            ListItemLabel {
+                id: depDirectionHeader
+                width: row.itemWidth
+                text: app.tr("Direction")
+            }
+
+            ListItemLabel {
+                id: depTrackHeader
+                width: row.itemWidth
+                text: app.tr("Track")
+            }
+
+        }
+
+        Spacer {
+            height: styler.themePaddingLarge
         }
         
         Repeater {
@@ -162,7 +201,7 @@ PagePL {
                 py.call("poor.app.timetables.get_trains", [], function(results) {
                     results.forEach( function (p) { model.append(p); });
                     searchButton.text = "Search"
-                    timetableHeader.text = app.tr('Timetables for ') + "15.06.2023"
+                    timetableHeader.text = app.tr('Timetables for ') + Qt.formatTime(new Date(),"DD.MM.YYYY")
                 });
             }
             
