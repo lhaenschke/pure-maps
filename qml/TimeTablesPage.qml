@@ -83,6 +83,13 @@ PagePL {
             height: styler.themePaddingLarge
         }
 
+        SectionHeaderPL {
+            id: timetableHeader
+            text: ""
+            anchors.bottomMargin: styler.themePaddingLarge
+            visible: text
+        }
+
         Row {
             id: headerRow
             height: Math.max(depTimeHeader.height, nameHeader.height, directionHeader.height, trackItem.height)
@@ -118,19 +125,12 @@ PagePL {
                 text: app.tr("Track   ")
             }
 
-        }
-
+        }        
+        
         Spacer {
             height: styler.themePaddingSmall
         }
 
-        SectionHeaderPL {
-            id: timetableHeader
-            text: ""
-            anchors.bottomMargin: styler.themePaddingMedium
-            visible: text
-        }
-        
         Repeater {
             id: list
             width: parent.width
@@ -148,6 +148,7 @@ PagePL {
                     id: row
                     height: Math.max(depTimeItem.height, nameItem.height, directionItem.height, trackItem.height)
                     width: parent.width
+                    anchors.bottomMargin: styler.themePaddingMedium
 
                     property real itemWidth: width / 4
 
@@ -181,57 +182,30 @@ PagePL {
 
                 }
 
-                
+                Spacer {
+                    id: listSpacer
+                    height: styler.themePaddingMedium
+                    anchors.top: row.bottom
+                }
 
-                // SectionHeaderPL {
-                //     id: nameLabel
-                //     height: implicitHeight + styler.themePaddingSmall
-                //     text: model['type'] + " " + model['name'] + " -> " + model['destination']
-                // }
+                onClicked: {
+                    nextStopsText = "";
+                    var arr = model['next_stops'].split('|');
+                    for (var i = 0; i < arr.length; i++) {
+                        arr[i] = arr [i] + '\n';
+                        nextStopsText += arr[i];
+                    }
 
-                // ListItemLabel {
-                //     id: infoLabel
-                //     color: styler.themeHighlightColor
-                //     height: implicitHeight + styler.themePaddingSmall
-                //     anchors.top: nameLabel.bottom
-                //     anchors.topMargin: styler.themePaddingSmall
-                //     text: "Departure from Track " + model['track'] + " at " + model['dep_time_hh'] + ":" + model['dep_time_mm']
-                // }
-
-                // ListItemLabel {
-                //     id: infoLabelhidden
-                //     color: styler.themeHighlightColor
-                //     height: implicitHeight + styler.themePaddingSmall
-                //     anchors.top: infoLabel.bottom
-                //     anchors.topMargin: styler.themePaddingSmall
-                //     text: nextStopsText
-                //     visible: isVisible
-                // }
-
-                // Spacer {
-                //     id: listSpacer
-                //     height: styler.themePaddingMedium
-                //     anchors.top: infoLabelhidden.bottom
-                // }
-
-                // onClicked: {
-                //     nextStopsText = "";
-                //     var arr = model['next_stops'].split('|');
-                //     for (var i = 0; i < arr.length; i++) {
-                //         arr[i] = arr [i] + '\n';
-                //         nextStopsText += arr[i];
-                //     }
-
-                //     isVisible = !isVisible;
+                    isVisible = !isVisible;
                     
-                //     if (isVisible) {
-                //         itemContentHeight = nameLabel.height + infoLabel.height + listSpacer.height + infoLabelhidden.height;
-                //     } else {
-                //         itemContentHeight = nameLabel.height + infoLabel.height + listSpacer.height;
-                //         nextStopsText = "";
-                //     }
+                    if (isVisible) {
+                        itemContentHeight = nameLabel.height + infoLabel.height + listSpacer.height + infoLabelhidden.height;
+                    } else {
+                        itemContentHeight = nameLabel.height + infoLabel.height + listSpacer.height;
+                        nextStopsText = "";
+                    }
                     
-                // }
+                }
 
             }
 
