@@ -145,7 +145,7 @@ PagePL {
                 id: listItem
                 contentHeight: itemContentHeight
                 
-                property var itemContentHeight: row.height + listSpacer.height
+                property var itemContentHeight: row.height + listSpacer.height + 10
                 property bool isVisible: false
                 property string nextStopsText: ""
 
@@ -153,7 +153,7 @@ PagePL {
                     id: row
                     height: Math.max(depTimeItem.height, nameItem.height, directionItem.height, trackItem.height)
                     width: parent.width
-                    anchors.bottomMargin: 70
+                    anchors.bottomMargin: 300
 
                     property real itemWidth: width / 4
 
@@ -193,10 +193,10 @@ PagePL {
                 }
 
                 onClicked: {
-                    py.call_sync("poor.app.timetables.load_destination_informations", [model['train_id'], model['destination'], selectedTime]);
+                    py.call_sync("poor.app.timetables.load_destination_informations", [list.model['train_id'], list.model['destination'], selectedTime]);
                     list.fillModel()
 
-                    directionItem.text = " " + model['destination'] + model['dest_arr_time_hh'] + ":" + model['dest_arr_time_mm']
+                    directionItem.text = " " + list.model['destination'] + list.model['dest_arr_time_hh'] + ":" + list.model['dest_arr_time_mm']
 
                     // nextStopsText = "";
                     // var arr = model['next_stops'].split('|');
