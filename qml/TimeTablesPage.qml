@@ -153,7 +153,6 @@ PagePL {
                     id: row
                     height: Math.max(depTimeItem.height, nameItem.height, directionItem.height, trackItem.height)
                     width: parent.width
-                    anchors.bottomMargin: 300
 
                     property real itemWidth: width / 4
 

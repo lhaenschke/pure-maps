@@ -70,6 +70,7 @@ class TimetableManager:
         self.trains = sorted(self.trains, key=lambda x: x.dep_time)
 
     def load_destination_informations(self, train_id: str, dest_name: str, hour: int):
+        print(train_id, dest_name, hour)
         (dest_arr_time, dest_track) = (None, "")
         for i in range(3):
             (dest_arr_time, dest_track) = self.__get_time_from_destination__(train_id, dest_name, hour + i)    
