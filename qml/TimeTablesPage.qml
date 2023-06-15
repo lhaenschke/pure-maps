@@ -91,35 +91,47 @@ PagePL {
         }
 
         Row {
-            id: headerRow
-            height: Math.max(depTimeHeader.height, depNameHeader.height, depDirectionHeader.height, depTrackHeader.height)
+            id: row
+            height: Math.max(beginItem.height, rerouteItem.height, clearItem.height)
             width: parent.width
 
             property real contentWidth: width - 2 * styler.themeHorizontalPageMargin
-            property real itemWidth: contentWidth / 4
+            property real itemWidth: contentWidth / 3
 
-            ListItemLabel {
-                id: depTimeHeader
-                width: headerRow.itemWidth
-                text: app.tr("Dep. Time")
+            ToolItemPL {
+                id: beginItem
+                width: row.itemWidth + styler.themeHorizontalPageMargin
+                icon.iconHeight: styler.themeIconSizeMedium
+                icon.iconName: (app.mode === modes.navigate || app.mode === modes.navigatePost) ? styler.iconPause : styler.iconStart
+                text: (app.mode === modes.navigate || app.mode === modes.navigatePost) ? app.tr("Pause") : app.tr("Navigate")
+                onClicked: {
+                    app.hideNavigationPages();
+                    app.navigator.running = !app.navigator.running;
+                }
             }
 
-            ListItemLabel {
-                id: depNameHeader
-                width: headerRow.itemWidth
-                text: app.tr("Name")
+            ToolItemPL {
+                id: rerouteItem
+                width: row.itemWidth
+                icon.iconHeight: styler.themeIconSizeMedium
+                icon.iconName: styler.iconRefresh
+                text: app.tr("Reroute")
+                onClicked: {
+                    app.navigator.reroute();
+                    app.hideNavigationPages();
+                }
             }
 
-            ListItemLabel {
-                id: depDirectionHeader
-                width: headerRow.itemWidth
-                text: app.tr("Direction")
-            }
-
-            ListItemLabel {
-                id: depTrackHeader
-                width: headerRow.itemWidth
-                text: app.tr("Track")
+            ToolItemPL {
+                id: clearItem
+                width: row.itemWidth + styler.themeHorizontalPageMargin
+                icon.iconHeight: styler.themeIconSizeMedium
+                icon.iconName: styler.iconClear
+                text: app.tr("Clear")
+                onClicked: {
+                    app.navigator.clearRoute();
+                    app.showMap();
+                }
             }
 
         }
