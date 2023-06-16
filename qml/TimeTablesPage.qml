@@ -210,7 +210,7 @@ PagePL {
                         py.call("poor.app.timetables.load_destination_informations", [model['train_id'], model['destination'], selectedTime], function(result) {
                             var arr = model['next_stops'].split('|');
                             for (var i = 0; i < arr.length; i++) {
-                                if i != arr.length - 1 {
+                                if (i !== arr.length - 1) {
                                     arr[i] = arr [i] + '\n';
                                 }
                                 nextStopsText += arr[i];
