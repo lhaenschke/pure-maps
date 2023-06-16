@@ -151,7 +151,7 @@ PagePL {
 
                 Row {
                     id: row
-                    height: Math.max(depTimeItem.height, nameItem.height, directionItem.height, trackItem.height) + 20
+                    height: Math.max(depTimeItem.height, nameItem.height, directionItem.height, trackItem.height) + 10
                     width: parent.width
 
                     property real itemWidth: width / 4
@@ -190,8 +190,7 @@ PagePL {
                     id: infoLabel
                     color: styler.themeHighlightColor
                     height: implicitHeight
-                    // text: nextStopsText
-                    text: "Test"
+                    text: nextStopsText
                     visible: text
                     anchors.top: row.bottom
                 }
@@ -204,27 +203,25 @@ PagePL {
 
                 onClicked: {
                     isVisible = !isVisible;
+                    nextStopsText = "";
 
                     if (isVisible) {
-                        // itemContentHeight = row.height + listSpacer.height + 10;
+                        var arr = model['next_stops'].split('|');
+                        for (var i = 0; i < arr.length; i++) {
+                            arr[i] = arr [i] + '\n';
+                            nextStopsText += arr[i];
+                        }
+
                         py.call("poor.app.timetables.load_destination_informations", [model['train_id'], model['destination'], selectedTime], function(result) {
                             var arr = result.split('|');
                             console.log(arr[0]);
                             console.log(arr[1]);
                         });
-                    } else {
-                        // itemContentHeight = nameLabel.height + infoLabel.height + listSpacer.height;
-                        // nextStopsText = "";
                     }
 
                     // testText = " " + model['destination'] + model['dest_arr_time_hh'] + ":" + model['dest_arr_time_mm'];
 
-                    // nextStopsText = "";
-                    // var arr = model['next_stops'].split('|');
-                    // for (var i = 0; i < arr.length; i++) {
-                    //     arr[i] = arr [i] + '\n';
-                    //     nextStopsText += arr[i];
-                    // }
+                    
                     
                 }
 
