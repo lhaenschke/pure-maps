@@ -194,11 +194,19 @@ PagePL {
                 }
 
                 onClicked: {
-                    // py.call_sync("poor.app.timetables.load_destination_informations", [model['train_id'], model['destination'], selectedTime]);
-                    
-                    // console.log(model['destination'])
-                    // list.fillModel();
-                    // console.log(model['destination'])
+                    isVisible = !isVisible;
+
+                    if (isVisible) {
+                        // itemContentHeight = row.height + listSpacer.height + 10;
+                        py.call("poor.app.timetables.load_destination_informations", [model['train_id'], model['destination'], selectedTime], function(result) {
+                            var arr = result.split('|');
+                            console.log(arr[0])
+                            console.log(arr[1])
+                        });
+                    } else {
+                        // itemContentHeight = nameLabel.height + infoLabel.height + listSpacer.height;
+                        // nextStopsText = "";
+                    }
 
                     // testText = " " + model['destination'] + model['dest_arr_time_hh'] + ":" + model['dest_arr_time_mm'];
 
@@ -207,15 +215,6 @@ PagePL {
                     // for (var i = 0; i < arr.length; i++) {
                     //     arr[i] = arr [i] + '\n';
                     //     nextStopsText += arr[i];
-                    // }
-
-                    // isVisible = !isVisible;
-                    
-                    // if (isVisible) {
-                    //     itemContentHeight = nameLabel.height + infoLabel.height + listSpacer.height + infoLabelhidden.height;
-                    // } else {
-                    //     itemContentHeight = nameLabel.height + infoLabel.height + listSpacer.height;
-                    //     nextStopsText = "";
                     // }
                     
                 }

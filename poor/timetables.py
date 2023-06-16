@@ -63,23 +63,18 @@ class TimetableManager:
                 dep_time = dep_time,
                 track = track,
                 next_stops = next_stops,
-                dest_arr_time = None,
-                dest_track = ""
             ))
 
         self.trains = sorted(self.trains, key=lambda x: x.dep_time)
 
     def load_destination_informations(self, train_id: str, dest_name: str, hour: int):
-        print(train_id, dest_name, hour)
         (dest_arr_time, dest_track) = (None, "")
         for i in range(3):
             (dest_arr_time, dest_track) = self.__get_time_from_destination__(train_id, dest_name, hour + i)    
             if dest_arr_time is not None:
                 for i in range(len(self.trains)):
                     if self.trains[i].id == train_id:
-                        self.trains[i].dest_arr_time = dest_arr_time
-                        self.trains[i].dest_track = dest_track
-                        break
+                        return "".join((dest_arr_time[6:8], ':', dest_arr_time[8:], '|', dest_track))
 
     def get_trains(self):
         return [dict(
@@ -90,10 +85,7 @@ class TimetableManager:
             dep_time_mm=train.dep_time[8:],
             track=train.track,
             destination=train.next_stops.split('|')[-1],
-            dest_arr_time_hh=train.dest_arr_time[6:8] if train.dest_arr_time is not None else "",
-            dest_arr_time_mm=train.dest_arr_time[8:] if train.dest_arr_time is not None else "",
             next_stops=train.next_stops,
-            dest_track=train.dest_track,
         ) for train in self.trains]
 
 
@@ -173,12 +165,10 @@ class Traininformation:
 
         """Store train-informations"""
 
-        def __init__(self, train_type: str, name: str, train_id: str, dep_time: str, track: str, next_stops: str, dest_arr_time: str, dest_track: str):
+        def __init__(self, train_type: str, name: str, train_id: str, dep_time: str, track: str, next_stops: str):
             self.type = train_type
             self.name = name
             self.id = train_id
             self.dep_time = dep_time
             self.track = track
             self.next_stops = next_stops
-            self.dest_arr_time = dest_arr_time
-            self.dest_track = dest_track
