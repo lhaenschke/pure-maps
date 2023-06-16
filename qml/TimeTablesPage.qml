@@ -195,9 +195,12 @@ PagePL {
 
                 onClicked: {
                     py.call_sync("poor.app.timetables.load_destination_informations", [model['train_id'], model['destination'], selectedTime]);
+                    
+                    console.log(model['destination'])
                     list.fillModel();
+                    console.log(model['destination'])
 
-                    testText = " " + model['destination'] + model['dest_arr_time_hh'] + ":" + model['dest_arr_time_mm'];
+                    // testText = " " + model['destination'] + model['dest_arr_time_hh'] + ":" + model['dest_arr_time_mm'];
 
                     // nextStopsText = "";
                     // var arr = model['next_stops'].split('|');
@@ -220,8 +223,6 @@ PagePL {
             }
 
             model: ListModel {}
-
-            property int activeItem: -1
 
             function fillModel() {
                 model.clear();
