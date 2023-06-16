@@ -175,8 +175,8 @@ PagePL {
                         id: directionItem
                         width: row.itemWidth + styler.themePaddingMedium
                         horizontalAlignment: Text.AlignLeft
-                        // text: " " + model['destination']
-                        text: testText
+                        text: " " + model['destination']
+                        // text: testText
                     }
 
                     LabelPL {
@@ -194,11 +194,11 @@ PagePL {
                 }
 
                 onClicked: {
-                    py.call_sync("poor.app.timetables.load_destination_informations", [model['train_id'], model['destination'], selectedTime]);
+                    // py.call_sync("poor.app.timetables.load_destination_informations", [model['train_id'], model['destination'], selectedTime]);
                     
-                    console.log(model['destination'])
-                    list.fillModel();
-                    console.log(model['destination'])
+                    // console.log(model['destination'])
+                    // list.fillModel();
+                    // console.log(model['destination'])
 
                     // testText = " " + model['destination'] + model['dest_arr_time_hh'] + ":" + model['dest_arr_time_mm'];
 
@@ -229,7 +229,7 @@ PagePL {
                 py.call("poor.app.timetables.get_trains", [], function(results) {
                     results.forEach( function (p) { model.append(p); });
                     searchButton.text = "Search";
-                    timetableHeader.text = app.tr('Timetables for ') + Qt.formatDateTime(new Date(), "dd.MM.yyyy") + " at " + Qt.formatTime(new Date(),"hh") + ":00";
+                    timetableHeader.text = app.tr('Timetables for ') + Qt.formatDateTime(new Date(), "dd.MM.yyyy") + " at " + selectedTime + ":00";
                 });
             }
             
