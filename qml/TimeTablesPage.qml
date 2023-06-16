@@ -145,7 +145,7 @@ PagePL {
                 id: listItem
                 contentHeight: itemContentHeight
                 
-                property var itemContentHeight: row.height + listSpacer.height
+                property var itemContentHeight: row.height + listSpacer.height + 100
                 property bool isVisible: false
                 property string nextStopsText: ""
 
