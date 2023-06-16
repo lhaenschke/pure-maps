@@ -86,7 +86,7 @@ PagePL {
         SectionHeaderPL {
             id: timetableHeader
             anchors.horizontalCenter: parent.horizontalCenter
-            text: "timetableHeader"
+            text: ""
             visible: text
         }
 
@@ -100,6 +100,7 @@ PagePL {
             id: headerRow
             height: Math.max(depTimeHeader.height, nameHeader.height, directionHeader.height, trackItem.height)
             width: parent.width
+            visible: timetableHeader.text
 
             property real itemWidth: width / 4
 
@@ -211,11 +212,15 @@ PagePL {
                             arr[i] = arr [i] + '\n';
                             nextStopsText += arr[i];
                         }
+                        
 
                         py.call("poor.app.timetables.load_destination_informations", [model['train_id'], model['destination'], selectedTime], function(result) {
                             var arr = result.split('|');
                             console.log(arr[0]);
                             console.log(arr[1]);
+
+                            nextStopsText += arr[0] + app.tr(' on track ') + arr[1];
+
                         });
                     }
 
