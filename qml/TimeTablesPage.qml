@@ -145,10 +145,9 @@ PagePL {
                 id: listItem
                 contentHeight: itemContentHeight
                 
-                property var itemContentHeight: row.height + listSpacer.height + 10
+                property var itemContentHeight: row.height + listSpacer.height
                 property bool isVisible: false
                 property string nextStopsText: ""
-                property string testText: ""
 
                 Row {
                     id: row
@@ -176,7 +175,6 @@ PagePL {
                         width: row.itemWidth + styler.themePaddingMedium
                         horizontalAlignment: Text.AlignLeft
                         text: " " + model['destination']
-                        // text: testText
                     }
 
                     LabelPL {
@@ -187,6 +185,12 @@ PagePL {
                     }
 
                 }
+
+                // ListItemLabel {
+                //     color: styler.themeHighlightColor
+                //     height: implicitHeight
+                //     text: nextStopsText
+                // }
 
                 Spacer {
                     id: listSpacer
@@ -200,8 +204,8 @@ PagePL {
                         // itemContentHeight = row.height + listSpacer.height + 10;
                         py.call("poor.app.timetables.load_destination_informations", [model['train_id'], model['destination'], selectedTime], function(result) {
                             var arr = result.split('|');
-                            console.log(arr[0])
-                            console.log(arr[1])
+                            console.log(arr[0]);
+                            console.log(arr[1]);
                         });
                     } else {
                         // itemContentHeight = nameLabel.height + infoLabel.height + listSpacer.height;
