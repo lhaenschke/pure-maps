@@ -210,7 +210,9 @@ PagePL {
                         py.call("poor.app.timetables.load_destination_informations", [model['train_id'], model['destination'], selectedTime], function(result) {
                             var arr = model['next_stops'].split('|');
                             for (var i = 0; i < arr.length; i++) {
-                                arr[i] = arr [i] + '\n';
+                                if i != arr.length - 1 {
+                                    arr[i] = arr [i] + '\n';
+                                }
                                 nextStopsText += arr[i];
                             }
                             
@@ -218,7 +220,7 @@ PagePL {
                             console.log(arr[0]);
                             console.log(arr[1]);
 
-                            nextStopsText += arr[0] + app.tr(' on track ') + arr[1];
+                            nextStopsText += " at " + arr[0] + app.tr(' on track ') + arr[1];
 
                         });
 
