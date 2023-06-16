@@ -193,7 +193,7 @@ PagePL {
                     // text: nextStopsText
                     text: "Test"
                     visible: text
-                    // anchors.top: row.bottom
+                    anchors.top: row.bottom
                 }
 
                 Spacer {
