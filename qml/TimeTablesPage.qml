@@ -145,7 +145,7 @@ PagePL {
                 id: listItem
                 contentHeight: itemContentHeight
                 
-                property var itemContentHeight: row.height + listSpacer.height + 100
+                property var itemContentHeight: row.height + listSpacer.height
                 property bool isVisible: false
                 property string nextStopsText: ""
 
@@ -186,15 +186,20 @@ PagePL {
 
                 }
 
-                // ListItemLabel {
-                //     color: styler.themeHighlightColor
-                //     height: implicitHeight
-                //     text: nextStopsText
-                // }
+                ListItemLabel {
+                    id: infoLabel
+                    color: styler.themeHighlightColor
+                    height: implicitHeight
+                    // text: nextStopsText
+                    text: "Test"
+                    visible: text
+                    // anchors.top: row.bottom
+                }
 
                 Spacer {
                     id: listSpacer
                     height: styler.themePaddingMedium
+                    anchors.top: infoLabel.bottom
                 }
 
                 onClicked: {
