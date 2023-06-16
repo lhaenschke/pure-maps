@@ -151,7 +151,7 @@ PagePL {
 
                 Row {
                     id: row
-                    height: Math.max(depTimeItem.height, nameItem.height, directionItem.height, trackItem.height)
+                    height: Math.max(depTimeItem.height, nameItem.height, directionItem.height, trackItem.height) + 20
                     width: parent.width
 
                     property real itemWidth: width / 4
