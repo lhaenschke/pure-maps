@@ -207,14 +207,13 @@ PagePL {
                     nextStopsText = "";
 
                     if (isVisible) {
-                        var arr = model['next_stops'].split('|');
-                        for (var i = 0; i < arr.length; i++) {
-                            arr[i] = arr [i] + '\n';
-                            nextStopsText += arr[i];
-                        }
-                        
-
                         py.call("poor.app.timetables.load_destination_informations", [model['train_id'], model['destination'], selectedTime], function(result) {
+                            var arr = model['next_stops'].split('|');
+                            for (var i = 0; i < arr.length; i++) {
+                                arr[i] = arr [i] + '\n';
+                                nextStopsText += arr[i];
+                            }
+                            
                             var arr = result.split('|');
                             console.log(arr[0]);
                             console.log(arr[1]);
@@ -222,12 +221,9 @@ PagePL {
                             nextStopsText += arr[0] + app.tr(' on track ') + arr[1];
 
                         });
+
                     }
 
-                    // testText = " " + model['destination'] + model['dest_arr_time_hh'] + ":" + model['dest_arr_time_mm'];
-
-                    
-                    
                 }
 
             }
