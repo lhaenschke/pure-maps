@@ -198,14 +198,12 @@ PagePL {
 
                 Spacer {
                     id: listSpacer
-                    height: styler.themePaddingMedium
-                    anchors.top: infoLabel.bottom
+                    height: styler.themePaddingSmall
                 }
 
                 onClicked: {
                     isVisible = !isVisible;
                     nextStopsText = "";
-                    listItem.focus = true;
 
                     if (isVisible) {
                         py.call("poor.app.timetables.load_destination_informations", [model['train_id'], model['destination'], selectedTime], function(result) {
@@ -219,7 +217,6 @@ PagePL {
                             
                             var arr = result.split('|');
                             nextStopsText += " at " + arr[0] + app.tr(' on track ') + arr[1];
-                            listItem.focus = false;
 
                         });
 
