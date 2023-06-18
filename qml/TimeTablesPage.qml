@@ -195,7 +195,7 @@ PagePL {
                 Repeater {
                     id: infoList
                     width: parent.width
-                    visible: listItem.isVisible
+                    visible: true
                     anchors.top: row.bottom
 
                     delegate: ListItemPL {
