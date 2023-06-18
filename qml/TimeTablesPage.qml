@@ -183,13 +183,85 @@ PagePL {
 
                 }
 
-                ListItemLabel {
-                    id: infoLabel
-                    color: styler.themeHighlightColor
-                    height: implicitHeight
-                    text: nextStopsText
-                    visible: text
-                    anchors.top: row.bottom
+                // ListItemLabel {
+                //     id: infoLabel
+                //     color: styler.themeHighlightColor
+                //     height: implicitHeight
+                //     text: nextStopsText
+                //     visible: text
+                //     anchors.top: row.bottom
+                // }
+
+                Repeater {
+                    id: infoList
+                    width: parent.width
+
+                    delegate: ListItemPL {
+                        id: infoListItem
+                        contentHeight: infoItemContentHeight
+
+                        property var infoItemContentHeight: infoRow.height
+                        property bool isVisible: false
+
+                        Row {
+                            id: infoRow
+                            height: Math.max(infoDepTimeItem.height, infoNameItem.height, infoDirectionItem.height, infoTrackItem.height) + 10
+                            width: parent.width
+
+                            property real itemWidth: width / 4
+
+                            LabelPL {
+                                id: infoDepTimeItem
+                                width: row.itemWidth
+                                horizontalAlignment: Text.AlignLeft
+                                text: infoModel['dep_time_hh'] + ":" + infoModel['dep_time_mm']
+                            }
+
+                            LabelPL {
+                                id: infoNameItem
+                                width: row.itemWidth
+                                horizontalAlignment: Text.AlignLeft
+                                text: infoModel['type'] + " " + infoModel['name']
+                            }
+
+                            LabelPL {
+                                id: infoDirectionItem
+                                width: row.itemWidth + styler.themePaddingMedium
+                                horizontalAlignment: Text.AlignLeft
+                                text: " " + infoModel['destination']
+                            }
+
+                            LabelPL {
+                                id: infoTrackItem
+                                width: row.itemWidth - styler.themePaddingMedium
+                                horizontalAlignment: Text.AlignRight
+                                text: infoModel['track']
+                            }
+
+                        }
+
+                    }
+
+                    infoModel: ListModel {}
+
+                    function fillInfoModel() {
+                        infoModel.clear()
+
+                        var arr = model['next_stops'].split('|');
+                        for (var i = 0; i < arr.length; i++) {
+                            var dict = {
+                                "type": model['type'],
+                                "name": model['name'],
+                                "dep_time_hh": "",
+                                "dep_time_mm": "",
+                                "destination": arr[i],
+                                "track": ""
+                            };
+                            infoModel.append(dict);
+                        }
+
+                    }
+
                 }
 
                 Rectangle {
@@ -197,10 +269,6 @@ PagePL {
                     width: parent.width
                     height: 1
                     color: "gray"
-                }
-
-                Spacer {
-                    height: styler.themePaddingLarge
                 }
 
                 onClicked: {
