@@ -196,7 +196,7 @@ PagePL {
                     id: infoList
                     width: parent.width
                     visible: true
-                    anchors.top: row.bottom
+                    // anchors.top: row.bottom
 
                     delegate: ListItemPL {
                         id: infoListItem
