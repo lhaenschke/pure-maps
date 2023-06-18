@@ -183,20 +183,20 @@ PagePL {
 
                 }
 
-                // ListItemLabel {
-                //     id: infoLabel
-                //     color: styler.themeHighlightColor
-                //     height: implicitHeight
-                //     text: nextStopsText
-                    // visible: text
-                    // anchors.top: row.bottom
-                // }
+                ListItemLabel {
+                    id: infoLabel
+                    color: styler.themeHighlightColor
+                    height: implicitHeight
+                    text: "Test"
+                    visible: text
+                    anchors.top: row.bottom
+                }
 
                 Repeater {
                     id: infoList
                     width: parent.width
                     visible: true
-                    // anchors.top: row.bottom
+                    anchors.top: infoLabel.bottom
 
                     delegate: ListItemPL {
                         id: infoListItem
