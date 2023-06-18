@@ -242,7 +242,7 @@ PagePL {
 
                     }
 
-                    infoModel: ListModel {}
+                    property var infoModel: ListModel {}
 
                     function fillInfoModel() {
                         infoModel.clear()
