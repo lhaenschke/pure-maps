@@ -135,7 +135,7 @@ PagePL {
         }        
         
         Rectangle {
-            Layout.fillWidth: true
+            width: parent.width
             height: 1
             color: "red"
         }
@@ -200,7 +200,7 @@ PagePL {
 
                 Rectangle {
                     id: listSeperator
-                    Layout.fillWidth: true
+                    width: parent.width
                     height: 1
                     color: "red"
                 }
