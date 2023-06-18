@@ -249,11 +249,11 @@ PagePL {
                     function fillInfoModel() {
                         infoModel.clear()
 
-                        var arr = model['next_stops'].split('|');
+                        var arr = list.model['next_stops'].split('|');
                         for (var i = 0; i < arr.length; i++) {
                             var dict = {
-                                "type": model['type'],
-                                "name": model['name'],
+                                "type": list.model['type'],
+                                "name": list.model['name'],
                                 "dep_time_hh": "",
                                 "dep_time_mm": "",
                                 "destination": arr[i],
