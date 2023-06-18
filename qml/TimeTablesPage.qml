@@ -195,7 +195,7 @@ PagePL {
                 Repeater {
                     id: infoList
                     width: parent.width
-                    visible: isVisible
+                    visible: list.isVisible
                     anchors.top: row.bottom
 
                     delegate: ListItemPL {
@@ -203,7 +203,6 @@ PagePL {
                         contentHeight: infoItemContentHeight
 
                         property var infoItemContentHeight: infoRow.height
-                        property bool isVisible: false
 
                         Row {
                             id: infoRow
@@ -249,6 +248,8 @@ PagePL {
                     function fillInfoModel(type, name, next_stops, id) {
                         infoModel.clear()
 
+                        console.log(type, name, next_stops, id);
+
                         var arr = next_stops.split('|');
                         for (var i = 0; i < arr.length; i++) {
                             var dict = {
@@ -275,7 +276,7 @@ PagePL {
 
                 onClicked: {
                     isVisible = !isVisible;
-                    nextStopsText = "";
+                    // nextStopsText = "";
 
                     if (isVisible) {
                         // py.call("poor.app.timetables.load_destination_informations", [model['train_id'], model['destination'], selectedTime], function(result) {
