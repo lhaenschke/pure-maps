@@ -215,40 +215,38 @@ PagePL {
                                 id: infoDepTimeItem
                                 width: row.itemWidth
                                 horizontalAlignment: Text.AlignLeft
-                                text: infoModel['dep_time_hh'] + ":" + infoModel['dep_time_mm']
+                                text: model['dep_time_hh'] + ":" + model['dep_time_mm']
                             }
 
                             LabelPL {
                                 id: infoNameItem
                                 width: row.itemWidth
                                 horizontalAlignment: Text.AlignLeft
-                                text: infoModel['type'] + " " + infoModel['name']
+                                text: model['type'] + " " + model['name']
                             }
 
                             LabelPL {
                                 id: infoDirectionItem
                                 width: row.itemWidth + styler.themePaddingMedium
                                 horizontalAlignment: Text.AlignLeft
-                                text: " " + infoModel['destination']
+                                text: " " + model['destination']
                             }
 
                             LabelPL {
                                 id: infoTrackItem
                                 width: row.itemWidth - styler.themePaddingMedium
                                 horizontalAlignment: Text.AlignRight
-                                text: infoModel['track']
+                                text: model['track']
                             }
 
                         }
 
                     }
 
-                    property var infoModel: ListModel {}
+                    model: ListModel {}
 
                     function fillInfoModel(type, name, next_stops, id) {
-                        infoModel.clear()
-
-                        console.log(type, name, next_stops, id);
+                        model.clear()
 
                         var arr = next_stops.split('|');
                         for (var i = 0; i < arr.length; i++) {
@@ -260,8 +258,10 @@ PagePL {
                                 "destination": arr[i],
                                 "track": ""
                             };
-                            infoModel.append(dict);
+                            model.append(dict);
+                            console.log(dict);
                         }
+                        console.log("Added");
 
                     }
 
