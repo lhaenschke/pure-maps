@@ -246,14 +246,14 @@ PagePL {
 
                     property var infoModel: ListModel {}
 
-                    function fillInfoModel() {
+                    function fillInfoModel(type, name, next_stops, id) {
                         infoModel.clear()
 
-                        var arr = list.model['next_stops'].split('|');
+                        var arr = next_stops.split('|');
                         for (var i = 0; i < arr.length; i++) {
                             var dict = {
-                                "type": list.model['type'],
-                                "name": list.model['name'],
+                                "type": type,
+                                "name": name,
                                 "dep_time_hh": "",
                                 "dep_time_mm": "",
                                 "destination": arr[i],
@@ -292,7 +292,7 @@ PagePL {
 
                         // });
 
-                        infoList.fillInfoModel();
+                        infoList.fillInfoModel(model['type'], model['name'], model['next_stops'], model['train_id']);
 
                     }
 
