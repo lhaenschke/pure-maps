@@ -213,28 +213,28 @@ PagePL {
                                 id: infoDepTimeItem
                                 width: row.itemWidth
                                 horizontalAlignment: Text.AlignLeft
-                                text: model['dep_time_hh'] + ":" + model['dep_time_mm']
+                                text: infoList.model['dep_time_hh'] + ":" + infoList.model['dep_time_mm']
                             }
 
                             LabelPL {
                                 id: infoNameItem
                                 width: row.itemWidth
                                 horizontalAlignment: Text.AlignLeft
-                                text: model['type'] + " " + model['name']
+                                text: infoList.model['type'] + " " + infoList.model['name']
                             }
 
                             LabelPL {
                                 id: infoDirectionItem
                                 width: row.itemWidth + styler.themePaddingMedium
                                 horizontalAlignment: Text.AlignLeft
-                                text: " " + model['destination']
+                                text: " " + infoList.model['destination']
                             }
 
                             LabelPL {
                                 id: infoTrackItem
                                 width: row.itemWidth - styler.themePaddingMedium
                                 horizontalAlignment: Text.AlignRight
-                                text: model['track']
+                                text: infoList.model['track']
                             }
 
                         }
@@ -244,7 +244,7 @@ PagePL {
                     model: ListModel {}
 
                     function fillInfoModel(type, name, next_stops, id) {
-                        model.clear()
+                        infoList.model.clear()
 
                         var arr = next_stops.split('|');
                         for (var i = 0; i < arr.length; i++) {
@@ -256,7 +256,7 @@ PagePL {
                                 "destination": arr[i],
                                 "track": ""
                             };
-                            model.append(dict);
+                            infoList.model.append(dict);
                             console.log(dict);
                         }
                         console.log("Added");
