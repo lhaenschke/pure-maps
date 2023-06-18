@@ -133,12 +133,6 @@ PagePL {
             }
 
         }        
-        
-        Rectangle {
-            width: parent.width
-            height: 1
-            color: "red"
-        }
 
         Repeater {
             id: list
@@ -202,7 +196,7 @@ PagePL {
                     id: listSeperator
                     width: parent.width
                     height: 1
-                    color: "red"
+                    color: "gray"
                 }
 
                 onClicked: {
