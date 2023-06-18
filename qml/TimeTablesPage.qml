@@ -199,6 +199,10 @@ PagePL {
                     color: "gray"
                 }
 
+                Spacer {
+                    height: styler.themePaddingLarge
+                }
+
                 onClicked: {
                     isVisible = !isVisible;
                     nextStopsText = "";
