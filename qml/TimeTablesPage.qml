@@ -134,8 +134,10 @@ PagePL {
 
         }        
         
-        Spacer {
-            height: styler.themePaddingSmall
+        Rectangle {
+            Layout.fillWidth: true
+            height: 1
+            color: "red"
         }
 
         Repeater {
@@ -146,7 +148,7 @@ PagePL {
                 id: listItem
                 contentHeight: itemContentHeight
                 
-                property var itemContentHeight: row.height + infoLabel.height + listSpacer.height
+                property var itemContentHeight: row.height + infoLabel.height + listSeperator.height
                 property bool isVisible: false
                 property string nextStopsText: ""
 
@@ -196,9 +198,11 @@ PagePL {
                     anchors.top: row.bottom
                 }
 
-                Spacer {
-                    id: listSpacer
-                    height: styler.themePaddingSmall
+                Rectangle {
+                    id: listSeperator
+                    Layout.fillWidth: true
+                    height: 1
+                    color: "red"
                 }
 
                 onClicked: {
