@@ -195,14 +195,12 @@ PagePL {
                 Repeater {
                     id: infoList
                     width: parent.width
-                    visible: true
+                    visible: listItem.isVisible
                     anchors.top: infoLabel.bottom
 
                     delegate: ListItemPL {
                         id: infoListItem
-                        contentHeight: infoItemContentHeight
-
-                        property var infoItemContentHeight: infoRow.height
+                        contentHeight: infoRow.height
 
                         Row {
                             id: infoRow
