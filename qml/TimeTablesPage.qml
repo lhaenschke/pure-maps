@@ -278,19 +278,21 @@ PagePL {
                     nextStopsText = "";
 
                     if (isVisible) {
-                        py.call("poor.app.timetables.load_destination_informations", [model['train_id'], model['destination'], selectedTime], function(result) {
-                            var arr = model['next_stops'].split('|');
-                            for (var i = 0; i < arr.length; i++) {
-                                if (i !== arr.length - 1) {
-                                    arr[i] = arr [i] + '\n';
-                                }
-                                nextStopsText += arr[i];
-                            }
+                        // py.call("poor.app.timetables.load_destination_informations", [model['train_id'], model['destination'], selectedTime], function(result) {
+                        //     var arr = model['next_stops'].split('|');
+                        //     for (var i = 0; i < arr.length; i++) {
+                        //         if (i !== arr.length - 1) {
+                        //             arr[i] = arr [i] + '\n';
+                        //         }
+                        //         nextStopsText += arr[i];
+                        //     }
                             
-                            var arr = result.split('|');
-                            nextStopsText += " at " + arr[0] + app.tr(' on track ') + arr[1];
+                        //     var arr = result.split('|');
+                        //     nextStopsText += " at " + arr[0] + app.tr(' on track ') + arr[1];
 
-                        });
+                        // });
+
+                        infoList.fillInfoModel();
 
                     }
 
