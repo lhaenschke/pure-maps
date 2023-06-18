@@ -142,7 +142,7 @@ PagePL {
                 id: listItem
                 contentHeight: itemContentHeight
                 
-                property var itemContentHeight: row.height + infoLabel.height + listSeperator.height
+                property var itemContentHeight: row.height + infoList.height + listSeperator.height
                 property bool isVisible: false
                 property string nextStopsText: ""
 
@@ -188,13 +188,15 @@ PagePL {
                 //     color: styler.themeHighlightColor
                 //     height: implicitHeight
                 //     text: nextStopsText
-                //     visible: text
-                //     anchors.top: row.bottom
+                    // visible: text
+                    // anchors.top: row.bottom
                 // }
 
                 Repeater {
                     id: infoList
                     width: parent.width
+                    visible: isVisible
+                    anchors.top: row.bottom
 
                     delegate: ListItemPL {
                         id: infoListItem
