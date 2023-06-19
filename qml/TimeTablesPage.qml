@@ -146,7 +146,7 @@ PagePL {
 
                 Column {
                     id: listColumn
-                    width: page.width
+                    width: parent.width
 
                     Row {
                         id: row
@@ -173,14 +173,14 @@ PagePL {
                             id: directionItem
                             width: row.itemWidth + styler.themePaddingMedium
                             horizontalAlignment: Text.AlignLeft
-                            text: " " + model['destination']
+                            text: model['destination']
                         }
 
                         LabelPL {
                             id: trackItem
                             width: row.itemWidth - styler.themePaddingMedium
                             horizontalAlignment: Text.AlignRight
-                            text: model['track']
+                            text: model['track'] + "   "
                         }
 
                     }
