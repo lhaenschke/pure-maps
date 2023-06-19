@@ -189,14 +189,12 @@ PagePL {
                     height: implicitHeight
                     text: "Test"
                     visible: text
-                    anchors.top: row.bottom
                 }
 
                 Repeater {
                     id: infoList
                     width: parent.width
                     visible: true
-                    anchors.top: infoLabel.bottom
 
                     delegate: ListItemPL {
                         id: infoListItem
