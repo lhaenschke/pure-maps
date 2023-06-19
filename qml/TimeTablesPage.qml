@@ -113,7 +113,7 @@ PagePL {
                 id: nameHeader
                 width: headerRow.width / 6
                 horizontalAlignment: Text.AlignLeft
-                text: app.tr("Name")
+                text: app.tr("  Name")
             }
 
             LabelPL {
@@ -233,7 +233,11 @@ PagePL {
                             }
 
                             onClicked: {
-                                infoList.clearInfoModel();
+                                console.log(model['train_id'], model['destination'], selectedTime, model['type'], model['name']);
+                                // py.call("poor.app.timetables.load_destination_informations", [infoList.model['train_id'], infoList.model['destination'], selectedTime], function(result) {
+                                //     var arr = result.split('|');
+                                //     console.log(arr[0], arr[1], arr[2]);
+                                // });
                             }
 
                         }
@@ -260,10 +264,7 @@ PagePL {
                         }
 
                         function clearInfoModel() {
-                            py.call("poor.app.timetables.load_destination_informations", [infoList.model['train_id'], infoList.model['destination'], selectedTime], function(result) {
-                                var arr = result.split('|');
-                                console.log(arr[0], arr[1], arr[2]);
-                            });
+                            infoList.model.clear()
                         }
 
                     }
