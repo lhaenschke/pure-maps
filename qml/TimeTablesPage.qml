@@ -195,7 +195,7 @@ PagePL {
                 Repeater {
                     id: infoList
                     width: parent.width
-                    visible: listItem.isVisible
+                    visible: true
                     anchors.top: infoLabel.bottom
 
                     delegate: ListItemPL {
@@ -273,8 +273,10 @@ PagePL {
                 }
 
                 onClicked: {
-                    isVisible = !isVisible;
+                    // isVisible = !isVisible;
                     // nextStopsText = "";
+
+                    console.log('Test')
 
                     if (isVisible) {
                         // py.call("poor.app.timetables.load_destination_informations", [model['train_id'], model['destination'], selectedTime], function(result) {
@@ -291,7 +293,7 @@ PagePL {
 
                         // });
 
-                        infoList.fillInfoModel(model['type'], model['name'], model['next_stops'], model['train_id']);
+                        // infoList.fillInfoModel(model['type'], model['name'], model['next_stops'], model['train_id']);
 
                     }
 
@@ -304,7 +306,10 @@ PagePL {
             function fillModel() {
                 model.clear();
                 py.call("poor.app.timetables.get_trains", [], function(results) {
-                    results.forEach( function (p) { model.append(p); });
+                    results.forEach( function (p) { 
+                        model.append(p); 
+                        infoList.fillInfoModel(p['type'], p['name'], p['next_stops'], p['train_id']);
+                    });
                     searchButton.text = "Search";
                     timetableHeader.text = app.tr('Timetables for ') + Qt.formatDateTime(new Date(), "dd.MM.yyyy") + " at " + selectedTime + ":00";
                 });
