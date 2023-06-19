@@ -140,9 +140,9 @@ PagePL {
             
             delegate: ListItemPL {
                 id: listItem
-                contentHeight: itemContentHeight
+                contentHeight: listColumn.height
                 
-                property var itemContentHeight: row.height + infoList.height + listSeperator.height + infoLabel.height
+                // property var itemContentHeight: listColumn.height
                 property bool isVisible: false
                 property string nextStopsText: ""
 
@@ -188,19 +188,10 @@ PagePL {
 
                     }
 
-                    ListItemLabel {
-                        id: infoLabel
-                        color: styler.themeHighlightColor
-                        height: implicitHeight
-                        text: "Test"
-                        visible: text
-                    }
-
                     Repeater {
                         id: infoList
                         width: parent.width
                         visible: true
-                        height: implicitHeight
 
                         delegate: ListItemPL {
                             id: infoListItem
