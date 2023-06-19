@@ -146,129 +146,137 @@ PagePL {
                 property bool isVisible: false
                 property string nextStopsText: ""
 
-                Row {
-                    id: row
-                    height: Math.max(depTimeItem.height, nameItem.height, directionItem.height, trackItem.height) + 10
-                    width: parent.width
 
-                    property real itemWidth: width / 4
+                Column {
+                    id: listColumn
+                    width: page.width
 
-                    LabelPL {
-                        id: depTimeItem
-                        width: row.itemWidth
-                        horizontalAlignment: Text.AlignLeft
-                        text: model['dep_time_hh'] + ":" + model['dep_time_mm']
+                    Row {
+                        id: row
+                        height: Math.max(depTimeItem.height, nameItem.height, directionItem.height, trackItem.height) + 10
+                        width: parent.width
+
+                        property real itemWidth: width / 4
+
+                        LabelPL {
+                            id: depTimeItem
+                            width: row.itemWidth
+                            horizontalAlignment: Text.AlignLeft
+                            text: model['dep_time_hh'] + ":" + model['dep_time_mm']
+                        }
+
+                        LabelPL {
+                            id: nameItem
+                            width: row.itemWidth
+                            horizontalAlignment: Text.AlignLeft
+                            text: model['type'] + " " + model['name']
+                        }
+
+                        LabelPL {
+                            id: directionItem
+                            width: row.itemWidth + styler.themePaddingMedium
+                            horizontalAlignment: Text.AlignLeft
+                            text: " " + model['destination']
+                        }
+
+                        LabelPL {
+                            id: trackItem
+                            width: row.itemWidth - styler.themePaddingMedium
+                            horizontalAlignment: Text.AlignRight
+                            text: model['track']
+                        }
+
                     }
 
-                    LabelPL {
-                        id: nameItem
-                        width: row.itemWidth
-                        horizontalAlignment: Text.AlignLeft
-                        text: model['type'] + " " + model['name']
+                    ListItemLabel {
+                        id: infoLabel
+                        color: styler.themeHighlightColor
+                        height: implicitHeight
+                        text: "Test"
+                        visible: text
                     }
 
-                    LabelPL {
-                        id: directionItem
-                        width: row.itemWidth + styler.themePaddingMedium
-                        horizontalAlignment: Text.AlignLeft
-                        text: " " + model['destination']
-                    }
+                    Repeater {
+                        id: infoList
+                        width: parent.width
+                        visible: true
 
-                    LabelPL {
-                        id: trackItem
-                        width: row.itemWidth - styler.themePaddingMedium
-                        horizontalAlignment: Text.AlignRight
-                        text: model['track']
-                    }
+                        delegate: ListItemPL {
+                            id: infoListItem
+                            contentHeight: infoRow.height
 
-                }
+                            Row {
+                                id: infoRow
+                                height: Math.max(infoDepTimeItem.height, infoNameItem.height, infoDirectionItem.height, infoTrackItem.height) + 10
+                                width: parent.width
 
-                ListItemLabel {
-                    id: infoLabel
-                    color: styler.themeHighlightColor
-                    height: implicitHeight
-                    text: "Test"
-                    visible: text
-                }
+                                property real itemWidth: width / 4
 
-                Repeater {
-                    id: infoList
-                    width: parent.width
-                    visible: true
+                                LabelPL {
+                                    id: infoDepTimeItem
+                                    width: row.itemWidth
+                                    horizontalAlignment: Text.AlignLeft
+                                    text: model['dep_time_hh'] + ":" + model['dep_time_mm']
+                                }
 
-                    delegate: ListItemPL {
-                        id: infoListItem
-                        contentHeight: infoRow.height
+                                LabelPL {
+                                    id: infoNameItem
+                                    width: row.itemWidth
+                                    horizontalAlignment: Text.AlignLeft
+                                    text: model['type'] + " " + model['name']
+                                }
 
-                        Row {
-                            id: infoRow
-                            height: Math.max(infoDepTimeItem.height, infoNameItem.height, infoDirectionItem.height, infoTrackItem.height) + 10
-                            width: parent.width
+                                LabelPL {
+                                    id: infoDirectionItem
+                                    width: row.itemWidth + styler.themePaddingMedium
+                                    horizontalAlignment: Text.AlignLeft
+                                    text: " " + model['destination']
+                                }
 
-                            property real itemWidth: width / 4
+                                LabelPL {
+                                    id: infoTrackItem
+                                    width: row.itemWidth - styler.themePaddingMedium
+                                    horizontalAlignment: Text.AlignRight
+                                    text: model['track']
+                                }
 
-                            LabelPL {
-                                id: infoDepTimeItem
-                                width: row.itemWidth
-                                horizontalAlignment: Text.AlignLeft
-                                text: model['dep_time_hh'] + ":" + model['dep_time_mm']
                             }
 
-                            LabelPL {
-                                id: infoNameItem
-                                width: row.itemWidth
-                                horizontalAlignment: Text.AlignLeft
-                                text: model['type'] + " " + model['name']
-                            }
+                        }
 
-                            LabelPL {
-                                id: infoDirectionItem
-                                width: row.itemWidth + styler.themePaddingMedium
-                                horizontalAlignment: Text.AlignLeft
-                                text: " " + model['destination']
-                            }
+                        model: ListModel {}
 
-                            LabelPL {
-                                id: infoTrackItem
-                                width: row.itemWidth - styler.themePaddingMedium
-                                horizontalAlignment: Text.AlignRight
-                                text: model['track']
+                        function fillInfoModel(type, name, next_stops, id) {
+                            infoList.model.clear()
+
+                            var arr = next_stops.split('|');
+                            for (var i = 0; i < arr.length; i++) {
+                                var dict = {
+                                    "type": type,
+                                    "name": name,
+                                    "dep_time_hh": "",
+                                    "dep_time_mm": "",
+                                    "destination": arr[i],
+                                    "track": ""
+                                };
+                                infoList.model.append(dict);
+                                console.log(dict);
                             }
+                            console.log("Added");
 
                         }
 
                     }
 
-                    model: ListModel {}
-
-                    function fillInfoModel(type, name, next_stops, id) {
-                        infoList.model.clear()
-
-                        var arr = next_stops.split('|');
-                        for (var i = 0; i < arr.length; i++) {
-                            var dict = {
-                                "type": type,
-                                "name": name,
-                                "dep_time_hh": "",
-                                "dep_time_mm": "",
-                                "destination": arr[i],
-                                "track": ""
-                            };
-                            infoList.model.append(dict);
-                            console.log(dict);
-                        }
-                        console.log("Added");
-
+                    Rectangle {
+                        id: listSeperator
+                        width: parent.width
+                        height: 1
+                        color: "gray"
                     }
 
                 }
 
-                Rectangle {
-                    id: listSeperator
-                    width: parent.width
-                    height: 1
-                    color: "gray"
-                }
 
                 onClicked: {
                     // isVisible = !isVisible;
