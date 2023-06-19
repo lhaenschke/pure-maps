@@ -108,35 +108,35 @@ PagePL {
                 id: depTimeHeader
                 width: headerRow.itemWidth
                 horizontalAlignment: Text.AlignLeft
-                text: app.tr("Dep. Time")
+                text: app.tr("   Dep. Time")
             }
 
             LabelPL {
                 id: nameHeader
                 width: headerRow.itemWidth
                 horizontalAlignment: Text.AlignLeft
-                text: app.tr("Type/Name")
+                text: app.tr(" Type/Name")
             }
 
             LabelPL {
                 id: directionHeader
                 width: headerRow.itemWidth + styler.themePaddingMedium
                 horizontalAlignment: Text.AlignLeft
-                text: app.tr("Direction")
+                text: app.tr(" Direction")
             }
 
             LabelPL {
                 id: trackItem
                 width: headerRow.itemWidth - styler.themePaddingMedium
                 horizontalAlignment: Text.AlignRight
-                text: app.tr("Track")
+                text: app.tr("Track   ")
             }
 
         }        
 
         Repeater {
             id: list
-            width: parent.width
+            width: page.width
             
             delegate: ListItemPL {
                 id: listItem
@@ -151,7 +151,7 @@ PagePL {
                     Row {
                         id: row
                         height: Math.max(depTimeItem.height, nameItem.height, directionItem.height, trackItem.height) + 10
-                        width: parent.width
+                        width: page.width
 
                         property real itemWidth: page.width / 4
 
@@ -180,7 +180,7 @@ PagePL {
                             id: trackItem
                             width: row.itemWidth - styler.themePaddingMedium
                             horizontalAlignment: Text.AlignRight
-                            text: model['track']
+                            text: model['track'] + "   "
                         }
 
                     }
@@ -193,18 +193,18 @@ PagePL {
 
                     Repeater {
                         id: infoList
-                        width: parent.width
+                        width: page.width
                         visible: true
 
                         delegate: ListItemPL {
                             id: infoListItem
                             contentHeight: infoRow.height
-                            width: parent.width
+                            width: page.width
 
                             Row {
                                 id: infoRow
                                 height: Math.max(infoDepTimeItem.height, infoNameItem.height, infoDirectionItem.height, infoTrackItem.height) + 10
-                                width: parent.width
+                                width: page.width
 
                                 property real itemWidth: page.width / 4
 
@@ -233,13 +233,13 @@ PagePL {
                                     id: infoTrackItem
                                     width: row.itemWidth - styler.themePaddingMedium
                                     horizontalAlignment: Text.AlignRight
-                                    text: model['track']
+                                    text: model['track'] + "   "
                                 }
 
                             }
 
                             onClicked: {
-                                clearInfoModel();
+                                infoList.clearInfoModel();
                             }
 
                         }
@@ -272,7 +272,7 @@ PagePL {
 
                     Rectangle {
                         id: listSeperator
-                        width: parent.width
+                        width: page.width
                         height: 1
                         color: "gray"
                     }
