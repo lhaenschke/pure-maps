@@ -267,10 +267,8 @@ PagePL {
                         function clearInfoModel() {
                             py.call("poor.app.timetables.load_destination_informations", [model['train_id'], model['destination'], selectedTime], function(result) {
                                 var arr = result.split('|');
-                                model['dep_time_hh'] = arr[0];
-                                model['dep_time_mm'] = arr[1];
-                                model['track'] = arr[2];
-                            }
+                                console.log(arr[0], arr[1], arr[2]);
+                            });
                         }
 
                     }
