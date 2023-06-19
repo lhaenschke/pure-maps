@@ -234,11 +234,11 @@ PagePL {
 
                         }
 
-                        model: ListModel {}
-
                         onClicked: {
                             console.log('Test');
                         }
+
+                        model: ListModel {}
 
                         function fillInfoModel(type, name, next_stops, id) {
                             infoList.model.clear()
