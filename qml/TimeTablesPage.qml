@@ -213,28 +213,28 @@ PagePL {
                                 id: infoDepTimeItem
                                 width: row.itemWidth
                                 horizontalAlignment: Text.AlignLeft
-                                text: infoList.model['dep_time_hh'] + ":" + infoList.model['dep_time_mm']
+                                text: model['dep_time_hh'] + ":" + model['dep_time_mm']
                             }
 
                             LabelPL {
                                 id: infoNameItem
                                 width: row.itemWidth
                                 horizontalAlignment: Text.AlignLeft
-                                text: infoList.model['type'] + " " + infoList.model['name']
+                                text: model['type'] + " " + model['name']
                             }
 
                             LabelPL {
                                 id: infoDirectionItem
                                 width: row.itemWidth + styler.themePaddingMedium
                                 horizontalAlignment: Text.AlignLeft
-                                text: " " + infoList.model['destination']
+                                text: " " + model['destination']
                             }
 
                             LabelPL {
                                 id: infoTrackItem
                                 width: row.itemWidth - styler.themePaddingMedium
                                 horizontalAlignment: Text.AlignRight
-                                text: infoList.model['track']
+                                text: model['track']
                             }
 
                         }
