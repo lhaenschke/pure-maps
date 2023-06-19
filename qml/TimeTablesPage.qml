@@ -104,9 +104,9 @@ PagePL {
 
             LabelPL {
                 id: depTimeHeader
-                width: (headerRow.width / 6)
+                width: headerRow.width / 6
                 horizontalAlignment: Text.AlignLeft
-                text: app.tr("Time")
+                text: app.tr("  Time")
             }
 
             LabelPL {
@@ -127,7 +127,7 @@ PagePL {
                 id: trackItem
                 width: headerRow.width / 6
                 horizontalAlignment: Text.AlignRight
-                text: app.tr("Track ")
+                text: app.tr("Track  ")
             }
 
         }        
@@ -149,36 +149,34 @@ PagePL {
                     Row {
                         id: row
                         height: Math.max(depTimeItem.height, nameItem.height, directionItem.height, trackItem.height) + 10
-                        width: page.width
-
-                        property real itemWidth: page.width / 4
+                        width: parent.width
 
                         LabelPL {
                             id: depTimeItem
-                            width: row.itemWidth
+                            width: row.width / 6
                             horizontalAlignment: Text.AlignLeft
-                            text: model['dep_time_hh'] + ":" + model['dep_time_mm']
+                            text: "  " + model['dep_time_hh'] + ":" + model['dep_time_mm']
                         }
 
                         LabelPL {
                             id: nameItem
-                            width: row.itemWidth
+                            width: row.width / 6
                             horizontalAlignment: Text.AlignLeft
                             text: model['type'] + " " + model['name']
                         }
 
                         LabelPL {
                             id: directionItem
-                            width: row.itemWidth + styler.themePaddingMedium
+                            width: row.width / 2
                             horizontalAlignment: Text.AlignLeft
                             text: model['destination']
                         }
 
                         LabelPL {
                             id: trackItem
-                            width: row.itemWidth - styler.themePaddingMedium
+                            width: row.width / 6
                             horizontalAlignment: Text.AlignRight
-                            text: model['track'] + "   "
+                            text: model['track'] + "  "
                         }
 
                     }
@@ -202,36 +200,34 @@ PagePL {
                             Row {
                                 id: infoRow
                                 height: Math.max(infoDepTimeItem.height, infoNameItem.height, infoDirectionItem.height, infoTrackItem.height) + 10
-                                width: page.width
-
-                                property real itemWidth: page.width / 4
+                                width: parent.width
 
                                 LabelPL {
                                     id: infoDepTimeItem
-                                    width: row.itemWidth
+                                    width: infoRow.width / 6
                                     horizontalAlignment: Text.AlignLeft
-                                    text: model['dep_time_hh'] + ":" + model['dep_time_mm']
+                                    text: "  " + model['dep_time_hh'] + ":" + model['dep_time_mm']
                                 }
 
                                 LabelPL {
                                     id: infoNameItem
-                                    width: row.itemWidth
+                                    width: infoRow.width / 6
                                     horizontalAlignment: Text.AlignLeft
                                     text: model['type'] + " " + model['name']
                                 }
 
                                 LabelPL {
                                     id: infoDirectionItem
-                                    width: row.itemWidth + styler.themePaddingMedium
+                                    width: infoRow.width / 2
                                     horizontalAlignment: Text.AlignLeft
                                     text: model['destination']
                                 }
 
                                 LabelPL {
                                     id: infoTrackItem
-                                    width: row.itemWidth - styler.themePaddingMedium
+                                    width: infoRow.width / 6
                                     horizontalAlignment: Text.AlignRight
-                                    text: model['track'] + "   "
+                                    text: model['track'] + "  "
                                 }
 
                             }
