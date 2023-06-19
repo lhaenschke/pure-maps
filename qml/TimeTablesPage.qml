@@ -102,32 +102,30 @@ PagePL {
             width: parent.width
             visible: timetableHeader.text
 
-            property real itemWidth: page.width / 4
-
             LabelPL {
                 id: depTimeHeader
-                width: headerRow.itemWidth
+                width: (headerRow.width / 6)
                 horizontalAlignment: Text.AlignLeft
-                text: app.tr("  Dep. Time")
+                text: app.tr("Time")
             }
 
             LabelPL {
                 id: nameHeader
-                width: headerRow.itemWidth
+                width: headerRow.width / 6
                 horizontalAlignment: Text.AlignLeft
-                text: app.tr(" Type/Name")
+                text: app.tr("Name")
             }
 
             LabelPL {
                 id: directionHeader
-                width: headerRow.itemWidth + styler.themePaddingMedium
+                width: headerRow.width / 2
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("  Direction")
             }
 
             LabelPL {
                 id: trackItem
-                width: headerRow.itemWidth - styler.themePaddingMedium
+                width: headerRow.width / 6
                 horizontalAlignment: Text.AlignRight
                 text: app.tr("Track ")
             }
@@ -254,6 +252,7 @@ PagePL {
                                 var dict = {
                                     "type": type,
                                     "name": name,
+                                    "train_id": id,
                                     "dep_time_hh": "",
                                     "dep_time_mm": "",
                                     "destination": arr[i],
