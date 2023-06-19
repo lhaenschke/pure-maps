@@ -108,7 +108,7 @@ PagePL {
                 id: depTimeHeader
                 width: headerRow.itemWidth
                 horizontalAlignment: Text.AlignLeft
-                text: app.tr("   Dep. Time")
+                text: app.tr("  Dep. Time")
             }
 
             LabelPL {
@@ -122,14 +122,14 @@ PagePL {
                 id: directionHeader
                 width: headerRow.itemWidth + styler.themePaddingMedium
                 horizontalAlignment: Text.AlignLeft
-                text: app.tr(" Direction")
+                text: app.tr("  Direction")
             }
 
             LabelPL {
                 id: trackItem
                 width: headerRow.itemWidth - styler.themePaddingMedium
                 horizontalAlignment: Text.AlignRight
-                text: app.tr("Track   ")
+                text: app.tr("Track ")
             }
 
         }        
@@ -265,7 +265,12 @@ PagePL {
                         }
 
                         function clearInfoModel() {
-                            infoList.model.clear()
+                            py.call("poor.app.timetables.load_destination_informations", [model['train_id'], model['destination'], selectedTime], function(result) {
+                                var arr = result.split('|');
+                                model['dep_time_hh'] = arr[0];
+                                model['dep_time_mm'] = arr[1];
+                                model['track'] = arr[2];
+                            }
                         }
 
                     }

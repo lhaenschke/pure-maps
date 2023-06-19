@@ -74,7 +74,7 @@ class TimetableManager:
             if dest_arr_time is not None:
                 for i in range(len(self.trains)):
                     if self.trains[i].id == train_id:
-                        return "".join((dest_arr_time[6:8], ':', dest_arr_time[8:], '|', dest_track))
+                        return "".join((dest_arr_time[6:8], '|', dest_arr_time[8:], '|', dest_track))
 
     def get_trains(self):
         return [dict(
