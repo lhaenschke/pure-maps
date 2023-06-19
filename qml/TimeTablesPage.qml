@@ -142,10 +142,7 @@ PagePL {
                 id: listItem
                 contentHeight: listColumn.height
                 
-                // property var itemContentHeight: listColumn.height
                 property bool isVisible: false
-                property string nextStopsText: ""
-
 
                 Column {
                     id: listColumn
@@ -196,6 +193,7 @@ PagePL {
                         delegate: ListItemPL {
                             id: infoListItem
                             contentHeight: infoRow.height
+                            width: parent.width
 
                             Row {
                                 id: infoRow
@@ -238,6 +236,10 @@ PagePL {
 
                         model: ListModel {}
 
+                        onClicked: {
+                            console.log('Test');
+                        }
+
                         function fillInfoModel(type, name, next_stops, id) {
                             infoList.model.clear()
 
@@ -252,10 +254,12 @@ PagePL {
                                     "track": ""
                                 };
                                 infoList.model.append(dict);
-                                console.log(dict);
                             }
-                            console.log("Added");
 
+                        }
+
+                        function clearInfoModel() {
+                            infoList.model.clear()
                         }
 
                     }
@@ -271,13 +275,11 @@ PagePL {
 
 
                 onClicked: {
-                    // isVisible = !isVisible;
-                    // nextStopsText = "";
-
-                    console.log('Test');
-                    infoList.fillInfoModel(model['type'], model['name'], model['next_stops'], model['train_id']);
-
+                    isVisible = !isVisible;
+                    
                     if (isVisible) {
+                        infoList.fillInfoModel(model['type'], model['name'], model['next_stops'], model['train_id']);
+
                         // py.call("poor.app.timetables.load_destination_informations", [model['train_id'], model['destination'], selectedTime], function(result) {
                         //     var arr = model['next_stops'].split('|');
                         //     for (var i = 0; i < arr.length; i++) {
@@ -292,8 +294,8 @@ PagePL {
 
                         // });
 
-                        // infoList.fillInfoModel(model['type'], model['name'], model['next_stops'], model['train_id']);
-
+                    } else {
+                        infoList.clearInfoModel();
                     }
 
                 }
