@@ -232,10 +232,10 @@ PagePL {
 
                             }
 
-                        }
+                            onClicked: {
+                                console.log('Test');
+                            }
 
-                        onClicked: {
-                            console.log('Test');
                         }
 
                         model: ListModel {}
@@ -272,7 +272,6 @@ PagePL {
                     }
 
                 }
-
 
                 onClicked: {
                     isVisible = !isVisible;
