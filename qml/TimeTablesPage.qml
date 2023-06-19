@@ -102,13 +102,13 @@ PagePL {
             width: parent.width
             visible: timetableHeader.text
 
-            property real itemWidth: width / 4
+            property real itemWidth: page.width / 4
 
             LabelPL {
                 id: depTimeHeader
                 width: headerRow.itemWidth
                 horizontalAlignment: Text.AlignLeft
-                text: app.tr("  Dep. Time")
+                text: app.tr("Dep. Time")
             }
 
             LabelPL {
@@ -129,7 +129,7 @@ PagePL {
                 id: trackItem
                 width: headerRow.itemWidth - styler.themePaddingMedium
                 horizontalAlignment: Text.AlignRight
-                text: app.tr("Track   ")
+                text: app.tr("Track")
             }
 
         }        
@@ -153,7 +153,7 @@ PagePL {
                         height: Math.max(depTimeItem.height, nameItem.height, directionItem.height, trackItem.height) + 10
                         width: parent.width
 
-                        property real itemWidth: width / 4
+                        property real itemWidth: page.width / 4
 
                         LabelPL {
                             id: depTimeItem
@@ -173,7 +173,7 @@ PagePL {
                             id: directionItem
                             width: row.itemWidth + styler.themePaddingMedium
                             horizontalAlignment: Text.AlignLeft
-                            text: " " + model['destination']
+                            text: model['destination']
                         }
 
                         LabelPL {
@@ -206,7 +206,7 @@ PagePL {
                                 height: Math.max(infoDepTimeItem.height, infoNameItem.height, infoDirectionItem.height, infoTrackItem.height) + 10
                                 width: parent.width
 
-                                property real itemWidth: width / 4
+                                property real itemWidth: page.width / 4
 
                                 LabelPL {
                                     id: infoDepTimeItem
@@ -226,7 +226,7 @@ PagePL {
                                     id: infoDirectionItem
                                     width: row.itemWidth + styler.themePaddingMedium
                                     horizontalAlignment: Text.AlignLeft
-                                    text: " " + model['destination']
+                                    text: model['destination']
                                 }
 
                                 LabelPL {
