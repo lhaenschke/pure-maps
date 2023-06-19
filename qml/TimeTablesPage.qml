@@ -234,10 +234,10 @@ PagePL {
 
                             onClicked: {
                                 console.log(model['train_id'], model['destination'], selectedTime, model['type'], model['name']);
-                                // py.call("poor.app.timetables.load_destination_informations", [infoList.model['train_id'], infoList.model['destination'], selectedTime], function(result) {
-                                //     var arr = result.split('|');
-                                //     console.log(arr[0], arr[1], arr[2]);
-                                // });
+                                py.call("poor.app.timetables.load_destination_informations", [model['train_id'], model['destination'], selectedTime], function(result) {
+                                    var arr = result.split('|');
+                                    console.log(arr[0], arr[1], arr[2]);
+                                });
                             }
 
                         }
