@@ -102,7 +102,7 @@ PagePL {
             width: parent.width
             visible: timetableHeader.text
 
-            property real itemWidth: page.width / 4
+            property real itemWidth: width / 4
 
             LabelPL {
                 id: depTimeHeader
@@ -146,20 +146,20 @@ PagePL {
 
                 Column {
                     id: listColumn
-                    width: parent.width
+                    width: page.width
 
                     Row {
                         id: row
                         height: Math.max(depTimeItem.height, nameItem.height, directionItem.height, trackItem.height) + 10
                         width: parent.width
 
-                        property real itemWidth: page.width / 4
+                        property real itemWidth: width / 4
 
                         LabelPL {
                             id: depTimeItem
                             width: row.itemWidth
                             horizontalAlignment: Text.AlignLeft
-                            text: "   " + model['dep_time_hh'] + ":" + model['dep_time_mm']
+                            text: model['dep_time_hh'] + ":" + model['dep_time_mm']
                         }
 
                         LabelPL {
@@ -173,14 +173,14 @@ PagePL {
                             id: directionItem
                             width: row.itemWidth + styler.themePaddingMedium
                             horizontalAlignment: Text.AlignLeft
-                            text: model['destination']
+                            text: " " + model['destination']
                         }
 
                         LabelPL {
                             id: trackItem
                             width: row.itemWidth - styler.themePaddingMedium
                             horizontalAlignment: Text.AlignRight
-                            text: model['track'] + "   "
+                            text: model['track']
                         }
 
                     }
