@@ -142,7 +142,7 @@ PagePL {
                 id: listItem
                 contentHeight: itemContentHeight
                 
-                property var itemContentHeight: row.height + infoList.height + listSeperator.height
+                property var itemContentHeight: row.height + infoList.height + listSeperator.height + infoLabel.height
                 property bool isVisible: false
                 property string nextStopsText: ""
 
@@ -308,7 +308,7 @@ PagePL {
                 py.call("poor.app.timetables.get_trains", [], function(results) {
                     results.forEach( function (p) { 
                         model.append(p); 
-                        infoList.fillInfoModel(p['type'], p['name'], p['next_stops'], p['train_id']);
+                        listItem.infoList.fillInfoModel(p['type'], p['name'], p['next_stops'], p['train_id']);
                     });
                     searchButton.text = "Search";
                     timetableHeader.text = app.tr('Timetables for ') + Qt.formatDateTime(new Date(), "dd.MM.yyyy") + " at " + selectedTime + ":00";
