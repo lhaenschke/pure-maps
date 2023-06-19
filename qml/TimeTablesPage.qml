@@ -200,6 +200,7 @@ PagePL {
                         id: infoList
                         width: parent.width
                         visible: true
+                        height: model.count * infoRow.height
 
                         delegate: ListItemPL {
                             id: infoListItem
