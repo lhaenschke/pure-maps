@@ -185,6 +185,12 @@ PagePL {
 
                     }
 
+                    ListItemLabel {
+                        color: styler.themeHighlightColor
+                        height: implicitHeight
+                        text: ""
+                    }
+
                     Repeater {
                         id: infoList
                         width: parent.width
@@ -233,7 +239,7 @@ PagePL {
                             }
 
                             onClicked: {
-                                console.log('Test');
+                                clearInfoModel();
                             }
 
                         }
