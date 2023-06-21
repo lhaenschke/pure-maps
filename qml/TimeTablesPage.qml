@@ -44,6 +44,14 @@ PagePL {
             wrapMode: Text.WordWrap
         }
 
+        ListItemLabel {
+            color: styler.themeHighlightColor
+            height: implicitHeight + styler.themePaddingMedium
+            text: app.tr('(The times indicated are timetable times, not real times)')
+            truncMode: truncModes.none
+            verticalAlignment: Text.AlignTop
+            
+
         Spacer {
             height: styler.themePaddingMedium
         }
@@ -150,7 +158,7 @@ PagePL {
                 id: trackItem
                 width: headerRow.width / 6
                 horizontalAlignment: Text.AlignRight
-                text: app.tr("Track  ")
+                text: app.tr("Track   ")
             }
 
         }        
@@ -199,7 +207,7 @@ PagePL {
                             id: trackItem
                             width: row.width / 6
                             horizontalAlignment: Text.AlignRight
-                            text: model['track'] + "    "
+                            text: model['track'] + "     "
                         }
 
                     }
@@ -303,7 +311,7 @@ PagePL {
 
                     Rectangle {
                         id: listSeperator
-                        width: page.width
+                        width: page.width - 15
                         height: 1
                         color: "gray"
                     }
@@ -367,7 +375,7 @@ PagePL {
             color: styler.themeHighlightColor
             height: implicitHeight
             visible: list.model.count > 0
-            text: app.tr('Press on stop to load further information information')
+            text: app.tr('Press on destination to load further informations')
             horizontalAlignment: Text.AlignHCenter
         }
 
