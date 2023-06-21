@@ -206,7 +206,7 @@ PagePL {
                                     id: infoDepTimeItem
                                     width: infoRow.width / 6
                                     horizontalAlignment: Text.AlignLeft
-                                    text: model['dep_time_hh'] + ":" + model['dep_time_mm'] if model['dep_time_hh'] != "" else ""
+                                    text: (model['dep_time_hh'] ? model['dep_time_hh'] + ":" + model['dep_time_mm'] : "")
                                 }
 
                                 LabelPL {
