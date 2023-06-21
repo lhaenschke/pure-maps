@@ -143,7 +143,7 @@ PagePL {
                 id: directionHeader
                 width: headerRow.width / 2
                 horizontalAlignment: Text.AlignLeft
-                text: app.tr("  Direction")
+                text: app.tr("    Direction")
             }
 
             LabelPL {
@@ -192,7 +192,7 @@ PagePL {
                             id: directionItem
                             width: row.width / 2
                             horizontalAlignment: Text.AlignLeft
-                            text: model['destination']
+                            text: "  " + model['destination']
                         }
 
                         LabelPL {
@@ -242,7 +242,7 @@ PagePL {
                                     id: infoDirectionItem
                                     width: infoRow.width / 2
                                     horizontalAlignment: Text.AlignLeft
-                                    text: model['destination']
+                                    text: "  " + model['destination']
                                 }
 
                                 LabelPL {
