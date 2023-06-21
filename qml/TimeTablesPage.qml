@@ -108,6 +108,7 @@ PagePL {
             onCurrentIndexChanged: {
                 var index = filterComboBox.currentIndex;
                 selectedFilter = filterComboBox.values[index];
+                console.log('Changed');
                 list.filterModel();
             }   
         }
@@ -336,7 +337,8 @@ PagePL {
             }
 
             function filterModel() {
-                model.clear();
+                // model.clear();
+                console.log('Test');
 
                 for (var i = 0; i < cacheModel.length; i++) {
                     console.log(cacheModel[i]['type'].toLowerCase());
