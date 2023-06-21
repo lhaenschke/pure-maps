@@ -200,13 +200,13 @@ PagePL {
                             Row {
                                 id: infoRow
                                 height: Math.max(infoDepTimeItem.height, infoNameItem.height, infoDirectionItem.height, infoTrackItem.height) + 10
-                                width: page.width
+                                width: parent.width
 
                                 LabelPL {
                                     id: infoDepTimeItem
                                     width: infoRow.width / 6
                                     horizontalAlignment: Text.AlignLeft
-                                    text: model['dep_time_hh'] + ":" + model['dep_time_mm']
+                                    text: model['dep_time_hh'] + ":" + model['dep_time_mm'] if model['dep_time_hh'] != "" else ""
                                 }
 
                                 LabelPL {
@@ -274,7 +274,7 @@ PagePL {
 
                     Rectangle {
                         id: listSeperator
-                        width: parent.width
+                        width: page.width
                         height: 1
                         color: "gray"
                     }
