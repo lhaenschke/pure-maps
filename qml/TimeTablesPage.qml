@@ -340,12 +340,12 @@ PagePL {
                     results.forEach( function (p) {
                         switch(selectedFilter) {
                         case 1:
-                            if (p['type']toLowerCase().includes('S'.toLowerCase()) || p['type']toLowerCase().includes('R'.toLowerCase())) {
+                            if (p['type'].toLowerCase().includes('S'.toLowerCase()) || p['type'].toLowerCase().includes('R'.toLowerCase())) {
                                 model.append(p); 
                             }
                             break;
                         case 2:
-                            if (!p['type']toLowerCase().includes('S'.toLowerCase()) && !p['type']toLowerCase().includes('R'.toLowerCase())) {
+                            if (!p['type'].toLowerCase().includes('S'.toLowerCase()) && !p['type'].toLowerCase().includes('R'.toLowerCase())) {
                                 model.append(p); 
                             }
                             break;
