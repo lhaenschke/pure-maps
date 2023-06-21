@@ -27,6 +27,7 @@ PagePL {
 
     property var  poi
     property int selectedTime: 0
+    property int selectedFilter: 0
 
     Column {
         id: column
@@ -50,8 +51,7 @@ PagePL {
             label: app.tr("Time-Range")
             model: [ "0:00", "1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00", "8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00" ]
             property var values: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23 ]
-            currentIndex: 3
-            checkable: true
+            currentIndex: 0
             Component.onCompleted: {
                 selectedTime = parseInt(Qt.formatTime(new Date(),"hh"))
                 timeRangeComboBox.currentIndex = timeRangeComboBox.values.indexOf(selectedTime);
@@ -96,6 +96,25 @@ PagePL {
             height: implicitHeight
             text: ""
         }
+
+        ComboBoxPL {
+            id: filterComboBox
+            label: app.tr("Filter")
+            model: [ app.tr("Any"), app.tr("Only Reginoal Trains"), app.tr("Only Long-distance Trains") ]
+            property var values: [ 0, 1, 2 ]
+            currentIndex: 0
+            onCurrentIndexChanged: {
+                var index = filterComboBox.currentIndex;
+                selectedFilter = filterComboBox.values[index];
+            }   
+        }
+
+        ListItemLabel {
+            color: styler.themeHighlightColor
+            height: implicitHeight
+            text: ""
+        }
+
 
         Row {
             id: headerRow
@@ -323,56 +342,5 @@ PagePL {
         }
 
     }
-
-    // ComboBox {
-    //     id: comboboxId
-    //     width: parent.width / 2
-    //     height: 50
-    //     model: ListModel {
-    //         ListElement { name: "One"; fill: "red"; ischecked: true }
-    //         ListElement { name: "Two"; fill: "green"; ischecked: false }
-    //         ListElement { name: "Three"; fill: "blue"; ischecked: false }
-    //     }
-    //     delegate: Item {
-    //         width: parent.width
-    //         height: 50
-    //         Row {
-    //             spacing: 5
-    //             anchors.fill: parent
-    //             anchors.margins: 5
-    //             Label {
-    //                 text: name
-    //                 width: parent.width - checkboxId.width
-    //                 height: parent.height
-    //                 verticalAlignment: Qt.AlignVCenter
-    //                 horizontalAlignment: Qt.AlignHCenter
-    //             }
-    //         }
-    //     }
-    // }
-
-    // ListModel {
-    //     id: listmodelId
-    // }
-
-    // ListView {
-    //     width: parent.width / 2
-    //     height: parent.height
-    //     anchors.left: comboboxId.right
-    //     model: listmodelId
-    //     delegate: Item {
-    //         height: 50
-    //         width: parent.width
-    //         Rectangle {
-    //             anchors.fill: parent
-    //             color: fill
-    //             Text {
-    //                 anchors.centerIn: parent
-    //                 text: name
-    //             }
-    //         }
-    //     }
-    //     onCountChanged: console.log(count)
-    // }
 
 }
