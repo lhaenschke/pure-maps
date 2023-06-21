@@ -98,44 +98,6 @@ PagePL {
             text: ""
         }
 
-        // Row {
-        //     id: filterRow
-        //     height: filterReapeter.height
-            
-        //     Repeater {
-        //         id: filterReapeter
-        //         width: page.width
-        //         model: 10
-
-        //         CheckBox {
-        //             checked: true
-        //             text: app.tr('Test')
-        //         }
-        //     }
-        // }
-
-        ScrollView {
-            contentWidth: availableWidth
-            ScrollBar.vertical.policy: ScrollBar.AlwaysOn
-            ScrollBar.vertical.interactive: true
-            
-            Row {
-                visible: list.model.count > 0
-                Rectangle { width: 10; height: 20; color: "red" }
-                Repeater {
-                    model: 40
-                    Rectangle { width: 20; height: 20; radius: 10; color: "green" }
-                }
-                Rectangle { width: 10; height: 20; color: "blue" }
-            }
-        }
-
-        ListItemLabel {
-            color: styler.themeHighlightColor
-            height: implicitHeight
-            text: ""
-        }
-
         ComboBoxPL {
             id: filterComboBox
             label: app.tr("Filter")
@@ -364,7 +326,22 @@ PagePL {
             function fillModel() {
                 model.clear();
                 py.call("poor.app.timetables.get_trains", [], function(results) {
-                    results.forEach( function (p) { model.append(p); });
+                    results.forEach( function (p) { 
+                        switch(selectedFilter) {
+                            case 1:
+                                if (p['type'] != "ICE" && p['type'] != "IC" && p['type'] != "THA") {
+                                    model.append(p); 
+                                }
+                                break;
+                            case 2:
+                                if (p['type'] == "ICE" || p['type'] == "IC" || p['type'] == "THA") {
+                                    model.append(p); 
+                                }
+                                break;
+                            default:
+                                model.append(p);
+                            }
+                    });
                     searchButton.text = "Search";
                     timetableHeader.text = app.tr('Timetables for ') + Qt.formatDateTime(new Date(), "dd.MM.yyyy") + " at " + selectedTime + ":00";
                 });
