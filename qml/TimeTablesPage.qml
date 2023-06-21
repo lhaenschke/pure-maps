@@ -353,7 +353,7 @@ PagePL {
                             model.append(p);
                     }
                     });
-                }
+                });
             }
             
         }
