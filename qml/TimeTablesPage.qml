@@ -108,6 +108,7 @@ PagePL {
             onCurrentIndexChanged: {
                 var index = filterComboBox.currentIndex;
                 selectedFilter = filterComboBox.values[index];
+                list.filterModel();
             }   
         }
 
@@ -322,28 +323,35 @@ PagePL {
             }
 
             model: ListModel {}
+            property var cacheModel: ListModel {}
 
             function fillModel() {
                 model.clear();
                 py.call("poor.app.timetables.get_trains", [], function(results) {
-                    results.forEach( function (p) { 
-                        switch(selectedFilter) {
-                            case 1:
-                                if (p['type'] != "ICE" && p['type'] != "IC" && p['type'] != "THA") {
-                                    model.append(p); 
-                                }
-                                break;
-                            case 2:
-                                if (p['type'] == "ICE" || p['type'] == "IC" || p['type'] == "THA") {
-                                    model.append(p); 
-                                }
-                                break;
-                            default:
-                                model.append(p);
-                            }
-                    });
+                    results.forEach( function (p) { model.append(p); });
+                    cacheModel = model;
                     searchButton.text = "Search";
                     timetableHeader.text = app.tr('Timetables for ') + Qt.formatDateTime(new Date(), "dd.MM.yyyy") + " at " + selectedTime + ":00";
+                });
+            }
+
+            function filterModel() {
+                model.clear()
+                cacheModel.forEach( function (p) {
+                    switch(selectedFilter) {
+                        case 1:
+                            if (p['type'] != "ICE" && p['type'] != "IC") {
+                                model.append(p); 
+                            }
+                            break;
+                        case 2:
+                            if (p['type'] == "ICE" || p['type'] == "IC") {
+                                model.append(p); 
+                            }
+                            break;
+                        default:
+                            model.append(p);
+                    }
                 });
             }
             
