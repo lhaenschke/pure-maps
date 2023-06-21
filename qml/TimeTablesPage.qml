@@ -274,7 +274,7 @@ PagePL {
 
                     Rectangle {
                         id: listSeperator
-                        width: page.width
+                        width: parent.width
                         height: 1
                         color: "gray"
                     }
