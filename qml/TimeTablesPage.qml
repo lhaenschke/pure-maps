@@ -113,7 +113,7 @@ PagePL {
                 id: nameHeader
                 width: headerRow.width / 6
                 horizontalAlignment: Text.AlignLeft
-                text: app.tr("    Name")
+                text: app.tr("   Name")
             }
 
             LabelPL {
@@ -162,7 +162,7 @@ PagePL {
                             id: nameItem
                             width: row.width / 6
                             horizontalAlignment: Text.AlignLeft
-                            text: "  " + model['type'] + " " + model['name']
+                            text: " " + model['type'] + " " + model['name']
                         }
 
                         LabelPL {
