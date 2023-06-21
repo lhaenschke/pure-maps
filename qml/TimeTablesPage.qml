@@ -327,6 +327,7 @@ PagePL {
 
             function fillModel() {
                 model.clear();
+                cacheModel.clear();
                 py.call("poor.app.timetables.get_trains", [], function(results) {
                     results.forEach( function (p) { model.append(p); cacheModel.append(p); });
                     searchButton.text = "Search";
@@ -335,23 +336,28 @@ PagePL {
             }
 
             function filterModel() {
-                model.clear()
-                cacheModel.forEach( function (p) {
-                    switch(selectedFilter) {
-                        case 1:
-                            if (p['type'] != "ICE" && p['type'] != "IC") {
-                                model.append(p); 
-                            }
-                            break;
-                        case 2:
-                            if (p['type'] == "ICE" || p['type'] == "IC") {
-                                model.append(p); 
-                            }
-                            break;
-                        default:
-                            model.append(p);
-                    }
-                });
+                model.clear();
+
+                for (var i = 0; i < cacheModel.length; i++) {
+                    console.log(cacheModel[i]['type'].toLowerCase());
+                }
+
+                // cacheModel.forEach( function (p) {
+                //     switch(selectedFilter) {
+                //         case 1:
+                //             if (p['type']toLowerCase().includes('S'.toLowerCase()) || p['type']toLowerCase().includes('R'.toLowerCase())) {
+                //                 model.append(p); 
+                //             }
+                //             break;
+                //         case 2:
+                //             if (!p['type']toLowerCase().includes('S'.toLowerCase()) && !p['type']toLowerCase().includes('R'.toLowerCase())) {
+                //                 model.append(p); 
+                //             }
+                //             break;
+                //         default:
+                //             model.append(p);
+                //     }
+                // });
             }
             
         }
