@@ -115,6 +115,10 @@ PagePL {
         // }
 
         ScrollView {
+            contentWidth: availableWidth
+            ScrollBar.vertical.policy: ScrollBar.AlwaysOn
+            ScrollBar.vertical.interactive: true
+            
             Row {
                 visible: list.model.count > 0
                 Rectangle { width: 10; height: 20; color: "red" }
@@ -124,6 +128,12 @@ PagePL {
                 }
                 Rectangle { width: 10; height: 20; color: "blue" }
             }
+        }
+
+        ListItemLabel {
+            color: styler.themeHighlightColor
+            height: implicitHeight
+            text: ""
         }
 
         ComboBoxPL {
