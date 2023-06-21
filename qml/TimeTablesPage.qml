@@ -329,7 +329,7 @@ PagePL {
                 model.clear();
                 cacheModel.clear();
                 py.call("poor.app.timetables.get_trains", [], function(results) {
-                    results.forEach( function (p) { model.append(p); cacheModel.append(p); });
+                    results.forEach( function (p) { model.append(p); cacheModel.append(JSON.parse(JSON.stringify(model))) });
                     searchButton.text = "Search";
                     timetableHeader.text = app.tr('Timetables for ') + Qt.formatDateTime(new Date(), "dd.MM.yyyy") + " at " + selectedTime + ":00";
                 });
@@ -338,6 +338,9 @@ PagePL {
             function filterModel() {
                 // model.clear();
                 console.log('Test');
+                console.log(model);
+                console.log(cacheModel);
+                console.log(cacheModel.length);
 
                 for (var i = 0; i < cacheModel.length; i++) {
                     console.log('Test');
