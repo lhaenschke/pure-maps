@@ -26,7 +26,8 @@ PagePL {
     id: page
     title: app.tr("Timetables for ") + poi.title
 
-    property var  poi
+    property var poi
+    property var cacheModel: ListModel {}
     property int selectedTime: 0
     property int selectedFilter: 0
 
@@ -323,13 +324,12 @@ PagePL {
             }
 
             model: ListModel {}
-            property var cacheModel: ListModel {}
 
             function fillModel() {
                 model.clear();
                 cacheModel.clear();
                 py.call("poor.app.timetables.get_trains", [], function(results) {
-                    results.forEach( function (p) { model.append(p); cacheModel.append(JSON.parse(JSON.stringify(model))) });
+                    results.forEach( function (p) { model.append(p); cacheModel.append(p)) });
                     searchButton.text = "Search";
                     timetableHeader.text = app.tr('Timetables for ') + Qt.formatDateTime(new Date(), "dd.MM.yyyy") + " at " + selectedTime + ":00";
                 });
