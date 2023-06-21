@@ -316,7 +316,7 @@ PagePL {
         ListItemLabel {
             color: styler.themeHighlightColor
             height: implicitHeight
-            visible: column.list.isVisible
+            visible: list.model.count > 0
             text: app.tr('Press on stop to load further information information')
             horizontalAlignment: Text.AlignHCenter
         }
