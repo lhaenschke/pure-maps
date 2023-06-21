@@ -200,7 +200,7 @@ PagePL {
                             Row {
                                 id: infoRow
                                 height: Math.max(infoDepTimeItem.height, infoNameItem.height, infoDirectionItem.height, infoTrackItem.height) + 10
-                                width: parent.width
+                                width: page.width
 
                                 LabelPL {
                                     id: infoDepTimeItem
