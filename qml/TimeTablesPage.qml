@@ -27,7 +27,6 @@ PagePL {
     title: app.tr("Timetables for ") + poi.title
 
     property var poi
-    property var cacheModel: ListModel {}
     property int selectedTime: 0
     property int selectedFilter: 0
 
@@ -336,33 +335,25 @@ PagePL {
             }
 
             function filterModel() {
-                // model.clear();
-                console.log('Test');
-                console.log(model);
-                console.log(cacheModel);
-                console.log(cacheModel.length);
-
-                for (var i = 0; i < cacheModel.length; i++) {
-                    console.log('Test');
-                    // console.log(cacheModel[i]['type'].toLowerCase());
+                model.clear();
+                py.call("poor.app.timetables.get_trains", [], function(results) {
+                    results.forEach( function (p) {
+                        switch(selectedFilter) {
+                        case 1:
+                            if (p['type']toLowerCase().includes('S'.toLowerCase()) || p['type']toLowerCase().includes('R'.toLowerCase())) {
+                                model.append(p); 
+                            }
+                            break;
+                        case 2:
+                            if (!p['type']toLowerCase().includes('S'.toLowerCase()) && !p['type']toLowerCase().includes('R'.toLowerCase())) {
+                                model.append(p); 
+                            }
+                            break;
+                        default:
+                            model.append(p);
+                    }
+                    });
                 }
-
-                // cacheModel.forEach( function (p) {
-                //     switch(selectedFilter) {
-                //         case 1:
-                //             if (p['type']toLowerCase().includes('S'.toLowerCase()) || p['type']toLowerCase().includes('R'.toLowerCase())) {
-                //                 model.append(p); 
-                //             }
-                //             break;
-                //         case 2:
-                //             if (!p['type']toLowerCase().includes('S'.toLowerCase()) && !p['type']toLowerCase().includes('R'.toLowerCase())) {
-                //                 model.append(p); 
-                //             }
-                //             break;
-                //         default:
-                //             model.append(p);
-                //     }
-                // });
             }
             
         }
