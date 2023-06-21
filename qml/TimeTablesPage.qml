@@ -117,24 +117,14 @@ PagePL {
             
             Repeater {
                 id: filterReapeter
+                width: page.width
                 model: 3
+
                 CheckBox {
                     checked: true
                     text: app.tr('Test')
                 }
             }
-        }
-
-        Repeater {
-            id: filterReapeter
-            width: page.width
-
-            delegate: ListItemPL {
-                
-            }
-
-
-
         }
 
         ListItemLabel {
