@@ -206,7 +206,7 @@ PagePL {
                                     id: infoDepTimeItem
                                     width: infoRow.width / 6
                                     horizontalAlignment: Text.AlignLeft
-                                    text: "  " + model['dep_time_hh'] + ":" + model['dep_time_mm']
+                                    text: model['dep_time_hh'] + ":" + model['dep_time_mm']
                                 }
 
                                 LabelPL {
@@ -233,13 +233,14 @@ PagePL {
                             }
 
                             onClicked: {
-                                console.log(model['train_id'], model['destination'], selectedTime, model['type'], model['name']);
-                                py.call("poor.app.timetables.load_destination_informations", [model['train_id'], model['destination'], selectedTime], function(result) {
-                                    var arr = result.split('|');
-                                    console.log(arr[0], arr[1], arr[2]);
-                                    model['dep_time_hh'] = arr[0];
-                                    model['dep_time_mm'] = arr[1];
-                                });
+                                if (model['dep_time_hh'] == "") {
+                                    py.call("poor.app.timetables.load_destination_informations", [model['train_id'], model['destination'], selectedTime], function(result) {
+                                        var arr = result.split('|');
+                                        model['dep_time_hh'] = arr[0];
+                                        model['dep_time_mm'] = arr[1];
+                                        model['track'] = arr[2];
+                                    });
+                                }
                             }
 
                         }
