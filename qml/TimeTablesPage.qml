@@ -106,14 +106,14 @@ PagePL {
                 id: depTimeHeader
                 width: headerRow.width / 6
                 horizontalAlignment: Text.AlignLeft
-                text: app.tr("  Time")
+                text: app.tr("    Time")
             }
 
             LabelPL {
                 id: nameHeader
                 width: headerRow.width / 6
                 horizontalAlignment: Text.AlignLeft
-                text: app.tr("  Name")
+                text: app.tr("    Name")
             }
 
             LabelPL {
@@ -155,14 +155,14 @@ PagePL {
                             id: depTimeItem
                             width: row.width / 6
                             horizontalAlignment: Text.AlignLeft
-                            text: model['dep_time_hh'] + ":" + model['dep_time_mm']
+                            text: "  " + model['dep_time_hh'] + ":" + model['dep_time_mm']
                         }
 
                         LabelPL {
                             id: nameItem
                             width: row.width / 6
                             horizontalAlignment: Text.AlignLeft
-                            text: model['type'] + " " + model['name']
+                            text: "  " + model['type'] + " " + model['name']
                         }
 
                         LabelPL {
@@ -227,7 +227,7 @@ PagePL {
                                     id: infoTrackItem
                                     width: infoRow.width / 6
                                     horizontalAlignment: Text.AlignRight
-                                    text: model['track'] + "  "
+                                    text: model['track'] + " "
                                 }
 
                             }
