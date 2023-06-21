@@ -18,7 +18,6 @@
 
 import QtQuick 2.0
 import QtPositioning 5.4
-// import QtQuick.Controls 2.15
 import "."
 import "platform"
 
@@ -50,7 +49,7 @@ PagePL {
             text: app.tr('(The times indicated are timetable times, not real times)')
             truncMode: truncModes.none
             verticalAlignment: Text.AlignTop
-            
+        } 
 
         Spacer {
             height: styler.themePaddingMedium
