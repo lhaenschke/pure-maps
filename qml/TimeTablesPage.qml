@@ -29,6 +29,7 @@ PagePL {
     property var poi
     property int selectedTime: 0
     property int selectedFilter: 0
+    property bool showFilterSelector: false
 
     Column {
         id: column
@@ -103,7 +104,7 @@ PagePL {
             label: app.tr("Filter")
             model: [ app.tr("Any"), app.tr("Only Reginoal Trains"), app.tr("Only Long-distance Trains") ]
             property var values: [ 0, 1, 2 ]
-            visible: list.model.count > 0
+            visible: showFilterSelector
             currentIndex: 0
             onCurrentIndexChanged: {
                 var index = filterComboBox.currentIndex;
@@ -328,6 +329,11 @@ PagePL {
                 model.clear();
                 py.call("poor.app.timetables.get_trains", [], function(results) {
                     results.forEach( function (p) { model.append(p); });
+                    if (model.count > 0) {
+                        showFilterSelector = true;
+                    } else {
+                        showFilterSelector = false;
+                    }}
                     searchButton.text = "Search";
                     timetableHeader.text = app.tr('Timetables for ') + Qt.formatDateTime(new Date(), "dd.MM.yyyy") + " at " + selectedTime + ":00";
                 });
