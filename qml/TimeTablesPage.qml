@@ -326,9 +326,8 @@ PagePL {
 
             function fillModel() {
                 model.clear();
-                cacheModel.clear();
                 py.call("poor.app.timetables.get_trains", [], function(results) {
-                    results.forEach( function (p) { model.append(p); cacheModel.append(p); });
+                    results.forEach( function (p) { model.append(p); });
                     searchButton.text = "Search";
                     timetableHeader.text = app.tr('Timetables for ') + Qt.formatDateTime(new Date(), "dd.MM.yyyy") + " at " + selectedTime + ":00";
                 });
