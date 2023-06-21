@@ -18,6 +18,7 @@
 
 import QtQuick 2.0
 import QtPositioning 5.4
+import QtQuick.Controls 2.15
 import "."
 import "platform"
 
@@ -108,6 +109,11 @@ PagePL {
                 var index = filterComboBox.currentIndex;
                 selectedFilter = filterComboBox.values[index];
             }   
+        }
+
+        CheckBox {
+            checked: true
+            text: app.tr('Test')
         }
 
         ListItemLabel {
