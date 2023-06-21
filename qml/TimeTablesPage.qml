@@ -102,6 +102,7 @@ PagePL {
             label: app.tr("Filter")
             model: [ app.tr("Any"), app.tr("Only Reginoal Trains"), app.tr("Only Long-distance Trains") ]
             property var values: [ 0, 1, 2 ]
+            visible: list.model.count > 0
             currentIndex: 0
             onCurrentIndexChanged: {
                 var index = filterComboBox.currentIndex;
