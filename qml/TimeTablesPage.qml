@@ -333,7 +333,7 @@ PagePL {
                         showFilterSelector = true;
                     } else {
                         showFilterSelector = false;
-                    }}
+                    }
                     searchButton.text = "Search";
                     timetableHeader.text = app.tr('Timetables for ') + Qt.formatDateTime(new Date(), "dd.MM.yyyy") + " at " + selectedTime + ":00";
                 });
