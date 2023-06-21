@@ -46,7 +46,7 @@ PagePL {
         ListItemLabel {
             color: styler.themeHighlightColor
             height: implicitHeight + styler.themePaddingMedium
-            text: app.tr('(The times indicated are timetable times, not real times)')
+            text: app.tr('The times indicated are timetable times, not real-time')
             truncMode: truncModes.none
             verticalAlignment: Text.AlignTop
         } 
@@ -310,7 +310,7 @@ PagePL {
 
                     Rectangle {
                         id: listSeperator
-                        width: page.width - 15
+                        width: page.width - 20
                         height: 1
                         color: "gray"
                     }
