@@ -363,19 +363,16 @@ PagePL {
             height: 50
             Row {
                 spacing: 5
-                anchors.fill: parent
-                anchors.margins: 5
                 CheckBox {
                     id: checkboxId
                     height: parent.height
                     width: height
                     onPressed: checked = !checked
-                    // onCheckedChanged: {
-                    //     if(checked)
-                    //     {
-                    //         listmodelId.append({ "name": name, "fill": fill })
-                    //     }
-                    // }
+                    onCheckedChanged: {
+                        if(checked) {
+                            model.append({ "name": name, "fill": fill })
+                        }
+                    }
                 }
                 Label {
                     text: name
@@ -392,24 +389,24 @@ PagePL {
     //     id: listmodelId
     // }
 
-    // ListView {
-    //     width: parent.width / 2
-    //     height: parent.height
-    //     anchors.left: comboboxId.right
-    //     model: listmodelId
-    //     delegate: Item {
-    //         height: 50
-    //         width: parent.width
-    //         Rectangle {
-    //             anchors.fill: parent
-    //             color: fill
-    //             Text {
-    //                 anchors.centerIn: parent
-    //                 text: name
-    //             }
-    //         }
-    //     }
-    //     onCountChanged: console.log(count)
-    // }
+    ListView {
+        width: parent.width / 2
+        height: parent.height
+        anchors.left: comboboxId.right
+        model: listmodelId
+        delegate: Item {
+            height: 50
+            width: parent.width
+            Rectangle {
+                anchors.fill: parent
+                color: fill
+                Text {
+                    anchors.centerIn: parent
+                    text: name
+                }
+            }
+        }
+        onCountChanged: console.log(count)
+    }
 
 }
