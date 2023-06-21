@@ -143,7 +143,7 @@ PagePL {
                 id: directionHeader
                 width: headerRow.width / 2
                 horizontalAlignment: Text.AlignLeft
-                text: app.tr("    Direction")
+                text: app.tr("     Direction")
             }
 
             LabelPL {
@@ -199,7 +199,7 @@ PagePL {
                             id: trackItem
                             width: row.width / 6
                             horizontalAlignment: Text.AlignRight
-                            text: model['track'] + "    "
+                            text: model['track'] + "     "
                         }
 
                     }
@@ -249,7 +249,7 @@ PagePL {
                                     id: infoTrackItem
                                     width: infoRow.width / 6
                                     horizontalAlignment: Text.AlignRight
-                                    text: model['track'] + " "
+                                    text: model['track'] + "  "
                                 }
 
                             }
