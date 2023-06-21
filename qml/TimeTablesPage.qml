@@ -108,7 +108,6 @@ PagePL {
             onCurrentIndexChanged: {
                 var index = filterComboBox.currentIndex;
                 selectedFilter = filterComboBox.values[index];
-                console.log('Changed');
                 list.filterModel();
             }   
         }
@@ -341,7 +340,8 @@ PagePL {
                 console.log('Test');
 
                 for (var i = 0; i < cacheModel.length; i++) {
-                    console.log(cacheModel[i]['type'].toLowerCase());
+                    console.log('Test');
+                    // console.log(cacheModel[i]['type'].toLowerCase());
                 }
 
                 // cacheModel.forEach( function (p) {
