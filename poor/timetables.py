@@ -39,9 +39,15 @@ class TimetableManager:
         self.trains = []
 
     def search(self, latitude: str, longitude: str, hour: int):
-        eva_number = self.__get_eva_number_coor__(latitude, longitude)
+        (status, eva_number) = self.__get_eva_number_coor__(latitude, longitude)
+        if status != 200:
+            return
         
-        xml_root = ET.fromstring(self.__get_timetable_str(eva_number, hour))
+        (status, timetable_xml_string) = self.__get_timetable_str(eva_number, hour)
+        if status != 200:
+            return
+
+        xml_root = ET.fromstring(timetable_xml_string)
         self.trains = []
 
         for train in xml_root.iter('s'):
@@ -68,7 +74,6 @@ class TimetableManager:
         self.trains = sorted(self.trains, key=lambda x: x.dep_time)
 
     def load_destination_informations(self, train_id: str, dest_name: str, hour: int):
-        print(train_id, dest_name, hour)
         (dest_arr_time, dest_track) = (None, "")
         for i in range(3):
             (dest_arr_time, dest_track) = self.__get_time_from_destination__(train_id, dest_name, hour + i)    
@@ -91,9 +96,15 @@ class TimetableManager:
 
 
     def __get_time_from_destination__(self, train_id: str, dest_name: str, min_hour: int) -> str:
-        eva_number = self.__get_eva_number_dest_name__(dest_name)
+        (status, eva_number) = self.__get_eva_number_dest_name__(dest_name)
+        if status != 200:
+            return (None, "")
+
+        (status, timetable_xml_str) = self.__get_timetable_str(eva_number, min_hour)
+        if status != 200:
+            return (None, "")
         
-        xml_root = ET.fromstring(self.__get_timetable_str(eva_number, min_hour))
+        xml_root = ET.fromstring(timetable_xml_str)
         for train in xml_root.iter('s'):
             if train.attrib.get('id')[:30] == train_id[:30]:
                 return (train.find('ar').attrib.get('pt'), train.find('dp').attrib.get('pp') if train.find('dp') != None else train.find('ar').attrib.get('pp'))
@@ -121,7 +132,7 @@ class TimetableManager:
         data = res.read()
         json_data = json.loads(data.decode('utf-8'))
 
-        return json_data['stopPlaces'][0]['evaNumber']
+        return (res.status, json_data['stopPlaces'][0]['evaNumber'])
 
     def __get_eva_number_dest_name__(self, dest_name: str) -> str:
         conn = http.client.HTTPSConnection("apis.deutschebahn.com")
@@ -140,7 +151,7 @@ class TimetableManager:
         data = res.read()
         json_data = json.loads(data.decode('utf-8'))
 
-        return json_data['stopPlaces'][0]['evaNumber']
+        return (res.status, json_data['stopPlaces'][0]['evaNumber'])
 
     def __get_timetable_str(self, eva_number: str, hour: int) -> str:
         conn = http.client.HTTPSConnection("apis.deutschebahn.com")
@@ -154,13 +165,13 @@ class TimetableManager:
             "/db-api-marketplace/apis/timetables/v1/plan/",
             "{}/".format(eva_number),
             "{}/".format(datetime.today().strftime('%Y%m%d')[2:]),
-            "{}".format(hour),
+            "{:02d}".format(hour),
         )), "", headers)
 
         res = conn.getresponse()
         data = res.read()
 
-        return data.decode("utf-8")
+        return (res.status, data.decode("utf-8"))
 
 class Traininformation:
 
