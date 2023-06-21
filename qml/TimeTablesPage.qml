@@ -127,14 +127,14 @@ PagePL {
 
             LabelPL {
                 id: depTimeHeader
-                width: headerRow.width / 6
+                width: headerRow.width / 7
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("    Time")
             }
 
             LabelPL {
                 id: nameHeader
-                width: headerRow.width / 6
+                width: headerRow.width / 5
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("   Name")
             }
@@ -176,14 +176,14 @@ PagePL {
 
                         LabelPL {
                             id: depTimeItem
-                            width: row.width / 6
+                            width: row.width / 7
                             horizontalAlignment: Text.AlignLeft
                             text: "  " + model['dep_time_hh'] + ":" + model['dep_time_mm']
                         }
 
                         LabelPL {
                             id: nameItem
-                            width: row.width / 6
+                            width: row.width / 5
                             horizontalAlignment: Text.AlignLeft
                             text: " " + model['type'] + " " + model['name']
                         }
@@ -226,14 +226,14 @@ PagePL {
 
                                 LabelPL {
                                     id: infoDepTimeItem
-                                    width: infoRow.width / 6
+                                    width: infoRow.width / 7
                                     horizontalAlignment: Text.AlignLeft
                                     text: (model['dep_time_hh'] ? model['dep_time_hh'] + ":" + model['dep_time_mm'] : "")
                                 }
 
                                 LabelPL {
                                     id: infoNameItem
-                                    width: infoRow.width / 6
+                                    width: infoRow.width / 5
                                     horizontalAlignment: Text.AlignLeft
                                     text: model['type'] + " " + model['name']
                                 }
