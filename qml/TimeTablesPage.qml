@@ -275,7 +275,7 @@ PagePL {
                         color: styler.themeHighlightColor
                         height: implicitHeight
                         text: ""
-                        visible: 
+                        visible: true
                     }
 
                     Rectangle {
@@ -316,6 +316,7 @@ PagePL {
         ListItemLabel {
             color: styler.themeHighlightColor
             height: implicitHeight
+            visible: list.isVisible
             text: app.tr('Press on stop to load further information information')
             horizontalAlignment: Text.AlignHCenter
         }
