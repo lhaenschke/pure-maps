@@ -190,7 +190,6 @@ PagePL {
                     Repeater {
                         id: infoList
                         width: page.width
-                        visible: true
 
                         delegate: ListItemPL {
                             id: infoListItem
@@ -272,6 +271,13 @@ PagePL {
 
                     }
 
+                    ListItemLabel {
+                        color: styler.themeHighlightColor
+                        height: implicitHeight
+                        text: ""
+                        visible: 
+                    }
+
                     Rectangle {
                         id: listSeperator
                         width: page.width
@@ -286,21 +292,6 @@ PagePL {
                     
                     if (isVisible) {
                         infoList.fillInfoModel(model['type'], model['name'], model['next_stops'], model['train_id']);
-
-                        // py.call("poor.app.timetables.load_destination_informations", [model['train_id'], model['destination'], selectedTime], function(result) {
-                        //     var arr = model['next_stops'].split('|');
-                        //     for (var i = 0; i < arr.length; i++) {
-                        //         if (i !== arr.length - 1) {
-                        //             arr[i] = arr [i] + '\n';
-                        //         }
-                        //         nextStopsText += arr[i];
-                        //     }
-                            
-                        //     var arr = result.split('|');
-                        //     nextStopsText += " at " + arr[0] + app.tr(' on track ') + arr[1];
-
-                        // });
-
                     } else {
                         infoList.clearInfoModel();
                     }
@@ -320,6 +311,13 @@ PagePL {
                 });
             }
             
+        }
+
+        ListItemLabel {
+            color: styler.themeHighlightColor
+            height: implicitHeight
+            text: app.tr('Press on stop to load further information information')
+            horizontalAlignment: Text.AlignHCenter
         }
 
     }
