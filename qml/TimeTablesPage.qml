@@ -353,6 +353,9 @@ PagePL {
             ListElement { name: "Two"; fill: "green"; ischecked: false }
             ListElement { name: "Three"; fill: "blue"; ischecked: false }
         }
+
+        property bool checked: false
+
         delegate: Item {
             width: parent.width
             height: 50
@@ -360,25 +363,20 @@ PagePL {
                 spacing: 5
                 anchors.fill: parent
                 anchors.margins: 5
-                CheckBox {
-                    id: checkboxId
-                    height: parent.height
-                    width: height
-                    onPressed: checked = !checked
-                    onCheckedChanged: {
-                        if(checked)
-                        {
-                            listmodelId.append({ "name": name, "fill": fill })
-                        }
-                    }
-                }
                 LabelPL {
                     text: name
-                    width: parent.width - checkboxId.width
+                    width: parent.width
                     height: parent.height
                     verticalAlignment: Qt.AlignVCenter
                     horizontalAlignment: Qt.AlignHCenter
                 }
+                onPressed: checked = !checked
+                // onCheckedChanged: {
+                //     if(checked)
+                //     {
+                //         listmodelId.append({ "name": name, "fill": fill })
+                //     }
+                // }
             }
         }
     }
