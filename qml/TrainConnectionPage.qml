@@ -26,6 +26,7 @@ PagePL {
     title: app.tr("Timetables for ") + poi.title
 
     property var poi
+    property var showResults: false
 
     Column {
         id: column
@@ -45,7 +46,7 @@ PagePL {
             placeholderText: app.tr("Search Target")
             property string prevText: ""
             onTextChanged: {
-                var newText = searchField.text.trim().toLowerCase();
+                var newText = searchField.text.trim();
                 console.log(newText);
             }
 
@@ -57,6 +58,7 @@ PagePL {
             height: implicitHeight + styler.themePaddingMedium
             text: app.tr('The times indicated are timetable times, not real-time')
             truncMode: truncModes.none
+            visible: showResults
             verticalAlignment: Text.AlignTop
         } 
 
