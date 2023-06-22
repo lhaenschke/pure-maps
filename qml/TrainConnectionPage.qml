@@ -52,7 +52,7 @@ PagePL {
                 });
             }
             Keys.onReturnPressed: {
-                console.log('Test');
+                keyboard.active = false;
             }
 
             // Component.onCompleted: page.searchField = searchField;
