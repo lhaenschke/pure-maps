@@ -281,14 +281,14 @@ PagePL {
 
         SectionHeaderPL {
             height: implicitHeight + styler.themePaddingMedium
-            text: isTrainStation ? app.tr("Timetables") : ""
+            text: isTrainStation ? app.tr("Traininformations") : ""
             visible: text
         }
 
         IconListItem {
             visible: isTrainStation
             enabled: true
-            icon: styler.iconShare
+            icon: styler.iconAbout
             label: app.tr("Load Timetable for Station")
             onClicked: {
                 app.showMenu(Qt.resolvedUrl("TimeTablesPage.qml"), {
@@ -296,6 +296,19 @@ PagePL {
                              });
             }
         }
+
+        IconListItem {
+            visible: isTrainStation
+            enabled: true
+            icon: styler.iconNavigateTo
+            label: app.tr("Search connection to destination")
+            onClicked: {
+                app.showMenu(Qt.resolvedUrl("TrainConnectionPage.qml"), {
+                                 "poi": poi,
+                             });
+            }
+        }
+
     }
 
     Component.onCompleted: {
