@@ -51,7 +51,7 @@ PagePL {
                     results.forEach( function(p) { console.log(p); });
                 });
             }
-            onEnter: {
+            onReturnPressed: {
                 console.log('Test');
             }
 
