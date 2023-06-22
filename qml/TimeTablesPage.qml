@@ -157,7 +157,7 @@ PagePL {
                 id: trackItem
                 width: headerRow.width / 6
                 horizontalAlignment: Text.AlignRight
-                text: app.tr("Track  ")
+                text: app.tr("Track   ")
             }
 
         }        
@@ -206,7 +206,7 @@ PagePL {
                             id: trackItem
                             width: row.width / 6
                             horizontalAlignment: Text.AlignRight
-                            text: model['track'] + "       "
+                            text: model['track'] + "      "
                         }
 
                     }
@@ -256,7 +256,7 @@ PagePL {
                                     id: infoTrackItem
                                     width: infoRow.width / 6
                                     horizontalAlignment: Text.AlignRight
-                                    text: model['track'] + "   "
+                                    text: model['track'] + "  "
                                 }
 
                             }
