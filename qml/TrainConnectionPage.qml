@@ -51,9 +51,9 @@ PagePL {
                     results.forEach( function(p) { console.log(p); });
                 });
             }
-            onReturnPressed: {
-                console.log('Test');
-            }
+            // onReturnPressed: {
+            //     console.log('Test');
+            // }
 
             // Component.onCompleted: page.searchField = searchField;
         }
