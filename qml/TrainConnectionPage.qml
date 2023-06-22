@@ -47,12 +47,14 @@ PagePL {
             property string prevText: ""
             onTextChanged: {
                 var newText = searchField.text.trim();
-                py.call("poor.app.trainconnections.get_suggestions", [poi.coordinate.latitude, poi.coordinate.longitude, newText], function(results) {
-                    results.forEach( function(p) { console.log(p); });
-                });
+                if (newText.length > 0) {
+                    py.call("poor.app.trainconnections.get_suggestions", [poi.coordinate.latitude, poi.coordinate.longitude, newText], function(results) {
+                        results.forEach( function(p) { console.log(p); });
+                    });
+                }
             }
             Keys.onReturnPressed: {
-                keyboard.active = false;
+                console.log('Test');
             }
 
             // Component.onCompleted: page.searchField = searchField;
