@@ -40,6 +40,18 @@ PagePL {
             wrapMode: Text.WordWrap
         }
 
+        SearchFieldPL {
+            id: searchField
+            placeholderText: app.tr("Search Target")
+            property string prevText: ""
+            onTextChanged: {
+                var newText = searchField.text.trim().toLowerCase();
+                console.log(newText);
+            }
+
+            // Component.onCompleted: page.searchField = searchField;
+        }
+
         ListItemLabel {
             color: styler.themeHighlightColor
             height: implicitHeight + styler.themePaddingMedium
@@ -51,6 +63,8 @@ PagePL {
         Spacer {
             height: styler.themePaddingMedium
         }
+
+        // Connection informations
 
     }
 
