@@ -34,7 +34,7 @@ PagePL {
         ListItemLabel {
             color: styler.themeHighlightColor
             height: implicitHeight + styler.themePaddingMedium
-            text: poi.address ? poi.address : ""
+            text: app.tr('Start-Station: ') + poi.address ? poi.address : ""
             truncMode: truncModes.none
             verticalAlignment: Text.AlignTop
             wrapMode: Text.WordWrap
