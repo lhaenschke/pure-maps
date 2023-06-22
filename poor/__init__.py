@@ -53,6 +53,7 @@ from poor.history import HistoryManager
 from poor.keystore import KeyStore
 key = KeyStore()
 from poor.timetables import TimetableManager
+from poor.trainconnections import TrainConnectionManager
 from poor.magfield import MagField
 from poor.router import Router
 from poor.sun import Sun
@@ -83,6 +84,7 @@ assert Sun
 assert util
 assert VoiceGenerator
 assert TimetableManager
+assert TrainConnectionManager
 
 def main():
     """Initialize application."""

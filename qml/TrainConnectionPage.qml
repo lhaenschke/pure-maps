@@ -47,7 +47,12 @@ PagePL {
             property string prevText: ""
             onTextChanged: {
                 var newText = searchField.text.trim();
-                console.log(newText);
+                py.call("poor.app.trainconnections.get_suggestions", [poi.coordinate.latitude, poi.coordinate.longitude, newText], function(results) {
+                    results.forEach( function(p) { console.log(p); });
+                });
+            }
+            onEnter: {
+                console.log('Test');
             }
 
             // Component.onCompleted: page.searchField = searchField;
