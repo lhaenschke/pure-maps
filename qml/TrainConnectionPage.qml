@@ -41,24 +41,38 @@ PagePL {
             wrapMode: Text.WordWrap
         }
 
-        SearchFieldPL {
-            id: searchField
-            placeholderText: app.tr("Search Target")
-            property string prevText: ""
-            onTextChanged: {
-                var newText = searchField.text.trim();
-                if (newText.length > 0) {
-                    py.call("poor.app.trainconnections.get_suggestions", [poi.coordinate.latitude, poi.coordinate.longitude, newText], function(results) {
-                        results.forEach( function(p) { console.log(p); });
-                    });
-                }
-            }
-            Keys.onReturnPressed: {
-                console.log('Test');
+        Row {
+            id: searchRow
+            width: parent.width
+
+            LabelPL {
+                id: searchFieldLabel
+                text: app.tr('Destination: ')
             }
 
-            // Component.onCompleted: page.searchField = searchField;
+            SearchFieldPL {
+                id: searchField
+                width: searchRow.width - searchFieldLabel.width
+                placeholderText: app.tr("Search Target")
+                property string prevText: ""
+                onTextChanged: {
+                    var newText = searchField.text.trim();
+                    if (newText.length > 0) {
+                        py.call("poor.app.trainconnections.get_suggestions", [poi.coordinate.latitude, poi.coordinate.longitude, newText], function(results) {
+                            results.forEach( function(p) { console.log(p); });
+                        });
+                    } else {
+                        // Clear model to empty search
+                    }
+                }
+                Keys.onReturnPressed: {
+                    searchField.fokus = false;
+                }
+            }
+
         }
+
+        
 
         ListItemLabel {
             color: styler.themeHighlightColor
