@@ -44,6 +44,7 @@ PagePL {
         Row {
             id: searchRow
             width: parent.width
+            height: Math.max(searchFieldLabel.height, searchField.height)
 
             LabelPL {
                 id: searchFieldLabel
