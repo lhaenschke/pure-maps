@@ -48,10 +48,9 @@ PagePL {
 
             LabelPL {
                 id: searchFieldLabel
-                text: app.tr('Destination: ')
-                width: searchRow.width / 3.3
+                text: app.tr('      Destination: ')
+                width: searchRow.width / 4.5
                 verticalAlignment: Text.AlignVCenter
-                anchors.leftMargin: 20
                 height: searchField.height
             }
 
