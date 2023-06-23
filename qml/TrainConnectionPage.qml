@@ -52,15 +52,12 @@ PagePL {
                 width: searchRow.width / 2
             }
 
-            
-
         }
 
-        SearchFieldPL {
+        TextField {
             id: searchField
             width: parent.width / 2
             placeholderText: app.tr("Search Target")
-            property string prevText: ""
             onTextChanged: {
                 var newText = searchField.text.trim();
                 if (newText.length > 0) {
@@ -75,6 +72,26 @@ PagePL {
                 searchField.fokus = false;
             }
         }
+
+        // SearchFieldPL {
+        //     id: searchField
+        //     width: parent.width / 2
+        //     placeholderText: app.tr("Search Target")
+        //     property string prevText: ""
+            // onTextChanged: {
+            //     var newText = searchField.text.trim();
+            //     if (newText.length > 0) {
+            //         py.call("poor.app.trainconnections.get_suggestions", [poi.coordinate.latitude, poi.coordinate.longitude, newText], function(results) {
+            //             results.forEach( function(p) { console.log(p); });
+            //         });
+            //     } else {
+            //         // Clear model to empty search
+            //     }
+            // }
+            // Keys.onReturnPressed: {
+            //     searchField.fokus = false;
+            // }
+        // }
 
         ListItemLabel {
             color: styler.themeHighlightColor
