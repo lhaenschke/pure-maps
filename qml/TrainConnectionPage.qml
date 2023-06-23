@@ -54,7 +54,7 @@ PagePL {
 
             SearchFieldPL {
                 id: searchField
-                width: searchRow.width - searchFieldLabel.width
+                width: searchRow.width / 4
                 placeholderText: app.tr("Search Target")
                 property string prevText: ""
                 onTextChanged: {
