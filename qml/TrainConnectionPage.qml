@@ -46,7 +46,7 @@ PagePL {
             width: parent.width
             height: Math.max(searchFieldLabel.height, searchField.height)
 
-            LabelPL {
+            ListItemLabel {
                 id: searchFieldLabel
                 text: app.tr('Destination: ')
                 width: searchRow.width / 4
