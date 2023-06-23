@@ -49,12 +49,12 @@ PagePL {
             LabelPL {
                 id: searchFieldLabel
                 text: app.tr('Destination: ')
-                width: searchRow.width / 4
+                width: searchRow.width / 2
             }
 
             SearchFieldPL {
                 id: searchField
-                width: searchRow.width / 4
+                width: searchRow.width / 2
                 placeholderText: app.tr("Search Target")
                 property string prevText: ""
                 onTextChanged: {
