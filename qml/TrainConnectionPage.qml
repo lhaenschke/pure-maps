@@ -44,7 +44,7 @@ PagePL {
         Row {
             id: searchRow
             width: parent.width
-            height: Math.max(searchFieldLabel.height, searchField.height)
+            height: searchFieldLabel.height
 
             LabelPL {
                 id: searchFieldLabel
@@ -54,7 +54,7 @@ PagePL {
 
         }
 
-        TextField {
+        TextFieldPL {
             id: searchField
             width: parent.width / 2
             placeholderText: app.tr("Search Target")
