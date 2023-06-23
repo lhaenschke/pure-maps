@@ -44,34 +44,36 @@ PagePL {
         Row {
             id: searchRow
             width: parent.width
-            height: searchFieldLabel.height
+            height: Math.max(searchFieldLabel.height, searchField.height)
 
             LabelPL {
                 id: searchFieldLabel
                 text: app.tr('Destination: ')
-                width: searchRow.width / 2
+                width: searchRow.width / 4
             }
 
-        }
-
-        TextFieldPL {
-            id: searchField
-            width: parent.width / 2
-            placeholderText: app.tr("Search Target")
-            onTextChanged: {
-                var newText = searchField.text.trim();
-                if (newText.length > 0) {
-                    py.call("poor.app.trainconnections.get_suggestions", [poi.coordinate.latitude, poi.coordinate.longitude, newText], function(results) {
-                        results.forEach( function(p) { console.log(p); });
-                    });
-                } else {
-                    // Clear model to empty search
+            TextFieldPL {
+                id: searchField
+                width: parent.width - searchFieldLabel.width
+                placeholderText: app.tr("Search Target")
+                onTextChanged: {
+                    var newText = searchField.text.trim();
+                    if (newText.length > 0) {
+                        py.call("poor.app.trainconnections.get_suggestions", [poi.coordinate.latitude, poi.coordinate.longitude, newText], function(results) {
+                            results.forEach( function(p) { console.log(p); });
+                        });
+                    } else {
+                        // Clear model to empty search
+                    }
+                }
+                Keys.onReturnPressed: {
+                    searchField.fokus = false;
                 }
             }
-            Keys.onReturnPressed: {
-                searchField.fokus = false;
-            }
+
         }
+
+        
 
         // SearchFieldPL {
         //     id: searchField
