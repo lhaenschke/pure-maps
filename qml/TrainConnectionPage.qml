@@ -48,6 +48,7 @@ PagePL {
             LabelPL {
                 id: searchFieldLabel
                 text: app.tr('Destination: ')
+                width: searchRow.width / 4
             }
 
             SearchFieldPL {
