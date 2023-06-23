@@ -44,7 +44,7 @@ PagePL {
         Row {
             id: searchRow
             width: parent.width
-            height: Math.max(searchFieldLabel.height, searchField.height)
+            height: searchFieldLabel.height
 
             LabelPL {
                 id: searchFieldLabel
@@ -52,25 +52,25 @@ PagePL {
                 width: searchRow.width / 4
             }
 
-            SearchFieldPL {
-                id: searchField
-                width: (3 * searchRow.width) / 4
-                placeholderText: app.tr("Search Target")
-                property string prevText: ""
-                onTextChanged: {
-                    var newText = searchField.text.trim();
-                    if (newText.length > 0) {
-                        py.call("poor.app.trainconnections.get_suggestions", [poi.coordinate.latitude, poi.coordinate.longitude, newText], function(results) {
-                            results.forEach( function(p) { console.log(p); });
-                        });
-                    } else {
-                        // Clear model to empty search
-                    }
-                }
-                Keys.onReturnPressed: {
-                    searchField.fokus = false;
-                }
-            }
+            // SearchFieldPL {
+            //     id: searchField
+            //     width: (3 * searchRow.width) / 4
+            //     placeholderText: app.tr("Search Target")
+            //     property string prevText: ""
+            //     onTextChanged: {
+            //         var newText = searchField.text.trim();
+            //         if (newText.length > 0) {
+            //             py.call("poor.app.trainconnections.get_suggestions", [poi.coordinate.latitude, poi.coordinate.longitude, newText], function(results) {
+            //                 results.forEach( function(p) { console.log(p); });
+            //             });
+            //         } else {
+            //             // Clear model to empty search
+            //         }
+            //     }
+            //     Keys.onReturnPressed: {
+            //         searchField.fokus = false;
+            //     }
+            // }
 
         }
 
