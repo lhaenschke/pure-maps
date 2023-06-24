@@ -123,6 +123,7 @@ PagePL {
 
                 onClicked: {
                     searchField.text = model['name'];
+                    searchButton.enabled = true;
                 }
 
             }
@@ -131,12 +132,26 @@ PagePL {
 
         }
 
+        ButtonPL {
+            id: searchButton
+            anchors.horizontalCenter: parent.horizontalCenter
+            preferredWidth: styler.themeButtonWidthLarge
+            enabled: false
+            text: app.tr("Search")
+            onClicked: {
+                console.log('Test');
+                // searchButton.text = app.tr("Loading");
+                // py.call_sync("poor.app.timetables.search", [poi.coordinate.latitude, poi.coordinate.longitude, selectedTime]);
+                // list.fillModel();
+            }
+        }
+
         ListItemLabel {
             color: styler.themeHighlightColor
             height: implicitHeight + styler.themePaddingMedium
             text: app.tr('The times indicated are timetable times, not real-time')
             truncMode: truncModes.none
-            visible: showResults
+            visible: false
             verticalAlignment: Text.AlignTop
         } 
 
