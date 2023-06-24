@@ -58,16 +58,19 @@ PagePL {
                 id: searchField
                 width: parent.width - searchFieldLabel.width
                 placeholderText: app.tr("Search Target")
+                property string lastText: ""
                 onTextChanged: {
-                    console.log('test')
                     var newText = searchField.text.trim();
-                    searchResultList.model.clear();
-                    showResults = false;
-                    if (newText.length > 0) {
-                        py.call("poor.app.trainconnections.get_suggestions", [poi.coordinate.latitude, poi.coordinate.longitude, newText], function(results) {
-                            results.forEach( function(p) { searchResultList.model.append(p); });
-                            showResults = (model.count > 0);
-                        });
+                    if (Math.abs(newText.length - lastText.length) <= 1) {
+                        searchResultList.model.clear();
+                        showResults = false;
+                        if (newText.length > 0) {
+                            py.call("poor.app.trainconnections.get_suggestions", [poi.coordinate.latitude, poi.coordinate.longitude, newText], function(results) {
+                                results.forEach( function(p) { searchResultList.model.append(p); });
+                                showResults = (searchResultList.model.count > 0);
+                            });
+                        }
+                        lastText = newText;
                     }
                 }
                 Keys.onReturnPressed: {
