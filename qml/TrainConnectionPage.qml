@@ -122,8 +122,7 @@ PagePL {
                 }
 
                 onClicked: {
-                    searchField.text = model['name']
-                    showResults = false;
+                    searchField.text = model['name'];
                 }
 
             }
