@@ -62,7 +62,7 @@ PagePL {
                     var newText = searchField.text.trim();
                     if (newText.length > 0) {
                         py.call("poor.app.trainconnections.get_suggestions", [poi.coordinate.latitude, poi.coordinate.longitude, newText], function(results) {
-                            results.forEach( function(p) { console.log(p); });
+                            results.forEach( function(p) { searchResultList.model.append(p); });
                         });
                     } else {
                         // Clear model to empty search
@@ -111,17 +111,6 @@ PagePL {
             }
 
             model: ListModel {}
-
-            function loadQuery(query) {
-                model.clear();
-                py.call("poor.app.trainconnections.get_suggestions", [poi.coordinate.latitude, poi.coordinate.longitude, query], function(results) {
-                    results.forEach( function (p) {
-                        if (p['status'] == 200) {
-                            model.append(p); 
-                        }
-                    });
-                });
-            }
 
         }
 
