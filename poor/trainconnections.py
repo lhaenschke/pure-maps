@@ -60,5 +60,8 @@ class TrainConnectionManager:
         for stop_place in json_data['stopPlaces']:
             names.append(stop_place['names']['DE']['nameLong'])
 
-        return (res.status, names)
+        return [dict(
+            status=res.status,
+            name=name
+        ) for name in names]
         

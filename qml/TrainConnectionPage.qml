@@ -48,7 +48,7 @@ PagePL {
 
             LabelPL {
                 id: searchFieldLabel
-                text: app.tr('      Destination: ')
+                text: app.tr('    Destination: ')
                 width: searchRow.width / 4.5
                 verticalAlignment: Text.AlignVCenter
                 height: searchField.height
@@ -75,27 +75,55 @@ PagePL {
 
         }
 
-        
+        Repeater {
+            id: searchResultList
+            width: page.width
+            
+            delegate: ListItemPL {
+                id: listItem
+                contentHeight: listColumn.height
+                
+                property bool isVisible: false
 
-        // SearchFieldPL {
-        //     id: searchField
-        //     width: parent.width / 2
-        //     placeholderText: app.tr("Search Target")
-        //     property string prevText: ""
-            // onTextChanged: {
-            //     var newText = searchField.text.trim();
-            //     if (newText.length > 0) {
-            //         py.call("poor.app.trainconnections.get_suggestions", [poi.coordinate.latitude, poi.coordinate.longitude, newText], function(results) {
-            //             results.forEach( function(p) { console.log(p); });
-            //         });
-            //     } else {
-            //         // Clear model to empty search
-            //     }
-            // }
-            // Keys.onReturnPressed: {
-            //     searchField.fokus = false;
-            // }
-        // }
+                Column {
+                    id: listColumn
+                    width: page.width
+
+                    ListItemLabel {
+                        color: styler.themeHighlightColor
+                        height: implicitHeight
+                        text: model['name']
+                    }
+
+                    Rectangle {
+                        id: listSeperator
+                        width: page.width - 20
+                        height: 1
+                        color: "gray"
+                    }
+
+                }
+
+                onClicked: {
+                    console.log('Test');
+                }
+
+            }
+
+            model: ListModel {}
+
+            function loadQuery(query) {
+                model.clear();
+                py.call("poor.app.trainconnections.get_suggestions", [poi.coordinate.latitude, poi.coordinate.longitude, query], function(results) {
+                    results.forEach( function (p) {
+                        if (p['status'] == 200) {
+                            model.append(p); 
+                        }
+                    });
+                });
+            }
+
+        }
 
         ListItemLabel {
             color: styler.themeHighlightColor
