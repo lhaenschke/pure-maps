@@ -59,11 +59,14 @@ PagePL {
                 width: parent.width - searchFieldLabel.width
                 placeholderText: app.tr("Search Target")
                 onTextChanged: {
+                    console.log('test')
                     var newText = searchField.text.trim();
                     searchResultList.model.clear();
+                    showResults = false;
                     if (newText.length > 0) {
                         py.call("poor.app.trainconnections.get_suggestions", [poi.coordinate.latitude, poi.coordinate.longitude, newText], function(results) {
                             results.forEach( function(p) { searchResultList.model.append(p); });
+                            showResults = (model.count > 0);
                         });
                     }
                 }
@@ -77,6 +80,7 @@ PagePL {
         Repeater {
             id: searchResultList
             width: page.width
+            visible: showResults
             
             delegate: ListItemPL {
                 id: listItem
@@ -110,7 +114,8 @@ PagePL {
                 }
 
                 onClicked: {
-                    console.log('Test');
+                    searchField.text = model['name']
+                    showResults = false;
                 }
 
             }
