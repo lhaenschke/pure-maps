@@ -62,6 +62,7 @@ PagePL {
                 onTextChanged: {
                     var newText = searchField.text.trim();
                     if (Math.abs(newText.length - lastText.length) <= 1) {
+                        console.log('Eingabe');
                         searchResultList.model.clear();
                         showResults = false;
                         if (newText.length > 0) {
@@ -71,6 +72,10 @@ PagePL {
                             });
                         }
                         lastText = newText;
+                    } else {
+                        console.log('Setzen');
+                        searchResultList.model.clear();
+                        showResults = false;
                     }
                 }
                 Keys.onReturnPressed: {
