@@ -60,12 +60,11 @@ PagePL {
                 placeholderText: app.tr("Search Target")
                 onTextChanged: {
                     var newText = searchField.text.trim();
+                    searchResultList.model.clear();
                     if (newText.length > 0) {
                         py.call("poor.app.trainconnections.get_suggestions", [poi.coordinate.latitude, poi.coordinate.longitude, newText], function(results) {
                             results.forEach( function(p) { searchResultList.model.append(p); });
                         });
-                    } else {
-                        // Clear model to empty search
                     }
                 }
                 Keys.onReturnPressed: {
@@ -93,6 +92,12 @@ PagePL {
                         color: styler.themeHighlightColor
                         height: implicitHeight
                         text: model['name']
+                    }
+
+                    ListItemLabel {
+                        height: implicitHeight
+                        text: ""
+                        visible: true
                     }
 
                     Rectangle {
