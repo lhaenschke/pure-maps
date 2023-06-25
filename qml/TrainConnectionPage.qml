@@ -78,10 +78,14 @@ PagePL {
                     } else {
                         searchResultList.model.clear();
                         showResults = false;
+                        searchButtonEnabled = true
                     }
                 }
                 Keys.onReturnPressed: {
                     searchField.fokus = false;
+                    searchResultList.model.clear();
+                    showResults = false;
+                    searchButtonEnabled = true
                 }
             }
 
@@ -125,7 +129,6 @@ PagePL {
 
                 onClicked: {
                     searchField.text = model['name'];
-                    page.searchButtonEnabled = true
                 }
 
             }
