@@ -49,7 +49,7 @@ class TrainConnectionManager:
             "/db-api-marketplace/apis/ris-stations/v1/stop-places/by-name/{}".format(urllib.parse.quote(query).replace('/', '%2F')),
             "?latitude={}".format(latitude),
             "&longitude={}".format(longitude),
-            "&groupBy=STATION&sortBy=RELEVANCE&onlyActive=true&limit=8"
+            "&groupBy=STATION&sortBy=RELEVANCE&onlyActive=true&limit=5"
         )), "", headers)
 
         res = conn.getresponse()

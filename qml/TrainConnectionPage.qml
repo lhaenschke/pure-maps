@@ -64,9 +64,9 @@ PagePL {
                     var newText = searchField.text.trim();
                     if (Math.abs(newText.length - lastText.length) <= 1) {
                         if (newText.length > 0) {
+                            searchResultList.model.clear();
+                            showResults = false;
                             py.call("poor.app.trainconnections.get_suggestions", [poi.coordinate.latitude, poi.coordinate.longitude, newText], function(results) {
-                                searchResultList.model.clear();
-                                showResults = false;
                                 results.forEach( function(p) { searchResultList.model.append(p); });
                                 showResults = (searchResultList.model.count > 0);
                             });
