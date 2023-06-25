@@ -25,8 +25,9 @@ PagePL {
     id: page
     title: app.tr("Timetables for ") + poi.title
 
-    property var poi
-    property var showResults: false
+    property var  poi
+    property bool showResults: false
+    property bool searchButtonEnabled: false
 
     Column {
         id: column
@@ -62,7 +63,6 @@ PagePL {
                 onTextChanged: {
                     var newText = searchField.text.trim();
                     if (Math.abs(newText.length - lastText.length) <= 1) {
-                        console.log('Eingabe');
                         if (newText.length > 0) {
                             py.call("poor.app.trainconnections.get_suggestions", [poi.coordinate.latitude, poi.coordinate.longitude, newText], function(results) {
                                 searchResultList.model.clear();
@@ -76,7 +76,6 @@ PagePL {
                         }
                         lastText = newText;
                     } else {
-                        console.log('Setzen');
                         searchResultList.model.clear();
                         showResults = false;
                     }
@@ -126,7 +125,7 @@ PagePL {
 
                 onClicked: {
                     searchField.text = model['name'];
-                    column.searchButton.enabled = true;
+                    searchButtonEnabled = true
                 }
 
             }
@@ -145,7 +144,7 @@ PagePL {
             id: searchButton
             anchors.horizontalCenter: parent.horizontalCenter
             preferredWidth: styler.themeButtonWidthLarge
-            enabled: false
+            enabled: searchButtonEnabled
             text: app.tr("Search")
             onClicked: {
                 console.log('Test');
