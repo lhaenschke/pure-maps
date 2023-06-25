@@ -125,7 +125,7 @@ PagePL {
 
                 onClicked: {
                     searchField.text = model['name'];
-                    searchButtonEnabled = true
+                    page.searchButtonEnabled = true
                 }
 
             }
