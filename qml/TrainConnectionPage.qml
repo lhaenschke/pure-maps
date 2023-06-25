@@ -151,7 +151,9 @@ PagePL {
             enabled: searchButtonEnabled
             text: app.tr("Search")
             onClicked: {
-                console.log('Test');
+                console.log('Startkoordinaten: ', poi.coordinate.latitude, poi.coordinate.longitude);
+                console.log('Zielname: ', searchField.text);
+                console.log('Zielname (Trim): ', searchField.text.trim());
             }
         }
 
