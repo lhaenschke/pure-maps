@@ -63,13 +63,16 @@ PagePL {
                     var newText = searchField.text.trim();
                     if (Math.abs(newText.length - lastText.length) <= 1) {
                         console.log('Eingabe');
-                        searchResultList.model.clear();
-                        showResults = false;
                         if (newText.length > 0) {
                             py.call("poor.app.trainconnections.get_suggestions", [poi.coordinate.latitude, poi.coordinate.longitude, newText], function(results) {
+                                searchResultList.model.clear();
+                                showResults = false;
                                 results.forEach( function(p) { searchResultList.model.append(p); });
                                 showResults = (searchResultList.model.count > 0);
                             });
+                        } else {
+                            searchResultList.model.clear();
+                            showResults = false;
                         }
                         lastText = newText;
                     } else {
@@ -123,13 +126,19 @@ PagePL {
 
                 onClicked: {
                     searchField.text = model['name'];
-                    searchButton.enabled = true;
+                    column.searchButton.enabled = true;
                 }
 
             }
 
             model: ListModel {}
 
+        }
+
+        ListItemLabel {
+            color: styler.themeHighlightColor
+            height: implicitHeight
+            text: ""
         }
 
         ButtonPL {
@@ -140,9 +149,6 @@ PagePL {
             text: app.tr("Search")
             onClicked: {
                 console.log('Test');
-                // searchButton.text = app.tr("Loading");
-                // py.call_sync("poor.app.timetables.search", [poi.coordinate.latitude, poi.coordinate.longitude, selectedTime]);
-                // list.fillModel();
             }
         }
 
