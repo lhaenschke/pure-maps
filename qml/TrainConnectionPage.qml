@@ -130,7 +130,8 @@ PagePL {
                 }
 
                 onClicked: {
-                    selectedStation = model;
+                    selectedStation = (model['name'], model['eva']);
+                    console.log("SelectedStation: ", selectedStation);
                     searchField.text = model['name'];
                 }
 
@@ -154,8 +155,8 @@ PagePL {
             text: app.tr("Search")
             onClicked: {
                 console.log('Startkoordinaten: ', poi.coordinate.latitude, poi.coordinate.longitude);
-                console.log('Zielname: ', selectedStation['name']);
-                console.log('Eva: ', selectedStation['eva']);
+                console.log('Zielname: ', selectedStation[0]);
+                console.log('Eva: ', selectedStation[1]);
             }
         }
 
