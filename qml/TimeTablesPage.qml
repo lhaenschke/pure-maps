@@ -16,10 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// import QtQuick 2.0
+import QtQuick 2.0
 import QtPositioning 5.4
-import QtQuick 2.9
-import QtQuick.Controls 2.2
 import "."
 import "platform"
 
@@ -120,53 +118,6 @@ PagePL {
                 selectedFilter = filterComboBox.values[index];
                 list.filterModel();
             }   
-        }
-
-        ComboBox {
-            id: comboBox
-            anchors.centerIn: parent
-
-            displayText: "Select"
-
-            model: ListModel {
-                ListElement { name: "One"; selected: false }
-                ListElement { name: "Two"; selected: false }
-                ListElement { name: "Three"; selected: false }
-            }
-
-            // ComboBox closes the popup when its items (anything AbstractButton derivative) are
-            //  activated. Wrapping the delegate into a plain Item prevents that.
-            delegate: Item {
-                width: parent.width
-                height: checkDelegate.height
-
-                function toggle() { checkDelegate.toggle() }
-
-                CheckDelegate {
-                    id: checkDelegate
-                    anchors.fill: parent
-                    text: model.name
-                    highlighted: comboBox.highlightedIndex == index
-                    checked: model.selected
-                    onCheckedChanged: model.selected = checked
-                }
-            }
-
-            // override space key handling to toggle items when the popup is visible
-            Keys.onSpacePressed: {
-                if (comboBox.popup.visible) {
-                    var currentItem = comboBox.popup.contentItem.currentItem
-                    if (currentItem) {
-                        currentItem.toggle()
-                        event.accepted = true
-                    }
-                }
-            }
-
-            Keys.onReleased: {
-                if (comboBox.popup.visible)
-                    event.accepted = (event.key === Qt.Key_Space)
-            }
         }
 
         ListItemLabel {

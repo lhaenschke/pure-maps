@@ -55,15 +55,16 @@ class TrainConnectionManager:
         res = conn.getresponse()
         data = res.read()
         json_data = json.loads(data.decode('utf-8'))
-        names = []
+        stations = []
 
         for stop_place in json_data['stopPlaces']:
-            names.append(stop_place['names']['DE']['nameLong'])
+            stations.append((stop_place['names']['DE']['nameLong'], stop_place['evaNumber']))
 
         return [dict(
             status=res.status,
-            name=name
-        ) for name in names]
+            name=name,
+            eva=eva
+        ) for (name, eva) in stations]
 
     
         

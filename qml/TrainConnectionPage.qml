@@ -28,6 +28,7 @@ PagePL {
     property var  poi
     property bool showResults: false
     property bool searchButtonEnabled: false
+    property var  selectedStation
 
     Column {
         id: column
@@ -129,6 +130,7 @@ PagePL {
                 }
 
                 onClicked: {
+                    selectedStation = model;
                     searchField.text = model['name'];
                 }
 
@@ -152,8 +154,8 @@ PagePL {
             text: app.tr("Search")
             onClicked: {
                 console.log('Startkoordinaten: ', poi.coordinate.latitude, poi.coordinate.longitude);
-                console.log('Zielname: ', searchField.text);
-                console.log('Zielname (Trim): ', searchField.text.trim());
+                console.log('Zielname: ', selectedStation['name']);
+                console.log('Eva: ', selectedStation['eva']);
             }
         }
 
