@@ -51,28 +51,22 @@ class TimetableManager:
         self.trains = []
 
         for train in xml_root.iter('s'):
-            train_type = train.find('tl').attrib.get('c')
-            
-            name = train.find('dp').attrib.get('l') if train.find('dp') != None else train.find('ar').attrib.get('l')
-            if name is None:
-                name = ""
+            if train.find('dp') != None:
+                train_type = train.find('tl').attrib.get('c')
+                name = train.find('dp').attrib.get('l') if train.find('dp').attrib.get('l') != None else ""
+                train_id = train.attrib.get('id')
+                dep_time = train.find('dp').attrib.get('pt')
+                track = train.find('dp').attrib.get('pp')
+                next_stops = train.find('dp').attrib.get('ppth')
 
-            train_id = train.attrib.get('id')
-            dep_time = train.find('dp').attrib.get('pt') if train.find('dp') != None else train.find('ar').attrib.get('pt')
-            track = train.find('dp').attrib.get('pp') if train.find('dp') != None else train.find('ar').attrib.get('pp')
-            next_stops = train.find('dp').attrib.get('ppth') if train.find('dp') != None else ""
-            
-            if next_stops == "":
-                continue
-
-            self.trains.append(Traininformation(
-                train_type = train_type,
-                name = name,
-                train_id = train_id,
-                dep_time = dep_time,
-                track = track,
-                next_stops = next_stops,
-            ))
+                self.trains.append(Traininformation(
+                    train_type = train_type,
+                    name = name,
+                    train_id = train_id,
+                    dep_time = dep_time,
+                    track = track,
+                    next_stops = next_stops,
+                ))
 
         self.trains = sorted(self.trains, key=lambda x: x.dep_time)
 
