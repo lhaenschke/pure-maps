@@ -16,8 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
+// import QtQuick 2.0
 import QtPositioning 5.4
+import QtQuick 2.9
+import QtQuick.Controls 2.2
 import "."
 import "platform"
 
@@ -121,55 +123,51 @@ PagePL {
         }
 
         ComboBox {
-            id: comboboxId
-            width: parent.width / 2
-            height: 50
+            id: comboBox
+            anchors.centerIn: parent
+
+            displayText: "Select"
+
             model: ListModel {
-                ListElement { name: "One"; fill: "red"; ischecked: true }
-                ListElement { name: "Two"; fill: "green"; ischecked: false }
-                ListElement { name: "Three"; fill: "blue"; ischecked: false }
+                ListElement { name: "One"; selected: false }
+                ListElement { name: "Two"; selected: false }
+                ListElement { name: "Three"; selected: false }
             }
+
+            // ComboBox closes the popup when its items (anything AbstractButton derivative) are
+            //  activated. Wrapping the delegate into a plain Item prevents that.
             delegate: Item {
                 width: parent.width
-                height: 50
-                Row {
-                    spacing: 5
+                height: checkDelegate.height
+
+                function toggle() { checkDelegate.toggle() }
+
+                CheckDelegate {
+                    id: checkDelegate
                     anchors.fill: parent
-                    anchors.margins: 5
-                    LabelPL {
-                        text: name
-                        width: parent.width - checkboxId.width
-                        height: parent.height
-                        verticalAlignment: Qt.AlignVCenter
-                        horizontalAlignment: Qt.AlignHCenter
+                    text: model.name
+                    highlighted: comboBox.highlightedIndex == index
+                    checked: model.selected
+                    onCheckedChanged: model.selected = checked
+                }
+            }
+
+            // override space key handling to toggle items when the popup is visible
+            Keys.onSpacePressed: {
+                if (comboBox.popup.visible) {
+                    var currentItem = comboBox.popup.contentItem.currentItem
+                    if (currentItem) {
+                        currentItem.toggle()
+                        event.accepted = true
                     }
                 }
             }
+
+            Keys.onReleased: {
+                if (comboBox.popup.visible)
+                    event.accepted = (event.key === Qt.Key_Space)
+            }
         }
-
-        // ListModel {
-        //     id: listmodelId
-        // }
-
-        // ListView {
-        //     width: parent.width / 2
-        //     height: parent.height
-        //     anchors.left: comboboxId.right
-        //     model: listmodelId
-        //     delegate: Item {
-        //         height: 50
-        //         width: parent.width
-        //         Rectangle {
-        //             anchors.fill: parent
-        //             color: fill
-        //             Text {
-        //                 anchors.centerIn: parent
-        //                 text: name
-        //             }
-        //         }
-        //     }
-        //     onCountChanged: console.log(count)
-        // }
 
         ListItemLabel {
             color: styler.themeHighlightColor
