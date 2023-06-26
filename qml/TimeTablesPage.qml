@@ -129,14 +129,14 @@ PagePL {
                 ListElement { name: "Two"; fill: "green"; ischecked: false }
                 ListElement { name: "Three"; fill: "blue"; ischecked: false }
             }
-            delegate: Item {
+            delegate: ItemPL {
                 width: parent.width
                 height: 50
                 Row {
                     spacing: 5
                     anchors.fill: parent
                     anchors.margins: 5
-                    Label {
+                    LabelPL {
                         text: name
                         width: parent.width - checkboxId.width
                         height: parent.height
