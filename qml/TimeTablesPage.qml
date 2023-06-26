@@ -129,7 +129,7 @@ PagePL {
                 ListElement { name: "Two"; fill: "green"; ischecked: false }
                 ListElement { name: "Three"; fill: "blue"; ischecked: false }
             }
-            delegate: ItemPL {
+            delegate: Item {
                 width: parent.width
                 height: 50
                 Row {
