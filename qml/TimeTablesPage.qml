@@ -120,7 +120,7 @@ PagePL {
             }   
         }
 
-        ComboBoxPL {
+        ComboBox {
             id: comboboxId
             width: parent.width / 2
             height: 50
