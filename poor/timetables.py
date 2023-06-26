@@ -39,11 +39,11 @@ class TimetableManager:
         self.trains = []
 
     def search(self, latitude: str, longitude: str, hour: int):
-        (status, eva_number) = self.__get_eva_number_coor__(latitude, longitude)
+        (status, eva_number) = self._get_eva_number_coor(latitude, longitude)
         if status != 200:
             return
         
-        (status, timetable_xml_string) = self.__get_timetable_str(eva_number, hour)
+        (status, timetable_xml_string) = self._get_timetable_str(eva_number, hour)
         if status != 200:
             return
 
@@ -76,7 +76,7 @@ class TimetableManager:
     def load_destination_informations(self, train_id: str, dest_name: str, hour: int):
         (dest_arr_time, dest_track) = (None, "")
         for i in range(3):
-            (dest_arr_time, dest_track) = self.__get_time_from_destination__(train_id, dest_name, hour + i)    
+            (dest_arr_time, dest_track) = self._get_time_from_destination(train_id, dest_name, hour + i)    
             if dest_arr_time is not None:
                 for i in range(len(self.trains)):
                     if self.trains[i].id == train_id:
@@ -96,11 +96,11 @@ class TimetableManager:
 
 
     def _get_time_from_destination(self, train_id: str, dest_name: str, min_hour: int) -> str:
-        (status, eva_number) = self.__get_eva_number_dest_name__(dest_name)
+        (status, eva_number) = self._get_eva_number_dest_name(dest_name)
         if status != 200:
             return (None, "")
 
-        (status, timetable_xml_str) = self.__get_timetable_str(eva_number, min_hour)
+        (status, timetable_xml_str) = self._get_timetable_str(eva_number, min_hour)
         if status != 200:
             return (None, "")
         
