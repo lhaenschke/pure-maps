@@ -62,6 +62,9 @@ class TimetableManager:
             track = train.find('dp').attrib.get('pp') if train.find('dp') != None else train.find('ar').attrib.get('pp')
             next_stops = train.find('dp').attrib.get('ppth') if train.find('dp') != None else ""
             
+            if next_stops == "":
+                continue
+
             self.trains.append(Traininformation(
                 train_type = train_type,
                 name = name,
