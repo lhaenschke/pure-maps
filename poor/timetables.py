@@ -60,7 +60,7 @@ class TimetableManager:
             train_id = train.attrib.get('id')
             dep_time = train.find('dp').attrib.get('pt') if train.find('dp') != None else train.find('ar').attrib.get('pt')
             track = train.find('dp').attrib.get('pp') if train.find('dp') != None else train.find('ar').attrib.get('pp')
-            next_stops = train.find('dp').attrib.get('ppth') if train.find('dp') != None else train.find('ar').attrib.get('ppth')
+            next_stops = train.find('dp').attrib.get('ppth') if train.find('dp') != None else ""
             
             self.trains.append(Traininformation(
                 train_type = train_type,
@@ -95,7 +95,7 @@ class TimetableManager:
         ) for train in self.trains]
 
 
-    def __get_time_from_destination__(self, train_id: str, dest_name: str, min_hour: int) -> str:
+    def _get_time_from_destination(self, train_id: str, dest_name: str, min_hour: int) -> str:
         (status, eva_number) = self.__get_eva_number_dest_name__(dest_name)
         if status != 200:
             return (None, "")
@@ -112,7 +112,7 @@ class TimetableManager:
         return (None, "")
 
     
-    def __get_eva_number_coor__(self, latitude: str, longitude: str) -> str:
+    def _get_eva_number_coor(self, latitude: str, longitude: str) -> str:
         conn = http.client.HTTPSConnection("apis.deutschebahn.com")
 
         headers = {
@@ -134,7 +134,7 @@ class TimetableManager:
 
         return (res.status, json_data['stopPlaces'][0]['evaNumber'])
 
-    def __get_eva_number_dest_name__(self, dest_name: str) -> str:
+    def _get_eva_number_dest_name(self, dest_name: str) -> str:
         conn = http.client.HTTPSConnection("apis.deutschebahn.com")
 
         headers = {
@@ -153,7 +153,7 @@ class TimetableManager:
 
         return (res.status, json_data['stopPlaces'][0]['evaNumber'])
 
-    def __get_timetable_str(self, eva_number: str, hour: int) -> str:
+    def _get_timetable_str(self, eva_number: str, hour: int) -> str:
         conn = http.client.HTTPSConnection("apis.deutschebahn.com")
         headers = {
             'DB-Api-Key': self._clientSecret,
