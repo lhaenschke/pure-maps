@@ -111,6 +111,10 @@ PagePL {
                     "21:00 - 21:59", "22:00 - 22:59", "23:00 - 23:59"]
             property var values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
             currentIndex: 0
+            validator: IntValidator {
+                top: 23
+                bottom: parseInt(Qt.formatTime(new Date(),"hh"))
+            }
             Component.onCompleted: {
                 selectedTime = parseInt(Qt.formatTime(new Date(),"hh"))
                 timeRangeComboBox.currentIndex = timeRangeComboBox.values.indexOf(selectedTime);
@@ -119,18 +123,18 @@ PagePL {
                 console.log('On Index Changed');
                 selectedTime = timeRangeComboBox.values[index];
             }
-            onActivated: {
-                console.log('On Activated');
-                var index = timeRangeComboBox.currentIndex;
-                var now = parseInt(Qt.formatTime(new Date(),"hh"));
-                if (timeRangeComboBox.values[index] >= now) {
-                    console.log('Ok');
-                    timeRangeComboBox.currentIndex = index;
-                } else {
-                    console.log('Change');
-                    timeRangeComboBox.currentIndex = now;
-                }
-            }
+            // onActivated: {
+            //     console.log('On Activated');
+            //     var index = timeRangeComboBox.currentIndex;
+            //     var now = parseInt(Qt.formatTime(new Date(),"hh"));
+            //     if (timeRangeComboBox.values[index] >= now) {
+            //         console.log('Ok');
+            //         timeRangeComboBox.currentIndex = index;
+            //     } else {
+            //         console.log('Change');
+            //         timeRangeComboBox.currentIndex = now;
+            //     }
+            // }
         }
 
         ListItemLabel {
