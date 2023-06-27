@@ -60,6 +60,7 @@ PagePL {
             columns: 3
             rows: 1
             spacing: styler.themePaddingSmall
+            anchors.horizontalCenter: parent.horizontalCenter
 
             ButtonPL {
                 id: dateItem
