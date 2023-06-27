@@ -55,48 +55,68 @@ PagePL {
             height: styler.themePaddingMedium
         }
 
-        // Row {
-        //     id: dateRow
-        //     width: parent.width
-        //     height: Math.max(dateDayComboBox.height, dateMonthComboBox.height)
+        Grid {
+            id: bholder
 
-        //     ComboBoxPL {
-        //         id: dateDayComboBox
-        //         label: app.tr("Date")
-        //         width: dateRow.width / 2
-        //         model: [ "28", "29", "30", "31" ]
-        //         property var values: [ 28, 29, 30, 31 ]
-        //         currentIndex: 0
-        //         Component.onCompleted: {
-        //             // selectedTime = parseInt(Qt.formatTime(new Date(),"hh"))
-        //             // timeRangeComboBox.currentIndex = timeRangeComboBox.values.indexOf(selectedTime);
-        //         }
-        //         onCurrentIndexChanged: {
-        //             // var index = timeRangeComboBox.currentIndex;
-        //             // selectedTime = timeRangeComboBox.values[index];
-        //         }   
-        //     }
+            anchors.left: page.left
+            anchors.leftMargin: 0
+            anchors.right: page.right
+            anchors.rightMargin: 0
+            columns: 2
+            rows: 1
+            spacing: styler.themePaddingSmall
+            visible: full
 
-        //     ComboBoxPL {
-        //         id: dateMonthComboBox
-        //         width: dateRow.width / 2
-        //         model: [ "06", "07", "08", "09" ]
-        //         property var values: [ 6, 7, 8, 8 ]
-        //         currentIndex: 0
-        //         Component.onCompleted: {
-        //             // selectedTime = parseInt(Qt.formatTime(new Date(),"hh"))
-        //             // timeRangeComboBox.currentIndex = timeRangeComboBox.values.indexOf(selectedTime);
-        //         }
-        //         onCurrentIndexChanged: {
-        //             // var index = timeRangeComboBox.currentIndex;
-        //             // selectedTime = timeRangeComboBox.values[index];
-        //         }   
-        //     }
-        // }
+            ButtonPL {
+                id: dateItem
+                height: styler.themeItemSizeSmall
+                text: app.tr("Today")
 
-        DatePickerDialogPL {
-            id: datePickerDialog
-            
+                property var  date: new Date()
+
+                onClicked: {
+                    var dialog = pages.push(Qt.resolvedUrl("../qml/platform/DatePickerDialogPL.qml"), {
+                                                "date": dateItem.date,
+                                                "title": app.tr("Select date")
+                                            });
+                    dialog.accepted.connect(function() {
+                        dateItem.date = dialog.date;
+                        dateItem.text = dialog.date.toLocaleDateString();
+                        // Format date as YYYY-MM-DD.
+                        var year = ("0000" + dialog.date.getFullYear()).substr(-4);
+                        var month = ("00" + (dialog.date.getMonth()+1)).substr(-2);
+                        var day = ("00" + dialog.date.getDate()).substr(-2);
+                        console.log("%1-%2-%3".arg(year).arg(month).arg(day));
+                    });
+                }
+            }
+
+            ButtonPL {
+                id: timeItem
+                height: styler.themeItemSizeSmall
+                text: app.tr("Now")
+
+                property var time: new Date()
+
+                onClicked: {
+                    var dialog = pages.push(Qt.resolvedUrl("../qml/platform/TimePickerDialogPL.qml"), {
+                                                "hour": timeItem.time.getHours(),
+                                                "minute": timeItem.time.getMinutes(),
+                                                "title": app.tr("Select time")
+                                            });
+                    dialog.accepted.connect(function() {
+                        timeItem.time.setHours(dialog.hour);
+                        timeItem.time.setMinutes(dialog.minute);
+                        timeItem.time.setSeconds(0);
+                        timeItem.text = timeItem.time.toLocaleTimeString();
+                        // Format date as YYYY-MM-DD.
+                        var hour = ("00" + dialog.hour).substr(-2);
+                        var minute = ("00" + dialog.minute).substr(-2);
+                        console.log("%1:%2:00".arg(hour).arg(minute));
+                    });
+                }
+            }
+
         }
 
         ListItemLabel {
@@ -104,7 +124,7 @@ PagePL {
             height: implicitHeight + styler.themePaddingSmall
             text: ""
         }
-
+        
         ComboBoxPL {
             id: timeRangeComboBox
             label: app.tr("Time-Range")
