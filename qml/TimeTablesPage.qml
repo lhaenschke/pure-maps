@@ -64,11 +64,9 @@ PagePL {
 
             LabelPL {
                 id: selectedDateLabel
-                horizontalAlignment: Text.AlignLeft
-                text: app.tr('Selected Date:\n') + Qt.formatDateTime(new Date(), "dd.MM.yyyy")
+                horizontalAlignment: Text.AlignHCenter
+                text: app.tr('Selected Date:\n') + Qt.formatDateTime(new Date(), "dd.MM.yy")
                 verticalAlignment: Text.AlignVCenter
-                truncMode: truncModes.none
-                wrapMode: Text.WordWrap
             }
 
             ButtonPL {
