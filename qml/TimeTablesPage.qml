@@ -120,20 +120,15 @@ PagePL {
                 var index = timeRangeComboBox.currentIndex;
                 var now = parseInt(Qt.formatTime(new Date(),"hh"));
 
-                selectedTime = timeRangeComboBox.values[index];
-                
-                if (timeRangeComboBox.values[index] < now) {
-                    timeRangeComboBox.item.val.incrementCurrentIndex();
+                if (timeRangeComboBox.values[index] >= now) {
+                    console.log('Ok');
+                    timeRangeComboBox.currentIndex = index;
+                    selectedTime = timeRangeComboBox.values[index];
+                } else {
+                    console.log('Change');
+                    timeRangeComboBox.currentIndex = now;
+                    timeRangeComboBox.value = model[timeRangeComboBox.currentIndex];
                 }
-
-                // if (timeRangeComboBox.values[index] >= now) {
-                //     console.log('Ok');
-                //     timeRangeComboBox.currentIndex = index;
-                // } else {
-                //     console.log('Change');
-                //     timeRangeComboBox.currentIndex = now;
-                //     timeRangeComboBox.value = model[timeRangeComboBox.currentIndex];
-                // }
             }
         }
 
