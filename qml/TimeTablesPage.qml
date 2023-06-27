@@ -65,6 +65,7 @@ PagePL {
             LabelPL {
                 id: selectedDateLabel
                 horizontalAlignment: Text.AlignHCenter
+                height: dateItem.height
                 text: app.tr('Selected Date:\n') + Qt.formatDateTime(new Date(), "dd.MM.yy")
                 verticalAlignment: Text.AlignVCenter
             }
