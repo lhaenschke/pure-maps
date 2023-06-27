@@ -76,19 +76,21 @@ PagePL {
                 height: styler.themeItemSizeSmall
                 text: app.tr("Change Date")
                 onClicked: {
+                    var today = new Date();
+                    today.setHours(0,0,0,0);
                     var dialog = pages.push(Qt.resolvedUrl("../qml/platform/DatePickerDialogPL.qml"), {
                                                 "date": selectedDate,
                                                 "title": app.tr("Select date")
                                             });
                     dialog.accepted.connect(function() {
-                        if (dialog.date >= new Date()) {
+                        if (dialog.date >= today) {
                             // Format date as YYYY-MM-DD.
                             var year = ("0000" + dialog.date.getFullYear()).substr(-4);
                             var month = ("00" + (dialog.date.getMonth()+1)).substr(-2);
                             var day = ("00" + dialog.date.getDate()).substr(-2);
                             console.log("%1-%2-%3".arg(year).arg(month).arg(day));
                             selectedDate = dialog.date;
-                        }
+                        } 
                     });
                 }
             }
