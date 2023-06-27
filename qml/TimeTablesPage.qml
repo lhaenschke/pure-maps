@@ -55,6 +55,43 @@ PagePL {
             height: styler.themePaddingMedium
         }
 
+        Row {
+            id: dateRow
+
+            ComboBoxPL {
+                id: dateDayComboBox
+                label: app.tr("Date")
+                width: parent.width / 4
+                model: [ "28", "29", "30", "31" ]
+                property var values: [ 28, 29, 30, 31 ]
+                currentIndex: 0
+                Component.onCompleted: {
+                    // selectedTime = parseInt(Qt.formatTime(new Date(),"hh"))
+                    // timeRangeComboBox.currentIndex = timeRangeComboBox.values.indexOf(selectedTime);
+                }
+                onCurrentIndexChanged: {
+                    // var index = timeRangeComboBox.currentIndex;
+                    // selectedTime = timeRangeComboBox.values[index];
+                }   
+            }
+
+            ComboBoxPL {
+                id: dateMonthComboBox
+                width: parent.width / 4
+                model: [ "06", "07", "08", "09" ]
+                property var values: [ 6, 7, 8, 8 ]
+                currentIndex: 0
+                Component.onCompleted: {
+                    // selectedTime = parseInt(Qt.formatTime(new Date(),"hh"))
+                    // timeRangeComboBox.currentIndex = timeRangeComboBox.values.indexOf(selectedTime);
+                }
+                onCurrentIndexChanged: {
+                    // var index = timeRangeComboBox.currentIndex;
+                    // selectedTime = timeRangeComboBox.values[index];
+                }   
+            }
+        }
+
         ComboBoxPL {
             id: dateDayComboBox
             label: app.tr("Date")
