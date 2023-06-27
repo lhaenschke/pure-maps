@@ -123,7 +123,7 @@ PagePL {
                 selectedTime = timeRangeComboBox.values[index];
                 
                 if (timeRangeComboBox.values[index] < now) {
-                    timeRangeComboBox.incrementCurrentIndex();
+                    timeRangeComboBox.val.incrementCurrentIndex();
                 }
 
                 // if (timeRangeComboBox.values[index] >= now) {
