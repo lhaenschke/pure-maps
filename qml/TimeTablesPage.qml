@@ -56,16 +56,22 @@ PagePL {
         }
 
         Grid {
-            id: bholder
+            id: dateGrid
             columns: 3
             rows: 1
             spacing: styler.themePaddingSmall
             anchors.horizontalCenter: parent.horizontalCenter
 
+            LabelPL {
+                id: selectedDateLabel
+                horizontalAlignment: Text.AlignLeft
+                text: app.tr('Selected Date: ') + Qt.formatDateTime(new Date(), "dd.MM.yyyy")
+            }
+
             ButtonPL {
                 id: dateItem
                 height: styler.themeItemSizeSmall
-                text: app.tr("Select Date")
+                text: app.tr("Change Date")
 
                 property var  date: new Date()
 
@@ -85,39 +91,37 @@ PagePL {
                 }
             }
 
-            ButtonPL {
-                id: timeItem
-                height: styler.themeItemSizeSmall
-                text: app.tr("Select Time")
+            // ButtonPL {
+            //     id: timeItem
+            //     height: styler.themeItemSizeSmall
+            //     text: app.tr("Select Time")
 
-                property var time: new Date()
+            //     property var time: new Date()
 
-                onClicked: {
-                    var dialog = pages.push(Qt.resolvedUrl("../qml/platform/TimePickerDialogPL.qml"), {
-                                                "hour": timeItem.time.getHours(),
-                                                "minute": timeItem.time.getMinutes(),
-                                                "title": app.tr("Select time")
-                                            });
-                    dialog.accepted.connect(function() {
-                        timeItem.time.setHours(dialog.hour);
-                        timeItem.time.setMinutes(dialog.minute);
-                        timeItem.time.setSeconds(0);
-                        // Format date as YYYY-MM-DD.
-                        var hour = ("00" + dialog.hour).substr(-2);
-                        var minute = ("00" + dialog.minute).substr(-2);
-                        console.log("%1:%2:00".arg(hour).arg(minute));
-                    });
-                }
-            }
+            //     onClicked: {
+            //         var dialog = pages.push(Qt.resolvedUrl("../qml/platform/TimePickerDialogPL.qml"), {
+            //                                     "hour": timeItem.time.getHours(),
+            //                                     "minute": timeItem.time.getMinutes(),
+            //                                     "title": app.tr("Select time")
+            //                                 });
+            //         dialog.accepted.connect(function() {
+            //             timeItem.time.setHours(dialog.hour);
+            //             timeItem.time.setMinutes(dialog.minute);
+            //             timeItem.time.setSeconds(0);
+            //             // Format date as YYYY-MM-DD.
+            //             var hour = ("00" + dialog.hour).substr(-2);
+            //             var minute = ("00" + dialog.minute).substr(-2);
+            //             console.log("%1:%2:00".arg(hour).arg(minute));
+            //         });
+            //     }
+            // }
 
             ButtonPL {
                 id: nowButton
                 height: styler.themeItemSizeSmall
                 text: app.tr("Now")
                 onClicked: {
-                    searchButton.text = app.tr("Loading");
-                    py.call_sync("poor.app.timetables.search", [poi.coordinate.latitude, poi.coordinate.longitude, selectedTime]);
-                    list.fillModel();
+                    console.log('Select current Date');
                 }
             }
 
