@@ -123,16 +123,17 @@ PagePL {
                 selectedTime = timeRangeComboBox.values[index];
                 
                 if (timeRangeComboBox.values[index] < now) {
-                    timeRangeComboBox.val.incrementCurrentIndex();
+                    timeRangeComboBox.item.val.incrementCurrentIndex();
                 }
 
-                // if (timeRangeComboBox.values[index] >= now) {
-                //     console.log('Ok');
-                //     timeRangeComboBox.currentIndex = index;
-                // } else {
-                //     console.log('Change');
-                //     timeRangeComboBox.currentIndex = now;
-                // }
+                if (timeRangeComboBox.values[index] >= now) {
+                    console.log('Ok');
+                    timeRangeComboBox.currentIndex = index;
+                } else {
+                    console.log('Change');
+                    timeRangeComboBox.currentIndex = now;
+                    timeRangeComboBox.value = model[timeRangeComboBox.currentIndex];
+                }
             }
         }
 
