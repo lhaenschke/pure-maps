@@ -55,43 +55,48 @@ PagePL {
             height: styler.themePaddingMedium
         }
 
-        Row {
-            id: dateRow
-            width: parent.width
-            height: Math.max(dateDayComboBox.height, dateMonthComboBox.height)
+        // Row {
+        //     id: dateRow
+        //     width: parent.width
+        //     height: Math.max(dateDayComboBox.height, dateMonthComboBox.height)
 
-            ComboBoxPL {
-                id: dateDayComboBox
-                label: app.tr("Date")
-                width: dateRow.width / 2
-                model: [ "28", "29", "30", "31" ]
-                property var values: [ 28, 29, 30, 31 ]
-                currentIndex: 0
-                Component.onCompleted: {
-                    // selectedTime = parseInt(Qt.formatTime(new Date(),"hh"))
-                    // timeRangeComboBox.currentIndex = timeRangeComboBox.values.indexOf(selectedTime);
-                }
-                onCurrentIndexChanged: {
-                    // var index = timeRangeComboBox.currentIndex;
-                    // selectedTime = timeRangeComboBox.values[index];
-                }   
-            }
+        //     ComboBoxPL {
+        //         id: dateDayComboBox
+        //         label: app.tr("Date")
+        //         width: dateRow.width / 2
+        //         model: [ "28", "29", "30", "31" ]
+        //         property var values: [ 28, 29, 30, 31 ]
+        //         currentIndex: 0
+        //         Component.onCompleted: {
+        //             // selectedTime = parseInt(Qt.formatTime(new Date(),"hh"))
+        //             // timeRangeComboBox.currentIndex = timeRangeComboBox.values.indexOf(selectedTime);
+        //         }
+        //         onCurrentIndexChanged: {
+        //             // var index = timeRangeComboBox.currentIndex;
+        //             // selectedTime = timeRangeComboBox.values[index];
+        //         }   
+        //     }
 
-            ComboBoxPL {
-                id: dateMonthComboBox
-                width: dateRow.width / 2
-                model: [ "06", "07", "08", "09" ]
-                property var values: [ 6, 7, 8, 8 ]
-                currentIndex: 0
-                Component.onCompleted: {
-                    // selectedTime = parseInt(Qt.formatTime(new Date(),"hh"))
-                    // timeRangeComboBox.currentIndex = timeRangeComboBox.values.indexOf(selectedTime);
-                }
-                onCurrentIndexChanged: {
-                    // var index = timeRangeComboBox.currentIndex;
-                    // selectedTime = timeRangeComboBox.values[index];
-                }   
-            }
+        //     ComboBoxPL {
+        //         id: dateMonthComboBox
+        //         width: dateRow.width / 2
+        //         model: [ "06", "07", "08", "09" ]
+        //         property var values: [ 6, 7, 8, 8 ]
+        //         currentIndex: 0
+        //         Component.onCompleted: {
+        //             // selectedTime = parseInt(Qt.formatTime(new Date(),"hh"))
+        //             // timeRangeComboBox.currentIndex = timeRangeComboBox.values.indexOf(selectedTime);
+        //         }
+        //         onCurrentIndexChanged: {
+        //             // var index = timeRangeComboBox.currentIndex;
+        //             // selectedTime = timeRangeComboBox.values[index];
+        //         }   
+        //     }
+        // }
+
+        DatePickerDialogPL {
+            id: datePickerDialog
+            
         }
 
         ListItemLabel {
