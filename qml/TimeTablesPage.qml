@@ -56,6 +56,29 @@ PagePL {
         }
 
         ComboBoxPL {
+            id: dateDayComboBox
+            label: app.tr("Date")
+            width: parent.width / 4
+            model: [ "28", "29", "30", "31" ]
+            property var values: [ 28, 29, 30, 31 ]
+            currentIndex: 0
+            Component.onCompleted: {
+                // selectedTime = parseInt(Qt.formatTime(new Date(),"hh"))
+                // timeRangeComboBox.currentIndex = timeRangeComboBox.values.indexOf(selectedTime);
+            }
+            onCurrentIndexChanged: {
+                // var index = timeRangeComboBox.currentIndex;
+                // selectedTime = timeRangeComboBox.values[index];
+            }   
+        }
+
+        ListItemLabel {
+            color: styler.themeHighlightColor
+            height: implicitHeight + styler.themePaddingSmall
+            text: ""
+        }
+
+        ComboBoxPL {
             id: timeRangeComboBox
             label: app.tr("Time-Range")
             model: [ "0:00", "1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00", "8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00" ]
