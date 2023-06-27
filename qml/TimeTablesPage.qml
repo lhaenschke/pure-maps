@@ -57,11 +57,13 @@ PagePL {
 
         Row {
             id: dateRow
+            width: parent.width
+            height: Math.max(dateDayComboBox.height, dateMonthComboBox.height)
 
             ComboBoxPL {
                 id: dateDayComboBox
                 label: app.tr("Date")
-                width: parent.width / 4
+                width: dateRow.width / 2
                 model: [ "28", "29", "30", "31" ]
                 property var values: [ 28, 29, 30, 31 ]
                 currentIndex: 0
@@ -77,7 +79,7 @@ PagePL {
 
             ComboBoxPL {
                 id: dateMonthComboBox
-                width: parent.width / 4
+                width: dateRow.width / 2
                 model: [ "06", "07", "08", "09" ]
                 property var values: [ 6, 7, 8, 8 ]
                 currentIndex: 0
