@@ -60,7 +60,7 @@ PagePL {
             id: dateGrid
             columns: 3
             rows: 1
-            spacing: styler.themePaddingSmall
+            spacing: styler.themePaddingMedium
             anchors.horizontalCenter: parent.horizontalCenter
 
             LabelPL {
@@ -84,13 +84,10 @@ PagePL {
                                             });
                     dialog.accepted.connect(function() {
                         if (dialog.date >= today) {
-                            // Format date as YYYY-MM-DD.
-                            var year = ("0000" + dialog.date.getFullYear()).substr(-4);
-                            var month = ("00" + (dialog.date.getMonth()+1)).substr(-2);
-                            var day = ("00" + dialog.date.getDate()).substr(-2);
-                            console.log("%1-%2-%3".arg(year).arg(month).arg(day));
                             selectedDate = dialog.date;
-                        } 
+                        } else {
+                            selectedDate = today;
+                        }
                     });
                 }
             }
