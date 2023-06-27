@@ -116,7 +116,8 @@ PagePL {
             Component.onCompleted: {
                 selectedTime = parseInt(Qt.formatTime(new Date(),"hh"));
                 for (var i = selectedTime; i < timeModel.length; i++) {
-                    
+                    model.append(timeModel[i]);
+                    values.append(timeValues[i]);
                 }
                 timeRangeComboBox.currentIndex = timeRangeComboBox.values.indexOf(selectedTime);
             }
