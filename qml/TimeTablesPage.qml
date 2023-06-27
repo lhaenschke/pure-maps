@@ -26,7 +26,6 @@ PagePL {
     title: app.tr("Timetables for ") + poi.title
 
     property var poi
-    property var selectedDate: new Date()
     property int selectedTime: 0
     property int selectedFilter: 0
     property bool showFilterSelector: false
@@ -56,58 +55,52 @@ PagePL {
             height: styler.themePaddingMedium
         }
 
-        Grid {
-            id: dateGrid
-            columns: 3
-            rows: 1
-            spacing: styler.themePaddingMedium
-            anchors.horizontalCenter: parent.horizontalCenter
+        // Grid {
+        //     id: dateGrid
+        //     columns: 3
+        //     rows: 1
+        //     spacing: styler.themePaddingMedium
+        //     anchors.horizontalCenter: parent.horizontalCenter
 
-            LabelPL {
-                id: selectedDateLabel
-                horizontalAlignment: Text.AlignHCenter
-                height: dateItem.height
-                text: app.tr('Selected Date:\n') + Qt.formatDateTime(selectedDate, "dd.MM.yy")
-                verticalAlignment: Text.AlignVCenter
-            }
+        //     LabelPL {
+        //         id: selectedDateLabel
+        //         horizontalAlignment: Text.AlignHCenter
+        //         height: dateItem.height
+        //         text: app.tr('Selected Date:\n') + Qt.formatDateTime(selectedDate, "dd.MM.yy")
+        //         verticalAlignment: Text.AlignVCenter
+        //     }
 
-            ButtonPL {
-                id: dateItem
-                height: styler.themeItemSizeSmall
-                text: app.tr("Change Date")
-                onClicked: {
-                    var today = new Date();
-                    today.setHours(0,0,0,0);
-                    var dialog = pages.push(Qt.resolvedUrl("../qml/platform/DatePickerDialogPL.qml"), {
-                                                "date": selectedDate,
-                                                "title": app.tr("Select date")
-                                            });
-                    dialog.accepted.connect(function() {
-                        if (dialog.date >= today) {
-                            selectedDate = dialog.date;
-                        } else {
-                            selectedDate = today;
-                        }
-                    });
-                }
-            }
+        //     ButtonPL {
+        //         id: dateItem
+        //         height: styler.themeItemSizeSmall
+        //         text: app.tr("Change Date")
+        //         onClicked: {
+        //             var today = new Date();
+        //             today.setHours(0,0,0,0);
+        //             var dialog = pages.push(Qt.resolvedUrl("../qml/platform/DatePickerDialogPL.qml"), {
+        //                                         "date": selectedDate,
+        //                                         "title": app.tr("Select date")
+        //                                     });
+        //             dialog.accepted.connect(function() {
+        //                 if (dialog.date >= today) {
+        //                     selectedDate = dialog.date;
+        //                 } else {
+        //                     selectedDate = today;
+        //                 }
+        //             });
+        //         }
+        //     }
 
-            ButtonPL {
-                id: nowButton
-                height: styler.themeItemSizeSmall
-                text: app.tr("Now")
-                onClicked: {
-                    selectedDate = new Date();
-                }
-            }
+        //     ButtonPL {
+        //         id: nowButton
+        //         height: styler.themeItemSizeSmall
+        //         text: app.tr("Now")
+        //         onClicked: {
+        //             selectedDate = new Date();
+        //         }
+        //     }
 
-        }
-
-        ListItemLabel {
-            color: styler.themeHighlightColor
-            height: implicitHeight + styler.themePaddingSmall
-            text: ""
-        }
+        // }
         
         ComboBoxPL {
             id: timeRangeComboBox
@@ -125,12 +118,12 @@ PagePL {
             onCurrentIndexChanged: {
                 var index = timeRangeComboBox.currentIndex;
                 var now = parseInt(Qt.formatTime(new Date(),"hh"));
-                console.log('Value: ', timeRangeComboBox.values[index])
-                console.log('Now: ', now)
+                console.log('Value: ', timeRangeComboBox.values[index]);
+                console.log('Now: ', now);
                 if (timeRangeComboBox.values[index] >= now) {
                     selectedTime = timeRangeComboBox.values[index];
                 } else {
-                    selectedTime = now;
+                    currentIndex = now;
                 }
             }   
         }
