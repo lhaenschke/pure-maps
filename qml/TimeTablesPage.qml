@@ -116,19 +116,21 @@ PagePL {
                 timeRangeComboBox.currentIndex = timeRangeComboBox.values.indexOf(selectedTime);
             }
             onCurrentIndexChanged: {
+                console.log('On Index Changed');
+                selectedTime = timeRangeComboBox.values[index];
+            }
+            onActivated: {
+                console.log('On Activated');
                 var index = timeRangeComboBox.currentIndex;
                 var now = parseInt(Qt.formatTime(new Date(),"hh"));
-                console.log('Value: ', timeRangeComboBox.values[index]);
-                console.log('Now: ', now);
                 if (timeRangeComboBox.values[index] >= now) {
                     console.log('Ok');
                     timeRangeComboBox.currentIndex = index;
-                    selectedTime = timeRangeComboBox.values[index];
                 } else {
                     console.log('Change');
                     timeRangeComboBox.currentIndex = now;
                 }
-            }   
+            }
         }
 
         ListItemLabel {
