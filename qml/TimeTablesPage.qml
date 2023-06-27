@@ -57,20 +57,14 @@ PagePL {
 
         Grid {
             id: bholder
-
-            anchors.left: page.left
-            anchors.leftMargin: 0
-            anchors.right: page.right
-            anchors.rightMargin: 0
-            columns: 2
+            columns: 3
             rows: 1
             spacing: styler.themePaddingSmall
-            visible: full
 
             ButtonPL {
                 id: dateItem
                 height: styler.themeItemSizeSmall
-                text: app.tr("Today")
+                text: app.tr("Select Date")
 
                 property var  date: new Date()
 
@@ -81,7 +75,6 @@ PagePL {
                                             });
                     dialog.accepted.connect(function() {
                         dateItem.date = dialog.date;
-                        dateItem.text = dialog.date.toLocaleDateString();
                         // Format date as YYYY-MM-DD.
                         var year = ("0000" + dialog.date.getFullYear()).substr(-4);
                         var month = ("00" + (dialog.date.getMonth()+1)).substr(-2);
@@ -94,7 +87,7 @@ PagePL {
             ButtonPL {
                 id: timeItem
                 height: styler.themeItemSizeSmall
-                text: app.tr("Now")
+                text: app.tr("Select Time")
 
                 property var time: new Date()
 
@@ -108,12 +101,22 @@ PagePL {
                         timeItem.time.setHours(dialog.hour);
                         timeItem.time.setMinutes(dialog.minute);
                         timeItem.time.setSeconds(0);
-                        timeItem.text = timeItem.time.toLocaleTimeString();
                         // Format date as YYYY-MM-DD.
                         var hour = ("00" + dialog.hour).substr(-2);
                         var minute = ("00" + dialog.minute).substr(-2);
                         console.log("%1:%2:00".arg(hour).arg(minute));
                     });
+                }
+            }
+
+            ButtonPL {
+                id: nowButton
+                height: styler.themeItemSizeSmall
+                text: app.tr("Now")
+                onClicked: {
+                    searchButton.text = app.tr("Loading");
+                    py.call_sync("poor.app.timetables.search", [poi.coordinate.latitude, poi.coordinate.longitude, selectedTime]);
+                    list.fillModel();
                 }
             }
 
