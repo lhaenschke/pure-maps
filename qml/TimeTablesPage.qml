@@ -26,6 +26,7 @@ PagePL {
     title: app.tr("Timetables for ") + poi.title
 
     property var poi
+    property var selectedDate: new Date()
     property int selectedTime: 0
     property int selectedFilter: 0
     property bool showFilterSelector: false
@@ -66,7 +67,7 @@ PagePL {
                 id: selectedDateLabel
                 horizontalAlignment: Text.AlignHCenter
                 height: dateItem.height
-                text: app.tr('Selected Date:\n') + Qt.formatDateTime(new Date(), "dd.MM.yy")
+                text: app.tr('Selected Date:\n') + Qt.formatDateTime(selectedDate, "dd.MM.yy")
                 verticalAlignment: Text.AlignVCenter
             }
 
@@ -74,56 +75,30 @@ PagePL {
                 id: dateItem
                 height: styler.themeItemSizeSmall
                 text: app.tr("Change Date")
-
-                property var  date: new Date()
-
                 onClicked: {
                     var dialog = pages.push(Qt.resolvedUrl("../qml/platform/DatePickerDialogPL.qml"), {
-                                                "date": dateItem.date,
+                                                "date": selectedDate,
                                                 "title": app.tr("Select date")
                                             });
                     dialog.accepted.connect(function() {
-                        dateItem.date = dialog.date;
-                        // Format date as YYYY-MM-DD.
-                        var year = ("0000" + dialog.date.getFullYear()).substr(-4);
-                        var month = ("00" + (dialog.date.getMonth()+1)).substr(-2);
-                        var day = ("00" + dialog.date.getDate()).substr(-2);
-                        console.log("%1-%2-%3".arg(year).arg(month).arg(day));
+                        if (dialog.date >= new Date()) {
+                            // Format date as YYYY-MM-DD.
+                            var year = ("0000" + dialog.date.getFullYear()).substr(-4);
+                            var month = ("00" + (dialog.date.getMonth()+1)).substr(-2);
+                            var day = ("00" + dialog.date.getDate()).substr(-2);
+                            console.log("%1-%2-%3".arg(year).arg(month).arg(day));
+                            selectedDate = dialog.date;
+                        }
                     });
                 }
             }
-
-            // ButtonPL {
-            //     id: timeItem
-            //     height: styler.themeItemSizeSmall
-            //     text: app.tr("Select Time")
-
-            //     property var time: new Date()
-
-            //     onClicked: {
-            //         var dialog = pages.push(Qt.resolvedUrl("../qml/platform/TimePickerDialogPL.qml"), {
-            //                                     "hour": timeItem.time.getHours(),
-            //                                     "minute": timeItem.time.getMinutes(),
-            //                                     "title": app.tr("Select time")
-            //                                 });
-            //         dialog.accepted.connect(function() {
-            //             timeItem.time.setHours(dialog.hour);
-            //             timeItem.time.setMinutes(dialog.minute);
-            //             timeItem.time.setSeconds(0);
-            //             // Format date as YYYY-MM-DD.
-            //             var hour = ("00" + dialog.hour).substr(-2);
-            //             var minute = ("00" + dialog.minute).substr(-2);
-            //             console.log("%1:%2:00".arg(hour).arg(minute));
-            //         });
-            //     }
-            // }
 
             ButtonPL {
                 id: nowButton
                 height: styler.themeItemSizeSmall
                 text: app.tr("Now")
                 onClicked: {
-                    console.log('Select current Date');
+                    selectedDate = new Date();
                 }
             }
 
