@@ -121,9 +121,12 @@ PagePL {
                 console.log('Value: ', timeRangeComboBox.values[index]);
                 console.log('Now: ', now);
                 if (timeRangeComboBox.values[index] >= now) {
+                    console.log('Ok');
                     selectedTime = timeRangeComboBox.values[index];
                 } else {
+                    console.log('Change');
                     currentIndex = now;
+                    currentText = model[currentIndex]
                 }
             }   
         }
