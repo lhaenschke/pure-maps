@@ -318,14 +318,27 @@ PagePL {
                                     "track": ""
                                 };
                                 infoList.model.append(dict);
-                                py.call_sync("poor.app.timetables.get_cached_destination_information", [id, arr[i]], function(result) {
-                                    var result_arr = result.split('|');
-                                    model[i]['dep_time_hh'] = result_arr[0];
-                                    model[i]['dep_time_mm'] = result_arr[1];
-                                    model[i]['track'] = result_arr[2];
-                                    console.log("Result: ", model[i]['type'], model[i]['dep_time_hh']);
-                                });
                             }
+
+                        }
+
+                        function loadChaches(id) {
+                            for (var i = 0; i < infoList.model.length; i++) {
+                                if (model[i]['train_id'] == id) {
+                                    console.log('Found Train');
+                                }
+                            }
+
+                            // var arr = next_stops.split('|');
+                            // for (var i = 0; i < arr.length; i++) {
+                            //     py.call("poor.app.timetables.get_cached_destination_information", [id, arr[i]], function(result) {
+                            //         var result_arr = result.split('|');
+                            //         model[i]['dep_time_hh'] = result_arr[0];
+                            //         model[i]['dep_time_mm'] = result_arr[1];
+                            //         model[i]['track'] = result_arr[2];
+                            //         console.log("Result: ", model[i]['type'], model[i]['dep_time_hh']);
+                            //     });
+                            // }
 
                         }
 
@@ -356,6 +369,7 @@ PagePL {
                     
                     if (isVisible) {
                         infoList.fillInfoModel(model['type'], model['name'], model['next_stops'], model['train_id']);
+                        infoList.loadChaches(model['train_id']);
                     } else {
                         infoList.clearInfoModel();
                     }
