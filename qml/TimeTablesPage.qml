@@ -201,24 +201,28 @@ PagePL {
 
             LabelPL {
                 id: depTimeHeader
+                width: page.width / 7
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Time")
             }
 
             LabelPL {
                 id: nameHeader
+                width: page.width / 5
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Name")
             }
 
             LabelPL {
                 id: directionHeader
+                width: page.width / 2.1
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Direction")
             }
 
             LabelPL {
                 id: trackItem
+                width: page.width / 7
                 horizontalAlignment: Text.AlignRight
                 text: app.tr("Track")
             }
