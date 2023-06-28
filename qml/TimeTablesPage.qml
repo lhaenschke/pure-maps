@@ -313,11 +313,13 @@ PagePL {
                                 var track = "";
                                 py.call("poor.app.timetables.get_cached_destination_information", [id, arr[i]], function(result) {
                                     var result_arr = result.split('|');
-                                    console.log(result_arr);
+                                    console.log('Result-Arr:', result_arr);
                                     dep_time_hh = result_arr[0];
                                     dep_time_mm = result_arr[1];
                                     track = result_arr[2];
                                 });
+
+                                console.log('Values:', dep_time_hh, dep_time_mm, track);
 
                                 var dict = {
                                     "type": type,
@@ -328,8 +330,9 @@ PagePL {
                                     "destination": arr[i],
                                     "track": track
                                 };
-                                console.log('Dict: ', dict)
+                                console.log('Dict-Values: ', dict['dep_time_hh'], dict['dep_time_mm'], dict['track'])
                                 infoList.model.append(dict);
+                                console.log('');
                             }
 
                         }
