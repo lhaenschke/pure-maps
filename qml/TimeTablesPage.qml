@@ -62,10 +62,10 @@ PagePL {
 
         // Grid {
         //     id: dateGrid
-        //     columns: 3
-        //     rows: 1
-        //     spacing: styler.themePaddingMedium
-        //     anchors.horizontalCenter: parent.horizontalCenter
+            // columns: 3
+            // rows: 1
+            // spacing: styler.themePaddingMedium
+            // anchors.horizontalCenter: parent.horizontalCenter
 
         //     LabelPL {
         //         id: selectedDateLabel
@@ -173,12 +173,10 @@ PagePL {
             id: filterComboBox
             label: app.tr("Filter")
             model: [app.tr("Any"), app.tr("Only Reginoal Trains"), app.tr("Only Long-distance Trains")]
-            property var values: [0, 1, 2]
             visible: showFilterSelector
             currentIndex: 0
             onCurrentIndexChanged: {
-                var index = filterComboBox.currentIndex;
-                selectedFilter = filterComboBox.values[index];
+                selectedFilter = filterComboBox.currentIndex;
                 list.filterModel();
             }   
         }
@@ -189,10 +187,12 @@ PagePL {
             text: ""
         }
 
-        Row {
-            id: headerRow
-            height: Math.max(depTimeHeader.height, nameHeader.height, directionHeader.height, trackItem.height)
-            width: parent.width
+        Grid {
+            id: headerGrid
+            columns: 4
+            rows: 1
+            spacing: styler.themePaddingMedium
+            anchors.horizontalCenter: parent.horizontalCenter
             visible: timetableHeader.text
 
             LabelPL {
@@ -222,8 +222,43 @@ PagePL {
                 horizontalAlignment: Text.AlignRight
                 text: app.tr("Track   ")
             }
+        }
 
-        }        
+        // Row {
+        //     id: headerRow
+        //     height: Math.max(depTimeHeader.height, nameHeader.height, directionHeader.height, trackItem.height)
+        //     width: parent.width
+        //     visible: timetableHeader.text
+
+        //     LabelPL {
+        //         id: depTimeHeader
+        //         width: headerRow.width / 7
+        //         horizontalAlignment: Text.AlignLeft
+        //         text: app.tr("    Time")
+        //     }
+
+        //     LabelPL {
+        //         id: nameHeader
+        //         width: headerRow.width / 5
+        //         horizontalAlignment: Text.AlignLeft
+        //         text: app.tr("   Name")
+        //     }
+
+        //     LabelPL {
+        //         id: directionHeader
+        //         width: headerRow.width / 2
+        //         horizontalAlignment: Text.AlignLeft
+        //         text: app.tr("   Direction")
+        //     }
+
+        //     LabelPL {
+        //         id: trackItem
+        //         width: headerRow.width / 6
+        //         horizontalAlignment: Text.AlignRight
+        //         text: app.tr("Track   ")
+        //     }
+
+        // }        
 
         Repeater {
             id: list
