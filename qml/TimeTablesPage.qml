@@ -312,12 +312,14 @@ PagePL {
                                 var dep_time_mm = "";
                                 var track = "";
                                 py.call("poor.app.timetables.get_cached_destination_information", [id, arr[i]], function(result) {
-                                    console.log(result);
                                     var result_arr = result.split('|');
+                                    console.log(result_arr);
                                     dep_time_hh = result_arr[0];
                                     dep_time_mm = result_arr[1];
                                     track = result_arr[2];
                                 });
+
+                                console.log(dep_time_hh, dep_time_mm, track)
 
                                 var dict = {
                                     "type": type,
