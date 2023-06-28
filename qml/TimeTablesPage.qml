@@ -317,15 +317,14 @@ PagePL {
                                     "destination": arr[i],
                                     "track": ""
                                 };
+                                infoList.model.append(dict);
                                 py.call_sync("poor.app.timetables.get_cached_destination_information", [id, arr[i]], function(result) {
                                     var result_arr = result.split('|');
-                                    dict['dep_time_hh'] = result_arr[0];
-                                    dict['dep_time_mm'] = result_arr[1];
-                                    dict['track'] = result_arr[2];
-                                    console.log("Result: ", result_arr);
+                                    model[i]['dep_time_hh'] = result_arr[0];
+                                    model[i]['dep_time_mm'] = result_arr[1];
+                                    model[i]['track'] = result_arr[2];
+                                    console.log("Result: ", model[i]['type'], model[i]['dep_time_hh']);
                                 });
-                                console.log("Dict: ", dict['type'], dict['dep_time_hh'], dict['dep_time_mm'], dict['track']);
-                                infoList.model.append(dict);
                             }
 
                         }
