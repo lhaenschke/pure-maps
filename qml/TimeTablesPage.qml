@@ -213,7 +213,7 @@ PagePL {
 
             LabelPL {
                 id: directionHeader
-                width: page.width / 2.4
+                width: page.width / 2.3
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Direction")
             }
