@@ -253,9 +253,7 @@ PagePL {
                                 rows: 1
                                 spacing: styler.themePaddingMedium
                                 anchors.left: parent.left
-                                anchors.leftMargin: 4
                                 anchors.right: parent.right
-                                anchors.rightMargin: 4
 
                                 LabelPL {
                                     id: depTimeLabel
@@ -285,41 +283,6 @@ PagePL {
                                     text: model['track']
                                 }
                             }
-
-                            // Row {
-                            //     id: infoRow
-                            //     height: Math.max(infoDepTimeItem.height, infoNameItem.height, infoDirectionItem.height, infoTrackItem.height) + 10
-                            //     width: parent.width
-
-                            //     LabelPL {
-                            //         id: infoDepTimeItem
-                            //         width: infoRow.width / 7
-                            //         horizontalAlignment: Text.AlignLeft
-                            //         text: (model['dep_time_hh'] ? model['dep_time_hh'] + ":" + model['dep_time_mm'] : "")
-                            //     }
-
-                            //     LabelPL {
-                            //         id: infoNameItem
-                            //         width: infoRow.width / 5
-                            //         horizontalAlignment: Text.AlignLeft
-                            //         text: model['type'] + " " + model['name']
-                            //     }
-
-                            //     LabelPL {
-                            //         id: infoDirectionItem
-                            //         width: infoRow.width / 2
-                            //         horizontalAlignment: Text.AlignLeft
-                            //         text: model['destination']
-                            //     }
-
-                            //     LabelPL {
-                            //         id: infoTrackItem
-                            //         width: infoRow.width / 6
-                            //         horizontalAlignment: Text.AlignRight
-                            //         text: model['track'] + "  "
-                            //     }
-
-                            // }
 
                             onClicked: {
                                 if (model['dep_time_hh'] == "") {
