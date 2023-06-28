@@ -71,12 +71,21 @@ class TimetableManager:
         self.trains = sorted(self.trains, key=lambda x: x.dep_time)
 
     def load_destination_informations(self, train_id: str, dest_name: str, hour: int):
+        for train in self.trains:
+            if train.id == train_id:
+                for (name, dest_time_hh, dest_time_mm, track) in train.next_stops_info:
+                    if name == dest_name:
+                        print('Cached')
+                        return "".join((dest_time_hh, '|', dest_time_mm, '|', track))
+
         (dest_arr_time, dest_track) = (None, "")
         for i in range(3):
             (dest_arr_time, dest_track) = self._get_time_from_destination(train_id, dest_name, hour + i)    
             if dest_arr_time is not None:
                 for i in range(len(self.trains)):
                     if self.trains[i].id == train_id:
+                        self.trains[i].addFurtherInformation(dest_name, dest_arr_time[6:8], dest_arr_time[8:], dest_track)
+                        print('Loaded')
                         return "".join((dest_arr_time[6:8], '|', dest_arr_time[8:], '|', dest_track))
 
     def get_trains(self):
@@ -181,3 +190,8 @@ class Traininformation:
             self.dep_time = dep_time
             self.track = track
             self.next_stops = next_stops
+            self.next_stops_info = []
+
+        def addFurtherInformation(self, next_stop_name: str, dep_time_hh: str, dep_time_mm: str, track: str):
+            self.next_stops_info.append((next_stop_name, dep_time_hh, dep_time_mm, track))
+            print('Added')
