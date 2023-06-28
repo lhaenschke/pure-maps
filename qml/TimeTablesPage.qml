@@ -270,9 +270,9 @@ PagePL {
                         rows: 1
                         spacing: styler.themePaddingMedium
                         anchors.left: parent.left
-                        anchors.leftMargin: 10
+                        anchors.leftMargin: 8
                         anchors.right: parent.right
-                        anchors.rightMargin: 10
+                        anchors.rightMargin: 8
 
                         LabelPL {
                             id: depTimeLabel
