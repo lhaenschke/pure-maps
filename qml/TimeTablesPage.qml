@@ -317,7 +317,7 @@ PagePL {
                                     "destination": arr[i],
                                     "track": ""
                                 };
-                                py.call("poor.app.timetables.get_cached_destination_information", [id, arr[i]], function(result) {
+                                py.call_sync("poor.app.timetables.get_cached_destination_information", [id, arr[i]], function(result) {
                                     var result_arr = result.split('|');
                                     dict['dep_time_hh'] = result_arr[0];
                                     dict['dep_time_mm'] = result_arr[1];
