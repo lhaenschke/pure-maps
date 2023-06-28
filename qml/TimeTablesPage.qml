@@ -319,8 +319,6 @@ PagePL {
                                     track = result_arr[2];
                                 });
 
-                                console.log(dep_time_hh, dep_time_mm, track)
-
                                 var dict = {
                                     "type": type,
                                     "name": name,
@@ -330,6 +328,7 @@ PagePL {
                                     "destination": arr[i],
                                     "track": track
                                 };
+                                console.log('Dict: ', dict)
                                 infoList.model.append(dict);
                             }
 

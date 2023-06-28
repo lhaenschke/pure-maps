@@ -103,7 +103,6 @@ class TimetableManager:
             if train.id == train_id:
                 for (name, dest_time_hh, dest_time_mm, track) in train.next_stops_info:
                     if name == dest_name:
-                        print("Found chaced")
                         return "".join((dest_time_hh, '|', dest_time_mm, '|', track))
         return "||"
 
