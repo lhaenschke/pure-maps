@@ -194,35 +194,35 @@ PagePL {
             spacing: styler.themePaddingMedium
             // anchors.horizontalCenter: parent.horizontalCenter
             anchors.left: page.left
-            // anchors.leftMargin: styler.themeHorizontalPageMargin
+            anchors.leftMargin: styler.themeHorizontalPageMargin
             anchors.right: page.right
-            // anchors.rightMargin: styler.themeHorizontalPageMargin
+            anchors.rightMargin: styler.themeHorizontalPageMargin
             visible: timetableHeader.text
 
             LabelPL {
                 id: depTimeHeader
-                width: page.width / 7
-                horizontalAlignment: Text.AlignLeft
+                width: page.width / 8
+                horizontalAlignment: Text.Align
                 text: app.tr("Time")
             }
 
             LabelPL {
                 id: nameHeader
-                width: page.width / 5
+                width: page.width / 6
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Name")
             }
 
             LabelPL {
                 id: directionHeader
-                width: page.width / 2.1
+                width: page.width / 2.5
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Direction")
             }
 
             LabelPL {
                 id: trackItem
-                width: page.width / 7
+                width: page.width / 8
                 horizontalAlignment: Text.AlignRight
                 text: app.tr("Track")
             }
