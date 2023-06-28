@@ -75,7 +75,6 @@ class TimetableManager:
             if train.id == train_id:
                 for (name, dest_time_hh, dest_time_mm, track) in train.next_stops_info:
                     if name == dest_name:
-                        print('Cached')
                         return "".join((dest_time_hh, '|', dest_time_mm, '|', track))
 
         (dest_arr_time, dest_track) = (None, "")
@@ -85,7 +84,6 @@ class TimetableManager:
                 for i in range(len(self.trains)):
                     if self.trains[i].id == train_id:
                         self.trains[i].addFurtherInformation(dest_name, dest_arr_time[6:8], dest_arr_time[8:], dest_track)
-                        print('Loaded')
                         return "".join((dest_arr_time[6:8], '|', dest_arr_time[8:], '|', dest_track))
 
     def get_trains(self):
@@ -100,6 +98,13 @@ class TimetableManager:
             next_stops=train.next_stops,
         ) for train in self.trains]
 
+    def get_cached_destination_information(self, train_id: str, dest_name: str):
+        for train in self.trains:
+            if train.id == train_id:
+                for (name, dest_time_hh, dest_time_mm, track) in train.next_stops_info:
+                    if name == dest_name:
+                        return "".join((dest_time_hh, '|', dest_time_mm, '|', track))
+        return "||"
 
     def _get_time_from_destination(self, train_id: str, dest_name: str, min_hour: int) -> str:
         (status, eva_number) = self._get_eva_number_dest_name(dest_name)
