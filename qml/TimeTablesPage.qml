@@ -176,43 +176,7 @@ PagePL {
                 horizontalAlignment: Text.AlignRight
                 text: app.tr("Track")
             }
-        }
-
-        // Row {
-        //     id: headerRow
-        //     height: Math.max(depTimeHeader.height, nameHeader.height, directionHeader.height, trackItem.height)
-        //     width: parent.width
-        //     visible: timetableHeader.text
-
-        //     LabelPL {
-        //         id: depTimeHeader
-        //         width: headerRow.width / 7
-        //         horizontalAlignment: Text.AlignLeft
-        //         text: app.tr("    Time")
-        //     }
-
-        //     LabelPL {
-        //         id: nameHeader
-        //         width: headerRow.width / 5
-        //         horizontalAlignment: Text.AlignLeft
-        //         text: app.tr("   Name")
-        //     }
-
-        //     LabelPL {
-        //         id: directionHeader
-        //         width: headerRow.width / 2
-        //         horizontalAlignment: Text.AlignLeft
-        //         text: app.tr("   Direction")
-        //     }
-
-        //     LabelPL {
-        //         id: trackItem
-        //         width: headerRow.width / 6
-        //         horizontalAlignment: Text.AlignRight
-        //         text: app.tr("Track   ")
-        //     }
-
-        // }        
+        }      
 
         Repeater {
             id: list
@@ -228,41 +192,6 @@ PagePL {
                 Column {
                     id: listColumn
                     width: page.width
-
-                    // Row {
-                    //     id: row
-                    //     height: Math.max(depTimeItem.height, nameItem.height, directionItem.height, trackItem.height) + 10
-                    //     width: parent.width
-
-                    //     LabelPL {
-                    //         id: depTimeItem
-                    //         width: row.width / 7
-                    //         horizontalAlignment: Text.AlignLeft
-                    //         text: "  " + model['dep_time_hh'] + ":" + model['dep_time_mm']
-                    //     }
-
-                    //     LabelPL {
-                    //         id: nameItem
-                    //         width: row.width / 5
-                    //         horizontalAlignment: Text.AlignLeft
-                    //         text: " " + model['type'] + " " + model['name']
-                    //     }
-
-                    //     LabelPL {
-                    //         id: directionItem
-                    //         width: row.width / 2
-                    //         horizontalAlignment: Text.AlignLeft
-                    //         text: model['destination']
-                    //     }
-
-                    //     LabelPL {
-                    //         id: trackItem
-                    //         width: row.width / 6
-                    //         horizontalAlignment: Text.AlignRight
-                    //         text: model['track'] + "      "
-                    //     }
-
-                    // }
 
                     Grid {
                         id: trainsGrid
@@ -318,40 +247,79 @@ PagePL {
                             contentHeight: infoRow.height
                             width: page.width
 
-                            Row {
-                                id: infoRow
-                                height: Math.max(infoDepTimeItem.height, infoNameItem.height, infoDirectionItem.height, infoTrackItem.height) + 10
-                                width: parent.width
+                            Grid {
+                                id: furtherInfoGrid
+                                columns: 4
+                                rows: 1
+                                spacing: styler.themePaddingMedium
+                                anchors.left: parent.left
+                                anchors.leftMargin: 4
+                                anchors.right: parent.right
+                                anchors.rightMargin: 4
 
                                 LabelPL {
-                                    id: infoDepTimeItem
-                                    width: infoRow.width / 7
+                                    id: depTimeLabel
+                                    width: page.width / 8
                                     horizontalAlignment: Text.AlignLeft
                                     text: (model['dep_time_hh'] ? model['dep_time_hh'] + ":" + model['dep_time_mm'] : "")
                                 }
 
                                 LabelPL {
-                                    id: infoNameItem
-                                    width: infoRow.width / 5
+                                    id: nameLabel
+                                    width: page.width / 6
                                     horizontalAlignment: Text.AlignLeft
                                     text: model['type'] + " " + model['name']
                                 }
 
                                 LabelPL {
-                                    id: infoDirectionItem
-                                    width: infoRow.width / 2
+                                    id: directionLabel
+                                    width: page.width / 2.35
                                     horizontalAlignment: Text.AlignLeft
                                     text: model['destination']
                                 }
 
                                 LabelPL {
-                                    id: infoTrackItem
-                                    width: infoRow.width / 6
+                                    id: trackLabel
+                                    width: page.width / 8
                                     horizontalAlignment: Text.AlignRight
-                                    text: model['track'] + "  "
+                                    text: model['track']
                                 }
-
                             }
+
+                            // Row {
+                            //     id: infoRow
+                            //     height: Math.max(infoDepTimeItem.height, infoNameItem.height, infoDirectionItem.height, infoTrackItem.height) + 10
+                            //     width: parent.width
+
+                            //     LabelPL {
+                            //         id: infoDepTimeItem
+                            //         width: infoRow.width / 7
+                            //         horizontalAlignment: Text.AlignLeft
+                            //         text: (model['dep_time_hh'] ? model['dep_time_hh'] + ":" + model['dep_time_mm'] : "")
+                            //     }
+
+                            //     LabelPL {
+                            //         id: infoNameItem
+                            //         width: infoRow.width / 5
+                            //         horizontalAlignment: Text.AlignLeft
+                            //         text: model['type'] + " " + model['name']
+                            //     }
+
+                            //     LabelPL {
+                            //         id: infoDirectionItem
+                            //         width: infoRow.width / 2
+                            //         horizontalAlignment: Text.AlignLeft
+                            //         text: model['destination']
+                            //     }
+
+                            //     LabelPL {
+                            //         id: infoTrackItem
+                            //         width: infoRow.width / 6
+                            //         horizontalAlignment: Text.AlignRight
+                            //         text: model['track'] + "  "
+                            //     }
+
+                            // }
 
                             onClicked: {
                                 if (model['dep_time_hh'] == "") {
