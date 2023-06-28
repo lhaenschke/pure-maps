@@ -124,10 +124,8 @@ PagePL {
                 var now = parseInt(Qt.formatTime(new Date(),"hh"));
 
                 if (index >= now) {
-                    console.log('Ok');
                     selectedTime = index;
                 } else {
-                    console.log('Changed to: ', now);
                     timeRangeComboBox.currentIndex = now;
                     selectedTime = now;
                 }
@@ -215,7 +213,7 @@ PagePL {
 
             LabelPL {
                 id: directionHeader
-                width: page.width / 2.5
+                width: page.width / 2.4
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Direction")
             }
