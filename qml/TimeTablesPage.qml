@@ -202,7 +202,7 @@ PagePL {
             LabelPL {
                 id: depTimeHeader
                 width: page.width / 8
-                horizontalAlignment: Text.Align
+                horizontalAlignment: Text.AlignLeft
                 text: app.tr("Time")
             }
 
