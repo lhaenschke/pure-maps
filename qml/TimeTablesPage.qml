@@ -244,8 +244,8 @@ PagePL {
 
                         delegate: ListItemPL {
                             id: infoListItem
-                            contentHeight: infoRow.height
                             width: page.width
+                            contentHeight: furtherInfoGrid.height
 
                             Grid {
                                 id: furtherInfoGrid
