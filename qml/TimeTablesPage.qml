@@ -117,15 +117,17 @@ PagePL {
             currentIndex: 0
             Component.onCompleted: {
                 selectedTime = parseInt(Qt.formatTime(new Date(),"hh"))
-                timeRangeComboBox.currentIndex = timeRangeComboBox.values.indexOf(selectedTime);
+                timeRangeComboBox.currentIndex = selectedTime;
             }
             onCurrentIndexChanged: {
                 var index = timeRangeComboBox.currentIndex;
                 var now = parseInt(Qt.formatTime(new Date(),"hh"));
 
                 if (index >= now) {
+                    console.log('Ok');
                     selectedTime = index;
                 } else {
+                    console.log('Changed to: ', now);
                     timeRangeComboBox.currentIndex = now;
                     selectedTime = now;
                 }
