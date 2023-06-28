@@ -304,7 +304,7 @@ PagePL {
                         model: ListModel {}
 
                         function fillInfoModel(type, name, next_stops, id) {
-                            infoList.model.clear()
+                            infoList.model.clear();
 
                             var arr = next_stops.split('|');
                             for (var i = 0; i < arr.length; i++) {
@@ -322,7 +322,7 @@ PagePL {
                                     dict['dep_time_hh'] = result_arr[0];
                                     dict['dep_time_mm'] = result_arr[1];
                                     dict['track'] = result_arr[2];
-                                    console.log("Result: " result_arr)
+                                    console.log("Result: ", result_arr);
                                 });
                                 console.log("Dict: ", dict);
                                 infoList.model.append(dict);
@@ -331,7 +331,7 @@ PagePL {
                         }
 
                         function clearInfoModel() {
-                            infoList.model.clear()
+                            infoList.model.clear();
                         }
 
                     }
