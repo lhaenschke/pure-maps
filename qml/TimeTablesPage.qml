@@ -308,31 +308,29 @@ PagePL {
 
                             var arr = next_stops.split('|');
                             for (var i = 0; i < arr.length; i++) {
-                                var dep_time_hh = "";
-                                var dep_time_mm = "";
-                                var track = "";
                                 py.call("poor.app.timetables.get_cached_destination_information", [id, arr[i]], function(result) {
                                     var result_arr = result.split('|');
                                     console.log('Result-Arr:', result_arr);
-                                    dep_time_hh = result_arr[0];
-                                    dep_time_mm = result_arr[1];
-                                    track = result_arr[2];
+                                    var dep_time_hh = result_arr[0];
+                                    var dep_time_mm = result_arr[1];
+                                    var track = result_arr[2];
+
+                                    console.log('Values:', dep_time_hh, dep_time_mm, track);
+
+                                    var dict = {
+                                        "type": type,
+                                        "name": name,
+                                        "train_id": id,
+                                        "dep_time_hh": dep_time_hh,
+                                        "dep_time_mm": dep_time_mm,
+                                        "destination": arr[i],
+                                        "track": track
+                                    };
+                                    console.log('Dict-Values: ', dict['dep_time_hh'], dict['dep_time_mm'], dict['track'])
+                                    infoList.model.append(dict);
+                                    console.log('');
+
                                 });
-
-                                console.log('Values:', dep_time_hh, dep_time_mm, track);
-
-                                var dict = {
-                                    "type": type,
-                                    "name": name,
-                                    "train_id": id,
-                                    "dep_time_hh": dep_time_hh,
-                                    "dep_time_mm": dep_time_mm,
-                                    "destination": arr[i],
-                                    "track": track
-                                };
-                                console.log('Dict-Values: ', dict['dep_time_hh'], dict['dep_time_mm'], dict['track'])
-                                infoList.model.append(dict);
-                                console.log('');
                             }
 
                         }
