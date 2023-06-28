@@ -258,6 +258,7 @@ PagePL {
                                 LabelPL {
                                     id: depTimeLabel
                                     width: page.width / 8
+                                    height: implicitHeight + styler.themePaddingMedium
                                     horizontalAlignment: Text.AlignLeft
                                     text: (model['dep_time_hh'] ? model['dep_time_hh'] + ":" + model['dep_time_mm'] : "")
                                 }
@@ -265,6 +266,7 @@ PagePL {
                                 LabelPL {
                                     id: nameLabel
                                     width: page.width / 6
+                                    height: implicitHeight + styler.themePaddingMedium
                                     horizontalAlignment: Text.AlignLeft
                                     text: model['type'] + " " + model['name']
                                 }
@@ -272,6 +274,7 @@ PagePL {
                                 LabelPL {
                                     id: directionLabel
                                     width: page.width / 2.35
+                                    height: implicitHeight + styler.themePaddingMedium
                                     horizontalAlignment: Text.AlignLeft
                                     text: model['destination']
                                 }
@@ -279,6 +282,7 @@ PagePL {
                                 LabelPL {
                                     id: trackLabel
                                     width: page.width / 8
+                                    height: implicitHeight + styler.themePaddingMedium
                                     horizontalAlignment: Text.AlignRight
                                     text: model['track']
                                 }
