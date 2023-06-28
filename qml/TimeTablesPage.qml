@@ -193,10 +193,10 @@ PagePL {
             rows: 1
             spacing: styler.themePaddingMedium
             // anchors.horizontalCenter: parent.horizontalCenter
-            anchors.left: parent.left
-            anchors.leftMargin: styler.themeHorizontalPageMargin
-            anchors.right: parent.right
-            anchors.rightMargin: styler.themeHorizontalPageMargin
+            anchors.left: page.left
+            // anchors.leftMargin: styler.themeHorizontalPageMargin
+            anchors.right: page.right
+            // anchors.rightMargin: styler.themeHorizontalPageMargin
             visible: timetableHeader.text
 
             LabelPL {
