@@ -199,4 +199,3 @@ class Traininformation:
 
         def addFurtherInformation(self, next_stop_name: str, dep_time_hh: str, dep_time_mm: str, track: str):
             self.next_stops_info.append((next_stop_name, dep_time_hh, dep_time_mm, track))
-            print('Added')
