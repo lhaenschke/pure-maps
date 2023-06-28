@@ -220,6 +220,7 @@ PagePL {
             
             delegate: ListItemPL {
                 id: listItem
+                width: page.width
                 contentHeight: listColumn.height
                 
                 property bool isVisible: false
