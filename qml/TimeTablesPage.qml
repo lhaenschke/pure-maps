@@ -322,7 +322,9 @@ PagePL {
                                     dict['dep_time_hh'] = result_arr[0];
                                     dict['dep_time_mm'] = result_arr[1];
                                     dict['track'] = result_arr[2];
+                                    console.log("Result: " result_arr)
                                 });
+                                console.log("Dict: ", dict);
                                 infoList.model.append(dict);
                             }
 
