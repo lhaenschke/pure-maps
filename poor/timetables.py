@@ -99,9 +99,11 @@ class TimetableManager:
         ) for train in self.trains]
 
     def get_cached_destination_information(self, train_id: str, dest_name: str):
+        print("\n\n", train_id, dest_name)
         for train in self.trains:
             if train.id == train_id:
                 for (name, dest_time_hh, dest_time_mm, track) in train.next_stops_info:
+                    print(name)
                     if name == dest_name:
                         return "".join((dest_time_hh, '|', dest_time_mm, '|', track))
         return "||"
