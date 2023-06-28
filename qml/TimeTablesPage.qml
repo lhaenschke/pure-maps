@@ -60,53 +60,6 @@ PagePL {
             height: styler.themePaddingMedium
         }
 
-        // Grid {
-        //     id: dateGrid
-            // columns: 3
-            // rows: 1
-            // spacing: styler.themePaddingMedium
-            // anchors.horizontalCenter: parent.horizontalCenter
-
-        //     LabelPL {
-        //         id: selectedDateLabel
-        //         horizontalAlignment: Text.AlignHCenter
-        //         height: dateItem.height
-        //         text: app.tr('Selected Date:\n') + Qt.formatDateTime(selectedDate, "dd.MM.yy")
-        //         verticalAlignment: Text.AlignVCenter
-        //     }
-
-        //     ButtonPL {
-        //         id: dateItem
-        //         height: styler.themeItemSizeSmall
-        //         text: app.tr("Change Date")
-        //         onClicked: {
-        //             var today = new Date();
-        //             today.setHours(0,0,0,0);
-        //             var dialog = pages.push(Qt.resolvedUrl("../qml/platform/DatePickerDialogPL.qml"), {
-        //                                         "date": selectedDate,
-        //                                         "title": app.tr("Select date")
-        //                                     });
-        //             dialog.accepted.connect(function() {
-        //                 if (dialog.date >= today) {
-        //                     selectedDate = dialog.date;
-        //                 } else {
-        //                     selectedDate = today;
-        //                 }
-        //             });
-        //         }
-        //     }
-
-        //     ButtonPL {
-        //         id: nowButton
-        //         height: styler.themeItemSizeSmall
-        //         text: app.tr("Now")
-        //         onClicked: {
-        //             selectedDate = new Date();
-        //         }
-        //     }
-
-        // }
-        
         ComboBoxPL {
             id: timeRangeComboBox
             label: app.tr("Time-Range")
@@ -190,7 +143,6 @@ PagePL {
             columns: 4
             rows: 1
             spacing: styler.themePaddingMedium
-            // anchors.horizontalCenter: parent.horizontalCenter
             anchors.left: parent.left
             anchors.leftMargin: styler.themeHorizontalPageMargin
             anchors.right: parent.right
@@ -276,39 +228,78 @@ PagePL {
                     id: listColumn
                     width: page.width
 
-                    Row {
-                        id: row
-                        height: Math.max(depTimeItem.height, nameItem.height, directionItem.height, trackItem.height) + 10
-                        width: parent.width
+                    // Row {
+                    //     id: row
+                    //     height: Math.max(depTimeItem.height, nameItem.height, directionItem.height, trackItem.height) + 10
+                    //     width: parent.width
+
+                    //     LabelPL {
+                    //         id: depTimeItem
+                    //         width: row.width / 7
+                    //         horizontalAlignment: Text.AlignLeft
+                    //         text: "  " + model['dep_time_hh'] + ":" + model['dep_time_mm']
+                    //     }
+
+                    //     LabelPL {
+                    //         id: nameItem
+                    //         width: row.width / 5
+                    //         horizontalAlignment: Text.AlignLeft
+                    //         text: " " + model['type'] + " " + model['name']
+                    //     }
+
+                    //     LabelPL {
+                    //         id: directionItem
+                    //         width: row.width / 2
+                    //         horizontalAlignment: Text.AlignLeft
+                    //         text: model['destination']
+                    //     }
+
+                    //     LabelPL {
+                    //         id: trackItem
+                    //         width: row.width / 6
+                    //         horizontalAlignment: Text.AlignRight
+                    //         text: model['track'] + "      "
+                    //     }
+
+                    // }
+
+                    Grid {
+                        id: trainsGrid
+                        columns: 4
+                        rows: 1
+                        spacing: styler.themePaddingMedium
+                        anchors.left: parent.left
+                        anchors.leftMargin: styler.themeHorizontalPageMargin
+                        anchors.right: parent.right
+                        anchors.rightMargin: styler.themeHorizontalPageMargin
 
                         LabelPL {
-                            id: depTimeItem
-                            width: row.width / 7
+                            id: depTimeLabel
+                            width: page.width / 8
                             horizontalAlignment: Text.AlignLeft
-                            text: "  " + model['dep_time_hh'] + ":" + model['dep_time_mm']
+                            text: model['dep_time_hh'] + ":" + model['dep_time_mm']
                         }
 
                         LabelPL {
-                            id: nameItem
-                            width: row.width / 5
+                            id: nameLabel
+                            width: page.width / 6
                             horizontalAlignment: Text.AlignLeft
-                            text: " " + model['type'] + " " + model['name']
+                            text: model['type'] + " " + model['name']
                         }
 
                         LabelPL {
-                            id: directionItem
-                            width: row.width / 2
+                            id: directionLabel
+                            width: page.width / 2.35
                             horizontalAlignment: Text.AlignLeft
                             text: model['destination']
                         }
 
                         LabelPL {
-                            id: trackItem
-                            width: row.width / 6
+                            id: trackLabel
+                            width: page.width / 8
                             horizontalAlignment: Text.AlignRight
-                            text: model['track'] + "      "
+                            text: model['track']
                         }
-
                     }
 
                     ListItemLabel {
