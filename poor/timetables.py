@@ -98,14 +98,6 @@ class TimetableManager:
             next_stops=train.next_stops,
         ) for train in self.trains]
 
-    def get_cached_destination_information(self, train_id: str, dest_name: str):
-        for train in self.trains:
-            if train.id == train_id:
-                for (name, dest_time_hh, dest_time_mm, track) in train.next_stops_info:
-                    if name == dest_name:
-                        return "".join((dest_time_hh, '|', dest_time_mm, '|', track))
-        return "||"
-
     def _get_time_from_destination(self, train_id: str, dest_name: str, min_hour: int) -> str:
         (status, eva_number) = self._get_eva_number_dest_name(dest_name)
         if status != 200:
