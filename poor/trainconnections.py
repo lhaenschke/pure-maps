@@ -35,8 +35,17 @@ class TrainConnectionManager:
         """Initialize a :class:`TimetableManager` instance."""
         self._clientID = poor.key.get("DBTRAININFORMATION_CLIENT")
         self._clientSecret = poor.key.get("DBTRAININFORMATION_SECRET")
+        self._querys = []
 
     def get_suggestions(self, latitude: str, longitude: str, query: str):
+        for (que, stations) in self._querys:
+            if que == query:
+                return [dict(
+                    status=200,
+                    name=name,
+                    eva=eva
+                ) for (name, eva) in stations]
+        
         conn = http.client.HTTPSConnection("apis.deutschebahn.com")
 
         headers = {
@@ -59,6 +68,11 @@ class TrainConnectionManager:
 
         for stop_place in json_data['stopPlaces']:
             stations.append((stop_place['names']['DE']['nameLong'], stop_place['evaNumber']))
+
+        if len(self._querys) >= 5:
+            self._querys.pop(0)
+        
+        self._querys.append((query, stations))
 
         return [dict(
             status=res.status,
