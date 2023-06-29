@@ -325,9 +325,10 @@ PagePL {
                         function loadChaches(id) {
                             console.log('Called');
                             console.log('InfolistModel:', infoList.model);
-                            console.log('InfolistModel-Length:', infoList.model.count);
+                            console.log('InfolistModel-Count:', infoList.model.count);
                             for (var i = 0; i < infoList.model.count; i++) {
-                                console.log('Test:', model.get(i)['train_id']);
+                                console.log('Test:', infoList.model.get(i));
+                                console.log('Test-TrainID:', infoList.model.get(i)['train_id']);
                                 if (model.get(i)['train_id'] == id) {
                                     console.log('Found Train');
                                 }
