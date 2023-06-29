@@ -69,7 +69,7 @@ class TrainConnectionManager:
         for stop_place in json_data['stopPlaces']:
             stations.append((stop_place['names']['DE']['nameLong'], stop_place['evaNumber']))
 
-        if len(self._querys) >= 5:
+        if len(self._querys) >= 8:
             self._querys.pop(0)
         
         self._querys.append((query, stations))

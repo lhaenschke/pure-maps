@@ -43,22 +43,27 @@ PagePL {
             wrapMode: Text.WordWrap
         }
 
-        Row {
-            id: searchRow
-            width: parent.width
-            height: Math.max(searchFieldLabel.height, searchField.height)
+        Grid {
+            id: searchGrid
+            columns: 4
+            rows: 1
+            spacing: styler.themePaddingMedium
+            anchors.left: parent.left
+            anchors.leftMargin: styler.themeHorizontalPageMargin
+            anchors.right: parent.right
+            anchors.rightMargin: styler.themeHorizontalPageMargin
 
             LabelPL {
                 id: searchFieldLabel
-                text: app.tr('    Destination: ')
-                width: searchRow.width / 4.5
+                text: app.tr('Destination: ')
+                width: page.width / 4.5
                 verticalAlignment: Text.AlignVCenter
                 height: searchField.height
             }
 
             TextFieldPL {
                 id: searchField
-                width: parent.width - searchFieldLabel.width
+                width: (page.width - searchFieldLabel.width) - (2* styler.themeHorizontalPageMargin)
                 placeholderText: app.tr("Search Target")
                 property string lastText: ""
                 onTextChanged: {
@@ -92,6 +97,56 @@ PagePL {
             }
 
         }
+
+        // Row {
+        //     id: searchRow
+        //     width: parent.width
+        //     height: Math.max(searchFieldLabel.height, searchField.height)
+
+        //     LabelPL {
+        //         id: searchFieldLabel
+        //         text: app.tr('    Destination: ')
+        //         width: searchRow.width / 4.5
+        //         verticalAlignment: Text.AlignVCenter
+        //         height: searchField.height
+        //     }
+
+        //     TextFieldPL {
+        //         id: searchField
+        //         width: parent.width - searchFieldLabel.width
+        //         placeholderText: app.tr("Search Target")
+        //         property string lastText: ""
+        //         onTextChanged: {
+        //             var newText = searchField.text.trim();
+        //             if (Math.abs(newText.length - lastText.length) <= 1) {
+        //                 if (newText.length > 0) {
+        //                     searchResultList.model.clear();
+        //                     showResults = false;
+        //                     py.call("poor.app.trainconnections.get_suggestions", [poi.coordinate.latitude, poi.coordinate.longitude, newText], function(results) {
+        //                         searchResultList.model.clear();
+        //                         results.forEach( function(p) { searchResultList.model.append(p); });
+        //                         showResults = (searchResultList.model.count > 0);
+        //                     });
+        //                 } else {
+        //                     searchResultList.model.clear();
+        //                     showResults = false;
+        //                 }
+        //                 lastText = newText;
+        //             } else {
+        //                 searchResultList.model.clear();
+        //                 showResults = false;
+        //                 searchButtonEnabled = true
+        //             }
+        //         }
+        //         Keys.onReturnPressed: {
+        //             searchField.fokus = false;
+        //             searchResultList.model.clear();
+        //             showResults = false;
+        //             searchButtonEnabled = true
+        //         }
+        //     }
+
+        // }
 
         Repeater {
             id: searchResultList
