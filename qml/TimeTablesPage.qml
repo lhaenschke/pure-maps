@@ -332,6 +332,7 @@ PagePL {
                                 if (infoList.model.get(i)['train_id'] == id) {
                                     console.log('Found Train');
                                     py.call("poor.app.timetables.get_cached_destination_information", [infoList.model.get(i)['train_id'], infoList.model.get(i)['destination']], function(result) {
+                                        var result_arr = result.split('|');
                                         infoList.model.get(i)['dep_time_hh'] = result_arr[0];
                                         infoList.model.get(i)[i]['dep_time_mm'] = result_arr[1];
                                         infoList.model.get(i)[i]['track'] = result_arr[2];
