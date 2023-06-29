@@ -323,14 +323,20 @@ PagePL {
                         }
 
                         function loadChaches(id) {
-                            console.log('Called');
-                            console.log('InfolistModel:', infoList.model);
-                            console.log('InfolistModel-Count:', infoList.model.count);
+                            // console.log('Called');
+                            // console.log('InfolistModel:', infoList.model);
+                            // console.log('InfolistModel-Count:', infoList.model.count);
                             for (var i = 0; i < infoList.model.count; i++) {
-                                console.log('Test:', infoList.model.get(i));
-                                console.log('Test-TrainID:', infoList.model.get(i)['train_id']);
-                                if (model.get(i)['train_id'] == id) {
+                                // console.log('Test:', infoList.model.get(i));
+                                // console.log('Test-TrainID:', infoList.model.get(i)['train_id']);
+                                if (infoList.model.get(i)['train_id'] == id) {
                                     console.log('Found Train');
+                                    py.call("poor.app.timetables.get_cached_destination_information", [infoList.model.get(i)['train_id'], infoList.model.get(i)['destination']], function(result) {
+                                        infoList.model.get(i)['dep_time_hh'] = result_arr[0];
+                                        infoList.model.get(i)[i]['dep_time_mm'] = result_arr[1];
+                                        infoList.model.get(i)[i]['track'] = result_arr[2];
+                                        console.log("Result: ", infoList.model.get(i)[i]['type'], infoList.model.get(i)[i]['dep_time_hh']);
+                                    });
                                 }
                             }
 
