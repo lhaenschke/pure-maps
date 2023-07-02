@@ -69,12 +69,19 @@ class TimetableManager:
                     track = track,
                     destination = next_stops.split('|')[-1] if next_stops != "" else "",
                     next_stops = next_stops,
+                    next_stops_informations = [],
                 ))
 
         self.trains = sorted(self.trains, key=lambda x: x.get('dep_time_hh'))
         self.trains = sorted(self.trains, key=lambda x: x.get('dep_time_mm'))
 
     def load_destination_informations(self, train_id: str, dest_name: str, hour: int):
+        for train in self.trains:
+            if train.get('train_id') == train_id:
+                for (name, dest_time_hh, dest_time_mm, track) in train.get('next_stops_informations'):
+                    if name == dest_name:
+                        return "".join((dest_time_hh, '|', dest_time_mm, '|', track))
+        
         today = datetime.today()
         (dest_arr_time, dest_track) = (None, "")
         for i in range(3):
@@ -82,6 +89,7 @@ class TimetableManager:
             if dest_arr_time is not None:
                 for i in range(len(self.trains)):
                     if self.trains[i].get('train_id')[:30] == train_id[:30]:
+                        self.trains[i]['next_stops_informations'].append(dest_name, dest_arr_time[6:8], dest_arr_time[8:], dest_track)
                         return "".join((dest_arr_time[6:8], '|', dest_arr_time[8:], '|', dest_track))
 
         tomorrow = today + timedelta(days=1)
@@ -91,6 +99,7 @@ class TimetableManager:
             if dest_arr_time is not None:
                 for i in range(len(self.trains)):
                     if self.trains[i].get('train_id')[:30] == train_id[:30]:
+                        self.trains[i]['next_stops_informations'].append(dest_name, dest_arr_time[6:8], dest_arr_time[8:], dest_track)
                         return "".join((dest_arr_time[6:8], '|', dest_arr_time[8:], '|', dest_track))
 
     def get_trains(self):
