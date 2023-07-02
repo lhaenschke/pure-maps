@@ -80,5 +80,5 @@ class TrainConnectionManager:
             eva=eva
         ) for (name, eva) in stations]
     
-    def search_connection(self, latitude: str, longitude: str, dest_eva: str):
+    def search_connection(self, start_latitude: str, start_longitude: str, dest_eva: str):
         None
