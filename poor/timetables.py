@@ -89,7 +89,7 @@ class TimetableManager:
             if dest_arr_time is not None:
                 for i in range(len(self.trains)):
                     if self.trains[i].get('train_id')[:30] == train_id[:30]:
-                        self.trains[i]['next_stops_informations'].append(dest_name, dest_arr_time[6:8], dest_arr_time[8:], dest_track)
+                        self.trains[i]['next_stops_informations'].append((dest_name, dest_arr_time[6:8], dest_arr_time[8:], dest_track))
                         return "".join((dest_arr_time[6:8], '|', dest_arr_time[8:], '|', dest_track))
 
         tomorrow = today + timedelta(days=1)
@@ -99,7 +99,7 @@ class TimetableManager:
             if dest_arr_time is not None:
                 for i in range(len(self.trains)):
                     if self.trains[i].get('train_id')[:30] == train_id[:30]:
-                        self.trains[i]['next_stops_informations'].append(dest_name, dest_arr_time[6:8], dest_arr_time[8:], dest_track)
+                        self.trains[i]['next_stops_informations'].append((dest_name, dest_arr_time[6:8], dest_arr_time[8:], dest_track))
                         return "".join((dest_arr_time[6:8], '|', dest_arr_time[8:], '|', dest_track))
 
     def get_trains(self):
