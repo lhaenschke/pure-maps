@@ -98,8 +98,14 @@ PagePL {
             text: app.tr("Search")
             onClicked: {
                 searchButton.text = app.tr("Loading");
-                py.call_sync("poor.app.timetables.search", [poi.coordinate.latitude, poi.coordinate.longitude, selectedTime]);
-                list.fillModel();
+                py.call("poor.app.timetables.search", [poi.coordinate.latitude, poi.coordinate.longitude, selectedTime], function(result) {
+                    var result_arr = result.split('|');
+                    if (result_arr[0] == "200") {
+                        list.fillModel();
+                    } else {
+                        console.log("Error:", result_arr[0], result_arr[1]);
+                    }
+                });
             }
         }
 
