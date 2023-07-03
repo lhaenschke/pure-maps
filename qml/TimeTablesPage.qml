@@ -98,6 +98,7 @@ PagePL {
             text: app.tr("Search")
             onClicked: {
                 searchButton.text = app.tr("Loading");
+                searchButton.enabled = false
                 py.call("poor.app.timetables.search", [poi.coordinate.latitude, poi.coordinate.longitude, selectedTime], function(result) {
                     var result_arr = result.split('|');
                     if (result_arr[0] == "200") {
@@ -105,8 +106,11 @@ PagePL {
                     } else {
                         console.log("Error:", result_arr[0], result_arr[1]);
                         var dialog = app.push(Qt.resolvedUrl("../qml/platform/DialogPL.qml"));
+                        dialog.title = "Error: " + result_arr[0];
+                        dialog.content = "Error: " + result_arr[1];
                         dialog.accepted.connect(function() {
-                            console.log("Ja");
+                            searchButton.text = app.tr("Search");
+                            searchButton.enabled = true
                         });
                     }
                 });
@@ -379,6 +383,7 @@ PagePL {
                         showFilterSelector = false;
                     }
                     searchButton.text = "Search";
+                    searchButton.enabled = true;
                     timetableHeader.text = app.tr('Timetables for ') + Qt.formatDateTime(new Date(), "dd.MM.yyyy") + " at " + selectedTime + ":00";
                 });
             }
