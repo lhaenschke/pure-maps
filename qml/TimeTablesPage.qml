@@ -104,7 +104,7 @@ PagePL {
                         list.fillModel();
                     } else {
                         console.log("Error:", result_arr[0], result_arr[1]);
-                        var dialog = app.push(Qt.resolvedUrl("DialogPL.qml"));
+                        var dialog = app.push(Qt.resolvedUrl("../qml/platform/DialogPL.qml"));
                         dialog.accepted.connect(function() {
                             console.log("Ja");
                         });
