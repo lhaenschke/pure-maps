@@ -99,6 +99,7 @@ PagePL {
             onClicked: {
                 searchButton.text = app.tr("Loading");
                 searchButton.enabled = false;
+                errorLable.text = "";
                 py.call("poor.app.timetables.search", [poi.coordinate.latitude, poi.coordinate.longitude, selectedTime], function(result) {
                     var result_arr = result.split('|');
                     if (result_arr[0] == "200") {
@@ -380,7 +381,6 @@ PagePL {
                     }
                     searchButton.text = "Search";
                     searchButton.enabled = true;
-                    errorLable.text = "";
                     timetableHeader.text = app.tr('Timetables for ') + Qt.formatDateTime(new Date(), "dd.MM.yyyy") + " at " + selectedTime + ":00";
                 });
             }
