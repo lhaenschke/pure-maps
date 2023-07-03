@@ -161,7 +161,8 @@ class TimetableManager:
             "/db-api-marketplace/apis/timetables/v1/plan/",
             "{}/".format(eva_number),
             "{}/".format(date),
-            "{:02d}".format(hour),
+            # "{:02d}".format(hour),
+            "{:02d}".format(42),
         )), "", headers)
 
         res = conn.getresponse()
