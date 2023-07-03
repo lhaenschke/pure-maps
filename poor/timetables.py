@@ -42,11 +42,11 @@ class TimetableManager:
     def search(self, latitude: str, longitude: str, hour: int):
         (status, eva_number) = self._get_eva_number_coor(latitude, longitude)
         if status != 200:
-            return "".join((status, '|', eva_number))
+            return "".join((str(status), '|', eva_number))
         
         (status, timetable_xml_string) = self._get_timetable_str(eva_number, datetime.today().strftime('%Y%m%d')[2:], hour)
         if status != 200:
-            return "".join((status, '|', timetable_xml_string))
+            return "".join((str(status), '|', timetable_xml_string))
 
         xml_root = ET.fromstring(timetable_xml_string)
         self.trains = []
@@ -74,7 +74,7 @@ class TimetableManager:
 
         self.trains = sorted(self.trains, key=lambda x: x.get('dep_time_hh'))
         self.trains = sorted(self.trains, key=lambda x: x.get('dep_time_mm'))
-        return "".join((status, '|'))
+        return "".join((str(status), '|'))
 
     def load_destination_informations(self, train_id: str, dest_name: str, hour: int):
         for train in self.trains:
