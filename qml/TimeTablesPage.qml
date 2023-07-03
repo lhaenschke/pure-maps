@@ -98,20 +98,16 @@ PagePL {
             text: app.tr("Search")
             onClicked: {
                 searchButton.text = app.tr("Loading");
-                searchButton.enabled = false
+                searchButton.enabled = false;
                 py.call("poor.app.timetables.search", [poi.coordinate.latitude, poi.coordinate.longitude, selectedTime], function(result) {
                     var result_arr = result.split('|');
                     if (result_arr[0] == "200") {
                         list.fillModel();
                     } else {
                         console.log("Error:", result_arr[0], result_arr[1]);
-                        var dialog = app.push(Qt.resolvedUrl("../qml/platform/DialogPL.qml"));
-                        dialog.title = "Error: " + result_arr[0];
-                        dialog.content = "Error: " + result_arr[1];
-                        dialog.accepted.connect(function() {
-                            searchButton.text = app.tr("Search");
-                            searchButton.enabled = true
-                        });
+                        errorLable.text = "Error: " + result_arr[0] + " " + result_arr[1];
+                        searchButton.text = app.tr("Search");
+                        searchButton.enabled = true;
                     }
                 });
             }
@@ -384,6 +380,7 @@ PagePL {
                     }
                     searchButton.text = "Search";
                     searchButton.enabled = true;
+                    errorLable.text = "";
                     timetableHeader.text = app.tr('Timetables for ') + Qt.formatDateTime(new Date(), "dd.MM.yyyy") + " at " + selectedTime + ":00";
                 });
             }
@@ -417,6 +414,15 @@ PagePL {
             height: implicitHeight
             visible: list.model.count > 0
             text: app.tr('Press on destination to load further informations')
+            horizontalAlignment: Text.AlignHCenter
+        }
+
+        ListItemLabel {
+            id: errorLable
+            color: styler.themeHighlightColor
+            height: implicitHeight
+            text: ""
+            visible: text
             horizontalAlignment: Text.AlignHCenter
         }
 
