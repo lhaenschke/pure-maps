@@ -31,10 +31,9 @@ __all__ = ("TimetableManager",)
 
 class TimetableManager:
 
-    """Managing search for timetables."""
+    ''' Managing search for timetables '''
 
     def __init__(self):
-        """Initialize a :class:`TimetableManager` instance."""
         self._clientID = poor.key.get("DBTRAININFORMATION_CLIENT")
         self._clientSecret = poor.key.get("DBTRAININFORMATION_SECRET")
         self.trains = []
@@ -44,69 +43,43 @@ class TimetableManager:
         if status != 200:
             return "".join((str(status), '|', eva_number))
         
-        (status, timetable_xml_string) = self._get_timetable_str(eva_number, datetime.today().strftime('%Y%m%d')[2:], hour)
-        if status != 200:
-            return "".join((str(status), '|', timetable_xml_string))
+        self.trains = self._get_train_dict(eva_number, datetime.today().strftime('%Y%m%d')[2:], hour, "dp")
+        if len(self.trains) > 0 and self.trains[0].get('status') != None:
+            return "".join((str(self.trains[0].get('status')), '|', self.trains[0].get('reason')))
+        
+        return "".join((str(200), '|'))
 
-        xml_root = ET.fromstring(timetable_xml_string)
-        self.trains = []
-
-        for train in xml_root.iter('s'):
-            if train.find('dp') != None:
-                train_type = train.find('tl').attrib.get('c') if train.find('tl').attrib.get('c') != None else ""
-                name = train.find('dp').attrib.get('l') if train.find('dp').attrib.get('l') != None else ""
-                train_id = train.attrib.get('id') if train.attrib.get('id') != None else ""
-                dep_time = train.find('dp').attrib.get('pt') if train.find('dp').attrib.get('pt') != None else ""
-                track = train.find('dp').attrib.get('pp') if train.find('dp').attrib.get('pp') != None else ""
-                next_stops = train.find('dp').attrib.get('ppth') if train.find('dp').attrib.get('ppth') != None else ""
-
-                self.trains.append(dict(
-                    type = train_type,
-                    name = name,
-                    train_id = train_id,
-                    dep_time_hh = dep_time[6:8] if dep_time != "" else "",
-                    dep_time_mm = dep_time[8:] if dep_time != "" else "",
-                    track = track,
-                    destination = next_stops.split('|')[-1] if next_stops != "" else "",
-                    next_stops = next_stops,
-                    next_stops_informations = [],
-                ))
-
-        self.trains = sorted(self.trains, key=lambda x: x.get('dep_time_hh'))
-        self.trains = sorted(self.trains, key=lambda x: x.get('dep_time_mm'))
-        return "".join((str(status), '|'))
-
-    def load_destination_informations(self, train_id: str, dest_name: str, hour: int):
+    def load_destination_informations(self, train_id: str, destination_name: str, hour: int):
         for train in self.trains:
             if train.get('train_id') == train_id:
-                for (name, dest_time_hh, dest_time_mm, track) in train.get('next_stops_informations'):
-                    if name == dest_name:
-                        return "".join((dest_time_hh, '|', dest_time_mm, '|', track))
+                for (name, dp_time_hh, dp_time_mm, dp_track) in train.get('dp_stops_informations'):
+                    if name == destination_name:
+                        return "".join((dp_time_hh, '|', dp_time_mm, '|', dp_track))
         
         today = datetime.today()
-        (dest_arr_time, dest_track) = (None, "")
+        (ar_time, ar_track) = (None, "")
         for i in range(3):
-            (dest_arr_time, dest_track) = self._get_time_from_destination(train_id, dest_name, today.strftime('%Y%m%d')[2:], hour + i)
-            if dest_arr_time is not None:
+            (ar_time, ar_track) = self._get_time_from_destination(train_id, destination_name, today.strftime('%Y%m%d')[2:], hour + i)
+            if ar_time is not None:
                 for i in range(len(self.trains)):
-                    if self.trains[i].get('train_id')[:30] == train_id[:30]:
-                        self.trains[i]['next_stops_informations'].append((dest_name, dest_arr_time[6:8], dest_arr_time[8:], dest_track))
-                        return "".join((dest_arr_time[6:8], '|', dest_arr_time[8:], '|', dest_track))
+                    if self.trains[i].get('train_id')[:25] == train_id[:25]:
+                        self.trains[i]['dp_stops_informations'].append((destination_name, ar_time[6:8], ar_time[8:], ar_track))
+                        return "".join((ar_time[6:8], '|', ar_time[8:], '|', ar_track))
 
         tomorrow = today + timedelta(days=1)
         hour = 0
         for i in range(3):
-            (dest_arr_time, dest_track) = self._get_time_from_destination(train_id, dest_name, tomorrow.strftime('%Y%m%d')[2:], hour + i)
-            if dest_arr_time is not None:
+            (ar_time, ar_track) = self._get_time_from_destination(train_id, destination_name, tomorrow.strftime('%Y%m%d')[2:], hour + i)
+            if ar_time is not None:
                 for i in range(len(self.trains)):
-                    if self.trains[i].get('train_id')[:30] == train_id[:30]:
-                        self.trains[i]['next_stops_informations'].append((dest_name, dest_arr_time[6:8], dest_arr_time[8:], dest_track))
-                        return "".join((dest_arr_time[6:8], '|', dest_arr_time[8:], '|', dest_track))
+                    if self.trains[i].get('train_id')[:25] == train_id[:25]:
+                        self.trains[i]['dp_stops_informations'].append((destination_name, ar_time[6:8], ar_time[8:], ar_track))
+                        return "".join((ar_time[6:8], '|', ar_time[8:], '|', ar_track))
 
     def get_trains(self):
         return self.trains
 
-    def _get_eva_number_coor(self, latitude: str, longitude: str) -> str:
+    def _get_eva_number_coor(self, latitude: str, longitude: str):
         conn = http.client.HTTPSConnection("apis.deutschebahn.com")
 
         headers = {
@@ -129,7 +102,7 @@ class TimetableManager:
         else:
             return (res.status, res.reason)
 
-    def _get_eva_number_dest_name(self, dest_name: str) -> str:
+    def _get_eva_number_dest_name(self, destination_name: str):
         conn = http.client.HTTPSConnection("apis.deutschebahn.com")
 
         headers = {
@@ -139,7 +112,7 @@ class TimetableManager:
             }
 
         conn.request("GET", "".join((
-            "/db-api-marketplace/apis/ris-stations/v1/stop-places/by-name/{}".format(urllib.parse.quote(dest_name).replace('/', '%2F'))
+            "/db-api-marketplace/apis/ris-stations/v1/stop-places/by-name/{}".format(urllib.parse.quote(destination_name).replace('/', '%2F'))
         )), "", headers)
 
         res = conn.getresponse()
@@ -147,9 +120,9 @@ class TimetableManager:
             json_data = json.loads(res.read().decode('utf-8'))
             return (res.status, json_data['stopPlaces'][0]['evaNumber'])
         else:
-            return (res.status, res.reason)            
+            return (res.status, res.reason)
 
-    def _get_timetable_str(self, eva_number: str, date: str, hour: int) -> str:
+    def _get_timetable_str(self, eva_number: str, date: str, hour: int):
         conn = http.client.HTTPSConnection("apis.deutschebahn.com")
         headers = {
             'DB-Api-Key': self._clientSecret,
@@ -170,8 +143,45 @@ class TimetableManager:
         else:
             return (res.status, res.reason)
     
-    def _get_time_from_destination(self, train_id: str, dest_name: str, date: str, hour: int) -> str:
-        (status, eva_number) = self._get_eva_number_dest_name(dest_name)
+    def _get_train_dict(self, eva_number: str, date: str, hour: int, key: str):
+        (status, result) = self._get_timetable_str(eva_number, date, hour)
+        if status != 200:
+            return [dict(status = status, reason = result)]
+
+        xml_root = ET.fromstring(result)
+        trains = []
+
+        ''' Get every train that departs from or arrives at given station '''
+        for train in xml_root.iter('s'):
+            if train.find(key) != None:
+                train_type = train.find('tl').attrib.get('c')   if train.find('tl').attrib.get('c')   != None else ""
+                name       = train.find(key).attrib.get('l')    if train.find(key).attrib.get('l')    != None else ""
+                train_id   = train.attrib.get('id')             if train.attrib.get('id')             != None else ""
+                time       = train.find(key).attrib.get('pt')   if train.find(key).attrib.get('pt')   != None else ""
+                track      = train.find(key).attrib.get('pp')   if train.find(key).attrib.get('pp')   != None else ""
+                stops      = train.find(key).attrib.get('ppth') if train.find(key).attrib.get('ppth') != None else ""
+
+                train_dict = dict(
+                    type        = train_type,
+                    name        = name,
+                    train_id    = train_id,
+                    destination = stops.split('|')[-1] if stops != "" else "",
+                )
+                train_dict["".join((key, "_time_hh"))]            = time[6:8] if len(time) > 9 else ""
+                train_dict["".join((key, "_time_mm"))]            = time[8:]  if len(time) > 9 else ""
+                train_dict["".join((key, "_track"))]              = track
+                train_dict["".join((key, "_stops"))]              = stops
+                train_dict["".join((key, "_stops_informations"))] = []
+
+                trains.append(train_dict)
+
+        ''' Sort trains by time '''
+        trains = sorted(trains, key=lambda x: x.get("".join((key, "_time_hh"))))
+        trains = sorted(trains, key=lambda x: x.get("".join((key, "_time_mm"))))
+        return trains
+
+    def _get_time_from_destination(self, train_id: str, destination_name: str, date: str, hour: int):
+        (status, eva_number) = self._get_eva_number_dest_name(destination_name)
         if status != 200:
             return (None, "")
 
@@ -181,7 +191,7 @@ class TimetableManager:
         
         xml_root = ET.fromstring(timetable_xml_str)
         for train in xml_root.iter('s'):
-            if train.attrib.get('id')[:30] == train_id[:30]:
+            if train.attrib.get('id')[:25] == train_id[:25]:
                 if train.find('ar') != None:
                     return (train.find('ar').attrib.get('pt'), train.find('ar').attrib.get('pp'))
 

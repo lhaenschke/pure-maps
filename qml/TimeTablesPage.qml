@@ -218,7 +218,7 @@ PagePL {
                             id: depTimeLabel
                             width: page.width / 8
                             horizontalAlignment: Text.AlignLeft
-                            text: model['dep_time_hh'] + ":" + model['dep_time_mm']
+                            text: model['dp_time_hh'] + ":" + model['dp_time_mm']
                         }
 
                         LabelPL {
@@ -239,7 +239,7 @@ PagePL {
                             id: trackLabel
                             width: page.width / 8
                             horizontalAlignment: Text.AlignRight
-                            text: model['track']
+                            text: model['dp_track']
                         }
                     }
 
@@ -271,7 +271,7 @@ PagePL {
                                     width: page.width / 8
                                     height: implicitHeight + styler.themePaddingMedium
                                     horizontalAlignment: Text.AlignLeft
-                                    text: (model['dep_time_hh'] ? model['dep_time_hh'] + ":" + model['dep_time_mm'] : "")
+                                    text: (model['dp_time_hh'] ? model['dp_time_hh'] + ":" + model['dp_time_mm'] : "")
                                 }
 
                                 LabelPL {
@@ -295,17 +295,17 @@ PagePL {
                                     width: page.width / 8
                                     height: implicitHeight + styler.themePaddingMedium
                                     horizontalAlignment: Text.AlignRight
-                                    text: model['track']
+                                    text: model['dp_track']
                                 }
                             }
 
                             onClicked: {
-                                if (model['dep_time_hh'] == "") {
+                                if (model['dp_time_hh'] == "") {
                                     py.call("poor.app.timetables.load_destination_informations", [model['train_id'], model['destination'], selectedTime], function(result) {
                                         var arr = result.split('|');
-                                        model['dep_time_hh'] = arr[0];
-                                        model['dep_time_mm'] = arr[1];
-                                        model['track'] = arr[2];
+                                        model['dp_time_hh'] = arr[0];
+                                        model['dp_time_mm'] = arr[1];
+                                        model['dp_track'] = arr[2];
                                     });
                                 }
                             }
@@ -323,10 +323,10 @@ PagePL {
                                     "type": type,
                                     "name": name,
                                     "train_id": id,
-                                    "dep_time_hh": "",
-                                    "dep_time_mm": "",
-                                    "destination": arr[i],
-                                    "track": ""
+                                    "dp_time_hh": "",
+                                    "dp_time_mm": "",
+                                    "dp_track": "",
+                                    "destination": arr[i]
                                 };
                                 infoList.model.append(dict);
                             }
@@ -359,7 +359,7 @@ PagePL {
                     isVisible = !isVisible;
                     
                     if (isVisible) {
-                        infoList.fillInfoModel(model['type'], model['name'], model['next_stops'], model['train_id']);
+                        infoList.fillInfoModel(model['type'], model['name'], model['dp_stops'], model['train_id']);
                     } else {
                         infoList.clearInfoModel();
                     }
