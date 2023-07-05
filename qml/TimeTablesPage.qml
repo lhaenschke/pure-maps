@@ -428,4 +428,8 @@ PagePL {
 
     }
 
+    onPageStatusInactive: {
+        console.log('Inactive');
+    }
+
 }

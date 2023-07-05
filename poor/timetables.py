@@ -36,21 +36,23 @@ class TimetableManager:
     def __init__(self):
         self._clientID = poor.key.get("DBTRAININFORMATION_CLIENT")
         self._clientSecret = poor.key.get("DBTRAININFORMATION_SECRET")
-        self.trains = []
+        self._trains = []
+        self._timetable_cache = dict()
+        self._eva_chache = dict()
 
     def search(self, latitude: str, longitude: str, hour: int):
         (status, eva_number) = self._get_eva_number_coor(latitude, longitude)
         if status != 200:
             return "".join((str(status), '|', eva_number))
         
-        self.trains = self._get_train_dict(eva_number, datetime.today().strftime('%Y%m%d')[2:], hour, "dp")
-        if len(self.trains) > 0 and self.trains[0].get('status') != None:
-            return "".join((str(self.trains[0].get('status')), '|', self.trains[0].get('reason')))
+        self._trains = self._get_train_dict(eva_number, datetime.today().strftime('%Y%m%d')[2:], hour, "dp")
+        if len(self._trains) > 0 and self._trains[0].get('status') != None:
+            return "".join((str(self._trains[0].get('status')), '|', self._trains[0].get('reason')))
         
         return "".join((str(200), '|'))
 
     def load_destination_informations(self, train_id: str, destination_name: str, hour: int):
-        for train in self.trains:
+        for train in self._trains:
             if train.get('train_id') == train_id:
                 for (name, dp_time_hh, dp_time_mm, dp_track) in train.get('dp_stops_informations'):
                     if name == destination_name:
@@ -61,9 +63,9 @@ class TimetableManager:
         for i in range(3):
             (ar_time, ar_track) = self._get_time_from_destination(train_id, destination_name, today.strftime('%Y%m%d')[2:], hour + i)
             if ar_time is not None:
-                for i in range(len(self.trains)):
-                    if self.trains[i].get('train_id')[:25] == train_id[:25]:
-                        self.trains[i]['dp_stops_informations'].append((destination_name, ar_time[6:8], ar_time[8:], ar_track))
+                for i in range(len(self._trains)):
+                    if self._trains[i].get('train_id')[:25] == train_id[:25]:
+                        self._trains[i]['dp_stops_informations'].append((destination_name, ar_time[6:8], ar_time[8:], ar_track))
                         return "".join((ar_time[6:8], '|', ar_time[8:], '|', ar_track))
 
         tomorrow = today + timedelta(days=1)
@@ -71,15 +73,23 @@ class TimetableManager:
         for i in range(3):
             (ar_time, ar_track) = self._get_time_from_destination(train_id, destination_name, tomorrow.strftime('%Y%m%d')[2:], hour + i)
             if ar_time is not None:
-                for i in range(len(self.trains)):
-                    if self.trains[i].get('train_id')[:25] == train_id[:25]:
-                        self.trains[i]['dp_stops_informations'].append((destination_name, ar_time[6:8], ar_time[8:], ar_track))
+                for i in range(len(self._trains)):
+                    if self._trains[i].get('train_id')[:25] == train_id[:25]:
+                        self._trains[i]['dp_stops_informations'].append((destination_name, ar_time[6:8], ar_time[8:], ar_track))
                         return "".join((ar_time[6:8], '|', ar_time[8:], '|', ar_track))
 
     def get_trains(self):
-        return self.trains
+        return self._trains
+
+    def clear_cache(self):
+        self._timetable_cache.clear()
+        self._eva_chache.clear()
 
     def _get_eva_number_coor(self, latitude: str, longitude: str):
+        cache_key = "".join((str(latitude), str(longitude)))
+        if cache_key in self._eva_chache.keys():
+            return (200, self._eva_chache.get(cache_key))
+
         conn = http.client.HTTPSConnection("apis.deutschebahn.com")
 
         headers = {
@@ -98,11 +108,17 @@ class TimetableManager:
         res = conn.getresponse()
         if res.status == 200:
             json_data = json.loads(res.read().decode('utf-8'))
-            return (res.status, json_data['stopPlaces'][0]['evaNumber'])
+            eva_number = json_data['stopPlaces'][0]['evaNumber']
+            self._eva_chache[cache_key] = eva_number
+            return (res.status, eva_number)
         else:
             return (res.status, res.reason)
 
     def _get_eva_number_dest_name(self, destination_name: str):
+        cache_key = destination_name
+        if cache_key in self._eva_chache.keys():
+            return (200, self._eva_chache.get(cache_key))
+    
         conn = http.client.HTTPSConnection("apis.deutschebahn.com")
 
         headers = {
@@ -118,11 +134,17 @@ class TimetableManager:
         res = conn.getresponse()
         if res.status == 200:
             json_data = json.loads(res.read().decode('utf-8'))
-            return (res.status, json_data['stopPlaces'][0]['evaNumber'])
+            eva_number = json_data['stopPlaces'][0]['evaNumber']
+            self._eva_chache[cache_key] = eva_number
+            return (res.status, eva_number)
         else:
             return (res.status, res.reason)
 
     def _get_timetable_str(self, eva_number: str, date: str, hour: int):
+        cache_key = "".join((str(eva_number), str(date), str(hour)))
+        if cache_key in self._timetable_cache.keys():
+            return (200, self._timetable_cache.get(cache_key))
+        
         conn = http.client.HTTPSConnection("apis.deutschebahn.com")
         headers = {
             'DB-Api-Key': self._clientSecret,
@@ -139,7 +161,9 @@ class TimetableManager:
 
         res = conn.getresponse()
         if res.status == 200:
-            return (res.status, res.read().decode("utf-8"))
+            timetable_str = res.read().decode("utf-8")
+            self._timetable_cache[cache_key] = timetable_str
+            return (res.status, timetable_str)
         else:
             return (res.status, res.reason)
     
