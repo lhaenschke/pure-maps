@@ -52,12 +52,6 @@ class TimetableManager:
         return "".join((str(200), '|'))
 
     def load_destination_informations(self, train_id: str, destination_name: str, hour: int):
-        # for train in self._trains:
-        #     if train.get('train_id') == train_id:
-        #         for (name, dp_time_hh, dp_time_mm, dp_track) in train.get('dp_stops_informations'):
-        #             if name == destination_name:
-        #                 return "".join((dp_time_hh, '|', dp_time_mm, '|', dp_track))
-        
         today = datetime.today()
         (ar_time, ar_track) = (None, "")
         for i in range(3):
@@ -65,7 +59,6 @@ class TimetableManager:
             if ar_time is not None:
                 for i in range(len(self._trains)):
                     if self._trains[i].get('train_id')[:25] == train_id[:25]:
-                        self._trains[i]['dp_stops_informations'].append((destination_name, ar_time[6:8], ar_time[8:], ar_track))
                         return "".join((ar_time[6:8], '|', ar_time[8:], '|', ar_track))
 
         tomorrow = today + timedelta(days=1)
@@ -75,7 +68,6 @@ class TimetableManager:
             if ar_time is not None:
                 for i in range(len(self._trains)):
                     if self._trains[i].get('train_id')[:25] == train_id[:25]:
-                        self._trains[i]['dp_stops_informations'].append((destination_name, ar_time[6:8], ar_time[8:], ar_track))
                         return "".join((ar_time[6:8], '|', ar_time[8:], '|', ar_track))
 
     def get_trains(self):
@@ -84,7 +76,6 @@ class TimetableManager:
     def clear_cache(self):
         self._timetable_cache.clear()
         self._eva_chache.clear()
-        print("Chache cleared")
 
     def _get_eva_number_coor(self, latitude: str, longitude: str):
         cache_key = "".join((str(latitude), str(longitude)))
@@ -192,11 +183,10 @@ class TimetableManager:
                     train_id    = train_id,
                     destination = stops.split('|')[-1] if stops != "" else "",
                 )
-                train_dict["".join((key, "_time_hh"))]            = time[6:8] if len(time) > 9 else ""
-                train_dict["".join((key, "_time_mm"))]            = time[8:]  if len(time) > 9 else ""
-                train_dict["".join((key, "_track"))]              = track
-                train_dict["".join((key, "_stops"))]              = stops
-                train_dict["".join((key, "_stops_informations"))] = []
+                train_dict["".join((key, "_time_hh"))] = time[6:8] if len(time) > 9 else ""
+                train_dict["".join((key, "_time_mm"))] = time[8:]  if len(time) > 9 else ""
+                train_dict["".join((key, "_track"))]   = track
+                train_dict["".join((key, "_stops"))]   = stops
 
                 trains.append(train_dict)
 
