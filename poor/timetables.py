@@ -84,6 +84,7 @@ class TimetableManager:
     def clear_cache(self):
         self._timetable_cache.clear()
         self._eva_chache.clear()
+        print("Chache cleared")
 
     def _get_eva_number_coor(self, latitude: str, longitude: str):
         cache_key = "".join((str(latitude), str(longitude)))

@@ -429,7 +429,7 @@ PagePL {
     }
 
     onPageStatusInactive: {
-        console.log('Inactive');
+        py.call_sync("poor.app.timetables.clear_cache", []);
     }
 
 }
