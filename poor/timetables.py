@@ -52,11 +52,11 @@ class TimetableManager:
         return "".join((str(200), '|'))
 
     def load_destination_informations(self, train_id: str, destination_name: str, hour: int):
-        for train in self._trains:
-            if train.get('train_id') == train_id:
-                for (name, dp_time_hh, dp_time_mm, dp_track) in train.get('dp_stops_informations'):
-                    if name == destination_name:
-                        return "".join((dp_time_hh, '|', dp_time_mm, '|', dp_track))
+        # for train in self._trains:
+        #     if train.get('train_id') == train_id:
+        #         for (name, dp_time_hh, dp_time_mm, dp_track) in train.get('dp_stops_informations'):
+        #             if name == destination_name:
+        #                 return "".join((dp_time_hh, '|', dp_time_mm, '|', dp_track))
         
         today = datetime.today()
         (ar_time, ar_track) = (None, "")
