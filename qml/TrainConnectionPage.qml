@@ -72,7 +72,7 @@ PagePL {
                         if (newText.length > 0) {
                             searchResultList.model.clear();
                             showResults = false;
-                            py.call("poor.app.trainconnections.get_suggestions", [poi.coordinate.latitude, poi.coordinate.longitude, newText], function(results) {
+                            py.call("poor.app.trainconnections.get_suggestions", [newText, poi.coordinate.latitude, poi.coordinate.longitude], function(results) {
                                 searchResultList.model.clear();
                                 results.forEach( function(p) { searchResultList.model.append(p); });
                                 showResults = (searchResultList.model.count > 0);
