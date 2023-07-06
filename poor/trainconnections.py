@@ -81,7 +81,7 @@ class TrainConnectionManager:
 
             # If cache already holds 10 quereys, delete the oldets one
             if len(self._querys_cache.keys()) >= 10:
-                self._querys_cache.pop(self._querys_cache.keys()[0])
+                self._querys_cache.pop(list(self._querys_cache.keys())[0])
             
             # Create return array 
             dict_array = [dict(
