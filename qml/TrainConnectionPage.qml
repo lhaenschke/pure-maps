@@ -164,6 +164,12 @@ PagePL {
                     width: page.width
 
                     ListItemLabel {
+                        height: implicitHeight
+                        text: ""
+                        visible: true
+                    }
+
+                    ListItemLabel {
                         color: styler.themeHighlightColor
                         height: implicitHeight
                         text: model['name']
