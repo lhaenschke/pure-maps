@@ -85,14 +85,14 @@ PagePL {
                     } else {
                         searchResultList.model.clear();
                         showResults = false;
-                        searchButtonEnabled = true
+                        searchButtonEnabled = true;
                     }
                 }
                 Keys.onReturnPressed: {
                     searchField.fokus = false;
                     searchResultList.model.clear();
                     showResults = false;
-                    searchButtonEnabled = true
+                    searchButtonEnabled = true;
                 }
             }
 
@@ -168,9 +168,9 @@ PagePL {
                 searchButton.enabled = false;
                 searchButton.text = app.tr("Loading");
 
-                console.log('Startkoordinaten: ', poi.coordinate.latitude, poi.coordinate.longitude);
-                console.log('Zielname: ', selectedStation[0]);
-                console.log('Eva: ', selectedStation[1]);
+                searchResultList.model.clear();
+                showResults = false;
+                searchButtonEnabled = true;
 
                 py.call("poor.app.trainconnections.search_connections", [poi.coordinate.latitude, poi.coordinate.longitude, selectedStation[1], selectedStation[0]], function(results) {
                     searchButton.enabled = true;
@@ -178,15 +178,12 @@ PagePL {
                     connectionRepeater.model.clear();
 
                     results.forEach( function (p) { 
-                        console.log(p);
-
                         var dict = {};
                         for (var i = 0; i < p.length; i++) {
-                            // dict[i] = p[i];
-                            console.log(p[i]);
+                            dict[i] = p[i];
                         }
-
-                        connectionRepeater.model.append(p);
+                        console.log(dict);
+                        connectionRepeater.model.append(dict);
                     });
 
                 });
