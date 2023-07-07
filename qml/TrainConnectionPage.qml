@@ -173,11 +173,14 @@ PagePL {
                 console.log('Eva: ', selectedStation[1]);
 
                 py.call("poor.app.trainconnections.search_connections", [poi.coordinate.latitude, poi.coordinate.longitude, selectedStation[1], selectedStation[0]], function(results) {
+                    searchButton.enabled = true;
+                    searchButton.text = app.tr("Search");
 
                     results.forEach( function (p) { 
 
                         p.forEach( function (i) {
                             console.log(i['type'], i['name']);
+                            connectionRepeater.model.append(i);
                         });
                         
                         console.log('');
@@ -201,7 +204,25 @@ PagePL {
             height: styler.themePaddingMedium
         }
 
-        // Connection informations
+        Repeater {
+            id: connectionRepeater
+            width: page.width
+
+            delegate: ListItemPL {
+                id: listItem
+                width: page.width
+                contentHeight: listColumn.height
+
+                ListItemLabel {
+                        color: styler.themeHighlightColor
+                        height: implicitHeight
+                        text: model['type']
+                    }
+            }
+
+            model: ListModel {}
+
+        }
 
     }
 
