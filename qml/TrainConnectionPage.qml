@@ -165,6 +165,9 @@ PagePL {
             enabled: searchButtonEnabled
             text: app.tr("Search")
             onClicked: {
+                searchButton.enabled = false;
+                searchButton.text = app.tr("Loading");
+
                 console.log('Startkoordinaten: ', poi.coordinate.latitude, poi.coordinate.longitude);
                 console.log('Zielname: ', selectedStation[0]);
                 console.log('Eva: ', selectedStation[1]);
@@ -174,7 +177,7 @@ PagePL {
                     results.forEach( function (p) { 
 
                         p.forEach( function (i) {
-                            console.log(i);
+                            console.log(i['type'], i['name']);
                         });
                         
                         console.log('');
