@@ -179,6 +179,13 @@ PagePL {
 
                     results.forEach( function (p) { 
                         console.log(p);
+
+                        var dict = {};
+                        for (var i = 0; i < p.length; i++) {
+                            // dict[i] = p[i];
+                            console.log(p[i]);
+                        }
+
                         connectionRepeater.model.append(p);
                     });
 
