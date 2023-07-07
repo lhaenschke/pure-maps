@@ -183,6 +183,8 @@ PagePL {
                             dict[i.toString()] = p[i];
                         }
                         console.log(dict);
+                        console.log(dict['1']['type']);
+                        console.log(dict['2']['type']);
                         connectionRepeater.model.append(dict);
                     });
 
