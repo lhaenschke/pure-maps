@@ -180,7 +180,7 @@ PagePL {
                     results.forEach( function (p) { 
                         var dict = {};
                         for (var i = 0; i < p.length; i++) {
-                            dict[i] = p[i];
+                            dict[i.toString()] = p[i];
                         }
                         console.log(dict);
                         connectionRepeater.model.append(dict);
@@ -216,7 +216,7 @@ PagePL {
                     id: testButton
                     text: app.tr("Test")
                     onClicked: {
-                        console.log('Test', model[0]['type'], model[1]['type']);
+                        console.log('Test', model['0']['type'], model['1']['type']);
                     }
                 }
 
