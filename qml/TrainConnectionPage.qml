@@ -180,10 +180,9 @@ PagePL {
                     results.forEach( function (p) { 
                         var dict = {};
                         for (var i = 0; i < p.length; i++) {
-                            dict.i = p[i];
+                            dict['test1'] = p[i];
                         }
-                        console.log(dict[0]['type']);
-                        console.log(dict[1]['type']);
+                        console.log(dict['test1']['type']);
                         connectionRepeater.model.append(dict);
                     });
 
@@ -217,7 +216,7 @@ PagePL {
                     id: testButton
                     text: app.tr("Test")
                     onClicked: {
-                        console.log('Test', model[0]['type'], model[1]['type']);
+                        console.log('Test', model['test1']['type']);
                     }
                 }
 
