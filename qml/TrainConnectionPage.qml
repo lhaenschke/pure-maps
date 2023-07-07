@@ -176,7 +176,10 @@ PagePL {
                     searchButton.enabled = true;
                     searchButton.text = app.tr("Search");
 
-                    results.forEach( function (p) { connectionRepeater.model.append(p); });
+                    results.forEach( function (p) { 
+                        console.log(p);
+                        connectionRepeater.model.append(p);
+                    });
 
                 });
             }
