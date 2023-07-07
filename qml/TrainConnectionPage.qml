@@ -180,11 +180,10 @@ PagePL {
                     results.forEach( function (p) { 
                         var dict = {};
                         for (var i = 0; i < p.length; i++) {
-                            dict[i.toString()] = p[i];
+                            dict.i = p[i];
                         }
-                        console.log(dict);
-                        console.log(dict['1']['type']);
-                        console.log(dict['2']['type']);
+                        console.log(dict.0['type']);
+                        console.log(dict.1['type']);
                         connectionRepeater.model.append(dict);
                     });
 
