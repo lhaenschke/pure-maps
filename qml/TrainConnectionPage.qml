@@ -216,7 +216,7 @@ PagePL {
                     id: testLabel
                     color: styler.themeHighlightColor
                     height: implicitHeight
-                    text: model[0]['type'] + "       " + model[1]['type']
+                    text: model.get(0)['type'] + "       " + model.get(1)['type']
                 }
             }
 
