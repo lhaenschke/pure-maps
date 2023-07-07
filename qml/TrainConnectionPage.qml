@@ -176,15 +176,7 @@ PagePL {
                     searchButton.enabled = true;
                     searchButton.text = app.tr("Search");
 
-                    results.forEach( function (p) { 
-                        connectionRepeater.model.append(p);
-                        
-                        p.forEach( function (i) {
-                            console.log(i['type'], i['name']);
-                        });
-                        console.log('');
-
-                    });
+                    results.forEach( function (p) { connectionRepeater.model.append(p); });
 
                 });
             }
@@ -216,7 +208,7 @@ PagePL {
                     id: testButton
                     text: app.tr("Test")
                     onClicked: {
-                        console.log('Test', model);
+                        console.log('Test', model['type']);
                     }
                 }
 
