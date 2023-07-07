@@ -98,56 +98,6 @@ PagePL {
 
         }
 
-        // Row {
-        //     id: searchRow
-        //     width: parent.width
-        //     height: Math.max(searchFieldLabel.height, searchField.height)
-
-        //     LabelPL {
-        //         id: searchFieldLabel
-        //         text: app.tr('    Destination: ')
-        //         width: searchRow.width / 4.5
-        //         verticalAlignment: Text.AlignVCenter
-        //         height: searchField.height
-        //     }
-
-        //     TextFieldPL {
-        //         id: searchField
-        //         width: parent.width - searchFieldLabel.width
-        //         placeholderText: app.tr("Search Target")
-        //         property string lastText: ""
-        //         onTextChanged: {
-        //             var newText = searchField.text.trim();
-        //             if (Math.abs(newText.length - lastText.length) <= 1) {
-        //                 if (newText.length > 0) {
-        //                     searchResultList.model.clear();
-        //                     showResults = false;
-        //                     py.call("poor.app.trainconnections.get_suggestions", [poi.coordinate.latitude, poi.coordinate.longitude, newText], function(results) {
-        //                         searchResultList.model.clear();
-        //                         results.forEach( function(p) { searchResultList.model.append(p); });
-        //                         showResults = (searchResultList.model.count > 0);
-        //                     });
-        //                 } else {
-        //                     searchResultList.model.clear();
-        //                     showResults = false;
-        //                 }
-        //                 lastText = newText;
-        //             } else {
-        //                 searchResultList.model.clear();
-        //                 showResults = false;
-        //                 searchButtonEnabled = true
-        //             }
-        //         }
-        //         Keys.onReturnPressed: {
-        //             searchField.fokus = false;
-        //             searchResultList.model.clear();
-        //             showResults = false;
-        //             searchButtonEnabled = true
-        //         }
-        //     }
-
-        // }
-
         Repeater {
             id: searchResultList
             width: page.width
@@ -216,9 +166,14 @@ PagePL {
             text: app.tr("Search")
             onClicked: {
                 console.log('Startkoordinaten: ', poi.coordinate.latitude, poi.coordinate.longitude);
-
                 console.log('Zielname: ', selectedStation[0]);
                 console.log('Eva: ', selectedStation[1]);
+
+                py.call("poor.app.trainconnections.search_connections", [poi.coordinate.latitude, poi.coordinate.longitude, selectedStation[1], selectedStation[0]], function(results) {
+
+                    results.forEach( function (p) { console.log(p); });
+
+                });
             }
         }
 
