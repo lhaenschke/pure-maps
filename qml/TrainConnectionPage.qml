@@ -210,17 +210,41 @@ PagePL {
             delegate: ListItemPL {
                 id: listItem
                 width: page.width
-                contentHeight: testLabel.height
+                contentHeight: specificConnectionRepeater.height
 
-                ListItemLabel {
-                    id: testLabel
-                    color: styler.themeHighlightColor
-                    height: implicitHeight
-                    text: model.get(0)['type'] + "       " + model.get(1)['type']
+                Repeater {
+                    id: specificConnectionRepeater
+                    width: page.width
+
+                    delegate: ListItemPL {
+                        id: specificListItem
+                        width: page.width
+                        contentHeight: testLabel.height
+
+                        ListItemLabel {
+                            id: testLabel
+                            color: styler.themeHighlightColor
+                            height: implicitHeight
+                            text: model['type'] + "       " + model['name']
+                        }
+
+                    }
+
+                    model: ListModel{}
+
                 }
+
+                function fillInnerModel(test) {
+                    console.log(test);
+                }
+
             }
 
             model: ListModel {}
+
+            onItemAdded: {
+                specificConnectionRepeater.fillInnerModel(model)
+            }
 
         }
 
