@@ -165,7 +165,7 @@ PagePL {
             enabled: searchButtonEnabled
             text: app.tr("Search")
             onClicked: {
-                searchButton.enabled = false;
+                searchButtonEnabled = false;
                 searchButton.text = app.tr("Loading");
 
                 searchResultList.model.clear();
@@ -182,8 +182,8 @@ PagePL {
                         for (var i = 0; i < p.length; i++) {
                             dict.i = p[i];
                         }
-                        console.log(dict.0['type']);
-                        console.log(dict.1['type']);
+                        console.log(dict[0]['type']);
+                        console.log(dict[1]['type']);
                         connectionRepeater.model.append(dict);
                     });
 
@@ -217,7 +217,7 @@ PagePL {
                     id: testButton
                     text: app.tr("Test")
                     onClicked: {
-                        console.log('Test', model['0']['type'], model['1']['type']);
+                        console.log('Test', model.0['type'], model.1['type']);
                     }
                 }
 
