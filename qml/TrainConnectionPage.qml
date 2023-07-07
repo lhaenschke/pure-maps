@@ -177,12 +177,11 @@ PagePL {
                     searchButton.text = app.tr("Search");
 
                     results.forEach( function (p) { 
-
+                        connectionRepeater.model.append(p);
+                        
                         p.forEach( function (i) {
                             console.log(i['type'], i['name']);
-                            connectionRepeater.model.append(i);
                         });
-                        
                         console.log('');
 
                     });
@@ -211,13 +210,14 @@ PagePL {
             delegate: ListItemPL {
                 id: listItem
                 width: page.width
-                contentHeight: listColumn.height
+                contentHeight: testLabel.height
 
                 ListItemLabel {
-                        color: styler.themeHighlightColor
-                        height: implicitHeight
-                        text: model['type']
-                    }
+                    id: testLabel
+                    color: styler.themeHighlightColor
+                    height: implicitHeight
+                    text: model[0]['type'] + "       " + model[1]['type']
+                }
             }
 
             model: ListModel {}
