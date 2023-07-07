@@ -175,6 +175,7 @@ PagePL {
                 py.call("poor.app.trainconnections.search_connections", [poi.coordinate.latitude, poi.coordinate.longitude, selectedStation[1], selectedStation[0]], function(results) {
                     searchButton.enabled = true;
                     searchButton.text = app.tr("Search");
+                    connectionRepeater.model.clear();
 
                     results.forEach( function (p) { 
                         console.log(p);
@@ -211,7 +212,7 @@ PagePL {
                     id: testButton
                     text: app.tr("Test")
                     onClicked: {
-                        console.log('Test', model['type']);
+                        console.log('Test');
                     }
                 }
 
