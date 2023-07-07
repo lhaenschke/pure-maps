@@ -217,7 +217,7 @@ PagePL {
                     id: testButton
                     text: app.tr("Test")
                     onClicked: {
-                        console.log('Test', model.0['type'], model.1['type']);
+                        console.log('Test', model[0]['type'], model[1]['type']);
                     }
                 }
 
