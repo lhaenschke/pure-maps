@@ -171,7 +171,15 @@ PagePL {
 
                 py.call("poor.app.trainconnections.search_connections", [poi.coordinate.latitude, poi.coordinate.longitude, selectedStation[1], selectedStation[0]], function(results) {
 
-                    results.forEach( function (p) { console.log(p); });
+                    results.forEach( function (p) { 
+
+                        p.forEach( function (i) {
+                            console.log(i);
+                        });
+                        
+                        console.log('');
+
+                    });
 
                 });
             }
