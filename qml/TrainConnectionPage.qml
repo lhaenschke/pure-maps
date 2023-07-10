@@ -215,27 +215,26 @@ PagePL {
 
                 Row {
                     id: row
-                    anchors.horizontalCenter: parent.horizontalCenter
                     spacing: styler.themePaddingMedium
 
                     ButtonPL {
                         id: testButton
                         text: app.tr("Test 1")
-                        width: parent.width ? model['count'] == 1 : parent.width / 2
+                        width: page.width ? model['count'] == 1 : page.width / 2
                         onClicked: {
                             console.log(model['con0']['type'], model['con0']['name']);
                         }
                     }
 
-                    ButtonPL {
-                        id: testButton2
-                        text: app.tr("Test 2")
-                        width: parent.width / 2 ? model['count'] > 1 : 0
-                        visible: width
-                        onClicked: {
-                            console.log(model['con1']['type'], model['con1']['name']);
-                        }
-                    }
+                    // ButtonPL {
+                    //     id: testButton2
+                    //     text: app.tr("Test 2")
+                    //     width: parent.width / 2 ? model['count'] > 1 : 0
+                    //     visible: width
+                    //     onClicked: {
+                    //         console.log(model['con1']['type'], model['con1']['name']);
+                    //     }
+                    // }
                 }
 
             }
