@@ -251,7 +251,7 @@ PagePL {
             delegate: ListItemPL {
                 id: listItem
                 width: page.width
-                contentHeight: testButton.height
+                contentHeight: connectionGrid.height
 
                 Grid {
                     id: connectionGrid
