@@ -226,7 +226,7 @@ PagePL {
                     ButtonPL {
                         id: testButton
                         text: app.tr("Test 1")
-                        preferredWidth: styler.themeButtonWidthLarge ? model['count'] == 1 : styler.themeButtonWidthMedium
+                        preferredWidth: model['count'] == 1 ? styler.themeButtonWidthLarge : styler.themeButtonWidthMedium
                         // width: page.width ? model['count'] == 1 : page.width / 2
                         onClicked: {
                             console.log(model['con0']['type'], model['con0']['name']);
