@@ -180,10 +180,10 @@ PagePL {
                     results.forEach( function (p) { 
                         var dict = {};
                         for (var i = 0; i < p.length; i++) {
-                            dict['test1'] = p[i];
-                            dict['count'] = i;
+                            const key = 'con' + i;
+                            dict[key] = p[i];
+                            dict['count'] = i + 1;
                         }
-                        console.log('Type: ', dict['test1']['type'], 'Count:', dict['count']);
                         connectionRepeater.model.append(dict);
                     });
 
@@ -217,7 +217,14 @@ PagePL {
                     id: testButton
                     text: app.tr("Test")
                     onClicked: {
-                        console.log('Test', model['test1']['type']);
+                        console.log('Count: ', model['count']);
+
+                        for (var i = 0; i < model['count']; i++) {
+                            const key = 'con' + i;
+                            console.log('Test', model[key]['type']);
+                        }
+                        console.log('\n');
+                        
                     }
                 }
 
