@@ -232,15 +232,14 @@ PagePL {
                         }
                     }
 
-                    // ButtonPL {
-                    //     id: testButton2
-                    //     text: app.tr("Test 2")
-                    //     width: parent.width / 2 ? model['count'] > 1 : 0
-                    //     visible: width
-                    //     onClicked: {
-                    //         console.log(model['con1']['type'], model['con1']['name']);
-                    //     }
-                    // }
+                    ButtonPL {
+                        id: testButton2
+                        text: app.tr("Test 2")
+                        visible: model['count'] > 1
+                        onClicked: {
+                            console.log(model['con1']['type'], model['con1']['name']);
+                        }
+                    }
                 }
 
             }
