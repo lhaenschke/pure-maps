@@ -213,18 +213,28 @@ PagePL {
                 width: page.width
                 contentHeight: testButton.height
 
-                ButtonPL {
-                    id: testButton
-                    text: app.tr("Test")
-                    onClicked: {
-                        console.log('Count: ', model['count']);
-
-                        for (var i = 0; i < model['count']; i++) {
-                            const key = 'con' + i;
-                            console.log('Test', model[key]['type']);
+                Row {
+                    id: row
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    spacing: styler.themePaddingMedium
+                    
+                    ButtonPL {
+                        id: testButton
+                        text: app.tr("Test 1")
+                        width: parent.width ? model['count'] == 1 : parent.width / 2
+                        onClicked: {
+                            console.log(model['con0']['type'], model['con0']['name']);
                         }
-                        console.log('\n');
-                        
+                    }
+
+                    ButtonPL {
+                        id: testButton
+                        text: app.tr("Test 2")
+                        width: parent.width / 2 ? model['count'] > 1 : 0
+                        visible: width
+                        onClicked: {
+                            console.log(model['con1']['type'], model['con1']['name']);
+                        }
                     }
                 }
 
