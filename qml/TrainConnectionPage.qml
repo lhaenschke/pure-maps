@@ -204,6 +204,46 @@ PagePL {
             height: styler.themePaddingMedium
         }
 
+        Grid {
+            id: headerGrid
+            columns: 4
+            rows: 1
+            spacing: styler.themePaddingMedium
+            anchors.left: parent.left
+            anchors.leftMargin: styler.themeHorizontalPageMargin
+            anchors.right: parent.right
+            anchors.rightMargin: styler.themeHorizontalPageMargin
+            visible: connectionRepeater.model.count > 0
+
+            LabelPL {
+                id: depTimeHeader
+                width: page.width / 8
+                horizontalAlignment: Text.AlignLeft
+                text: app.tr("Time")
+            }
+
+            LabelPL {
+                id: nameHeader
+                width: page.width / 6
+                horizontalAlignment: Text.AlignLeft
+                text: app.tr("Name")
+            }
+
+            LabelPL {
+                id: directionHeader
+                width: page.width / 2.35
+                horizontalAlignment: Text.AlignLeft
+                text: app.tr("Direction")
+            }
+
+            LabelPL {
+                id: trackItem
+                width: page.width / 8
+                horizontalAlignment: Text.AlignRight
+                text: app.tr("Track")
+            }
+        }
+
         Repeater {
             id: connectionRepeater
             width: page.width
@@ -214,7 +254,7 @@ PagePL {
                 contentHeight: testButton.height
 
                 Grid {
-                    id: grid
+                    id: connectionGrid
                     columns: model['count']
                     rows: 1
                     spacing: styler.themePaddingMedium
@@ -223,11 +263,49 @@ PagePL {
                     anchors.right: parent.right
                     anchors.rightMargin: styler.themeHorizontalPageMargin
 
+                    Grid {
+                        id: connectionOneGrid
+                        columns: 4
+                        rows: 1
+                        spacing: styler.themePaddingMedium
+                        anchors.left: parent.left
+                        anchors.leftMargin: 8
+                        anchors.right: parent.right
+                        anchors.rightMargin: 8
+
+                        LabelPL {
+                            id: depTimeLabel
+                            width: page.width / 8
+                            horizontalAlignment: Text.AlignLeft
+                            text: model['con1']['dp_time_hh'] + ":" + model['con1']['dp_time_mm']
+                        }
+
+                        LabelPL {
+                            id: nameLabel
+                            width: page.width / 6
+                            horizontalAlignment: Text.AlignLeft
+                            text: model['con1']['type'] + " " + model['con1']['name']
+                        }
+
+                        LabelPL {
+                            id: directionLabel
+                            width: page.width / 2.35
+                            horizontalAlignment: Text.AlignLeft
+                            text: model['con1']['destination']
+                        }
+
+                        LabelPL {
+                            id: trackLabel
+                            width: page.width / 8
+                            horizontalAlignment: Text.AlignRight
+                            text: model['con1']['dp_track']
+                        }
+                    }
+
                     ButtonPL {
                         id: testButton
                         text: app.tr("Test 1")
                         preferredWidth: model['count'] == 1 ? styler.themeButtonWidthLarge : styler.themeButtonWidthMedium
-                        // width: page.width ? model['count'] == 1 : page.width / 2
                         onClicked: {
                             console.log(model['con0']['type'], model['con0']['name']);
                         }
