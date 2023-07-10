@@ -181,8 +181,9 @@ PagePL {
                         var dict = {};
                         for (var i = 0; i < p.length; i++) {
                             dict['test1'] = p[i];
+                            dict['count'] = i;
                         }
-                        console.log(dict['test1']['type']);
+                        console.log('Type: ', dict['test1']['type'], 'Count:', dict['count']);
                         connectionRepeater.model.append(dict);
                     });
 
