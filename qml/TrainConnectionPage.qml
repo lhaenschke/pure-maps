@@ -226,7 +226,7 @@ PagePL {
                     ButtonPL {
                         id: testButton
                         text: app.tr("Test 1")
-                        preferredWidth: styler.themeButtonWidthLarge ? model['count'] == 1 : styler.themeButtonWidthSmall
+                        preferredWidth: styler.themeButtonWidthLarge ? model['count'] == 1 : styler.themeButtonWidthMedium
                         // width: page.width ? model['count'] == 1 : page.width / 2
                         onClicked: {
                             console.log(model['con0']['type'], model['con0']['name']);
@@ -236,7 +236,7 @@ PagePL {
                     ButtonPL {
                         id: testButton2
                         text: app.tr("Test 2")
-                        preferredWidth: styler.themeButtonWidthSmall
+                        preferredWidth: styler.themeButtonWidthMedium
                         visible: model['count'] > 1
                         onClicked: {
                             console.log(model['con1']['type'], model['con1']['name']);
