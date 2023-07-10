@@ -310,28 +310,28 @@ PagePL {
                         visible: model['count'] > 1
 
                         LabelPL {
-                            id: depTimeLabel
+                            id: depTimeTwoLabel
                             width: page.width / 8
                             horizontalAlignment: Text.AlignLeft
                             text: model['con1']['dp_time_hh'] + ":" + model['con1']['dp_time_mm']
                         }
 
                         LabelPL {
-                            id: nameLabel
+                            id: nameTwoLabel
                             width: page.width / 6
                             horizontalAlignment: Text.AlignLeft
                             text: model['con1']['type'] + " " + model['con1']['name']
                         }
 
                         LabelPL {
-                            id: directionLabel
+                            id: directionTwoLabel
                             width: page.width / 2.35
                             horizontalAlignment: Text.AlignLeft
                             text: model['con1']['destination']
                         }
 
                         LabelPL {
-                            id: trackLabel
+                            id: trackTwoLabel
                             width: page.width / 8
                             horizontalAlignment: Text.AlignRight
                             text: model['con1']['dp_track']
