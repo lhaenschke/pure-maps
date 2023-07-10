@@ -213,14 +213,20 @@ PagePL {
                 width: page.width
                 contentHeight: testButton.height
 
-                Row {
-                    id: row
+                Grid {
+                    id: grid
+                    columns: model['count']
+                    rows: 1
                     spacing: styler.themePaddingMedium
+                    anchors.left: parent.left
+                    anchors.leftMargin: styler.themeHorizontalPageMargin
+                    anchors.right: parent.right
+                    anchors.rightMargin: styler.themeHorizontalPageMargin
 
                     ButtonPL {
                         id: testButton
                         text: app.tr("Test 1")
-                        width: page.width ? model['count'] == 1 : page.width / 2
+                        // width: page.width ? model['count'] == 1 : page.width / 2
                         onClicked: {
                             console.log(model['con0']['type'], model['con0']['name']);
                         }
