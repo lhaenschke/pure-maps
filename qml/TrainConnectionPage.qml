@@ -268,10 +268,46 @@ PagePL {
                         columns: 4
                         rows: 1
                         spacing: styler.themePaddingMedium
-                        // anchors.left: parent.left
-                        // anchors.leftMargin: 8
-                        // anchors.right: parent.right
-                        // anchors.rightMargin: 8
+                        anchors.leftMargin: 0
+                        anchors.rightMargin: 0
+
+                        LabelPL {
+                            id: depTimeLabel
+                            width: page.width / 8
+                            horizontalAlignment: Text.AlignLeft
+                            text: model['con0']['dp_time_hh'] + ":" + model['con0']['dp_time_mm']
+                        }
+
+                        LabelPL {
+                            id: nameLabel
+                            width: page.width / 6
+                            horizontalAlignment: Text.AlignLeft
+                            text: model['con0']['type'] + " " + model['con0']['name']
+                        }
+
+                        LabelPL {
+                            id: directionLabel
+                            width: page.width / 2.35
+                            horizontalAlignment: Text.AlignLeft
+                            text: model['con0']['destination']
+                        }
+
+                        LabelPL {
+                            id: trackLabel
+                            width: page.width / 8
+                            horizontalAlignment: Text.AlignRight
+                            text: model['con0']['dp_track']
+                        }
+                    }
+
+                    Grid {
+                        id: connectionTwoGrid
+                        columns: 4
+                        rows: 1
+                        spacing: styler.themePaddingMedium
+                        anchors.leftMargin: 0
+                        anchors.rightMargin: 0
+                        visible: model['count'] > 1
 
                         LabelPL {
                             id: depTimeLabel
