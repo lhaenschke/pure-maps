@@ -217,7 +217,7 @@ PagePL {
                     id: row
                     anchors.horizontalCenter: parent.horizontalCenter
                     spacing: styler.themePaddingMedium
-                    
+
                     ButtonPL {
                         id: testButton
                         text: app.tr("Test 1")
@@ -228,7 +228,7 @@ PagePL {
                     }
 
                     ButtonPL {
-                        id: testButton
+                        id: testButton2
                         text: app.tr("Test 2")
                         width: parent.width / 2 ? model['count'] > 1 : 0
                         visible: width
