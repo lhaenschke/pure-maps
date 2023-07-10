@@ -268,10 +268,10 @@ PagePL {
                         columns: 4
                         rows: 1
                         spacing: styler.themePaddingMedium
-                        anchors.left: parent.left
-                        anchors.leftMargin: 8
-                        anchors.right: parent.right
-                        anchors.rightMargin: 8
+                        // anchors.left: parent.left
+                        // anchors.leftMargin: 8
+                        // anchors.right: parent.right
+                        // anchors.rightMargin: 8
 
                         LabelPL {
                             id: depTimeLabel
