@@ -256,8 +256,7 @@ PagePL {
                 Grid {
                     id: connectionGrid
                     columns: 1
-                    // rows: parseInt(model['count']) > 1 ? 3 : 1
-                    rows: 3
+                    rows: parseInt(model['count']) > 1 ? 3 : 1
                     spacing: styler.themePaddingMedium
                     anchors.left: parent.left
                     anchors.leftMargin: 8
@@ -312,8 +311,8 @@ PagePL {
 
                         LabelPL {
                             id: transferTimeLabel
-                            width: page.width
-                            horizontalAlignment: Text.AlignLeft
+                            width: page.width / 2
+                            horizontalAlignment: Text.AlignHCenter
                             text: app.tr('Transfer-Time: ') + page.getTransferTime(model['con0']['ar_time_hh'], model['con0']['ar_time_mm'], model['con1']['dp_time_hh'], model['con1']['dp_time_mm']) + app.tr(' Minutes')
                         }
                     }
@@ -321,7 +320,7 @@ PagePL {
                     Grid {
                         id: connectionTwoGrid
                         columns: 4
-                        rows: 1
+                        rows: 2
                         spacing: styler.themePaddingMedium
                         anchors.leftMargin: 0
                         anchors.rightMargin: 0
@@ -354,15 +353,13 @@ PagePL {
                             horizontalAlignment: Text.AlignRight
                             text: model['con1']['dp_track']
                         }
+
                     }
 
                 }
 
-                ListItemLabel {
-                    color: styler.themeHighlightColor
-                    height: implicitHeight
-                    text: ""
-                    visible: true
+                Spacer {
+                    height: styler.themePaddingMedium
                 }
 
                 Rectangle {
