@@ -321,7 +321,7 @@ PagePL {
                             columns: 1
                             rows: 1
                             spacing: styler.themePaddingLarge
-                            anchors.leftMargin: 20
+                            anchors.leftMargin: 200
                             anchors.rightMargin: 0
                             visible: parseInt(model['count']) > 1
 
@@ -329,7 +329,7 @@ PagePL {
                                 id: transferNameLabel
                                 width: page.width / 2
                                 horizontalAlignment: Text.AlignLeft
-                                text: app.tr('Transfer-Name: ') + model['con0']['transfer']
+                                text: app.tr('Transfer-Station: ') + model['con0']['transfer']
                             }
                         }
 
@@ -338,7 +338,7 @@ PagePL {
                             columns: 1
                             rows: 1
                             spacing: styler.themePaddingLarge
-                            anchors.leftMargin: 20
+                            anchors.leftMargin: 200
                             anchors.rightMargin: 0
                             visible: parseInt(model['count']) > 1
 
