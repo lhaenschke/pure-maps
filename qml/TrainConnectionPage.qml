@@ -260,9 +260,9 @@ PagePL {
                     rows: 3
                     spacing: styler.themePaddingMedium
                     anchors.left: parent.left
-                    anchors.leftMargin: styler.themeHorizontalPageMargin
+                    anchors.leftMargin: 8
                     anchors.right: parent.right
-                    anchors.rightMargin: styler.themeHorizontalPageMargin
+                    anchors.rightMargin: 8
 
                     Grid {
                         id: connectionOneGrid
@@ -313,7 +313,7 @@ PagePL {
                         LabelPL {
                             id: transferTimeLabel
                             width: page.width
-                            horizontalAlignment: Text.AlignHCenter
+                            horizontalAlignment: Text.AlignLeft
                             text: app.tr('Transfer-Time: ') + page.getTransferTime(model['con0']['ar_time_hh'], model['con0']['ar_time_mm'], model['con1']['dp_time_hh'], model['con1']['dp_time_mm']) + app.tr(' Minutes')
                         }
                     }
