@@ -320,16 +320,14 @@ PagePL {
                             id: tranferNameGrid
                             columns: 1
                             rows: 1
-                            spacing: styler.themePaddingLarge
-                            anchors.leftMargin: 200
-                            anchors.rightMargin: 0
+                            spacing: styler.themePaddingMedium
                             visible: parseInt(model['count']) > 1
 
                             LabelPL {
                                 id: transferNameLabel
                                 width: page.width / 2
                                 horizontalAlignment: Text.AlignLeft
-                                text: app.tr('Transfer-Station: ') + model['con0']['transfer']
+                                text: app.tr('      Transfer-Station: ') + model['con0']['transfer']
                             }
                         }
 
@@ -337,16 +335,14 @@ PagePL {
                             id: tranferTimeGrid
                             columns: 1
                             rows: 1
-                            spacing: styler.themePaddingLarge
-                            anchors.leftMargin: 200
-                            anchors.rightMargin: 0
+                            spacing: styler.themePaddingMedium
                             visible: parseInt(model['count']) > 1
 
                             LabelPL {
                                 id: transferTimeLabel
                                 width: page.width / 2
                                 horizontalAlignment: Text.AlignLeft
-                                text: app.tr('Transfer-Time: ') + page.getTransferTime(model['con0']['ar_time_hh'], model['con0']['ar_time_mm'], model['con1']['dp_time_hh'], model['con1']['dp_time_mm']) + app.tr(' Minutes')
+                                text: app.tr('      Transfer-Time: ') + page.getTransferTime(model['con0']['ar_time_hh'], model['con0']['ar_time_mm'], model['con1']['dp_time_hh'], model['con1']['dp_time_mm']) + app.tr(' Minutes')
                             }
                         }
 
