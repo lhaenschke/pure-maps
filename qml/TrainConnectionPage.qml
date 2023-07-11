@@ -272,8 +272,7 @@ PagePL {
                     Grid {
                         id: connectionGrid
                         columns: 1
-                        rows: 4
-                        // rows: parseInt(model['count']) > 1 ? 4 : 1
+                        rows: parseInt(model['count']) > 1 ? 4 : 1
                         spacing: styler.themePaddingMedium
                         anchors.left: parent.left
                         anchors.leftMargin: 8
@@ -322,14 +321,10 @@ PagePL {
                             columns: 1
                             rows: 1
                             spacing: styler.themePaddingMedium
-                            anchors.left: parent.left
-                            anchors.leftMargin: 50
                             visible: parseInt(model['count']) > 1
 
-                            LabelPL {
+                            ListItemLabel {
                                 id: transferNameLabel
-                                width: page.width / 2
-                                horizontalAlignment: Text.AlignLeft
                                 text: app.tr('Transfer-Station: ') + model['con0']['transfer']
                             }
                         }
