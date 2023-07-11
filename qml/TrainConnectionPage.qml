@@ -249,6 +249,7 @@ PagePL {
             width: page.width - 20
             height: 1
             color: "gray"
+            visible: connectionRepeater.model.count > 0
         }
 
         Repeater {
@@ -320,14 +321,14 @@ PagePL {
                             columns: 1
                             rows: 1
                             spacing: styler.themePaddingLarge
-                            anchors.leftMargin: 0
+                            anchors.leftMargin: 20
                             anchors.rightMargin: 0
                             visible: parseInt(model['count']) > 1
 
                             LabelPL {
                                 id: transferNameLabel
                                 width: page.width / 2
-                                horizontalAlignment: Text.AlignHCenter
+                                horizontalAlignment: Text.AlignLeft
                                 text: app.tr('Transfer-Name: ') + model['con0']['transfer']
                             }
                         }
@@ -337,14 +338,14 @@ PagePL {
                             columns: 1
                             rows: 1
                             spacing: styler.themePaddingLarge
-                            anchors.leftMargin: 0
+                            anchors.leftMargin: 20
                             anchors.rightMargin: 0
                             visible: parseInt(model['count']) > 1
 
                             LabelPL {
                                 id: transferTimeLabel
                                 width: page.width / 2
-                                horizontalAlignment: Text.AlignHCenter
+                                horizontalAlignment: Text.AlignLeft
                                 text: app.tr('Transfer-Time: ') + page.getTransferTime(model['con0']['ar_time_hh'], model['con0']['ar_time_mm'], model['con1']['dp_time_hh'], model['con1']['dp_time_mm']) + app.tr(' Minutes')
                             }
                         }
