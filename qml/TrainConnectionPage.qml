@@ -244,6 +244,13 @@ PagePL {
             }
         }
 
+        Rectangle {
+            id: listSeperator
+            width: page.width - 20
+            height: 1
+            color: "gray"
+        }
+
         Repeater {
             id: connectionRepeater
             width: page.width
@@ -264,7 +271,7 @@ PagePL {
                     Grid {
                         id: connectionGrid
                         columns: 1
-                        rows: parseInt(model['count']) > 1 ? 3 : 1
+                        rows: parseInt(model['count']) > 1 ? 4 : 1
                         spacing: styler.themePaddingMedium
                         anchors.left: parent.left
                         anchors.leftMargin: 8
@@ -309,7 +316,24 @@ PagePL {
                         }
 
                         Grid {
-                            id: tranferGrid
+                            id: tranferNameGrid
+                            columns: 1
+                            rows: 1
+                            spacing: styler.themePaddingLarge
+                            anchors.leftMargin: 0
+                            anchors.rightMargin: 0
+                            visible: parseInt(model['count']) > 1
+
+                            LabelPL {
+                                id: transferNameLabel
+                                width: page.width / 2
+                                horizontalAlignment: Text.AlignHCenter
+                                text: app.tr('Transfer-Name: ') + model['con0']['transfer']
+                            }
+                        }
+
+                        Grid {
+                            id: tranferTimeGrid
                             columns: 1
                             rows: 1
                             spacing: styler.themePaddingLarge
