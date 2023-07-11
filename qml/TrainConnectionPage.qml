@@ -301,10 +301,21 @@ PagePL {
                         }
                     }
 
-                    ListItemLabel {
-                        color: styler.themeHighlightColor
-                        text: app.tr('Transfer-Time: ') + page.getTransferTime(model['con0']['ar_time_hh'], model['con0']['ar_time_mm'], model['con1']['dp_time_hh'], model['con1']['dp_time_mm']) + app.tr(' Minutes')
+                    Grid {
+                        id: tranferGrid
+                        columns: 1
+                        rows: 1
+                        spacing: styler.themePaddingLarge
+                        anchors.leftMargin: 0
+                        anchors.rightMargin: 0
                         visible: parseInt(model['count']) > 1
+
+                        LabelPL {
+                            id: transferTimeLabel
+                            width: page.width
+                            horizontalAlignment: Text.AlignHCenter
+                            text: app.tr('Transfer-Time: ') + page.getTransferTime(model['con0']['ar_time_hh'], model['con0']['ar_time_mm'], model['con1']['dp_time_hh'], model['con1']['dp_time_mm']) + app.tr(' Minutes')
+                        }
                     }
 
                     Grid {
