@@ -336,14 +336,13 @@ PagePL {
                             columns: 1
                             rows: 1
                             spacing: styler.themePaddingMedium
-                            anchors.leftMargin: styler.themeHorizontalPageMargin
                             visible: parseInt(model['count']) > 1
 
                             LabelPL {
                                 id: transferTimeLabel
                                 width: page.width
                                 horizontalAlignment: Text.AlignLeft
-                                text: app.tr('Transfer-Time: ') + page.getTransferTime(model['con0']['ar_time_hh'], model['con0']['ar_time_mm'], model['con1']['dp_time_hh'], model['con1']['dp_time_mm']) + app.tr(' Minutes')
+                                text: app.tr('      Transfer-Time: ') + page.getTransferTime(model['con0']['ar_time_hh'], model['con0']['ar_time_mm'], model['con1']['dp_time_hh'], model['con1']['dp_time_mm']) + app.tr(' Minutes')
                             }
                         }
 
