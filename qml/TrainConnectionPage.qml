@@ -338,6 +338,8 @@ PagePL {
                         }
                     }
 
+                }
+
                 ListItemLabel {
                     color: styler.themeHighlightColor
                     height: implicitHeight
@@ -350,8 +352,6 @@ PagePL {
                     width: page.width - 20
                     height: 1
                     color: "gray"
-                }
-
                 }
 
             }
