@@ -253,6 +253,10 @@ PagePL {
                 width: page.width
                 contentHeight: connectionGrid.height
 
+                Spacer {
+                    height: styler.themePaddingLarge
+                }
+
                 Grid {
                     id: connectionGrid
                     columns: 1
@@ -359,7 +363,7 @@ PagePL {
                 }
 
                 Spacer {
-                    height: styler.themePaddingMedium
+                    height: styler.themePaddingLarge
                 }
 
                 Rectangle {
