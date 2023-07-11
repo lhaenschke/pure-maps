@@ -325,6 +325,10 @@ PagePL {
 
                             ListItemLabel {
                                 id: transferNameLabel
+                                color: styler.themeHighlightColor
+                                height: implicitHeight
+                                truncMode: truncModes.none
+                                wrapMode: Text.WordWrap
                                 text: app.tr('Transfer-Station: ') + model['con0']['transfer']
                             }
                         }
