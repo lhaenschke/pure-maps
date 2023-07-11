@@ -303,8 +303,8 @@ PagePL {
                     ListItemLabel {
                         color: styler.themeHighlightColor
                         height: implicitHeight * 2
-                        text: app.tr('Transfer-Time: ') + getTransferTime(model['con0']['ar_time_hh'], model['con0']['ar_time_mm'], model['con1']['dp_time_hh'], model['con1']['dp_time_mm']) + app.tr(' Minutes')
-                        visible: true
+                        text: app.tr('Transfer-Time: ') + page.getTransferTime(model['con0']['ar_time_hh'], model['con0']['ar_time_mm'], model['con1']['dp_time_hh'], model['con1']['dp_time_mm']) + app.tr(' Minutes')
+                        visible: parseInt(model['count']) > 1
                     }
 
                     Grid {
@@ -345,24 +345,6 @@ PagePL {
                         }
                     }
 
-                    function getTransferTime(ar_time_hh, ar_time_mm, dp_time_hh, dp_time_mm) {
-                        console.log(ar_time_hh, ar_time_mm, dp_time_hh, dp_time_mm);
-
-                        diff_minutes = Math.abs(parseInt(ar_time_mm) - parseInt(dp_time_mm));
-                        hour_diff = Math.abs(parseInt(ar_time_hh) - parseInt(dp_time_hh))
-
-                        console.log(diff_minutes, hour_diff);
-
-                        if (hour_diff > 0) {
-                            diff_minutes = Math.abs(diff_minutes - 60);
-                        }
-                        
-                        console.log(diff_minutes);
-
-                        return diff_minutes
-
-                    }
-
                 }
 
                 ListItemLabel {
@@ -384,6 +366,24 @@ PagePL {
             model: ListModel {}
 
         }
+
+    }
+
+    function getTransferTime(ar_time_hh, ar_time_mm, dp_time_hh, dp_time_mm) {
+        console.log(ar_time_hh, ar_time_mm, dp_time_hh, dp_time_mm);
+
+        diff_minutes = Math.abs(parseInt(ar_time_mm) - parseInt(dp_time_mm));
+        hour_diff = Math.abs(parseInt(ar_time_hh) - parseInt(dp_time_hh))
+
+        console.log(diff_minutes, hour_diff);
+
+        if (hour_diff > 0) {
+            diff_minutes = Math.abs(diff_minutes - 60);
+        }
+        
+        console.log(diff_minutes);
+
+        return diff_minutes
 
     }
 
