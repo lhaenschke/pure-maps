@@ -303,7 +303,6 @@ PagePL {
 
                     ListItemLabel {
                         color: styler.themeHighlightColor
-                        height: implicitHeight * 2
                         text: app.tr('Transfer-Time: ') + page.getTransferTime(model['con0']['ar_time_hh'], model['con0']['ar_time_mm'], model['con1']['dp_time_hh'], model['con1']['dp_time_mm']) + app.tr(' Minutes')
                         visible: parseInt(model['count']) > 1
                     }
