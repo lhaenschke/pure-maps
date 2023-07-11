@@ -255,8 +255,8 @@ PagePL {
 
                 Grid {
                     id: connectionGrid
-                    columns: model['count']
-                    rows: 1
+                    columns: 1
+                    rows: parseInt(model['count'])
                     spacing: styler.themePaddingMedium
                     anchors.left: parent.left
                     anchors.leftMargin: styler.themeHorizontalPageMargin
@@ -307,7 +307,7 @@ PagePL {
                         spacing: styler.themePaddingMedium
                         anchors.leftMargin: 0
                         anchors.rightMargin: 0
-                        visible: model['count'] > 1
+                        visible: parseInt(model['count']) > 1
 
                         LabelPL {
                             id: depTimeTwoLabel
