@@ -338,24 +338,20 @@ PagePL {
                         }
                     }
 
-                    // ButtonPL {
-                    //     id: testButton
-                    //     text: app.tr("Test 1")
-                    //     preferredWidth: model['count'] == 1 ? styler.themeButtonWidthLarge : styler.themeButtonWidthMedium
-                    //     onClicked: {
-                    //         console.log(model['con0']['type'], model['con0']['name']);
-                    //     }
-                    // }
+                ListItemLabel {
+                    color: styler.themeHighlightColor
+                    height: implicitHeight
+                    text: ""
+                    visible: true
+                }
 
-                    // ButtonPL {
-                    //     id: testButton2
-                    //     text: app.tr("Test 2")
-                    //     preferredWidth: styler.themeButtonWidthMedium
-                    //     visible: model['count'] > 1
-                    //     onClicked: {
-                    //         console.log(model['con1']['type'], model['con1']['name']);
-                    //     }
-                    // }
+                Rectangle {
+                    id: listSeperator
+                    width: page.width - 20
+                    height: 1
+                    color: "gray"
+                }
+
                 }
 
             }
