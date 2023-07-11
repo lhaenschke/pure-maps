@@ -256,7 +256,8 @@ PagePL {
                 Grid {
                     id: connectionGrid
                     columns: 1
-                    rows: parseInt(model['count']) > 1 ? 3 : 1
+                    // rows: parseInt(model['count']) > 1 ? 3 : 1
+                    rows: 3
                     spacing: styler.themePaddingMedium
                     anchors.left: parent.left
                     anchors.leftMargin: styler.themeHorizontalPageMargin
