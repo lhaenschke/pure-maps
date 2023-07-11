@@ -353,7 +353,7 @@ PagePL {
 
                         console.log(diff_minutes, hour_diff);
 
-                        if hour_diff > 0 {
+                        if (hour_diff > 0) {
                             diff_minutes = Math.abs(diff_minutes - 60);
                         }
                         
