@@ -323,10 +323,11 @@ PagePL {
                             spacing: styler.themePaddingMedium
                             visible: parseInt(model['count']) > 1
 
-                            ListItemLabel {
+                            LabelPL {
                                 id: transferNameLabel
-                                color: styler.themeHighlightColor
-                                text: app.tr('Transfer-Station: ') + model['con0']['transfer']
+                                 width: page.width
+                                horizontalAlignment: Text.AlignLeft
+                                text: app.tr('    Transfer-Station: ') + model['con0']['transfer']
                             }
                         }
 
@@ -341,7 +342,7 @@ PagePL {
                                 id: transferTimeLabel
                                 width: page.width
                                 horizontalAlignment: Text.AlignLeft
-                                text: app.tr('Transfer-Time: ') + page.getTransferTime(model['con0']['ar_time_hh'], model['con0']['ar_time_mm'], model['con1']['dp_time_hh'], model['con1']['dp_time_mm']) + app.tr(' Minutes')
+                                text: app.tr('    Transfer-Time: ') + page.getTransferTime(model['con0']['ar_time_hh'], model['con0']['ar_time_mm'], model['con1']['dp_time_hh'], model['con1']['dp_time_mm']) + app.tr(' Minutes')
                             }
                         }
 
