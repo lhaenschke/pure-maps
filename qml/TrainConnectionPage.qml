@@ -25,6 +25,13 @@ PagePL {
     id: page
     title: app.tr("Connections for ") + poi.title
 
+    property var  poi
+    property bool useAPI: false
+    property bool showResults: false
+    property bool searchButtonEnabled: false
+    property var  selectedStation
+    property int  connectionRows: 1
+
     pageMenu: PageMenuPL {
         PageMenuItemPL {
             enabled: page.active
@@ -34,13 +41,6 @@ PagePL {
             }
         }
     }
-
-    property var  poi
-    property bool useAPI: false
-    property bool showResults: false
-    property bool searchButtonEnabled: false
-    property var  selectedStation
-    property int  connectionRows: 1
 
     Column {
         id: column
@@ -70,9 +70,7 @@ PagePL {
             preferredWidth: page.width - (2 * styler.themeHorizontalPageMargin)
             text: app.tr("Choose Destination")
             onClicked: {
-                app.push(Qt.resolvedUrl("TrainConnectionPage.qml"), {
-                    "poi": poi,
-                });
+                app.push(Qt.resolvedUrl("TrainConnectionDestinationQuery.qml"), {});
             }
         }
 
