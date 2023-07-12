@@ -23,9 +23,20 @@ import "platform"
 
 PagePL {
     id: page
-    title: app.tr("Timetables for ") + poi.title
+    title: app.tr("Connections for ") + poi.title
+
+    pageMenu: PageMenuPL {
+        PageMenuItemPL {
+            enabled: page.active
+            text: useAPI ? app.tr('API-Mode enabled') : app.tr('API-Mode disabled')
+            onClicked: {
+                useAPI = !useAPI
+            }
+        }
+    }
 
     property var  poi
+    property bool useAPI: false
     property bool showResults: false
     property bool searchButtonEnabled: false
     property var  selectedStation
@@ -38,23 +49,25 @@ PagePL {
         ListItemLabel {
             color: styler.themeHighlightColor
             height: implicitHeight + styler.themePaddingMedium
-            text: poi.address ? app.tr('From:\n') + poi.address : ""
+            text: poi.address ? app.tr('From:\n\n') + poi.address : ""
             truncMode: truncModes.none
             verticalAlignment: Text.AlignTop
             wrapMode: Text.WordWrap
         }
 
-        LabelPL {
-            id: pickDestinationButtonLabel
-            text: app.tr('To: ')
+        ListItemLabel {
+            color: styler.themeHighlightColor
             height: implicitHeight + styler.themePaddingMedium
+            text: app.tr('To:\n')
+            truncMode: truncModes.none
             verticalAlignment: Text.AlignTop
+            wrapMode: Text.WordWrap
         }
 
         ButtonPL {
             id: pickDestinationButton
             anchors.horizontalCenter: parent.horizontalCenter
-            preferredWidth: styler.themeButtonWidthLarge
+            preferredWidth: page.width - (2 * styler.themeHorizontalPageMargin)
             text: app.tr("Choose Destination")
             onClicked: {
                 console.log('Test');
