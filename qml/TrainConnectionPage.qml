@@ -375,14 +375,14 @@ PagePL {
                                 id: nameTwoLabel
                                 width: page.width / 6
                                 horizontalAlignment: Text.AlignLeft
-                                text: model['con1'] ? model['con1']['type'] + " " + model['con1']['name'] : "Kein con1"
+                                text: model['con1']['type'] ? model['con1']['type'] + " " + model['con1']['name'] : "Kein con1"
                             }
 
                             LabelPL {
                                 id: directionTwoLabel
                                 width: page.width / 2.35
                                 horizontalAlignment: Text.AlignLeft
-                                text: model['con1'] ? model['con1']['destination'] : "Kein con1"
+                                text: model['con1']['destination'] ? model['con1']['destination'] : "Kein con1"
                             }
 
                             LabelPL {
