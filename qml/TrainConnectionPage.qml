@@ -420,19 +420,13 @@ PagePL {
     }
 
     function getTransferTime(ar_time_hh, ar_time_mm, dp_time_hh, dp_time_mm) {
-        console.log(ar_time_hh, ar_time_mm, dp_time_hh, dp_time_mm);
-
         var diff_minutes = Math.abs(parseInt(ar_time_mm) - parseInt(dp_time_mm));
         var hour_diff = Math.abs(parseInt(ar_time_hh) - parseInt(dp_time_hh))
-
-        console.log(diff_minutes, hour_diff);
 
         if (hour_diff > 0) {
             diff_minutes = Math.abs(diff_minutes - 60);
         }
         
-        console.log(diff_minutes);
-
         return diff_minutes
 
     }
