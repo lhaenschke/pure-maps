@@ -38,15 +38,15 @@ PagePL {
         ListItemLabel {
             color: styler.themeHighlightColor
             height: implicitHeight + styler.themePaddingMedium
-            text: poi.address ? app.tr('Start-Station: ') + poi.address : ""
+            text: poi.address ? app.tr('From: ') + poi.address : ""
             truncMode: truncModes.none
             verticalAlignment: Text.AlignTop
             wrapMode: Text.WordWrap
         }
 
         Grid {
-            id: searchGrid
-            columns: 4
+            id: pickDestinationGrid
+            columns: 2
             rows: 1
             spacing: styler.themePaddingMedium
             anchors.left: parent.left
@@ -55,47 +55,56 @@ PagePL {
             anchors.rightMargin: styler.themeHorizontalPageMargin
 
             LabelPL {
-                id: searchFieldLabel
-                text: app.tr('Destination: ')
-                width: page.width / 6
+                id: pickDestinationButtonLabel
+                text: app.tr('To: ')
+                width: page.width / 9
                 verticalAlignment: Text.AlignVCenter
                 height: searchField.height
             }
 
-            TextFieldPL {
-                id: searchField
-                width: (page.width - searchFieldLabel.width) - (2* styler.themeHorizontalPageMargin)
-                placeholderText: app.tr("Search Target")
-                property string lastText: ""
-                onTextChanged: {
-                    var newText = searchField.text.trim();
-                    if (Math.abs(newText.length - lastText.length) <= 1) {
-                        if (newText.length > 0) {
-                            searchResultList.model.clear();
-                            showResults = false;
-                            py.call("poor.app.trainconnections.get_suggestions", [newText, poi.coordinate.latitude, poi.coordinate.longitude], function(results) {
-                                searchResultList.model.clear();
-                                results.forEach( function(p) { searchResultList.model.append(p); });
-                                showResults = (searchResultList.model.count > 0);
-                            });
-                        } else {
-                            searchResultList.model.clear();
-                            showResults = false;
-                        }
-                        lastText = newText;
-                    } else {
-                        searchResultList.model.clear();
-                        showResults = false;
-                        searchButtonEnabled = true;
-                    }
-                }
-                Keys.onReturnPressed: {
-                    searchField.fokus = false;
-                    searchResultList.model.clear();
-                    showResults = false;
-                    searchButtonEnabled = true;
+            ButtonPL {
+                id: pickDestinationButton
+                width: (page.width - pickDestinationButtonLabel.width) - (2 * styler.themeHorizontalPageMargin)
+                text: app.tr("Choose Destination")
+                onClicked: {
+                    console.log('Test');
                 }
             }
+
+            // TextFieldPL {
+            //     id: searchField
+            //     width: (page.width - searchFieldLabel.width) - (2* styler.themeHorizontalPageMargin)
+            //     placeholderText: app.tr("Search Target")
+            //     property string lastText: ""
+            //     onTextChanged: {
+            //         var newText = searchField.text.trim();
+            //         if (Math.abs(newText.length - lastText.length) <= 1) {
+            //             if (newText.length > 0) {
+            //                 searchResultList.model.clear();
+            //                 showResults = false;
+            //                 py.call("poor.app.trainconnections.get_suggestions", [newText, poi.coordinate.latitude, poi.coordinate.longitude], function(results) {
+            //                     searchResultList.model.clear();
+            //                     results.forEach( function(p) { searchResultList.model.append(p); });
+            //                     showResults = (searchResultList.model.count > 0);
+            //                 });
+            //             } else {
+            //                 searchResultList.model.clear();
+            //                 showResults = false;
+            //             }
+            //             lastText = newText;
+            //         } else {
+            //             searchResultList.model.clear();
+            //             showResults = false;
+            //             searchButtonEnabled = true;
+            //         }
+            //     }
+            //     Keys.onReturnPressed: {
+            //         searchField.fokus = false;
+            //         searchResultList.model.clear();
+            //         showResults = false;
+            //         searchButtonEnabled = true;
+            //     }
+            // }
 
         }
 
