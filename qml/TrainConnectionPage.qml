@@ -182,6 +182,7 @@ PagePL {
                         var dict = {};
                         for (var i = 0; i < p.length; i++) {
                             const key = 'con' + i;
+                            console.log('Key: ', key);
                             dict[key] = p[i];
                             dict['count'] = i + 1;
                         }
@@ -348,7 +349,7 @@ PagePL {
                                 id: transferTimeLabel
                                 width: page.width
                                 horizontalAlignment: Text.AlignLeft
-                                text: app.tr('    Transfer-Time: ') + page.getTransferTime(model['con0']['ar_time_hh'], model['con0']['ar_time_mm'], model['con1']['dp_time_hh'], model['con1']['dp_time_mm']) + app.tr(' Minutes')
+                                text: model['con1'] ? app.tr('    Transfer-Time: ') + page.getTransferTime(model['con0']['ar_time_hh'], model['con0']['ar_time_mm'], model['con1']['dp_time_hh'], model['con1']['dp_time_mm']) + app.tr(' Minutes') : ""
                             }
                         }
 
@@ -365,28 +366,28 @@ PagePL {
                                 id: depTimeTwoLabel
                                 width: page.width / 8
                                 horizontalAlignment: Text.AlignLeft
-                                text: model['con1']['dp_time_hh'] + ":" + model['con1']['dp_time_mm']
+                                text: model['con1'] ? model['con1']['dp_time_hh'] + ":" + model['con1']['dp_time_mm'] : ""
                             }
 
                             LabelPL {
                                 id: nameTwoLabel
                                 width: page.width / 6
                                 horizontalAlignment: Text.AlignLeft
-                                text: model['con1']['type'] + " " + model['con1']['name']
+                                text: model['con1'] ? model['con1']['type'] + " " + model['con1']['name'] : ""
                             }
 
                             LabelPL {
                                 id: directionTwoLabel
                                 width: page.width / 2.35
                                 horizontalAlignment: Text.AlignLeft
-                                text: model['con1']['destination']
+                                text: model['con1'] ? model['con1']['destination'] : ""
                             }
 
                             LabelPL {
                                 id: trackTwoLabel
                                 width: page.width / 8
                                 horizontalAlignment: Text.AlignRight
-                                text: model['con1']['dp_track']
+                                text: model['con1'] ? model['con1']['dp_track'] : ""
                             }
 
                         }
