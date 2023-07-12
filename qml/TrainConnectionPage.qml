@@ -38,38 +38,42 @@ PagePL {
         ListItemLabel {
             color: styler.themeHighlightColor
             height: implicitHeight + styler.themePaddingMedium
-            text: poi.address ? app.tr('From: ') + poi.address : ""
+            text: poi.address ? app.tr('From:\n') + poi.address : ""
             truncMode: truncModes.none
             verticalAlignment: Text.AlignTop
             wrapMode: Text.WordWrap
         }
 
-        Grid {
-            id: pickDestinationGrid
-            columns: 2
-            rows: 1
-            spacing: styler.themePaddingMedium
-            anchors.left: parent.left
-            anchors.leftMargin: styler.themeHorizontalPageMargin
-            anchors.right: parent.right
-            anchors.rightMargin: styler.themeHorizontalPageMargin
+        LabelPL {
+            id: pickDestinationButtonLabel
+            text: app.tr('To: ')
+            height: implicitHeight + styler.themePaddingMedium
+            verticalAlignment: Text.AlignTop
+        }
 
-            LabelPL {
-                id: pickDestinationButtonLabel
-                text: app.tr('To: ')
-                width: page.width / 9
-                verticalAlignment: Text.AlignVCenter
-                height: searchField.height
+        ButtonPL {
+            id: pickDestinationButton
+            anchors.horizontalCenter: parent.horizontalCenter
+            preferredWidth: styler.themeButtonWidthLarge
+            text: app.tr("Choose Destination")
+            onClicked: {
+                console.log('Test');
             }
+        }
 
-            ButtonPL {
-                id: pickDestinationButton
-                width: (page.width - pickDestinationButtonLabel.width) - (2 * styler.themeHorizontalPageMargin)
-                text: app.tr("Choose Destination")
-                onClicked: {
-                    console.log('Test');
-                }
-            }
+        // Grid {
+        //     id: pickDestinationGrid
+        //     columns: 2
+        //     rows: 1
+        //     spacing: styler.themePaddingMedium
+        //     anchors.left: parent.left
+        //     anchors.leftMargin: styler.themeHorizontalPageMargin
+        //     anchors.right: parent.right
+        //     anchors.rightMargin: styler.themeHorizontalPageMargin
+
+            
+
+            
 
             // TextFieldPL {
             //     id: searchField
@@ -105,8 +109,8 @@ PagePL {
             //         searchButtonEnabled = true;
             //     }
             // }
-
-        }
+// 
+        // }
 
         Repeater {
             id: searchResultList
