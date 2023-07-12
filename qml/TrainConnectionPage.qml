@@ -28,7 +28,7 @@ PagePL {
     pageMenu: PageMenuPL {
         PageMenuItemPL {
             enabled: page.active
-            text: useAPI ? app.tr('API-Mode enabled') : app.tr('API-Mode disabled')
+            text: useAPI ? app.tr('Press toe use API-Mode') : app.tr('Press to use Scraping-Mode')
             onClicked: {
                 useAPI = !useAPI
             }
@@ -49,7 +49,7 @@ PagePL {
         ListItemLabel {
             color: styler.themeHighlightColor
             height: implicitHeight + styler.themePaddingMedium
-            text: poi.address ? app.tr('From:\n\n') + poi.address : ""
+            text: poi.address ? app.tr('From:\n') + poi.address : ""
             truncMode: truncModes.none
             verticalAlignment: Text.AlignTop
             wrapMode: Text.WordWrap
@@ -58,7 +58,7 @@ PagePL {
         ListItemLabel {
             color: styler.themeHighlightColor
             height: implicitHeight + styler.themePaddingMedium
-            text: app.tr('To:\n')
+            text: app.tr('To:')
             truncMode: truncModes.none
             verticalAlignment: Text.AlignTop
             wrapMode: Text.WordWrap
@@ -70,7 +70,9 @@ PagePL {
             preferredWidth: page.width - (2 * styler.themeHorizontalPageMargin)
             text: app.tr("Choose Destination")
             onClicked: {
-                console.log('Test');
+                app.push(Qt.resolvedUrl("TrainConnectionPage.qml"), {
+                    "poi": poi,
+                });
             }
         }
 
