@@ -189,7 +189,7 @@ PagePL {
                         if (parseInt(dict['count']) > 1) {
                             connectionRows = 4;
                             console.log('Name (con1): ', dict['con1']['name']);
-                            console.log('Con1: ', dict['con1']);
+                            console.log('Type (con1): ', dict['con1']['type']);
                         } else {
                             connectionRows = 1;
                         }
@@ -197,6 +197,8 @@ PagePL {
                     });
                     
                 });
+
+                connectionRepeater.model.sync();
             }
         }
 
