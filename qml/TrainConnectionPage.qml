@@ -182,10 +182,10 @@ PagePL {
                         var dict = {};
                         for (var i = 0; i < p.length; i++) {
                             const key = 'con' + i;
-                            console.log('Key: ', key);
                             dict[key] = p[i];
                             dict['count'] = i + 1;
                         }
+                        console.log('Con1-Type: ', dict['con1']['type']);
                         connectionRepeater.model.append(dict);
                         if (parseInt(dict['count']) > 1) {
                             connectionRows = 4;
