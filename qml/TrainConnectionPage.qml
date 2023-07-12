@@ -188,6 +188,8 @@ PagePL {
                         connectionRepeater.model.append(dict);
                         if (parseInt(dict['count']) > 1) {
                             connectionRows = 4;
+                            console.log('Name (con1): ', dict['con1']['name']);
+                            console.log('Name (con1): ', dict['con1']['type']);
                         } else {
                             connectionRows = 1;
                         }
