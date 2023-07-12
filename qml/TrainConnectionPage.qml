@@ -198,7 +198,6 @@ PagePL {
                     
                 });
 
-                connectionRepeater.model.sync();
             }
         }
 
