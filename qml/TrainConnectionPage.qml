@@ -387,7 +387,7 @@ PagePL {
                                 id: trackTwoLabel
                                 width: page.width / 8
                                 horizontalAlignment: Text.AlignRight
-                                text: model['con1'] ? model['con1']['dp_track'] : Kein con1""
+                             text: model['con1'] ? model['con1']['dp_track'] : "Kein con1"
                             }
 
                         }
