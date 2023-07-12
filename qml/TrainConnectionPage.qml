@@ -173,11 +173,12 @@ PagePL {
                 showResults = false;
                 searchButtonEnabled = true;
 
+                connectionRepeater.model.clear();
+
                 py.call("poor.app.trainconnections.search_connections", [poi.coordinate.latitude, poi.coordinate.longitude, selectedStation[1], selectedStation[0]], function(results) {
                     searchButton.enabled = true;
                     searchButton.text = app.tr("Search");
-                    connectionRepeater.model.clear();
-
+                    
                     results.forEach( function (p) { 
                         var dict = {};
                         for (var i = 0; i < p.length; i++) {
@@ -375,21 +376,21 @@ PagePL {
                                 id: nameTwoLabel
                                 width: page.width / 6
                                 horizontalAlignment: Text.AlignLeft
-                                text: model['con1']['type'] ? model['con1']['type'] + " " + model['con1']['name'] : "Kein con1"
+                                text: model['con1'] ? model['con1']['type'] + " " + model['con1']['name'] : "Kein con1"
                             }
 
                             LabelPL {
                                 id: directionTwoLabel
                                 width: page.width / 2.35
                                 horizontalAlignment: Text.AlignLeft
-                                text: model['con1']['destination'] ? model['con1']['destination'] : "Kein con1"
+                                text: model['con1'] ? model['con1']['destination'] : "Kein con1"
                             }
 
                             LabelPL {
                                 id: trackTwoLabel
                                 width: page.width / 8
                                 horizontalAlignment: Text.AlignRight
-                             text: model['con1'] ? model['con1']['dp_track'] : "Kein con1"
+                                text: model['con1'] ? model['con1']['dp_track'] : "Kein con1"
                             }
 
                         }
