@@ -29,6 +29,7 @@ PagePL {
     property bool showResults: false
     property bool searchButtonEnabled: false
     property var  selectedStation
+    property int  connectionRows: 1
 
     Column {
         id: column
@@ -185,8 +186,13 @@ PagePL {
                             dict['count'] = i + 1;
                         }
                         connectionRepeater.model.append(dict);
+                        if (parseInt(dict['count']) > 1) {
+                            connectionRows = 4;
+                        } else {
+                            connectionRows = 1;
+                        }
                     });
-
+                    
                 });
             }
         }
@@ -272,7 +278,7 @@ PagePL {
                     Grid {
                         id: connectionGrid
                         columns: 1
-                        rows: parseInt(model['count']) > 1 ? 4 : 1
+                        rows: connectionRows
                         spacing: styler.themePaddingMedium
                         anchors.left: parent.left
                         anchors.leftMargin: 8
@@ -321,7 +327,7 @@ PagePL {
                             columns: 1
                             rows: 1
                             spacing: styler.themePaddingMedium
-                            visible: parseInt(model['count']) > 1
+                            visible: connectionRows > 1
 
                             LabelPL {
                                 id: transferNameLabel
@@ -336,7 +342,7 @@ PagePL {
                             columns: 1
                             rows: 1
                             spacing: styler.themePaddingMedium
-                            visible: parseInt(model['count']) > 1
+                            visible: connectionRows > 1
 
                             LabelPL {
                                 id: transferTimeLabel
@@ -353,7 +359,7 @@ PagePL {
                             spacing: styler.themePaddingMedium
                             anchors.leftMargin: 0
                             anchors.rightMargin: 0
-                            visible: parseInt(model['count']) > 1
+                            visible: connectionRows > 1
 
                             LabelPL {
                                 id: depTimeTwoLabel
