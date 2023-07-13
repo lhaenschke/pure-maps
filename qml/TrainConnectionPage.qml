@@ -70,7 +70,8 @@ PagePL {
             preferredWidth: page.width - (2 * styler.themeHorizontalPageMargin)
             text: app.tr("Choose Destination")
             onClicked: {
-                app.push(Qt.resolvedUrl("TrainConnectionDestinationQueryPage.qml"), {});
+                // app.push(Qt.resolvedUrl("TrainConnectionDestinationQueryPage.qml"), {});
+                trainconnections.test();
             }
         }
 
