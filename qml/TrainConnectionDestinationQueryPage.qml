@@ -49,11 +49,11 @@ PageListPL {
                     return "";
                 }
             }
-            verticalAlignment: Text.AlignTop
+            verticalAlignment: Text.AlignVCenter
         }
 
         onClicked: {
-            console.log('Test');
+            console.log(model['status'], model['eva'], model['name']);
         }
 
     }
