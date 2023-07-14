@@ -24,7 +24,7 @@ import "platform"
 DialogPL {
     id: page
     title: app.tr("Search Destination")
-    canAccept: true
+    canAccept: false
 
     property var    searchField: undefined
     property string lastQuery: ""
@@ -86,8 +86,8 @@ DialogPL {
 
     function fillModel(query) {
         py.call("poor.app.trainconnections.get_suggestions", [query, latitude, longitude], function(results) {
-            page.model.clear();
-            results.forEach( function(p) { page.model.append(p); });
+            suggestionsRepeater.model.clear();
+            results.forEach( function(p) { suggestionsRepeater.model.append(p); });
         });
     }
 
