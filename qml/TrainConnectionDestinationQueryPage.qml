@@ -42,33 +42,13 @@ PageListPL {
             anchors.top: spacer.bottom
             color: listItem.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
             height: implicitHeight + styler.themePaddingSmall
-            text: "Test Title"
-            verticalAlignment: Text.AlignTop
-        }
-
-        ListItemLabel {
-            id: detailsItem
-            anchors.leftMargin: page.searchField.textLeftMargin
-            anchors.top: titleItem.bottom
-            color: listItem.highlighted ? styler.themeSecondaryHighlightColor : styler.themeSecondaryColor
-            font.pixelSize: styler.themeFontSizeSmall
-            height: text ? implicitHeight + styler.themePaddingSmall : 0
-            text: "Test Details"
-            verticalAlignment: Text.AlignTop
-            wrapMode: Text.WordWrap
-        }
-
-        ListItemLabel {
-            id: textItem
-            anchors.leftMargin: page.searchField.textLeftMargin
-            anchors.top: detailsItem.bottom
-            anchors.topMargin: styler.themePaddingSmall
-            color: listItem.highlighted ? styler.themeSecondaryHighlightColor : styler.themeSecondaryColor
-            font.pixelSize: styler.themeFontSizeExtraSmall
-            height: text ? implicitHeight : 0
-            maximumLineCount: 1
-            text: "Test Text"
-            truncMode: truncModes.elide
+            text: {
+                if (model['eva'] == 200) {
+                    return model['name'];
+                } else {
+                    return "";
+                }
+            }
             verticalAlignment: Text.AlignTop
         }
 
