@@ -21,10 +21,98 @@ import QtPositioning 5.4
 import "."
 import "platform"
 
-PagePL {
+PageListPL {
     id: page
     title: app.tr("Search Destination")
 
-    
+    currentIndex: -1
+
+    delegate: ListItemPL {
+        id: listItem
+        contentHeight: titleItem.height + detailsItem.height + textItem.height + spacer.height*2
+
+        Spacer {
+            id: spacer
+            height: styler.themePaddingLarge/2
+        }
+
+        ListItemLabel {
+            id: titleItem
+            anchors.leftMargin: page.searchField.textLeftMargin
+            anchors.top: spacer.bottom
+            color: listItem.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
+            height: implicitHeight + styler.themePaddingSmall
+            text: "Test Title"
+            verticalAlignment: Text.AlignTop
+        }
+
+        ListItemLabel {
+            id: detailsItem
+            anchors.leftMargin: page.searchField.textLeftMargin
+            anchors.top: titleItem.bottom
+            color: listItem.highlighted ? styler.themeSecondaryHighlightColor : styler.themeSecondaryColor
+            font.pixelSize: styler.themeFontSizeSmall
+            height: text ? implicitHeight + styler.themePaddingSmall : 0
+            text: "Test Details"
+            verticalAlignment: Text.AlignTop
+            wrapMode: Text.WordWrap
+        }
+
+        ListItemLabel {
+            id: textItem
+            anchors.leftMargin: page.searchField.textLeftMargin
+            anchors.top: detailsItem.bottom
+            anchors.topMargin: styler.themePaddingSmall
+            color: listItem.highlighted ? styler.themeSecondaryHighlightColor : styler.themeSecondaryColor
+            font.pixelSize: styler.themeFontSizeExtraSmall
+            height: text ? implicitHeight : 0
+            maximumLineCount: 1
+            text: "Test Text"
+            truncMode: truncModes.elide
+            verticalAlignment: Text.AlignTop
+        }
+
+        onClicked: {
+            console.log('Test');
+        }
+
+    }
+
+    headerExtra: Component {
+        SearchFieldPL {
+            id: searchField
+            placeholderText: app.tr("Search")
+            property string prevText: ""
+            onTextChanged: {
+                var newText = searchField.text.trim().toLowerCase();
+                if (newText === lastQuery) return;
+                fillModel(newText);
+                lastQuery = newText;
+            }
+
+            Component.onCompleted: page.searchField = searchField;
+        }
+    }
+
+    model: ListModel {}
+
+    placeholderEnabled: pois.pois.length === 0
+    placeholderText: app.tr("No points of bookmarks defined yet. You can bookmark locations using map and search.")
+
+    property string lastQuery: ""
+    property var    searchField: undefined
+    property var    searchKeys: ["shortlisted", "bookmarked", "title", "poiType", "address", "postcode", "text", "phone", "link"]
+
+    Component.onCompleted: {
+        fillModel('Complete');
+    }
+
+    function fillModel(query) {
+        // var data = pois.pois;
+        // var s = Util.findMatchesInObjects(query, data, searchKeys);
+        // page.model.clear();
+        // s.forEach(function (p){ page.model.append(p); });
+        console.log(query);
+    }
 
 }
