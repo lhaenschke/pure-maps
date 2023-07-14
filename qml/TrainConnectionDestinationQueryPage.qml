@@ -29,7 +29,7 @@ PageListPL {
 
     delegate: ListItemPL {
         id: listItem
-        contentHeight: titleItem.height + detailsItem.height + textItem.height + spacer.height*2
+        contentHeight: titleItem.height + spacer.height*2
 
         Spacer {
             id: spacer
@@ -78,8 +78,8 @@ PageListPL {
     placeholderEnabled: pois.pois.length === 0
     placeholderText: app.tr("No points of bookmarks defined yet. You can bookmark locations using map and search.")
 
-    property string lastQuery: ""
     property var    searchField: undefined
+    property string lastQuery: ""
     property string latitude: ""
     property string longitude: ""
 
