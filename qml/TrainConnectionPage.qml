@@ -84,9 +84,6 @@ PagePL {
         //     anchors.right: parent.right
         //     anchors.rightMargin: styler.themeHorizontalPageMargin
 
-            
-
-            
 
             // TextFieldPL {
             //     id: searchField
