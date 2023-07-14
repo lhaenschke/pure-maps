@@ -70,7 +70,10 @@ PagePL {
             preferredWidth: page.width - (2 * styler.themeHorizontalPageMargin)
             text: app.tr("Choose Destination")
             onClicked: {
-                app.push(Qt.resolvedUrl("TrainConnectionDestinationQueryPage.qml"), {});
+                app.push(Qt.resolvedUrl("TrainConnectionDestinationQueryPage.qml"), {
+                    "latitude": poi.coordinate.latitude,
+                    "longitude": poi.coordinate.longitude
+                });
             }
         }
 
@@ -96,11 +99,11 @@ PagePL {
             //             if (newText.length > 0) {
             //                 searchResultList.model.clear();
             //                 showResults = false;
-            //                 py.call("poor.app.trainconnections.get_suggestions", [newText, poi.coordinate.latitude, poi.coordinate.longitude], function(results) {
-            //                     searchResultList.model.clear();
-            //                     results.forEach( function(p) { searchResultList.model.append(p); });
-            //                     showResults = (searchResultList.model.count > 0);
-            //                 });
+                            // py.call("poor.app.trainconnections.get_suggestions", [newText, poi.coordinate.latitude, poi.coordinate.longitude], function(results) {
+                            //     searchResultList.model.clear();
+                            //     results.forEach( function(p) { searchResultList.model.append(p); });
+                            //     showResults = (searchResultList.model.count > 0);
+                            // });
             //             } else {
             //                 searchResultList.model.clear();
             //                 showResults = false;

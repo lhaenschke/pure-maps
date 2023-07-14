@@ -82,7 +82,6 @@ PageListPL {
         SearchFieldPL {
             id: searchField
             placeholderText: app.tr("Search")
-            property string prevText: ""
             onTextChanged: {
                 var newText = searchField.text.trim().toLowerCase();
                 if (newText === lastQuery) return;
@@ -101,18 +100,18 @@ PageListPL {
 
     property string lastQuery: ""
     property var    searchField: undefined
-    property var    searchKeys: ["shortlisted", "bookmarked", "title", "poiType", "address", "postcode", "text", "phone", "link"]
+    property string latitude: ""
+    property string longitude: ""
 
     Component.onCompleted: {
         fillModel('Complete');
     }
 
     function fillModel(query) {
-        // var data = pois.pois;
-        // var s = Util.findMatchesInObjects(query, data, searchKeys);
-        // page.model.clear();
-        // s.forEach(function (p){ page.model.append(p); });
-        console.log(query);
+        py.call("poor.app.trainconnections.get_suggestions", [query, latitude, longitude], function(results) {
+            page.model.clear();
+            results.forEach( function(p) { page.model.append(p); });
+        });
     }
 
 }
