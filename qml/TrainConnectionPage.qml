@@ -125,59 +125,59 @@ PagePL {
 // 
         // }
 
-        Repeater {
-            id: searchResultList
-            width: page.width
-            visible: showResults
+        // Repeater {
+        //     id: searchResultList
+        //     width: page.width
+        //     visible: showResults
             
-            delegate: ListItemPL {
-                id: listItem
-                contentHeight: listColumn.height
+        //     delegate: ListItemPL {
+        //         id: listItem
+        //         contentHeight: listColumn.height
                 
-                property bool isVisible: false
+        //         property bool isVisible: false
 
-                Column {
-                    id: listColumn
-                    width: page.width
+        //         Column {
+        //             id: listColumn
+        //             width: page.width
 
-                    ListItemLabel {
-                        height: implicitHeight
-                        text: ""
-                        visible: true
-                    }
+        //             ListItemLabel {
+        //                 height: implicitHeight
+        //                 text: ""
+        //                 visible: true
+        //             }
 
-                    ListItemLabel {
-                        color: styler.themeHighlightColor
-                        height: implicitHeight
-                        text: model['name']
-                    }
+        //             ListItemLabel {
+        //                 color: styler.themeHighlightColor
+        //                 height: implicitHeight
+        //                 text: model['name']
+        //             }
 
-                    ListItemLabel {
-                        height: implicitHeight
-                        text: ""
-                        visible: true
-                    }
+        //             ListItemLabel {
+        //                 height: implicitHeight
+        //                 text: ""
+        //                 visible: true
+        //             }
 
-                    Rectangle {
-                        id: listSeperator
-                        width: page.width - 20
-                        height: 1
-                        color: "gray"
-                    }
+        //             Rectangle {
+        //                 id: listSeperator
+        //                 width: page.width - 20
+        //                 height: 1
+        //                 color: "gray"
+        //             }
 
-                }
+        //         }
 
-                onClicked: {
-                    selectedStation = [model['name'], model['eva']];
-                    console.log("SelectedStation: ", selectedStation);
-                    searchField.text = model['name'];
-                }
+        //         onClicked: {
+        //             selectedStation = [model['name'], model['eva']];
+        //             console.log("SelectedStation: ", selectedStation);
+        //             searchField.text = model['name'];
+        //         }
 
-            }
+        //     }
 
-            model: ListModel {}
+        //     model: ListModel {}
 
-        }
+        // }
 
         ListItemLabel {
             color: styler.themeHighlightColor
@@ -195,8 +195,8 @@ PagePL {
                 searchButtonEnabled = false;
                 searchButton.text = app.tr("Loading");
 
-                searchResultList.model.clear();
-                showResults = false;
+                // searchResultList.model.clear();
+                // showResults = false;
                 searchButtonEnabled = true;
 
                 connectionRepeater.model.clear();
