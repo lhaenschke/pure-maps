@@ -70,10 +70,13 @@ PagePL {
             preferredWidth: page.width - (2 * styler.themeHorizontalPageMargin)
             text: app.tr("Choose Destination")
             onClicked: {
-                app.push(Qt.resolvedUrl("TrainConnectionDestinationQueryPage.qml"), {
+                var dialog = app.push(Qt.resolvedUrl("TrainConnectionDestinationQueryPage.qml"), {
                     "latitude": poi.coordinate.latitude,
                     "longitude": poi.coordinate.longitude
                 });
+                dialog.accepted.connect(function() {
+                    console.log(dialog.result);
+                })
             }
         }
 

@@ -21,70 +21,67 @@ import QtPositioning 5.4
 import "."
 import "platform"
 
-PageListPL {
+DialogPL {
     id: page
     title: app.tr("Search Destination")
-
-    currentIndex: -1
-
-    delegate: ListItemPL {
-        id: listItem
-        contentHeight: titleItem.height + spacer.height*2
-
-        Spacer {
-            id: spacer
-            height: styler.themePaddingLarge/2
-        }
-
-        ListItemLabel {
-            id: titleItem
-            anchors.leftMargin: page.searchField.textLeftMargin
-            anchors.top: spacer.bottom
-            color: listItem.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
-            height: implicitHeight + styler.themePaddingSmall
-            text: {
-                if (model['status'] == 200) {
-                    return model['name'];
-                } else {
-                    return "";
-                }
-            }
-            verticalAlignment: Text.AlignVCenter
-        }
-
-        onClicked: {
-            console.log(model['status'], model['eva'], model['name']);
-        }
-
-    }
-
-    headerExtra: Component {
-        SearchFieldPL {
-            id: searchField
-            placeholderText: app.tr("Search")
-            onTextChanged: {
-                var newText = searchField.text.trim().toLowerCase();
-                if (newText === lastQuery) return;
-                fillModel(newText);
-                lastQuery = newText;
-            }
-
-            Component.onCompleted: page.searchField = searchField;
-        }
-    }
-
-    model: ListModel {}
-
-    placeholderEnabled: pois.pois.length === 0
-    placeholderText: app.tr("No points of bookmarks defined yet. You can bookmark locations using map and search.")
+    canAccept: true
 
     property var    searchField: undefined
     property string lastQuery: ""
     property string latitude: ""
     property string longitude: ""
+    property var    result: undefined
 
-    Component.onCompleted: {
-        fillModel('Complete');
+    SearchFieldPL {
+        id: searchField
+        placeholderText: app.tr("Search")
+        onTextChanged: {
+            var newText = searchField.text.trim().toLowerCase();
+            if (newText === lastQuery) return;
+            page.fillModel(newText);
+            lastQuery = newText;
+        }
+    }
+
+    Repeater {
+        id: suggestionsRepeater
+        width: page.width
+        model: ListModel {}
+
+        delegate: ListItemPL {
+            id: listItem
+            contentHeight: titleItem.height + spacer.height*2
+
+            Spacer {
+                id: spacer
+                height: styler.themePaddingLarge/2
+            }
+
+            ListItemLabel {
+                id: titleItem
+                anchors.leftMargin: page.searchField.textLeftMargin
+                anchors.top: spacer.bottom
+                color: listItem.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
+                height: implicitHeight + styler.themePaddingSmall
+                text: {
+                    if (model['status'] == 200) {
+                        return model['name'];
+                    } else {
+                        return "";
+                    }
+                }
+                verticalAlignment: Text.AlignVCenter
+            }
+
+            onClicked: {
+                console.log('Test');
+                console.log(model['status'], model['eva'], model['name']);
+                page.result = {'name': model['name'], 'eva': model['eva']};
+                page.accept();
+            }
+
+        }
+
     }
 
     function fillModel(query) {
