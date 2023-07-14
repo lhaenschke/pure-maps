@@ -52,25 +52,29 @@ DialogPL {
             id: listItem
             contentHeight: titleItem.height + spacer.height*2
 
-            Spacer {
-                id: spacer
-                height: styler.themePaddingLarge/2
-            }
+            Column {
+                id: column
+                width: page.width
 
-            ListItemLabel {
-                id: titleItem
-                anchors.leftMargin: page.searchField.textLeftMargin
-                anchors.top: spacer.bottom
-                color: listItem.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
-                height: implicitHeight + styler.themePaddingSmall
-                text: {
-                    if (model['status'] == 200) {
-                        return model['name'];
-                    } else {
-                        return "";
-                    }
+                Spacer {
+                    id: spacer
+                    height: styler.themePaddingLarge/2
                 }
-                verticalAlignment: Text.AlignVCenter
+
+                ListItemLabel {
+                    id: titleItem
+                    color: listItem.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
+                    height: implicitHeight + styler.themePaddingSmall
+                    text: {
+                        if (model['status'] == 200) {
+                            return model['name'];
+                        } else {
+                            return "";
+                        }
+                    }
+                    verticalAlignment: Text.AlignVCenter
+                }
+
             }
 
             onClicked: {
