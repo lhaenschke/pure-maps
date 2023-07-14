@@ -43,7 +43,7 @@ PageListPL {
             color: listItem.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
             height: implicitHeight + styler.themePaddingSmall
             text: {
-                if (model['eva'] == 200) {
+                if (model['status'] == 200) {
                     return model['name'];
                 } else {
                     return "";
