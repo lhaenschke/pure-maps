@@ -106,8 +106,8 @@ PagePL {
                         }
                         if (parseInt(dict['count']) > 1) {
                             connectionRows = 4;
-                            console.log('Test 0: ', model['con0']['name']);
-                            console.log('Test 1: ', model['con1']['name']);
+                            console.log('Test 0: ', dict['con0']['name']);
+                            console.log('Test 1: ', dict['con1']['name']);
                         } else {
                             connectionRows = 1;
                         }
