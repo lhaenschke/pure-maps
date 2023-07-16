@@ -93,7 +93,7 @@ PagePL {
                 
                 connectionRepeater.model.clear();
 
-                py.call("poor.app.trainconnections.search_connections", [poi.coordinate.latitude, poi.coordinate.longitude, selectedStation[1], selectedStation[0]], function(results) {
+                py.call("poor.app.trainconnections.search_connections", [poi.coordinate.latitude, poi.coordinate.longitude, selectedStation['eva'], selectedStation['name']], function(results) {
                     searchButton.enabled = true;
                     searchButton.text = app.tr("Search");
                     
