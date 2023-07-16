@@ -459,8 +459,8 @@ PagePL {
     }
 
     function destinationCallback(data) {
-        selectedStation = data
+        selectedStation = data;
+        console.log('Page:', selectedStation['name'], selectedStation['eva']);
     }
-
 
 }

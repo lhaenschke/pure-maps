@@ -63,11 +63,9 @@ PageListPL {
         }
 
         onClicked: {
-            console.log('Test');
-            console.log(model['status'], model['eva'], model['name']);
             const result = {'name': model['name'], 'eva': model['eva']};
             callback(result);
-            pageStack.pop();
+            app.pages.pop();
 
             // callback(result);
             // page.accept();
