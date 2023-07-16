@@ -26,21 +26,18 @@ PagePL {
     title: app.tr("Connections for ") + poi.title
 
     property var  poi
-    property bool useAPI: false
-    property bool showResults: false
-    property bool searchButtonEnabled: false
     property var  selectedStation
     property int  connectionRows: 1
 
-    pageMenu: PageMenuPL {
-        PageMenuItemPL {
-            enabled: page.active
-            text: useAPI ? app.tr('Press toe use API-Mode') : app.tr('Press to use Scraping-Mode')
-            onClicked: {
-                useAPI = !useAPI
-            }
-        }
-    }
+    // pageMenu: PageMenuPL {
+    //     PageMenuItemPL {
+    //         enabled: page.active
+    //         text: useAPI ? app.tr('Press toe use API-Mode') : app.tr('Press to use Scraping-Mode')
+    //         onClicked: {
+    //             useAPI = !useAPI
+    //         }
+    //     }
+    // }
 
     Column {
         id: column
@@ -77,109 +74,7 @@ PagePL {
                 });
             }
         }
-
-        // Grid {
-        //     id: pickDestinationGrid
-        //     columns: 2
-        //     rows: 1
-        //     spacing: styler.themePaddingMedium
-        //     anchors.left: parent.left
-        //     anchors.leftMargin: styler.themeHorizontalPageMargin
-        //     anchors.right: parent.right
-        //     anchors.rightMargin: styler.themeHorizontalPageMargin
-
-
-            // TextFieldPL {
-            //     id: searchField
-            //     width: (page.width - searchFieldLabel.width) - (2* styler.themeHorizontalPageMargin)
-            //     placeholderText: app.tr("Search Target")
-            //     property string lastText: ""
-            //     onTextChanged: {
-            //         var newText = searchField.text.trim();
-            //         if (Math.abs(newText.length - lastText.length) <= 1) {
-            //             if (newText.length > 0) {
-            //                 searchResultList.model.clear();
-            //                 showResults = false;
-                            // py.call("poor.app.trainconnections.get_suggestions", [newText, poi.coordinate.latitude, poi.coordinate.longitude], function(results) {
-                            //     searchResultList.model.clear();
-                            //     results.forEach( function(p) { searchResultList.model.append(p); });
-                            //     showResults = (searchResultList.model.count > 0);
-                            // });
-            //             } else {
-            //                 searchResultList.model.clear();
-            //                 showResults = false;
-            //             }
-            //             lastText = newText;
-            //         } else {
-            //             searchResultList.model.clear();
-            //             showResults = false;
-            //             searchButtonEnabled = true;
-            //         }
-            //     }
-            //     Keys.onReturnPressed: {
-            //         searchField.fokus = false;
-            //         searchResultList.model.clear();
-            //         showResults = false;
-            //         searchButtonEnabled = true;
-            //     }
-            // }
-// 
-        // }
-
-        // Repeater {
-        //     id: searchResultList
-        //     width: page.width
-        //     visible: showResults
-            
-        //     delegate: ListItemPL {
-        //         id: listItem
-        //         contentHeight: listColumn.height
-                
-        //         property bool isVisible: false
-
-        //         Column {
-        //             id: listColumn
-        //             width: page.width
-
-        //             ListItemLabel {
-        //                 height: implicitHeight
-        //                 text: ""
-        //                 visible: true
-        //             }
-
-        //             ListItemLabel {
-        //                 color: styler.themeHighlightColor
-        //                 height: implicitHeight
-        //                 text: model['name']
-        //             }
-
-        //             ListItemLabel {
-        //                 height: implicitHeight
-        //                 text: ""
-        //                 visible: true
-        //             }
-
-        //             Rectangle {
-        //                 id: listSeperator
-        //                 width: page.width - 20
-        //                 height: 1
-        //                 color: "gray"
-        //             }
-
-        //         }
-
-        //         onClicked: {
-        //             selectedStation = [model['name'], model['eva']];
-        //             console.log("SelectedStation: ", selectedStation);
-        //             searchField.text = model['name'];
-        //         }
-
-        //     }
-
-        //     model: ListModel {}
-
-        // }
-
+        
         ListItemLabel {
             color: styler.themeHighlightColor
             height: implicitHeight
@@ -190,16 +85,12 @@ PagePL {
             id: searchButton
             anchors.horizontalCenter: parent.horizontalCenter
             preferredWidth: styler.themeButtonWidthLarge
-            enabled: searchButtonEnabled
+            enabled: false
             text: app.tr("Search")
             onClicked: {
-                searchButtonEnabled = false;
+                searchButton.enabled = false;
                 searchButton.text = app.tr("Loading");
-
-                // searchResultList.model.clear();
-                // showResults = false;
-                searchButtonEnabled = true;
-
+                
                 connectionRepeater.model.clear();
 
                 py.call("poor.app.trainconnections.search_connections", [poi.coordinate.latitude, poi.coordinate.longitude, selectedStation[1], selectedStation[0]], function(results) {
@@ -215,8 +106,6 @@ PagePL {
                         }
                         if (parseInt(dict['count']) > 1) {
                             connectionRows = 4;
-                            console.log('Name (con1): ', dict['con1']['name']);
-                            console.log('Type (con1): ', dict['con1']['type']);
                         } else {
                             connectionRows = 1;
                         }
@@ -293,6 +182,8 @@ PagePL {
             id: connectionRepeater
             width: page.width
             visible: model.count > 0
+
+            model: ListModel {}
 
             delegate: ListItemPL {
                 id: listItem
@@ -440,8 +331,6 @@ PagePL {
 
             }
 
-            model: ListModel {}
-
         }
 
     }
@@ -461,6 +350,7 @@ PagePL {
     function destinationCallback(data) {
         selectedStation = data;
         pickDestinationButton.text = selectedStation['name'];
+        searchButton.enabled = true;
     }
 
 }
