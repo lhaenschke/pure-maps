@@ -66,7 +66,7 @@ PageListPL {
             console.log('Test');
             console.log(model['status'], model['eva'], model['name']);
             const result = {'name': model['name'], 'eva': model['eva']};
-            callback(location);
+            callback(result);
             pageStack.pop();
 
             // callback(result);
