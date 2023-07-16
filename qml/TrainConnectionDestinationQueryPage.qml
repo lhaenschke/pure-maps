@@ -21,75 +21,71 @@ import QtPositioning 5.4
 import "."
 import "platform"
 
-DialogPL {
+PageListPL {
     id: page
     title: app.tr("Search Destination")
-    canAccept: false
 
     property var    searchField: undefined
     property string lastQuery: ""
     property string latitude: ""
     property string longitude: ""
-    property var    result: undefined
+    property var    callback
 
-    Column {
+    model: ListModel {}
 
+    delegate: ListItemPL {
+        id: listItem
+        contentHeight: titleItem.height + spacer.height*2
+
+        Column {
+            id: column
+            width: page.width
+
+            Spacer {
+                id: spacer
+                height: styler.themePaddingLarge/2
+            }
+
+            ListItemLabel {
+                id: titleItem
+                color: listItem.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
+                height: implicitHeight + styler.themePaddingSmall
+                text: {
+                    if (model['status'] == 200) {
+                        return model['name'];
+                    } else {
+                        return "";
+                    }
+                }
+                verticalAlignment: Text.AlignVCenter
+            }
+
+        }
+
+        onClicked: {
+            console.log('Test');
+            console.log(model['status'], model['eva'], model['name']);
+            const result = {'name': model['name'], 'eva': model['eva']};
+            callback(result);
+            page.accept();
+        }
+
+    }
+
+    headerExtra: Component {
         SearchFieldPL {
             id: searchField
             placeholderText: app.tr("Search")
+            property string prevText: ""
             onTextChanged: {
                 var newText = searchField.text.trim().toLowerCase();
                 if (newText === lastQuery) return;
-                page.fillModel(newText);
+                fillModel(newText);
                 lastQuery = newText;
             }
+
+            Component.onCompleted: page.searchField = searchField;
         }
-
-        Repeater {
-            id: suggestionsRepeater
-            width: page.width
-            model: ListModel {}
-
-            delegate: ListItemPL {
-                id: listItem
-                contentHeight: titleItem.height + spacer.height*2
-
-                Column {
-                    id: column
-                    width: page.width
-
-                    Spacer {
-                        id: spacer
-                        height: styler.themePaddingLarge/2
-                    }
-
-                    ListItemLabel {
-                        id: titleItem
-                        color: listItem.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
-                        height: implicitHeight + styler.themePaddingSmall
-                        text: {
-                            if (model['status'] == 200) {
-                                return model['name'];
-                            } else {
-                                return "";
-                            }
-                        }
-                        verticalAlignment: Text.AlignVCenter
-                    }
-
-                }
-
-                onClicked: {
-                    console.log('Test');
-                    console.log(model['status'], model['eva'], model['name']);
-                    page.result = {'name': model['name'], 'eva': model['eva']};
-                    page.accept();
-                }
-
-            }
-
-        }
-
     }
 
     function fillModel(query) {
