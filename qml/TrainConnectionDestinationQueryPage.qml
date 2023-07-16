@@ -93,8 +93,8 @@ PageListPL {
 
     function fillModel(query) {
         py.call("poor.app.trainconnections.get_suggestions", [query, latitude, longitude], function(results) {
-            suggestionsRepeater.model.clear();
-            results.forEach( function(p) { suggestionsRepeater.model.append(p); });
+            page.model.clear();
+            results.forEach( function(p) { page.model.append(p); });
         });
     }
 
