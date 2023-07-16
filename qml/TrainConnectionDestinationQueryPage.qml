@@ -35,7 +35,7 @@ PageListPL {
 
     delegate: ListItemPL {
         id: listItem
-        contentHeight: titleItem.height + spacer.height*2
+        contentHeight: titleItem.height + spacer.height * 2
 
         Column {
             id: column
@@ -43,7 +43,7 @@ PageListPL {
 
             Spacer {
                 id: spacer
-                height: styler.themePaddingLarge/2
+                height: styler.themePaddingLarge / 2
             }
 
             ListItemLabel {
@@ -66,8 +66,11 @@ PageListPL {
             console.log('Test');
             console.log(model['status'], model['eva'], model['name']);
             const result = {'name': model['name'], 'eva': model['eva']};
-            callback(result);
-            page.accept();
+            callback(location);
+            pageStack.pop();
+
+            // callback(result);
+            // page.accept();
         }
 
     }

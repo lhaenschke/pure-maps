@@ -70,13 +70,11 @@ PagePL {
             preferredWidth: page.width - (2 * styler.themeHorizontalPageMargin)
             text: app.tr("Choose Destination")
             onClicked: {
-                var dialog = app.push(Qt.resolvedUrl("TrainConnectionDestinationQueryPage.qml"), {
+                app.push(Qt.resolvedUrl("TrainConnectionDestinationQueryPage.qml"), {
                     "latitude": poi.coordinate.latitude,
-                    "longitude": poi.coordinate.longitude
+                    "longitude": poi.coordinate.longitude,
+                    "callback": page.destinationCallback
                 });
-                dialog.accepted.connect(function() {
-                    console.log(dialog.result);
-                })
             }
         }
 
@@ -459,5 +457,10 @@ PagePL {
         return diff_minutes
 
     }
+
+    function destinationCallback(data) {
+        selectedStation = data
+    }
+
 
 }
