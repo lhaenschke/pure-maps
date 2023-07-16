@@ -330,7 +330,7 @@ PagePL {
                 }
 
                 onClicked: {
-                    console.log('Test');
+                    console.log('Test: ', model['con1']['name']);
                 }
 
             }
