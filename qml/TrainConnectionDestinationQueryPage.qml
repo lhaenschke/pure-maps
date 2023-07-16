@@ -49,7 +49,7 @@ PageListPL {
             ListItemLabel {
                 id: titleItem
                 color: listItem.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
-                height: implicitHeight + styler.themePaddingSmall
+                height: implicitHeight + styler.themePaddingMedium
                 text: {
                     if (model['status'] == 200) {
                         return model['name'];
@@ -66,9 +66,6 @@ PageListPL {
             const result = {'name': model['name'], 'eva': model['eva']};
             callback(result);
             app.pages.pop();
-
-            // callback(result);
-            // page.accept();
         }
 
     }
