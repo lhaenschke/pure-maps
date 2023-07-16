@@ -460,7 +460,7 @@ PagePL {
 
     function destinationCallback(data) {
         selectedStation = data;
-        console.log('Page:', selectedStation['name'], selectedStation['eva']);
+        pickDestinationButton.text = selectedStation['name'];
     }
 
 }
