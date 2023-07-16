@@ -32,56 +32,60 @@ DialogPL {
     property string longitude: ""
     property var    result: undefined
 
-    SearchFieldPL {
-        id: searchField
-        placeholderText: app.tr("Search")
-        onTextChanged: {
-            var newText = searchField.text.trim().toLowerCase();
-            if (newText === lastQuery) return;
-            page.fillModel(newText);
-            lastQuery = newText;
-        }
-    }
+    Column {
 
-    Repeater {
-        id: suggestionsRepeater
-        width: page.width
-        model: ListModel {}
-
-        delegate: ListItemPL {
-            id: listItem
-            contentHeight: titleItem.height + spacer.height*2
-
-            Column {
-                id: column
-                width: page.width
-
-                Spacer {
-                    id: spacer
-                    height: styler.themePaddingLarge/2
-                }
-
-                ListItemLabel {
-                    id: titleItem
-                    color: listItem.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
-                    height: implicitHeight + styler.themePaddingSmall
-                    text: {
-                        if (model['status'] == 200) {
-                            return model['name'];
-                        } else {
-                            return "";
-                        }
-                    }
-                    verticalAlignment: Text.AlignVCenter
-                }
-
+        SearchFieldPL {
+            id: searchField
+            placeholderText: app.tr("Search")
+            onTextChanged: {
+                var newText = searchField.text.trim().toLowerCase();
+                if (newText === lastQuery) return;
+                page.fillModel(newText);
+                lastQuery = newText;
             }
+        }
 
-            onClicked: {
-                console.log('Test');
-                console.log(model['status'], model['eva'], model['name']);
-                page.result = {'name': model['name'], 'eva': model['eva']};
-                page.accept();
+        Repeater {
+            id: suggestionsRepeater
+            width: page.width
+            model: ListModel {}
+
+            delegate: ListItemPL {
+                id: listItem
+                contentHeight: titleItem.height + spacer.height*2
+
+                Column {
+                    id: column
+                    width: page.width
+
+                    Spacer {
+                        id: spacer
+                        height: styler.themePaddingLarge/2
+                    }
+
+                    ListItemLabel {
+                        id: titleItem
+                        color: listItem.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
+                        height: implicitHeight + styler.themePaddingSmall
+                        text: {
+                            if (model['status'] == 200) {
+                                return model['name'];
+                            } else {
+                                return "";
+                            }
+                        }
+                        verticalAlignment: Text.AlignVCenter
+                    }
+
+                }
+
+                onClicked: {
+                    console.log('Test');
+                    console.log(model['status'], model['eva'], model['name']);
+                    page.result = {'name': model['name'], 'eva': model['eva']};
+                    page.accept();
+                }
+
             }
 
         }
