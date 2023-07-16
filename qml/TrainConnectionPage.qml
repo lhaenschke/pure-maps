@@ -185,9 +185,7 @@ PagePL {
             width: page.width
             visible: model.count > 0
 
-            model: ListModel {
-                dynamicRoles: true
-            }
+            model: ListModel {}
 
             delegate: ListItemPL {
                 id: listItem
