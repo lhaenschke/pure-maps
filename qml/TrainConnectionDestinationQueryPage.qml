@@ -25,11 +25,11 @@ PageListPL {
     id: page
     title: app.tr("Search Destination")
 
-    property var    searchField: undefined
     property string lastQuery: ""
     property string latitude: ""
     property string longitude: ""
     property var    callback
+    property var    searchField: undefined
 
     model: ListModel {}
 
