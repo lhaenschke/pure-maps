@@ -213,35 +213,8 @@ PagePL {
                         height: styler.themePaddingLarge
                     }
 
-                    // Grid {
-                    //     id: firstRow
-                    //     columns: 2
-                    //     rows: 1
-                    //     anchors.left: parent.left
-                    //     anchors.leftMargin: 8
-                    //     anchors.right: parent.right
-                    //     anchors.rightMargin: 8
-
-                    //     LabelPL {
-                    //         id: dpTimeLabel
-                    //         width: parent.width / 6
-                    //         horizontalAlignment: Text.AlignLeft
-                    //         // text: model['con0']['dp_time_hh'] + ":" + model['con0']['dp_time_mm']
-                    //         text: "42:42"
-                    //     }
-
-                    //     LabelPL {
-                    //         id: dpStationLabel
-                    //         width: parent.width - (dpTimeLabel.width + 2 * styler.themeHorizontalPageMargin)
-                    //         horizontalAlignment: Text.AlignLeft
-                    //         text: model['con0']['destination']
-                    //         text: "Velbert-Langenberg"
-                    //     }
-
-                    // }
-
                     Grid {
-                        id: secoundRow
+                        id: firstRow
                         columns: 3
                         rows: 1
                         anchors.left: parent.left
@@ -253,7 +226,7 @@ PagePL {
                             id: arTimeLabel
                             width: parent.width / 3
                             horizontalAlignment: Text.AlignLeft
-                            text: model['dp_time_hh'] + ":" + model['dp_time_mm'] + " - " + model['ar_time_hh'] + ":" + model['ar_time_mm'] + " (" + model['diff_minutes'] + " min)"
+                            text: model['dp_time_hh'] + ":" + model['dp_time_mm'] + " - " + model['ar_time_hh'] + ":" + model['ar_time_mm']
                         }
 
                         LabelPL {
@@ -272,32 +245,23 @@ PagePL {
 
                     }
 
-                    // Grid {
-                    //     id: thirdRow
-                    //     columns: 2
-                    //     rows: 1
-                    //     anchors.left: parent.left
-                    //     anchors.leftMargin: 8
-                    //     anchors.right: parent.right
-                    //     anchors.rightMargin: 8
+                    Grid {
+                        id: secoundRow
+                        columns: 1
+                        rows: 1
+                        anchors.left: parent.left
+                        anchors.leftMargin: 8
+                        anchors.right: parent.right
+                        anchors.rightMargin: 8
 
-                    //     LabelPL {
-                    //         id: diffTimeLabel
-                    //         width: parent.width / 6
-                    //         horizontalAlignment: Text.AlignLeft
-                    //         // text: model['con0']['dp_time_hh'] + ":" + model['con0']['dp_time_mm']
-                    //         text: "30 min"
-                    //     }
+                        LabelPL {
+                            id: diffTimeLabel
+                            width: parent.width / 3
+                            horizontalAlignment: Text.AlignLeft
+                            text: "(" + model['diff_minutes'] + " min)"
+                        }
 
-                    //     LabelPL {
-                    //         id: namesLabel
-                    //         width: parent.width - diffTimeLabel.width
-                    //         horizontalAlignment: Text.AlignLeft
-                    //         // text: model['con0']['destination']
-                    //         text: "Velbert-Langenberg"
-                    //     }
-
-                    // }
+                    }
 
                     Spacer {
                         height: styler.themePaddingLarge
