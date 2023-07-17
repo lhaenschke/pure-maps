@@ -60,13 +60,6 @@ PageListPL {
                 verticalAlignment: Text.AlignVCenter
             }
 
-            Rectangle {
-                id: listSeperator
-                height: 1
-                width: page.width
-                color: "gray"
-            }
-
         }
 
         onClicked: {
