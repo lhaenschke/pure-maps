@@ -152,7 +152,7 @@ PagePL {
 
             LabelPL {
                 id: nameDestinationHeader
-                width: parent.width - (timeHeader.width + changesHeader.width)
+                width: parent.width - (timeHeader.width + changesHeader.width + 2 * themeHorizontalPageMargin)
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Destination")
             }
@@ -213,7 +213,7 @@ PagePL {
 
                         LabelPL {
                             id: dpStationLabel
-                            width: parent.width - (dpTimeLabel.width + 2 * styler.themePaddingMedium)
+                            width: parent.width - (dpTimeLabel.width + 2 * styler.themeHorizontalPageMargin)
                             horizontalAlignment: Text.AlignLeft
                             // text: model['con0']['destination']
                             text: "Velbert-Langenberg"
