@@ -124,7 +124,7 @@ PagePL {
             height: implicitHeight + styler.themePaddingMedium
             text: app.tr('The times indicated are timetable times, not real-time')
             truncMode: truncModes.none
-            visible: false
+            visible: connectionRepeater.model.count > 0
             verticalAlignment: Text.AlignTop
         } 
 
@@ -134,7 +134,7 @@ PagePL {
 
         Grid {
             id: headerGrid
-            columns: 4
+            columns: 3
             rows: 1
             spacing: styler.themePaddingMedium
             anchors.left: parent.left
@@ -152,23 +152,16 @@ PagePL {
 
             LabelPL {
                 id: nameHeader
-                width: page.width / 6
+                width: page.width / 4
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Name")
-            }
-
-            LabelPL {
-                id: directionHeader
-                width: page.width / 2.35
-                horizontalAlignment: Text.AlignLeft
-                text: app.tr("Direction")
             }
 
             LabelPL {
                 id: trackItem
                 width: page.width / 8
                 horizontalAlignment: Text.AlignRight
-                text: app.tr("Track")
+                text: app.tr("Changes")
             }
         }
 
@@ -201,9 +194,9 @@ PagePL {
                     }
 
                     Grid {
-                        id: connectionGrid
-                        columns: 1
-                        rows: connectionRows
+                        id: firstRow
+                        columns: 2
+                        rows: 1
                         spacing: styler.themePaddingMedium
                         anchors.left: parent.left
                         anchors.leftMargin: 8
@@ -212,7 +205,42 @@ PagePL {
 
                         Grid {
                             id: connectionOneGrid
-                            columns: 4
+                            columns: 2
+                            rows: 1
+                            spacing: styler.themePaddingMedium
+                            anchors.leftMargin: 0
+                            anchors.rightMargin: 0
+
+                            LabelPL {
+                                id: diffTimeLabel
+                                width: page.width / 8
+                                horizontalAlignment: Text.AlignLeft
+                                text: "42:42"
+                            }
+
+                            LabelPL {
+                                id: vehiclesLabel
+                                width: page.width / 4
+                                horizontalAlignment: Text.AlignLeft
+                                text: "Velbert-Langenberg"
+                            }
+                        }
+
+                    }
+
+                    Grid {
+                        id: secoundRow
+                        columns: 3
+                        rows: 1
+                        spacing: styler.themePaddingMedium
+                        anchors.left: parent.left
+                        anchors.leftMargin: 8
+                        anchors.right: parent.right
+                        anchors.rightMargin: 8
+
+                        Grid {
+                            id: connectionOneGrid
+                            columns: 3
                             rows: 1
                             spacing: styler.themePaddingMedium
                             anchors.leftMargin: 0
@@ -222,112 +250,110 @@ PagePL {
                                 id: depTimeLabel
                                 width: page.width / 8
                                 horizontalAlignment: Text.AlignLeft
-                                text: model['con0']['dp_time_hh'] + ":" + model['con0']['dp_time_mm']
-                            }
-
-                            LabelPL {
-                                id: nameLabel
-                                width: page.width / 6
-                                horizontalAlignment: Text.AlignLeft
-                                text: model['con0']['type'] + " " + model['con0']['name']
+                                // text: model['con0']['dp_time_hh'] + ":" + model['con0']['dp_time_mm']
+                                text: "42:42"
                             }
 
                             LabelPL {
                                 id: directionLabel
-                                width: page.width / 2.35
+                                width: page.width / 4
                                 horizontalAlignment: Text.AlignLeft
-                                text: model['con0']['destination']
+                                // text: model['con0']['destination']
+                                text: "Velbert-Langenberg"
                             }
 
                             LabelPL {
                                 id: trackLabel
                                 width: page.width / 8
                                 horizontalAlignment: Text.AlignRight
-                                text: model['con0']['dp_track']
+                                // text: model['con0']['dp_track']
+                                text: "2 changes"
                             }
-                        }
-
-                        Grid {
-                            id: tranferNameGrid
-                            columns: 1
-                            rows: 1
-                            spacing: styler.themePaddingMedium
-                            visible: connectionRows > 1
-
-                            LabelPL {
-                                id: transferNameLabel
-                                 width: page.width
-                                horizontalAlignment: Text.AlignLeft
-                                text: app.tr('    Transfer-Station: ') + model['con0']['transfer']
-                            }
-                        }
-
-                        Grid {
-                            id: tranferTimeGrid
-                            columns: 1
-                            rows: 1
-                            spacing: styler.themePaddingMedium
-                            visible: connectionRows > 1
-
-                            LabelPL {
-                                id: transferTimeLabel
-                                width: page.width
-                                horizontalAlignment: Text.AlignLeft
-                                text: model['con1'] ? app.tr('    Transfer-Time: ') + page.getTransferTime(model['con0']['ar_time_hh'], model['con0']['ar_time_mm'], model['con1']['dp_time_hh'], model['con1']['dp_time_mm']) + app.tr(' Minutes') : ""
-                            }
-                        }
-
-                        Grid {
-                            id: connectionTwoGrid
-                            columns: 4
-                            rows: 2
-                            spacing: styler.themePaddingMedium
-                            anchors.leftMargin: 0
-                            anchors.rightMargin: 0
-                            visible: connectionRows > 1
-
-                            LabelPL {
-                                id: depTimeTwoLabel
-                                width: page.width / 8
-                                horizontalAlignment: Text.AlignLeft
-                                text: model['con1'] ? model['con1']['dp_time_hh'] + ":" + model['con1']['dp_time_mm'] : ""
-                            }
-
-                            LabelPL {
-                                id: nameTwoLabel
-                                width: page.width / 6
-                                horizontalAlignment: Text.AlignLeft
-                                text: model['con1'] ? model['con1']['type'] + " " + model['con1']['name'] : ""
-                            }
-
-                            LabelPL {
-                                id: directionTwoLabel
-                                width: page.width / 2.35
-                                horizontalAlignment: Text.AlignLeft
-                                text: model['con1'] ? model['con1']['destination'] : ""
-                            }
-
-                            LabelPL {
-                                id: trackTwoLabel
-                                width: page.width / 8
-                                horizontalAlignment: Text.AlignRight
-                                text: model['con1'] ? model['con1']['dp_track'] : ""
-                            }
-
                         }
 
                     }
 
-                    Spacer {
-                        height: styler.themePaddingLarge
-                    }
+                    //     Grid {
+                    //         id: tranferNameGrid
+                    //         columns: 1
+                    //         rows: 1
+                    //         spacing: styler.themePaddingMedium
+                    //         visible: connectionRows > 1
 
-                    Rectangle {
-                        id: listSeperator
-                        width: page.width - 20
-                        height: 1
-                        color: "gray"
-                    }
+                    //         LabelPL {
+                    //             id: transferNameLabel
+                    //              width: page.width
+                    //             horizontalAlignment: Text.AlignLeft
+                    //             text: app.tr('    Transfer-Station: ') + model['con0']['transfer']
+                    //         }
+                    //     }
+
+                    //     Grid {
+                    //         id: tranferTimeGrid
+                    //         columns: 1
+                    //         rows: 1
+                    //         spacing: styler.themePaddingMedium
+                    //         visible: connectionRows > 1
+
+                    //         LabelPL {
+                    //             id: transferTimeLabel
+                    //             width: page.width
+                    //             horizontalAlignment: Text.AlignLeft
+                    //             text: model['con1'] ? app.tr('    Transfer-Time: ') + page.getTransferTime(model['con0']['ar_time_hh'], model['con0']['ar_time_mm'], model['con1']['dp_time_hh'], model['con1']['dp_time_mm']) + app.tr(' Minutes') : ""
+                    //         }
+                    //     }
+
+                    //     Grid {
+                    //         id: connectionTwoGrid
+                    //         columns: 4
+                    //         rows: 2
+                    //         spacing: styler.themePaddingMedium
+                    //         anchors.leftMargin: 0
+                    //         anchors.rightMargin: 0
+                    //         visible: connectionRows > 1
+
+                    //         LabelPL {
+                    //             id: depTimeTwoLabel
+                    //             width: page.width / 8
+                    //             horizontalAlignment: Text.AlignLeft
+                    //             text: model['con1'] ? model['con1']['dp_time_hh'] + ":" + model['con1']['dp_time_mm'] : ""
+                    //         }
+
+                    //         LabelPL {
+                    //             id: nameTwoLabel
+                    //             width: page.width / 6
+                    //             horizontalAlignment: Text.AlignLeft
+                    //             text: model['con1'] ? model['con1']['type'] + " " + model['con1']['name'] : ""
+                    //         }
+
+                    //         LabelPL {
+                    //             id: directionTwoLabel
+                    //             width: page.width / 2.35
+                    //             horizontalAlignment: Text.AlignLeft
+                    //             text: model['con1'] ? model['con1']['destination'] : ""
+                    //         }
+
+                    //         LabelPL {
+                    //             id: trackTwoLabel
+                    //             width: page.width / 8
+                    //             horizontalAlignment: Text.AlignRight
+                    //             text: model['con1'] ? model['con1']['dp_track'] : ""
+                    //         }
+
+                    //     }
+
+                    // }
+
+                    // Spacer {
+                    //     height: styler.themePaddingLarge
+                    // }
+
+                    // Rectangle {
+                    //     id: listSeperator
+                    //     width: page.width - 20
+                    //     height: 1
+                    //     color: "gray"
+                    // }
 
                 }
 
