@@ -120,7 +120,7 @@ PagePL {
         }
 
         Spacer {
-            height: styler.themePaddingMedium
+            height: styler.themePaddingLarge
         }
 
         ListItemLabel {
@@ -157,7 +157,7 @@ PagePL {
                 id: nameDestinationHeader
                 width: parent.width - (timeHeader.width + changesHeader.width)
                 horizontalAlignment: Text.AlignLeft
-                text: app.tr("Destination")
+                text: app.tr("Station / Names")
             }
 
             LabelPL {
@@ -244,7 +244,7 @@ PagePL {
 
                         LabelPL {
                             id: arStationLabel
-                            width: parent.width - (arTimeLabel.width + changesLabel.width + 2 * styler.themeHorizontalPageMargin)
+                            width: parent.width - (arTimeLabel.width + changesLabel.width)
                             horizontalAlignment: Text.AlignLeft
                             text: "Velbert-Langenberg"
                         }

@@ -60,6 +60,16 @@ PageListPL {
                 verticalAlignment: Text.AlignVCenter
             }
 
+            Rectangle {
+                id: listSeperator
+                height: 1
+                anchors.left: parent.left
+                anchors.leftMargin: styler.themeHorizontalPageMargin
+                anchors.right: parent.right
+                anchors.rightMargin: styler.themeHorizontalPageMargin
+                color: "gray"
+            }
+
         }
 
         onClicked: {
