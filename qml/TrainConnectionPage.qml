@@ -25,9 +25,8 @@ PagePL {
     id: page
     title: app.tr("Connections for ") + poi.title
 
-    property var  poi
-    property var  selectedStation
-    property int  connectionRows: 1
+    property var poi
+    property var selectedStation
 
     // pageMenu: PageMenuPL {
     //     PageMenuItemPL {
@@ -102,17 +101,31 @@ PagePL {
                         for (var i = 0; i < p.length; i++) {
                             const key = 'con' + i;
                             dict[key] = p[i];
-                            dict['count'] = count;
+                            dict['count'] = i + 1;
                         }
 
                         if (parseInt(dict['count']) > 1) {
-                            connectionRows = 4;
-                            console.log('Test 0: ', dict['con0']['name']);
-                            console.log('Test 1: ', dict['con1']['name']);
+                            dict['dp_time_hh'] = dict['con0']['dp_time_hh'];
+                            dict['dp_time_mm'] = dict['con0']['dp_time_mm'];
+                            dict['ar_time_hh'] = dict['con1']['ar_time_hh'];
+                            dict['ar_time_mm'] = dict['con1']['ar_time_mm'];
+
+                            dict['diff_minutes'] = getTimeDifference(dict['dp_time_hh'], dict['dp_time_mm'], dict['ar_time_hh'], dict['ar_time_mm']);
+                            dict['names'] = dict['con0']['type'] + " " + dict['con0']['name'] + ", " + dict['con1']['type'] + " " + dict['con1']['name']
+
                         } else {
-                            connectionRows = 1;
+                            dict['dp_time_hh'] = dict['con0']['dp_time_hh'];
+                            dict['dp_time_mm'] = dict['con0']['dp_time_mm'];
+                            dict['ar_time_hh'] = dict['con0']['ar_time_hh'];
+                            dict['ar_time_mm'] = dict['con0']['ar_time_mm'];
+
+                            dict['diff_minutes'] = getTimeDifference(dict['dp_time_hh'], dict['dp_time_mm'], dict['ar_time_hh'], dict['ar_time_mm']);
+                            dict['names'] = dict['con0']['type'] + " " + dict['con0']['name']
+
                         }
+
                         connectionRepeater.model.append(dict);
+
                     });
                     
                 });
@@ -240,7 +253,7 @@ PagePL {
                             id: arTimeLabel
                             width: parent.width / 4
                             horizontalAlignment: Text.AlignLeft
-                            text: "42:42 - 42:42 (100 min)"
+                            text: dict['dp_time_hh'] + ":" + dict['dp_time_mm'] + " - " + dict['ar_time_hh'] + ":" + dict['ar_time_mm'] + " (" + dict['diff_minutes'] + " min)"
                         }
 
                         LabelPL {
@@ -255,7 +268,7 @@ PagePL {
                             width: parent.width / 8
                             horizontalAlignment: Text.AlignRight
                             // text: model['con0']['dp_track']
-                            text: "1 changes"
+                            text: model['count'] + " changes"
                         }
 
                     }
@@ -313,15 +326,15 @@ PagePL {
 
     }
 
-    function getTransferTime(ar_time_hh, ar_time_mm, dp_time_hh, dp_time_mm) {
-        var diff_minutes = Math.abs(parseInt(ar_time_mm) - parseInt(dp_time_mm));
-        var hour_diff = Math.abs(parseInt(ar_time_hh) - parseInt(dp_time_hh))
+    function getTimeDifference(time_one_hh, time_one_mm, time_two_hh, time_two_mm) {
+        var diff_minutes = Math.abs(parseInt(time_one_mm) - parseInt(time_two_mm));
+        var hour_diff = Math.abs(parseInt(time_one_hh) - parseInt(time_two_hh));
 
         if (hour_diff > 0) {
             diff_minutes = Math.abs(diff_minutes - 60);
         }
-        
-        return diff_minutes
+
+        return diff_minutes;
 
     }
 
