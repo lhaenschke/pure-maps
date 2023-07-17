@@ -144,21 +144,21 @@ PagePL {
             visible: connectionRepeater.model.count > 0
 
             LabelPL {
-                id: depTimeHeader
+                id: timeHeader
                 width: page.width / 8
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Time")
             }
 
             LabelPL {
-                id: nameHeader
-                width: page.width / 4
+                id: nameDestinationHeader
+                width: parent.width - (timeHeader.width + changesHeader.width)
                 horizontalAlignment: Text.AlignLeft
-                text: app.tr("Name")
+                text: app.tr("Destination")
             }
 
             LabelPL {
-                id: trackItem
+                id: changesHeader
                 width: page.width / 8
                 horizontalAlignment: Text.AlignRight
                 text: app.tr("Changes")
@@ -225,13 +225,13 @@ PagePL {
                         rows: 1
                         spacing: styler.themePaddingMedium
                         anchors.left: parent.left
-                        anchors.leftMargin: 8
+                        anchors.leftMargin: styler.themeHorizontalPageMargin
                         anchors.right: parent.right
-                        anchors.rightMargin: 8
+                        anchors.rightMargin: styler.themeHorizontalPageMargin
 
                         LabelPL {
                             id: depTimeLabel
-                            width: page.width / 5
+                            width: page.width / 8
                             horizontalAlignment: Text.AlignLeft
                             // text: model['con0']['dp_time_hh'] + ":" + model['con0']['dp_time_mm']
                             text: "42:42"
@@ -239,7 +239,7 @@ PagePL {
 
                         LabelPL {
                             id: depStationLabel
-                            width: page.width / 2
+                            width: parent.width - (depTimeLabel.width + changesLabel.width)
                             horizontalAlignment: Text.AlignLeft
                             // text: model['con0']['destination']
                             text: "Velbert-Langenberg"
@@ -247,7 +247,7 @@ PagePL {
 
                         LabelPL {
                             id: changesLabel
-                            width: page.width / 5
+                            width: page.width / 8
                             horizontalAlignment: Text.AlignRight
                             // text: model['con0']['dp_track']
                             text: "2 changes"
