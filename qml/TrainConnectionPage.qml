@@ -204,16 +204,18 @@ PagePL {
                         anchors.rightMargin: styler.themeHorizontalPageMargin
 
                         LabelPL {
-                            id: diffTimeLabel
-                            width: page.width / 8
+                            id: dpTimeLabel
+                            width: page.width / 7
                             horizontalAlignment: Text.AlignLeft
+                            // text: model['con0']['dp_time_hh'] + ":" + model['con0']['dp_time_mm']
                             text: "42:42"
                         }
 
                         LabelPL {
-                            id: vehiclesLabel
-                            width: parent.width - diffTimeLabel.width
+                            id: dpStationLabel
+                            width: parent.width - depTimeLabel.width
                             horizontalAlignment: Text.AlignLeft
+                            // text: model['con0']['destination']
                             text: "Velbert-Langenberg"
                         }
 
@@ -230,18 +232,16 @@ PagePL {
                         anchors.rightMargin: styler.themeHorizontalPageMargin
 
                         LabelPL {
-                            id: depTimeLabel
-                            width: page.width / 8
+                            id: arTimeLabel
+                            width: page.width / 7
                             horizontalAlignment: Text.AlignLeft
-                            // text: model['con0']['dp_time_hh'] + ":" + model['con0']['dp_time_mm']
                             text: "42:42"
                         }
 
                         LabelPL {
-                            id: depStationLabel
-                            width: parent.width - (depTimeLabel.width + changesLabel.width)
+                            id: arStationLabel
+                            width: parent.width - (arTimeLabel.width + changesLabel.width)
                             horizontalAlignment: Text.AlignLeft
-                            // text: model['con0']['destination']
                             text: "Velbert-Langenberg"
                         }
 
@@ -251,6 +251,34 @@ PagePL {
                             horizontalAlignment: Text.AlignRight
                             // text: model['con0']['dp_track']
                             text: "2 changes"
+                        }
+
+                    }
+
+                    Grid {
+                        id: thirdRow
+                        columns: 2
+                        rows: 1
+                        spacing: styler.themePaddingMedium
+                        anchors.left: parent.left
+                        anchors.leftMargin: styler.themeHorizontalPageMargin
+                        anchors.right: parent.right
+                        anchors.rightMargin: styler.themeHorizontalPageMargin
+
+                        LabelPL {
+                            id: diffTimeLabel
+                            width: page.width / 7
+                            horizontalAlignment: Text.AlignLeft
+                            // text: model['con0']['dp_time_hh'] + ":" + model['con0']['dp_time_mm']
+                            text: "30 min"
+                        }
+
+                        LabelPL {
+                            id: namesLabel
+                            width: parent.width - diffTimeLabel.width
+                            horizontalAlignment: Text.AlignLeft
+                            // text: model['con0']['destination']
+                            text: "Velbert-Langenberg"
                         }
 
                     }
