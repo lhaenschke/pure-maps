@@ -224,7 +224,7 @@ PagePL {
 
                         LabelPL {
                             id: arTimeLabel
-                            width: parent.width / 3
+                            width: parent.width / 3.5
                             horizontalAlignment: Text.AlignLeft
                             text: model['dp_time_hh'] + ":" + model['dp_time_mm'] + " - " + model['ar_time_hh'] + ":" + model['ar_time_mm']
                         }
@@ -256,7 +256,7 @@ PagePL {
 
                         LabelPL {
                             id: diffTimeLabel
-                            width: parent.width / 3
+                            width: parent.width / 3.5
                             horizontalAlignment: Text.AlignLeft
                             text: "(" + model['diff_minutes'] + " min)"
                         }
