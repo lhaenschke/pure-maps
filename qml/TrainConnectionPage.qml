@@ -119,6 +119,10 @@ PagePL {
             }
         }
 
+        Spacer {
+            height: styler.themePaddingMedium
+        }
+
         ListItemLabel {
             color: styler.themeHighlightColor
             height: implicitHeight + styler.themePaddingMedium
@@ -152,7 +156,7 @@ PagePL {
 
             LabelPL {
                 id: nameDestinationHeader
-                width: parent.width - (timeHeader.width + changesHeader.width + 2 * styler.themeHorizontalPageMargin)
+                width: parent.width - (timeHeader.width + changesHeader.width)
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Destination")
             }
