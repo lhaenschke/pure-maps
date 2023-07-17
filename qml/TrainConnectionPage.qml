@@ -238,37 +238,28 @@ PagePL {
                         anchors.right: parent.right
                         anchors.rightMargin: 8
 
-                        Grid {
-                            id: connectionOneGrid
-                            columns: 3
-                            rows: 1
-                            spacing: styler.themePaddingMedium
-                            anchors.leftMargin: 0
-                            anchors.rightMargin: 0
+                        LabelPL {
+                            id: depTimeLabel
+                            width: page.width / 8
+                            horizontalAlignment: Text.AlignLeft
+                            // text: model['con0']['dp_time_hh'] + ":" + model['con0']['dp_time_mm']
+                            text: "42:42"
+                        }
 
-                            LabelPL {
-                                id: depTimeLabel
-                                width: page.width / 8
-                                horizontalAlignment: Text.AlignLeft
-                                // text: model['con0']['dp_time_hh'] + ":" + model['con0']['dp_time_mm']
-                                text: "42:42"
-                            }
+                        LabelPL {
+                            id: directionLabel
+                            width: page.width / 4
+                            horizontalAlignment: Text.AlignLeft
+                            // text: model['con0']['destination']
+                            text: "Velbert-Langenberg"
+                        }
 
-                            LabelPL {
-                                id: directionLabel
-                                width: page.width / 4
-                                horizontalAlignment: Text.AlignLeft
-                                // text: model['con0']['destination']
-                                text: "Velbert-Langenberg"
-                            }
-
-                            LabelPL {
-                                id: trackLabel
-                                width: page.width / 8
-                                horizontalAlignment: Text.AlignRight
-                                // text: model['con0']['dp_track']
-                                text: "2 changes"
-                            }
+                        LabelPL {
+                            id: trackLabel
+                            width: page.width / 8
+                            horizontalAlignment: Text.AlignRight
+                            // text: model['con0']['dp_track']
+                            text: "2 changes"
                         }
 
                     }
