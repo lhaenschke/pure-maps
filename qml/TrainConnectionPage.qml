@@ -145,7 +145,7 @@ PagePL {
 
             LabelPL {
                 id: timeHeader
-                width: page.width / 8
+                width: parent.width / 8
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Time")
             }
@@ -159,7 +159,7 @@ PagePL {
 
             LabelPL {
                 id: changesHeader
-                width: page.width / 8
+                width: parent.width / 8
                 horizontalAlignment: Text.AlignRight
                 text: app.tr("Changes")
             }
@@ -167,8 +167,12 @@ PagePL {
 
         Rectangle {
             id: listSeperator
-            width: page.width - 20
+            width: parent.width - (2 * styler.themeHorizontalPageMargin)
             height: 1
+            anchors.left: parent.left
+            anchors.leftMargin: styler.themeHorizontalPageMargin
+            anchors.right: parent.right
+            anchors.rightMargin: styler.themeHorizontalPageMargin
             color: "gray"
             visible: connectionRepeater.model.count > 0
         }
@@ -205,7 +209,7 @@ PagePL {
 
                         LabelPL {
                             id: dpTimeLabel
-                            width: page.width / 7
+                            width: parent.width / 7
                             horizontalAlignment: Text.AlignLeft
                             // text: model['con0']['dp_time_hh'] + ":" + model['con0']['dp_time_mm']
                             text: "42:42"
@@ -233,7 +237,7 @@ PagePL {
 
                         LabelPL {
                             id: arTimeLabel
-                            width: page.width / 7
+                            width: parent.width / 7
                             horizontalAlignment: Text.AlignLeft
                             text: "42:42"
                         }
@@ -247,7 +251,7 @@ PagePL {
 
                         LabelPL {
                             id: changesLabel
-                            width: page.width / 8
+                            width: parent.width / 8
                             horizontalAlignment: Text.AlignRight
                             // text: model['con0']['dp_track']
                             text: "2 changes"
@@ -267,7 +271,7 @@ PagePL {
 
                         LabelPL {
                             id: diffTimeLabel
-                            width: page.width / 7
+                            width: parent.width / 7
                             horizontalAlignment: Text.AlignLeft
                             // text: model['con0']['dp_time_hh'] + ":" + model['con0']['dp_time_mm']
                             text: "30 min"
