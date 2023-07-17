@@ -152,7 +152,7 @@ PagePL {
 
             LabelPL {
                 id: nameDestinationHeader
-                width: parent.width - (timeHeader.width + changesHeader.width + 2 * themeHorizontalPageMargin)
+                width: parent.width - (timeHeader.width + changesHeader.width + 2 * styler.themeHorizontalPageMargin)
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Destination")
             }
