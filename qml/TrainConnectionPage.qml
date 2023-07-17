@@ -162,7 +162,7 @@ PagePL {
 
             LabelPL {
                 id: timeHeader
-                width: parent.width / 4
+                width: parent.width / 3
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Time")
             }
@@ -251,7 +251,7 @@ PagePL {
 
                         LabelPL {
                             id: arTimeLabel
-                            width: parent.width / 4
+                            width: parent.width / 3
                             horizontalAlignment: Text.AlignLeft
                             text: model['dp_time_hh'] + ":" + model['dp_time_mm'] + " - " + model['ar_time_hh'] + ":" + model['ar_time_mm'] + " (" + model['diff_minutes'] + " min)"
                         }
