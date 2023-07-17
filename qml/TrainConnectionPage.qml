@@ -148,7 +148,7 @@ PagePL {
 
             LabelPL {
                 id: timeHeader
-                width: parent.width / 8
+                width: parent.width / 6
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Time")
             }
@@ -210,7 +210,7 @@ PagePL {
 
                         LabelPL {
                             id: dpTimeLabel
-                            width: parent.width / 7
+                            width: parent.width / 6
                             horizontalAlignment: Text.AlignLeft
                             // text: model['con0']['dp_time_hh'] + ":" + model['con0']['dp_time_mm']
                             text: "42:42"
@@ -237,7 +237,7 @@ PagePL {
 
                         LabelPL {
                             id: arTimeLabel
-                            width: parent.width / 7
+                            width: parent.width / 6
                             horizontalAlignment: Text.AlignLeft
                             text: "42:42"
                         }
