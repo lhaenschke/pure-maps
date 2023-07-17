@@ -162,7 +162,7 @@ PagePL {
 
             LabelPL {
                 id: timeHeader
-                width: parent.width / 3
+                width: parent.width / 3.5
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Time")
             }
