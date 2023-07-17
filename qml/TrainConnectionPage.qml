@@ -199,9 +199,9 @@ PagePL {
                         rows: 1
                         spacing: styler.themePaddingMedium
                         anchors.left: parent.left
-                        anchors.leftMargin: styler.themeHorizontalPageMargin
+                        anchors.leftMargin: 8
                         anchors.right: parent.right
-                        anchors.rightMargin: styler.themeHorizontalPageMargin
+                        anchors.rightMargin: 8
 
                         LabelPL {
                             id: dpTimeLabel
@@ -213,7 +213,7 @@ PagePL {
 
                         LabelPL {
                             id: dpStationLabel
-                            width: parent.width - depTimeLabel.width
+                            width: parent.width - (dpTimeLabel.width + 2 * styler.themePaddingMedium)
                             horizontalAlignment: Text.AlignLeft
                             // text: model['con0']['destination']
                             text: "Velbert-Langenberg"
@@ -227,9 +227,9 @@ PagePL {
                         rows: 1
                         spacing: styler.themePaddingMedium
                         anchors.left: parent.left
-                        anchors.leftMargin: styler.themeHorizontalPageMargin
+                        anchors.leftMargin: 8
                         anchors.right: parent.right
-                        anchors.rightMargin: styler.themeHorizontalPageMargin
+                        anchors.rightMargin: 8
 
                         LabelPL {
                             id: arTimeLabel
@@ -261,9 +261,9 @@ PagePL {
                         rows: 1
                         spacing: styler.themePaddingMedium
                         anchors.left: parent.left
-                        anchors.leftMargin: styler.themeHorizontalPageMargin
+                        anchors.leftMargin: 8
                         anchors.right: parent.right
-                        anchors.rightMargin: styler.themeHorizontalPageMargin
+                        anchors.rightMargin: 8
 
                         LabelPL {
                             id: diffTimeLabel
@@ -354,16 +354,16 @@ PagePL {
 
                     // }
 
-                    // Spacer {
-                    //     height: styler.themePaddingLarge
-                    // }
+                    Spacer {
+                        height: styler.themePaddingLarge
+                    }
 
-                    // Rectangle {
-                    //     id: listSeperator
-                    //     width: page.width - 20
-                    //     height: 1
-                    //     color: "gray"
-                    // }
+                    Rectangle {
+                        id: listSeperator
+                        width: page.width - 20
+                        height: 1
+                        color: "gray"
+                    }
 
                 }
 
