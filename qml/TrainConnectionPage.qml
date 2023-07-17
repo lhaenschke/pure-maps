@@ -244,7 +244,7 @@ PagePL {
 
                         LabelPL {
                             id: arStationLabel
-                            width: parent.width - (arTimeLabel.width + changesLabel.width)
+                            width: parent.width - (arTimeLabel.width + changesLabel.width + 2 * styler.themeHorizontalPageMargin)
                             horizontalAlignment: Text.AlignLeft
                             text: "Velbert-Langenberg"
                         }
@@ -270,7 +270,7 @@ PagePL {
 
                         LabelPL {
                             id: diffTimeLabel
-                            width: parent.width / 7
+                            width: parent.width / 6
                             horizontalAlignment: Text.AlignLeft
                             // text: model['con0']['dp_time_hh'] + ":" + model['con0']['dp_time_mm']
                             text: "30 min"
