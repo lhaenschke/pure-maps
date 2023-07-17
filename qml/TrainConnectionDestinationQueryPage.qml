@@ -63,10 +63,7 @@ PageListPL {
             Rectangle {
                 id: listSeperator
                 height: 1
-                anchors.left: parent.left
-                anchors.leftMargin: styler.themeHorizontalPageMargin
-                anchors.right: parent.right
-                anchors.rightMargin: styler.themeHorizontalPageMargin
+                width: page.width
                 color: "gray"
             }
 

@@ -244,7 +244,7 @@ PagePL {
 
                         LabelPL {
                             id: arStationLabel
-                            width: parent.width - (arTimeLabel.width + changesLabel.width)
+                            width: parent.width - (arTimeLabel.width + changesLabel.width + styler.themeHorizontalPageMargin)
                             horizontalAlignment: Text.AlignLeft
                             text: "Velbert-Langenberg"
                         }
