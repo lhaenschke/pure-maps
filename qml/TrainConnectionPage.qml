@@ -140,7 +140,6 @@ PagePL {
             id: headerGrid
             columns: 3
             rows: 1
-            spacing: styler.themePaddingMedium
             anchors.left: parent.left
             anchors.leftMargin: styler.themeHorizontalPageMargin
             anchors.right: parent.right
@@ -171,7 +170,6 @@ PagePL {
 
         Rectangle {
             id: listSeperator
-            width: parent.width - (2 * styler.themeHorizontalPageMargin)
             height: 1
             anchors.left: parent.left
             anchors.leftMargin: styler.themeHorizontalPageMargin
@@ -205,7 +203,6 @@ PagePL {
                         id: firstRow
                         columns: 2
                         rows: 1
-                        spacing: styler.themePaddingMedium
                         anchors.left: parent.left
                         anchors.leftMargin: 8
                         anchors.right: parent.right
@@ -233,7 +230,6 @@ PagePL {
                         id: secoundRow
                         columns: 3
                         rows: 1
-                        spacing: styler.themePaddingMedium
                         anchors.left: parent.left
                         anchors.leftMargin: 8
                         anchors.right: parent.right
@@ -267,7 +263,6 @@ PagePL {
                         id: thirdRow
                         columns: 2
                         rows: 1
-                        spacing: styler.themePaddingMedium
                         anchors.left: parent.left
                         anchors.leftMargin: 8
                         anchors.right: parent.right
