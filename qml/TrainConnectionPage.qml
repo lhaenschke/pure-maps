@@ -253,21 +253,20 @@ PagePL {
                             id: arTimeLabel
                             width: parent.width / 4
                             horizontalAlignment: Text.AlignLeft
-                            text: dict['dp_time_hh'] + ":" + dict['dp_time_mm'] + " - " + dict['ar_time_hh'] + ":" + dict['ar_time_mm'] + " (" + dict['diff_minutes'] + " min)"
+                            text: model['dp_time_hh'] + ":" + model['dp_time_mm'] + " - " + model['ar_time_hh'] + ":" + model['ar_time_mm'] + " (" + model['diff_minutes'] + " min)"
                         }
 
                         LabelPL {
                             id: arStationLabel
                             width: parent.width - (arTimeLabel.width + changesLabel.width + styler.themeHorizontalPageMargin)
                             horizontalAlignment: Text.AlignLeft
-                            text: "Bus S6, S9"
+                            text: model['names']
                         }
 
                         LabelPL {
                             id: changesLabel
                             width: parent.width / 8
                             horizontalAlignment: Text.AlignRight
-                            // text: model['con0']['dp_track']
                             text: model['count'] + " changes"
                         }
 
