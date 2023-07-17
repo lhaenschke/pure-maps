@@ -199,31 +199,22 @@ PagePL {
                         rows: 1
                         spacing: styler.themePaddingMedium
                         anchors.left: parent.left
-                        anchors.leftMargin: 8
+                        anchors.leftMargin: styler.themeHorizontalPageMargin
                         anchors.right: parent.right
-                        anchors.rightMargin: 8
+                        anchors.rightMargin: styler.themeHorizontalPageMargin
 
-                        Grid {
-                            id: connectionOneGrid
-                            columns: 2
-                            rows: 1
-                            spacing: styler.themePaddingMedium
-                            anchors.leftMargin: 0
-                            anchors.rightMargin: 0
+                        LabelPL {
+                            id: diffTimeLabel
+                            width: page.width / 8
+                            horizontalAlignment: Text.AlignLeft
+                            text: "42:42"
+                        }
 
-                            LabelPL {
-                                id: diffTimeLabel
-                                width: page.width / 8
-                                horizontalAlignment: Text.AlignLeft
-                                text: "42:42"
-                            }
-
-                            LabelPL {
-                                id: vehiclesLabel
-                                width: page.width / 4
-                                horizontalAlignment: Text.AlignLeft
-                                text: "Velbert-Langenberg"
-                            }
+                        LabelPL {
+                            id: vehiclesLabel
+                            width: parent.width - diffTimeLabel.width
+                            horizontalAlignment: Text.AlignLeft
+                            text: "Velbert-Langenberg"
                         }
 
                     }
@@ -240,23 +231,23 @@ PagePL {
 
                         LabelPL {
                             id: depTimeLabel
-                            width: page.width / 8
+                            width: page.width / 5
                             horizontalAlignment: Text.AlignLeft
                             // text: model['con0']['dp_time_hh'] + ":" + model['con0']['dp_time_mm']
                             text: "42:42"
                         }
 
                         LabelPL {
-                            id: directionLabel
-                            width: page.width / 4
+                            id: depStationLabel
+                            width: page.width / 2
                             horizontalAlignment: Text.AlignLeft
                             // text: model['con0']['destination']
                             text: "Velbert-Langenberg"
                         }
 
                         LabelPL {
-                            id: trackLabel
-                            width: page.width / 8
+                            id: changesLabel
+                            width: page.width / 5
                             horizontalAlignment: Text.AlignRight
                             // text: model['con0']['dp_track']
                             text: "2 changes"
