@@ -45,7 +45,6 @@ PagePL {
             height: implicitHeight + styler.themePaddingMedium
             text: connectionDict['con0']['type'] + connectionDict['con0']['name']
             truncMode: truncModes.none
-            verticalAlignment: Text.AlignTop
         } 
 
         Rectangle {
