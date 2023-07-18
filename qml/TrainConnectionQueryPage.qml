@@ -126,11 +126,10 @@ PagePL {
                             dict['names'] = dict['con0']['type'] + " " + dict['con0']['name']
 
                         }
-                        console.log('Id: ', dict['con0']['train_id']);
+                        
                         if (!(dict['con0']['train_id'] in connectionDict)) {
                             connectionDict[dict['con0']['train_id']] = dict;
                         }
-
                         connectionRepeater.model.append(dict);
 
                     });
@@ -286,12 +285,13 @@ PagePL {
 
                 onClicked: {
                     for (const [key, value] of Object.entries(connectionDict)) {
-                    console.log(key, value);
+                        if (key == model['con0']['train_id']) {
+                            app.push(Qt.resolvedUrl("TrainConnectionPage.qml"), {
+                                "connectionDict": value,
+                            });
+                        }
                     }
 
-                    // app.push(Qt.resolvedUrl("TrainConnectionPage.qml"), {
-                    //     "connectionDict": model,
-                    // });
                 }
 
             }
