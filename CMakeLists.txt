@@ -98,7 +98,7 @@ include(CMakePrintHelpers)
 
 find_package(Gettext REQUIRED)
 
-find_package(KPublicTransport REQUIRED)
+find_package(KPublicTransport)
 
 # allow to compile on platforms without FindPython3.cmake
 if(PYTHON_EXE STREQUAL "auto")
