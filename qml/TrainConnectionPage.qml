@@ -240,7 +240,7 @@ PagePL {
                             id: changesLabel
                             width: parent.width / 8
                             horizontalAlignment: Text.AlignRight
-                            text: model['count'] + " changes"
+                            text: (parseInt(model['count']) - 1) + " changes"
                         }
 
                     }
@@ -267,14 +267,14 @@ PagePL {
                         height: styler.themePaddingLarge
                     }
 
-                    // Rectangle {
-                    //     height: 1
-                    //     anchors.left: parent.left
-                    //     anchors.leftMargin: styler.themeHorizontalPageMargin
-                    //     anchors.right: parent.right
-                    //     anchors.rightMargin: styler.themeHorizontalPageMargin
-                    //     color: "gray"
-                    // }
+                    Rectangle {
+                        height: 1
+                        anchors.left: parent.left
+                        // anchors.leftMargin: styler.themeHorizontalPageMargin
+                        anchors.right: parent.right
+                        // anchors.rightMargin: styler.themeHorizontalPageMargin
+                        color: "gray"
+                    }
 
                 }
 
