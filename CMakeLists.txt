@@ -98,9 +98,6 @@ include(CMakePrintHelpers)
 
 find_package(Gettext REQUIRED)
 
-find_package(KPublicTransport)
-set_package_properties(KPublicTransport PROPERTIES TYPE REQUIRED PURPOSE "Query online journey information")
-
 # allow to compile on platforms without FindPython3.cmake
 if(PYTHON_EXE STREQUAL "auto")
     find_package(Python3 COMPONENTS Interpreter REQUIRED)
@@ -155,6 +152,12 @@ install(FILES ${MAPS_SRC} DESTINATION ${DATADIR}/maps)
 file(GLOB ROUTERS_SRC routers/*.json routers/*.md routers/*.qml routers/*.py)
 file(GLOB ROUTERS_EXTRA LIST_DIRECTORIES false routers/test/*)
 install(FILES ${ROUTERS_SRC} DESTINATION ${DATADIR}/routers)
+
+file(GLOB KPUBLICTRANSPORT_SRC KPublicTransport/*.h)
+install(FILES ${KPUBLICTRANSPORT_SRC} DESTINATION ${DATADIR}/kpublictransport)
+
+# find_package(KPublicTransport)
+# set_package_properties(KPublicTransport PROPERTIES TYPE REQUIRED PURPOSE "Query online journey information")
 
 ## python sources: installed in subdir
 file(GLOB POOR_SRC poor/*.py)
