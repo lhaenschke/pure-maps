@@ -32,7 +32,7 @@ PagePL {
         width: page.width
 
         Rectangle {
-            height: 3
+            height: 2
             anchors.left: parent.left
             anchors.leftMargin: styler.themeHorizontalPageMargin
             anchors.right: parent.right
@@ -40,13 +40,16 @@ PagePL {
             color: "gray"
         }
 
-        SectionHeaderPL {
+        ListItemLabel {
+            color: styler.themeHighlightColor
             height: implicitHeight + styler.themePaddingMedium
             text: connectionDict['con0']['type'] + connectionDict['con0']['name']
-        } 
+            truncMode: truncModes.none
+            verticalAlignment: Text.AlignTop
+        }
 
         Rectangle {
-            height: 3
+            height: 2
             anchors.left: parent.left
             anchors.leftMargin: styler.themeHorizontalPageMargin
             anchors.right: parent.right
@@ -59,7 +62,6 @@ PagePL {
             height: implicitHeight + styler.themePaddingMedium
             text: app.tr('The times indicated are timetable times, not real-time')
             truncMode: truncModes.none
-            visible: connectionRepeater.model.count > 0
             verticalAlignment: Text.AlignTop
         } 
 
