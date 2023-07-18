@@ -41,7 +41,6 @@ PagePL {
         }
 
         SectionHeaderPL {
-            color: styler.themeHighlightColor
             height: implicitHeight + styler.themePaddingMedium
             text: connectionDict['con0']['type'] + connectionDict['con0']['name']
         } 
