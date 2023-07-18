@@ -268,6 +268,7 @@ PagePL {
                     }
 
                     Grid {
+                        id: listSeperatorGrid
                         columns: 1
                         rows: 1
                         anchors.left: parent.left
@@ -277,7 +278,7 @@ PagePL {
 
                         Rectangle {
                             height: 1
-                            width: parent.width
+                            // width: listSeperatorGrid.width
                             color: "gray"
                         }
                     }
