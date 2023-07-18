@@ -125,8 +125,8 @@ PagePL {
 
                         }
 
-                        if (!(dict['con0'][train_id] in connectionDict)) {
-                            connectionDict[dict['con0'][train_id]] = dict;
+                        if (!(dict['con0']['train_id'] in connectionDict)) {
+                            connectionDict[dict['con0']['train_id']] = dict;
                         }
 
                         connectionRepeater.model.append(dict);
