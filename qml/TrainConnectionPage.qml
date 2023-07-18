@@ -31,21 +31,18 @@ PagePL {
         id: column
         width: page.width
 
-        Rectangle {
-            height: 2
-            anchors.left: parent.left
-            anchors.leftMargin: styler.themeHorizontalPageMargin
-            anchors.right: parent.right
-            anchors.rightMargin: styler.themeHorizontalPageMargin
-            color: "gray"
-        }
+        // Rectangle {
+        //     height: 2
+        //     anchors.left: parent.left
+        //     anchors.leftMargin: styler.themeHorizontalPageMargin
+        //     anchors.right: parent.right
+        //     anchors.rightMargin: styler.themeHorizontalPageMargin
+        //     color: "gray"
+        // }
 
-        ListItemLabel {
-            color: styler.themeHighlightColor
-            height: implicitHeight + styler.themePaddingMedium
+        SectionHeaderPL {
+            height: implicitHeight + (2* styler.themePaddingMedium)
             text: connectionDict['con0']['type'] + connectionDict['con0']['name']
-            truncMode: truncModes.none
-            verticalAlignment: Text.AlignTop
         }
 
         Rectangle {
