@@ -270,9 +270,9 @@ PagePL {
                     Rectangle {
                         height: 1
                         anchors.left: parent.left
-                        // anchors.leftMargin: styler.themeHorizontalPageMargin
+                        anchors.leftMargin: 8
                         anchors.right: parent.right
-                        // anchors.rightMargin: styler.themeHorizontalPageMargin
+                        anchors.rightMargin: 8
                         color: "gray"
                     }
 
