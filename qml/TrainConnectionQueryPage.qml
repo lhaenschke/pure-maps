@@ -278,7 +278,7 @@ PagePL {
                 }
 
                 onClicked: {
-                    app.push(Qt.resolvedUrl("TrainConnectionQueryPage.qml"), {
+                    app.push(Qt.resolvedUrl("TrainConnectionPage.qml"), {
                         "connectionDict": model,
                     });
                 }
