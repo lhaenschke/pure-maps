@@ -27,6 +27,7 @@ PagePL {
 
     property var poi
     property var selectedStation
+    property var connectionDict: {}
 
     // pageMenu: PageMenuPL {
     //     PageMenuItemPL {
@@ -122,6 +123,10 @@ PagePL {
                             dict['diff_minutes'] = getTimeDifference(dict['dp_time_hh'], dict['dp_time_mm'], dict['ar_time_hh'], dict['ar_time_mm']);
                             dict['names'] = dict['con0']['type'] + " " + dict['con0']['name']
 
+                        }
+
+                        if (!(dict['con0'][train_id] in connectionDict)) {
+                            connectionDict[dict['con0'][train_id]] = dict;
                         }
 
                         connectionRepeater.model.append(dict);
@@ -278,9 +283,13 @@ PagePL {
                 }
 
                 onClicked: {
-                    app.push(Qt.resolvedUrl("TrainConnectionPage.qml"), {
-                        "connectionDict": model,
-                    });
+                    for (const [key, value] of Object.entries(connectionDict)) {
+                    console.log(key, value);
+                    }
+
+                    // app.push(Qt.resolvedUrl("TrainConnectionPage.qml"), {
+                    //     "connectionDict": model,
+                    // });
                 }
 
             }
