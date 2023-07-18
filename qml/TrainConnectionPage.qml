@@ -23,10 +23,49 @@ import "platform"
 
 PagePL {
     id: page
-    title: app.tr("Connections for ") + connectionDict['con1']['name']
+    title: app.tr("Details")
 
     property var connectionDict
 
-    
+    Column {
+        id: column
+        width: page.width
+
+        Rectangle {
+            height: 3
+            anchors.left: parent.left
+            anchors.leftMargin: styler.themeHorizontalPageMargin
+            anchors.right: parent.right
+            anchors.rightMargin: styler.themeHorizontalPageMargin
+            color: "gray"
+        }
+
+        SectionHeaderPL {
+            color: styler.themeHighlightColor
+            height: implicitHeight + styler.themePaddingMedium
+            text: connectionDict['con0']['type'] + connectionDict['con0']['name']
+            truncMode: truncModes.none
+            verticalAlignment: Text.AlignTop
+        } 
+
+        Rectangle {
+            height: 3
+            anchors.left: parent.left
+            anchors.leftMargin: styler.themeHorizontalPageMargin
+            anchors.right: parent.right
+            anchors.rightMargin: styler.themeHorizontalPageMargin
+            color: "gray"
+        }
+
+        ListItemLabel {
+            color: styler.themeHighlightColor
+            height: implicitHeight + styler.themePaddingMedium
+            text: app.tr('The times indicated are timetable times, not real-time')
+            truncMode: truncModes.none
+            visible: connectionRepeater.model.count > 0
+            verticalAlignment: Text.AlignTop
+        } 
+
+    }
 
 }
