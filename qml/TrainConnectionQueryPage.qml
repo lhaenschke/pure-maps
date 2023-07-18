@@ -27,7 +27,7 @@ PagePL {
 
     property var poi
     property var selectedStation
-    property var connectionDict: {}
+    property var connectionDict
 
     // pageMenu: PageMenuPL {
     //     PageMenuItemPL {
@@ -97,6 +97,8 @@ PagePL {
                     searchButton.enabled = true;
                     searchButton.text = app.tr("Search");
                     
+                    connectionDict = {};
+
                     results.forEach( function (p) { 
                         var dict = {};
                         for (var i = 0; i < p.length; i++) {
@@ -124,7 +126,7 @@ PagePL {
                             dict['names'] = dict['con0']['type'] + " " + dict['con0']['name']
 
                         }
-
+                        console.log('Id: ', dict['con0']['train_id']);
                         if (!(dict['con0']['train_id'] in connectionDict)) {
                             connectionDict[dict['con0']['train_id']] = dict;
                         }
