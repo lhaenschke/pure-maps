@@ -99,7 +99,6 @@ include(CMakePrintHelpers)
 find_package(Gettext REQUIRED)
 
 find_package(KPublicTransport)
-target_link_libraries(pure-maps KPublicTransport)
 
 # allow to compile on platforms without FindPython3.cmake
 if(PYTHON_EXE STREQUAL "auto")
