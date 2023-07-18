@@ -42,7 +42,7 @@ PagePL {
 
         SectionHeaderPL {
             // height: implicitHeight + (2* styler.themePaddingMedium)
-            height: implicitHeight
+            height: implicitHeight + styler.themePaddingMedium
             text: connectionDict['con0']['type'] + connectionDict['con0']['name']
         }
 
