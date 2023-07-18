@@ -40,8 +40,10 @@
 #include <iostream>
 #include <stdlib.h>
 
+#include <KPublicTransport/JourneyRequest>
+#include <KPublicTransport/Location>
 #include <KPublicTransport/LocationRequest>
-#include <KPublicTransport/Manager>
+#include <KPublicTransport/StopoverRequest>
 
 #include "clipboard.h"
 #include "cmdlineparser.h"
