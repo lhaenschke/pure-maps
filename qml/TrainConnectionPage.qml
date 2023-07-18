@@ -267,20 +267,14 @@ PagePL {
                         height: styler.themePaddingLarge
                     }
 
-                    Grid {
-                        id: listSeperatorGrid
-                        columns: 1
-                        rows: 1
+                    Rectangle {
+                        height: 1
+                        width: page.width - (2 * styler.themeHorizontalPageMargin)
                         anchors.left: parent.left
                         anchors.leftMargin: 8
                         anchors.right: parent.right
                         anchors.rightMargin: 8
-
-                        Rectangle {
-                            height: 1
-                            // width: listSeperatorGrid.width
-                            color: "gray"
-                        }
+                        color: "gray"
                     }
 
                 }
