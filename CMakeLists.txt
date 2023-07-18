@@ -98,6 +98,9 @@ include(CMakePrintHelpers)
 
 find_package(Gettext REQUIRED)
 
+find_package(KPublicTransport)
+set_package_properties(KPublicTransport PROPERTIES TYPE REQUIRED PURPOSE "Query online journey information")
+
 # allow to compile on platforms without FindPython3.cmake
 if(PYTHON_EXE STREQUAL "auto")
     find_package(Python3 COMPONENTS Interpreter REQUIRED)
