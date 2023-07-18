@@ -99,6 +99,7 @@ include(CMakePrintHelpers)
 find_package(Gettext REQUIRED)
 
 find_package(KPublicTransport)
+include(KPublicTransport)
 
 # allow to compile on platforms without FindPython3.cmake
 if(PYTHON_EXE STREQUAL "auto")
@@ -182,6 +183,7 @@ add_custom_target(Sources SOURCES
     ${QML_SRC} ${QML_JS} ${QML_PLATFORMS} ${QML_DOCS}
     ${PM_SRC} ${PM_HEADERS}
     ${GCLUE2_SRC} ${GCLUE2_HEADERS} ${GCLUE2_XML}
+    KPublicTransport
     )
 
 # process linking and installation in the subdirs where needed
