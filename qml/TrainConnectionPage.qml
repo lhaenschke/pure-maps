@@ -267,13 +267,19 @@ PagePL {
                         height: styler.themePaddingLarge
                     }
 
-                    Rectangle {
-                        height: 1
+                    Grid {
+                        columns: 1
+                        rows: 1
                         anchors.left: parent.left
                         anchors.leftMargin: 8
                         anchors.right: parent.right
                         anchors.rightMargin: 8
-                        color: "gray"
+
+                        Rectangle {
+                            height: 1
+                            width: parent.width
+                            color: "gray"
+                        }
                     }
 
                 }
