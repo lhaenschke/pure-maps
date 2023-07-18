@@ -269,11 +269,11 @@ PagePL {
 
                     Rectangle {
                         height: 1
-                        width: page.width - (2 * styler.themeHorizontalPageMargin)
-                        anchors.left: parent.left
-                        anchors.leftMargin: 8
-                        anchors.right: parent.right
-                        anchors.rightMargin: 8
+                        width: listSeperator.width
+                        // anchors.left: parent.left
+                        // anchors.leftMargin: 8
+                        // anchors.right: parent.right
+                        // anchors.rightMargin: 8
                         color: "gray"
                     }
 
