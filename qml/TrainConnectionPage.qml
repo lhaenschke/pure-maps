@@ -144,10 +144,6 @@ PagePL {
             height: styler.themePaddingLarge
         }
 
-        Spacer {
-            height: styler.themePaddingLarge
-        }
-
         Grid {
             id: arOneGrid
             columns: 3
@@ -178,6 +174,19 @@ PagePL {
                 text: connectionDict['con0']['ar_track']
             }
         } 
+
+        Spacer {
+            height: styler.themePaddingMedium
+        }
+
+        Rectangle {
+            height: 2
+            anchors.left: parent.left
+            anchors.leftMargin: 8
+            anchors.right: parent.right
+            anchors.rightMargin: 8
+            color: "gray"
+        }
 
         LabelPL {
             color: styler.themeHighlightColor
