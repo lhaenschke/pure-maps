@@ -113,7 +113,6 @@ PagePL {
             id: dpOneGrid
             columns: 3
             rows: 1
-            spacing: styler.themePaddingMedium
             anchors.left: parent.left
             anchors.leftMargin: styler.themeHorizontalPageMargin
             anchors.right: parent.right
@@ -153,7 +152,6 @@ PagePL {
             id: arOneGrid
             columns: 3
             rows: 1
-            spacing: styler.themePaddingMedium
             anchors.left: parent.left
             anchors.leftMargin: styler.themeHorizontalPageMargin
             anchors.right: parent.right
