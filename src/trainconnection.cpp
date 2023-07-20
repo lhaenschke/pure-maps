@@ -2,6 +2,7 @@
 
 #include "trainconnection.h"
 
+#include <QQmlApplicationEngine>
 #include <QDateTime>
 #include <QDebug>
 #include <QDesktopServices>
