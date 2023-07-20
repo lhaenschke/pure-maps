@@ -128,7 +128,7 @@ PagePL {
 
             LabelPL {
                 id: dpDirectionLabel
-                width: page.width - (2 * styler.themeHorizontalPageMargin + timeHeader.width + trackHeader.width)
+                width: page.width - (2 * styler.themeHorizontalPageMargin + dpTimeLabel.width + dpTrackLabel.width)
                 horizontalAlignment: Text.AlignLeft
                 text: connectionDict['con0']['destination']
             }
@@ -168,7 +168,7 @@ PagePL {
 
             LabelPL {
                 id: arDirectionLabel
-                width: page.width - (2 * styler.themeHorizontalPageMargin + timeHeader.width + trackHeader.width)
+                width: page.width - (2 * styler.themeHorizontalPageMargin + arTimeLabel.width + arTrackLabel.width)
                 horizontalAlignment: Text.AlignLeft
                 text: connectionDict['con0']['target']
             }
