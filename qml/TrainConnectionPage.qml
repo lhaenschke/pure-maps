@@ -31,28 +31,34 @@ PagePL {
         id: column
         width: page.width
 
-        // Rectangle {
-        //     height: 2
-        //     anchors.left: parent.left
-        //     anchors.leftMargin: styler.themeHorizontalPageMargin
-        //     anchors.right: parent.right
-        //     anchors.rightMargin: styler.themeHorizontalPageMargin
-        //     color: "gray"
-        // }
+        Rectangle {
+            height: 2
+            anchors.left: parent.left
+            anchors.leftMargin: 0
+            anchors.right: parent.right
+            anchors.rightMargin: 0
+            color: "gray"
+        }
 
-        SectionHeaderPL {
-            // height: implicitHeight + (2* styler.themePaddingMedium)
+        ListItemLabel {
+            color: styler.themeHighlightColor
             height: implicitHeight + styler.themePaddingMedium
             text: connectionDict['con0']['type'] + connectionDict['con0']['name']
+            truncMode: truncModes.none
+            verticalAlignment: Text.AlignTop
         }
 
         Rectangle {
             height: 2
             anchors.left: parent.left
-            anchors.leftMargin: styler.themeHorizontalPageMargin
+            anchors.leftMargin: 0
             anchors.right: parent.right
-            anchors.rightMargin: styler.themeHorizontalPageMargin
+            anchors.rightMargin: 0
             color: "gray"
+        }
+
+        Spacer {
+            height: styler.themePaddingLarge
         }
 
         ListItemLabel {

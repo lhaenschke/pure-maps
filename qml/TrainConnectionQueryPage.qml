@@ -143,19 +143,6 @@ PagePL {
             height: styler.themePaddingLarge
         }
 
-        ListItemLabel {
-            color: styler.themeHighlightColor
-            height: implicitHeight + styler.themePaddingMedium
-            text: app.tr('The times indicated are timetable times, not real-time')
-            truncMode: truncModes.none
-            visible: connectionRepeater.model.count > 0
-            verticalAlignment: Text.AlignTop
-        } 
-
-        Spacer {
-            height: styler.themePaddingMedium
-        }
-
         Grid {
             id: headerGrid
             columns: 3
@@ -299,6 +286,19 @@ PagePL {
         }
 
     }
+
+    Spacer {
+        height: styler.themePaddingLarge
+    }
+
+    ListItemLabel {
+        color: styler.themeHighlightColor
+        height: implicitHeight + styler.themePaddingMedium
+        text: app.tr('The times indicated are timetable times, not real-time')
+        truncMode: truncModes.none
+        visible: connectionRepeater.model.count > 0
+        verticalAlignment: Text.AlignTop
+    } 
 
     function getTimeDifference(time_one_hh, time_one_mm, time_two_hh, time_two_mm) {
         var diff_minutes = Math.abs(parseInt(time_one_mm) - parseInt(time_two_mm));
