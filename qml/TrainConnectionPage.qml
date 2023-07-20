@@ -54,9 +54,17 @@ PagePL {
         }
 
         IconButtonPL {
+            id: showMoreOneButton
             iconHeight: styler.themeItemSizeSmall * 0.4
             iconName: styler.iconDown
+            property bool isDown: true
             onClicked: {
+                if (showMoreOneButton.isDown) {
+                    showMoreOneButton.iconName = styler.iconUp;
+                } else {
+                    showMoreOneButton.iconName = styler.iconDown;
+                }
+                showMoreOneButton.isDown = !showMoreOneButton.isDown
                 console.log('Test');
             }
         }
