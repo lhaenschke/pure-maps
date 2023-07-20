@@ -160,21 +160,21 @@ PagePL {
             anchors.rightMargin: styler.themeHorizontalPageMargin
 
             LabelPL {
-                id: dpTimeLabel
+                id: arTimeLabel
                 width: page.width / 7
                 horizontalAlignment: Text.AlignLeft
                 text: connectionDict['con0']['ar_time_hh'] + ":" + connectionDict['con0']['ar_time_mm']
             }
 
             LabelPL {
-                id: dpDirectionLabel
+                id: arDirectionLabel
                 width: page.width - (2 * styler.themeHorizontalPageMargin + timeHeader.width + trackHeader.width)
                 horizontalAlignment: Text.AlignLeft
                 text: connectionDict['con0']['target']
             }
 
             LabelPL {
-                id: dpTrackLabel
+                id: arTrackLabel
                 width: page.width / 4
                 horizontalAlignment: Text.AlignRight
                 text: connectionDict['con0']['ar_track']
