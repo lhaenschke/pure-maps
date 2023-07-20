@@ -57,6 +57,9 @@ PagePL {
             id: icon
             iconHeight: styler.themeItemSizeSmall * 0.8
             iconName: styler.iconDown
+            onClicked: {
+                console.log('Test');
+            }
         }
 
         Rectangle {
