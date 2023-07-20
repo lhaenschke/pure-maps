@@ -34,9 +34,9 @@ PagePL {
         Rectangle {
             height: 2
             anchors.left: parent.left
-            anchors.leftMargin: 8
+            anchors.leftMargin: styler.themeHorizontalPageMargin
             anchors.right: parent.right
-            anchors.rightMargin: 8
+            anchors.rightMargin: styler.themeHorizontalPageMargin
             color: "gray"
         }
 
@@ -44,9 +44,9 @@ PagePL {
             color: styler.themeHighlightColor
             height: implicitHeight + styler.themePaddingMedium
             anchors.left: parent.left
-            anchors.leftMargin: 8
+            anchors.leftMargin: styler.themeHorizontalPageMargin
             anchors.right: parent.right
-            anchors.rightMargin: 8
+            anchors.rightMargin: styler.themeHorizontalPageMargin
             text: connectionDict['con0']['type'] + connectionDict['con0']['name']
             font.pixelSize: styler.themeFontSizeLarge
             verticalAlignment: Text.AlignVCenter
@@ -55,15 +55,47 @@ PagePL {
         Rectangle {
             height: 2
             anchors.left: parent.left
-            anchors.leftMargin: 8
+            anchors.leftMargin: styler.themeHorizontalPageMargin
             anchors.right: parent.right
-            anchors.rightMargin: 8
+            anchors.rightMargin: styler.themeHorizontalPageMargin
             color: "gray"
         }
 
         Spacer {
-            height: styler.themePaddingLarge
+            height: styler.themePaddingMedium
         }
+
+        Grid {
+            id: headerGrid
+            columns: 3
+            rows: 1
+            spacing: styler.themePaddingMedium
+            anchors.left: parent.left
+            anchors.leftMargin: styler.themeHorizontalPageMargin
+            anchors.right: parent.right
+            anchors.rightMargin: styler.themeHorizontalPageMargin
+
+            LabelPL {
+                id: depTimeHeader
+                width: page.width / 8
+                horizontalAlignment: Text.AlignLeft
+                text: app.tr("Time")
+            }
+
+            LabelPL {
+                id: directionHeader
+                width: page.width / 2.35
+                horizontalAlignment: Text.AlignLeft
+                text: app.tr("Direction")
+            }
+
+            LabelPL {
+                id: trackItem
+                width: page.width / 8
+                horizontalAlignment: Text.AlignRight
+                text: app.tr("Track")
+            }
+        } 
 
         LabelPL {
             color: styler.themeHighlightColor
