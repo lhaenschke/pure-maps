@@ -60,7 +60,7 @@ PagePL {
 
             IconButtonPL {
                 id: showMoreOneButton
-                iconHeight: styler.themeItemSizeSmall * 0.4
+                iconHeight: styler.themeItemSizeSmall * 0.5
                 iconName: styler.iconDown
                 property bool isDown: true
                 onClicked: {
