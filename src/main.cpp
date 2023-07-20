@@ -40,10 +40,8 @@
 #include <iostream>
 #include <stdlib.h>
 
-#include <KPublicTransport/JourneyRequest>
-#include <KPublicTransport/Location>
 #include <KPublicTransport/LocationRequest>
-#include <KPublicTransport/StopoverRequest>
+#include <KPublicTransport/Manager>
 
 #include "clipboard.h"
 #include "cmdlineparser.h"
@@ -199,6 +197,12 @@ int main(int argc, char *argv[])
 
   TrainConnection trainConnection;
   qmlRegisterSingletonInstance<TrainConnection>("org.puremaps", 1, 0, "TrainConnection", &trainConnection);
+
+  KPublicTransport::Manager manager;
+  manager.setAllowInsecureBackends(true);
+  manager.setBackendsEnabledByDefault(false);
+
+  qmlRegisterSingletonInstance<KPublicTransport::Manager>("org.puremaps", 1, 0, "Manager", &manager);
 
   qmlRegisterSingletonType<CmdLineParser>("org.puremaps", 1, 0, "CmdLineParser", [](QQmlEngine *, QJSEngine *) -> QObject * {
       return static_cast<QObject *>(CmdLineParser::instance());
