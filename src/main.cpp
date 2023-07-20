@@ -196,6 +196,7 @@ int main(int argc, char *argv[])
   qmlRegisterType<Navigator>("org.puremaps", 1, 0, "NavigatorBase");
   qmlRegisterType<ManeuverModel>("org.puremaps", 1, 0, "ManeuverList");
   qmlRegisterType<PositionSource>("org.puremaps", 1, 0, "PositionSource");
+  qmlRegisterType<TrainConnection>("org.puremaps", 1, 0, "TrainConnection");
 
   qmlRegisterSingletonType<CmdLineParser>("org.puremaps", 1, 0, "CmdLineParser", [](QQmlEngine *, QJSEngine *) -> QObject * {
       return static_cast<QObject *>(CmdLineParser::instance());
@@ -203,8 +204,6 @@ int main(int argc, char *argv[])
   qmlRegisterSingletonType<Commander>("org.puremaps", 1, 0, "Commander", [](QQmlEngine *, QJSEngine *) -> QObject * {
       return static_cast<QObject *>(Commander::instance());
   });
-  TrainConnection trainConnection;
-  qmlRegisterSingletonInstance<TrainConnection>("org.kde.ktrip", 1, 0, "TrainConnection", &trainConnection);
 
 #ifdef IS_SAILFISH_OS
   if (v)
