@@ -19,6 +19,12 @@ TrainConnection::TrainConnection(QObject *parent)
 {
     m_departureDate = QDate::currentDate();
     m_departureTime = QTime::currentTime();
+    std::cout << "Init" << "\n";
+    manager.setAllowInsecureBackends(true);
+    manager.setBackendsEnabledByDefault(false);
+
+    qmlRegisterSingletonInstance<KPublicTransport::Manager>("org.puremaps", 1, 0, "Manager", &manager);
+    std::cout << "Init Ende" << "\n";
 }
 
 void TrainConnection::setStart(const KPublicTransport::Location &start)
@@ -86,6 +92,8 @@ KPublicTransport::LocationRequest TrainConnection::createLocationRequest(const Q
 {
     KPublicTransport::LocationRequest req;
     req.setName(name);
+
+    KPublicTransport::Manager manager = 
 
     std::cout << "Test from CPP" << "\n";
 

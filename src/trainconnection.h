@@ -8,6 +8,7 @@
 
 #include <KPublicTransport/JourneyRequest>
 #include <KPublicTransport/Location>
+#include <KPublicTransport/Manager>
 #include <KPublicTransport/LocationRequest>
 #include <KPublicTransport/StopoverRequest>
 
@@ -49,6 +50,7 @@ Q_SIGNALS:
 private:
     KPublicTransport::Location m_start;
     KPublicTransport::Location m_destination;
+    KPublicTransport::Manager manager;
     QDate m_departureDate;
     QTime m_departureTime;
 };
