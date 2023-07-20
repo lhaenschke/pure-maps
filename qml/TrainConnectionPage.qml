@@ -77,21 +77,21 @@ PagePL {
 
             LabelPL {
                 id: timeHeader
-                width: page.width / 4
+                width: parent.width / 8
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Time")
             }
 
             LabelPL {
                 id: directionHeader
-                width: parent.width - (2 * themeHorizontalPageMargin + timeHeader + trackHeader)
+                width: parent.width - (2 * styler.themeHorizontalPageMargin + timeHeader + trackHeader)
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Direction")
             }
 
             LabelPL {
                 id: trackHeader
-                width: page.width / 4
+                width: parent.width / 4
                 horizontalAlignment: Text.AlignRight
                 text: app.tr("Track")
             }
