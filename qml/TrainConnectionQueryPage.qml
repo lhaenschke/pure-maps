@@ -124,7 +124,7 @@ PagePL {
 
                             dict['diff_minutes'] = getTimeDifference(dict['dp_time_hh'], dict['dp_time_mm'], dict['ar_time_hh'], dict['ar_time_mm']);
                             dict['names'] = dict['con0']['type'] + " " + dict['con0']['name']
-
+                            
                         }
                         
                         if (!(dict['con0']['train_id'] in connectionDict)) {

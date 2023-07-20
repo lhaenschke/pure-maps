@@ -444,6 +444,7 @@ class TrainConnectionManager:
                                 name        = train_dict.get('name'),
                                 train_id    = train_dict.get('train_id'),
                                 destination = train_dict.get('destination'),
+                                target      = destination_name,
                                 dp_time_hh  = train_dict.get('dp_time_hh'),
                                 dp_time_mm  = train_dict.get('dp_time_mm'),
                                 dp_track    = train_dict.get('dp_track'),
