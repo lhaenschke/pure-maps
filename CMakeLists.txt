@@ -189,7 +189,7 @@ add_custom_target(Sources SOURCES
 find_package(KPublicTransport)
 set_package_properties(KPublicTransport PROPERTIES TYPE REQUIRED PURPOSE "Query online journey information")
 
-file(GLOB_RECURSE ALL_SOURCE_FILES *.cpp *.h *.qml)
+
 
 # process linking and installation in the subdirs where needed
 add_subdirectory(src)
