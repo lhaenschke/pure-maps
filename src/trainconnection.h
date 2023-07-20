@@ -53,5 +53,4 @@ private:
     QTime m_departureTime;
 };
 
-
 #endif // TRAINCONNECTION_H
