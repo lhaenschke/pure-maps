@@ -199,7 +199,7 @@ PagePL {
             anchors.leftMargin: 8
             anchors.right: parent.right
             anchors.rightMargin: 8
-            text: getTimeDifference(dict['con0']['ar_time_hh'], dict['con0']['ar_time_mm'], dict['con1']['dp_time_hh'], dict['con1']['dp_time_mm']) + " minutes transfer"
+            text: getTimeDifference(connectionDict['con0']['ar_time_hh'], connectionDict['con0']['ar_time_mm'], connectionDict['con1']['dp_time_hh'], connectionDict['con1']['dp_time_mm']) + " minutes transfer"
             font.pixelSize: styler.themeFontSizeLarge
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
