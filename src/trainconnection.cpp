@@ -12,6 +12,7 @@
 #include <QUrl>
 
 #include <iostream>
+#include <vector>
 
 TrainConnection::TrainConnection(QObject *parent)
     : QObject(parent)
@@ -20,12 +21,11 @@ TrainConnection::TrainConnection(QObject *parent)
 {
     m_departureDate = QDate::currentDate();
     m_departureTime = QTime::currentTime();
-    std::cout << "Init" << "\n";
+    
     manager.setAllowInsecureBackends(true);
     manager.setBackendsEnabledByDefault(false);
 
     qmlRegisterSingletonInstance<KPublicTransport::Manager>("org.puremaps", 1, 0, "Manager", &manager);
-    std::cout << "Init Ende" << "\n";
 }
 
 void TrainConnection::setStart(const KPublicTransport::Location &start)
@@ -94,7 +94,17 @@ KPublicTransport::LocationRequest TrainConnection::createLocationRequest(const Q
     KPublicTransport::LocationRequest req;
     req.setName(name);
 
-    std::cout << "Test from CPP" << "\n";
+    std::vector<QJsonObject> jsonObjects;
+
+    std::vector<KPublicTransport::Location> resultArray = manager.queryLocation(req).result();
+
+    for (auto &result: resultArray) {
+        jsonObjects.push_back(KPublicTransport::Location.toJson(result));
+    }
+
+    for (auto json: jsonObjects) {
+        std::cout << json << "\n";
+    }
 
     return req;
 }
