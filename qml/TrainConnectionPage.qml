@@ -67,7 +67,7 @@ PagePL {
         }
 
         Grid {
-            id: headerGrid
+            id: headerOneGrid
             columns: 3
             rows: 1
             anchors.left: parent.left
@@ -76,21 +76,21 @@ PagePL {
             anchors.rightMargin: styler.themeHorizontalPageMargin
 
             LabelPL {
-                id: timeHeader
+                id: timeOneHeader
                 width: page.width / 7
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Time")
             }
 
             LabelPL {
-                id: directionHeader
-                width: page.width - (2 * styler.themeHorizontalPageMargin + timeHeader.width + trackHeader.width)
+                id: directionOneHeader
+                width: page.width - (2 * styler.themeHorizontalPageMargin + timeOneHeader.width + trackOneHeader.width)
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Direction")
             }
 
             LabelPL {
-                id: trackHeader
+                id: trackOneHeader
                 width: page.width / 4
                 horizontalAlignment: Text.AlignRight
                 text: app.tr("Track")
@@ -120,21 +120,21 @@ PagePL {
             anchors.rightMargin: styler.themeHorizontalPageMargin
 
             LabelPL {
-                id: dpTimeLabel
+                id: dpTimeOneLabel
                 width: page.width / 7
                 horizontalAlignment: Text.AlignLeft
                 text: connectionDict['con0']['dp_time_hh'] + ":" + connectionDict['con0']['dp_time_mm']
             }
 
             LabelPL {
-                id: dpDirectionLabel
+                id: dpDirectionOneLabel
                 width: page.width - (2 * styler.themeHorizontalPageMargin + dpTimeLabel.width + dpTrackLabel.width)
                 horizontalAlignment: Text.AlignLeft
                 text: connectionDict['con0']['destination']
             }
 
             LabelPL {
-                id: dpTrackLabel
+                id: dpTrackOneLabel
                 width: page.width / 4
                 horizontalAlignment: Text.AlignRight
                 text: connectionDict['con0']['dp_track']
@@ -155,21 +155,21 @@ PagePL {
             anchors.rightMargin: styler.themeHorizontalPageMargin
 
             LabelPL {
-                id: arTimeLabel
+                id: arTimeOneLabel
                 width: page.width / 7
                 horizontalAlignment: Text.AlignLeft
                 text: connectionDict['con0']['ar_time_hh'] + ":" + connectionDict['con0']['ar_time_mm']
             }
 
             LabelPL {
-                id: arDirectionLabel
+                id: arDirectionOneLabel
                 width: page.width - (2 * styler.themeHorizontalPageMargin + arTimeLabel.width + arTrackLabel.width)
                 horizontalAlignment: Text.AlignLeft
                 text: connectionDict['con0']['target']
             }
 
             LabelPL {
-                id: arTrackLabel
+                id: arTrackOneLabel
                 width: page.width / 4
                 horizontalAlignment: Text.AlignRight
                 text: connectionDict['con0']['ar_track']
@@ -251,7 +251,7 @@ PagePL {
         }
 
         Grid {
-            id: headerGrid
+            id: headerTwoGrid
             visible: hasTransfer
             columns: 3
             rows: 1
@@ -261,21 +261,21 @@ PagePL {
             anchors.rightMargin: styler.themeHorizontalPageMargin
 
             LabelPL {
-                id: timeHeader
+                id: timeTwoHeader
                 width: page.width / 7
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Time")
             }
 
             LabelPL {
-                id: directionHeader
-                width: page.width - (2 * styler.themeHorizontalPageMargin + timeHeader.width + trackHeader.width)
+                id: directionTwoHeader
+                width: page.width - (2 * styler.themeHorizontalPageMargin + timeTwoHeader.width + trackTwoHeader.width)
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Direction")
             }
 
             LabelPL {
-                id: trackHeader
+                id: trackTwoHeader
                 width: page.width / 4
                 horizontalAlignment: Text.AlignRight
                 text: app.tr("Track")
@@ -298,7 +298,7 @@ PagePL {
         }
 
         Grid {
-            id: dpOneGrid
+            id: dpTwoGrid
             visible: hasTransfer
             columns: 3
             rows: 1
@@ -308,21 +308,21 @@ PagePL {
             anchors.rightMargin: styler.themeHorizontalPageMargin
 
             LabelPL {
-                id: dpTimeLabel
+                id: dpTimeTwoLabel
                 width: page.width / 7
                 horizontalAlignment: Text.AlignLeft
                 text: connectionDict['con1']['dp_time_hh'] + ":" + connectionDict['con1']['dp_time_mm']
             }
 
             LabelPL {
-                id: dpDirectionLabel
+                id: dpDirectionTwoLabel
                 width: page.width - (2 * styler.themeHorizontalPageMargin + dpTimeLabel.width + dpTrackLabel.width)
                 horizontalAlignment: Text.AlignLeft
                 text: connectionDict['con1']['destination']
             }
 
             LabelPL {
-                id: dpTrackLabel
+                id: dpTrackTwoLabel
                 width: page.width / 4
                 horizontalAlignment: Text.AlignRight
                 text: connectionDict['con1']['dp_track']
@@ -335,7 +335,7 @@ PagePL {
         }
 
         Grid {
-            id: arOneGrid
+            id: arTwoGrid
             visible: hasTransfer
             columns: 3
             rows: 1
@@ -345,21 +345,21 @@ PagePL {
             anchors.rightMargin: styler.themeHorizontalPageMargin
 
             LabelPL {
-                id: arTimeLabel
+                id: arTimeTwoLabel
                 width: page.width / 7
                 horizontalAlignment: Text.AlignLeft
                 text: connectionDict['con1']['ar_time_hh'] + ":" + connectionDict['con1']['ar_time_mm']
             }
 
             LabelPL {
-                id: arDirectionLabel
+                id: arDirectionTwoLabel
                 width: page.width - (2 * styler.themeHorizontalPageMargin + arTimeLabel.width + arTrackLabel.width)
                 horizontalAlignment: Text.AlignLeft
                 text: connectionDict['con1']['target']
             }
 
             LabelPL {
-                id: arTrackLabel
+                id: arTrackTwoLabel
                 width: page.width / 4
                 horizontalAlignment: Text.AlignRight
                 text: connectionDict['con1']['ar_track']
