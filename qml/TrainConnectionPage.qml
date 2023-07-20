@@ -62,7 +62,6 @@ PagePL {
                 id: showMoreOneButton
                 iconHeight: styler.themeItemSizeSmall * 0.4
                 iconName: styler.iconDown
-                verticalAlignment: Text.AlignVCenter
                 property bool isDown: true
                 onClicked: {
                     if (showMoreOneButton.isDown) {
