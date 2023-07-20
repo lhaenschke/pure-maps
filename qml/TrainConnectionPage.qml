@@ -128,7 +128,7 @@ PagePL {
 
             LabelPL {
                 id: dpDirectionOneLabel
-                width: page.width - (2 * styler.themeHorizontalPageMargin + dpTimeLabel.width + dpTrackLabel.width)
+                width: page.width - (2 * styler.themeHorizontalPageMargin + dpTimeOneLabel.width + dpTrackOneLabel.width)
                 horizontalAlignment: Text.AlignLeft
                 text: connectionDict['con0']['destination']
             }
@@ -163,7 +163,7 @@ PagePL {
 
             LabelPL {
                 id: arDirectionOneLabel
-                width: page.width - (2 * styler.themeHorizontalPageMargin + arTimeLabel.width + arTrackLabel.width)
+                width: page.width - (2 * styler.themeHorizontalPageMargin + arTimeOneLabel.width + arTrackOneLabel.width)
                 horizontalAlignment: Text.AlignLeft
                 text: connectionDict['con0']['target']
             }
@@ -230,7 +230,7 @@ PagePL {
             anchors.leftMargin: styler.themeHorizontalPageMargin
             anchors.right: parent.right
             anchors.rightMargin: styler.themeHorizontalPageMargin
-            text: connectionDict['con1']['type'] + connectionDict['con1']['name']
+            text: connectionDict['con1']['type'] + " " + connectionDict['con1']['name']
             font.pixelSize: styler.themeFontSizeLarge
             verticalAlignment: Text.AlignVCenter
         }
@@ -316,7 +316,7 @@ PagePL {
 
             LabelPL {
                 id: dpDirectionTwoLabel
-                width: page.width - (2 * styler.themeHorizontalPageMargin + dpTimeLabel.width + dpTrackLabel.width)
+                width: page.width - (2 * styler.themeHorizontalPageMargin + dpTimeTwoLabel.width + dpTrackTwoLabel.width)
                 horizontalAlignment: Text.AlignLeft
                 text: connectionDict['con1']['destination']
             }
@@ -353,7 +353,7 @@ PagePL {
 
             LabelPL {
                 id: arDirectionTwoLabel
-                width: page.width - (2 * styler.themeHorizontalPageMargin + arTimeLabel.width + arTrackLabel.width)
+                width: page.width - (2 * styler.themeHorizontalPageMargin + arTimeTwoLabel.width + arTrackTwoLabel.width)
                 horizontalAlignment: Text.AlignLeft
                 text: connectionDict['con1']['target']
             }
