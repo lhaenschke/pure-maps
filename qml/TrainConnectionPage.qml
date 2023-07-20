@@ -41,31 +41,36 @@ PagePL {
             color: "gray"
         }
 
-        LabelPL {
-            color: styler.themeHighlightColor
-            height: implicitHeight + styler.themePaddingMedium
+        Grid {
+            columns: 2
+            rows: 1
             anchors.left: parent.left
             anchors.leftMargin: styler.themeHorizontalPageMargin
             anchors.right: parent.right
             anchors.rightMargin: styler.themeHorizontalPageMargin
-            text: connectionDict['con0']['type'] + " " + connectionDict['con0']['name'] + " -> " + connectionDict['con0']['destination']
-            font.pixelSize: styler.themeFontSizeLarge
-            verticalAlignment: Text.AlignVCenter
-        }
 
-        IconButtonPL {
-            id: showMoreOneButton
-            iconHeight: styler.themeItemSizeSmall * 0.4
-            iconName: styler.iconDown
-            property bool isDown: true
-            onClicked: {
-                if (showMoreOneButton.isDown) {
-                    showMoreOneButton.iconName = styler.iconUp;
-                } else {
-                    showMoreOneButton.iconName = styler.iconDown;
+            LabelPL {
+                color: styler.themeHighlightColor
+                width: parent.width - (2 * styler.themeHorizontalPageMargin + showMoreOneButton.width)
+                height: implicitHeight + styler.themePaddingMedium
+                text: connectionDict['con0']['type'] + " " + connectionDict['con0']['name'] + " -> " + connectionDict['con0']['destination']
+                font.pixelSize: styler.themeFontSizeLarge
+                verticalAlignment: Text.AlignVCenter
+            }
+
+            IconButtonPL {
+                id: showMoreOneButton
+                iconHeight: styler.themeItemSizeSmall * 0.4
+                iconName: styler.iconDown
+                property bool isDown: true
+                onClicked: {
+                    if (showMoreOneButton.isDown) {
+                        showMoreOneButton.iconName = styler.iconUp;
+                    } else {
+                        showMoreOneButton.iconName = styler.iconDown;
+                    }
+                    showMoreOneButton.isDown = !showMoreOneButton.isDown
                 }
-                showMoreOneButton.isDown = !showMoreOneButton.isDown
-                console.log('Test');
             }
         }
 
