@@ -1,6 +1,6 @@
 
 
-#include "controller.h"
+#include "trainconnection.h"
 
 #include <QDateTime>
 #include <QDebug>
