@@ -55,9 +55,6 @@ PagePL {
 
         IconPL {
             id: icon
-            anchors.left: parent.left
-            anchors.leftMargin: styler.themeHorizontalPageMargin
-            anchors.verticalCenter: parent.verticalCenter
             iconHeight: styler.themeItemSizeSmall * 0.8
             iconName: styler.iconDown
         }
