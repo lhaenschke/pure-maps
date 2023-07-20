@@ -41,37 +41,16 @@ PagePL {
             color: "gray"
         }
 
-        Grid {
-            columns: 2
-            rows: 1
+        LabelPL {
+            color: styler.themeHighlightColor
+            height: implicitHeight + styler.themePaddingMedium
             anchors.left: parent.left
             anchors.leftMargin: styler.themeHorizontalPageMargin
             anchors.right: parent.right
             anchors.rightMargin: styler.themeHorizontalPageMargin
-
-            LabelPL {
-                color: styler.themeHighlightColor
-                width: parent.width - (showMoreOneButton.width)
-                height: implicitHeight + styler.themePaddingMedium
-                text: connectionDict['con0']['type'] + " " + connectionDict['con0']['name'] + " -> " + connectionDict['con0']['destination']
-                font.pixelSize: styler.themeFontSizeLarge
-                verticalAlignment: Text.AlignVCenter
-            }
-
-            IconButtonPL {
-                id: showMoreOneButton
-                iconHeight: styler.themeItemSizeSmall * 0.5
-                iconName: styler.iconDown
-                property bool isDown: true
-                onClicked: {
-                    if (showMoreOneButton.isDown) {
-                        showMoreOneButton.iconName = styler.iconUp;
-                    } else {
-                        showMoreOneButton.iconName = styler.iconDown;
-                    }
-                    showMoreOneButton.isDown = !showMoreOneButton.isDown
-                }
-            }
+            text: connectionDict['con0']['type'] + " " + connectionDict['con0']['name'] + " -> " + connectionDict['con0']['destination']
+            font.pixelSize: styler.themeFontSizeLarge
+            verticalAlignment: Text.AlignVCenter
         }
 
         Rectangle {
@@ -243,41 +222,18 @@ PagePL {
             color: "gray"
         }
 
-        Grid {
-            columns: 2
-            rows: 1
+        LabelPL {
+            color: styler.themeHighlightColor
+            height: implicitHeight + styler.themePaddingMedium
             anchors.left: parent.left
             anchors.leftMargin: styler.themeHorizontalPageMargin
             anchors.right: parent.right
             anchors.rightMargin: styler.themeHorizontalPageMargin
-
-            LabelPL {
-                color: styler.themeHighlightColor
-                width: parent.width - (showMoreTwoButton.width)
-                height: implicitHeight + styler.themePaddingMedium
-                text: hasTransfer ? connectionDict['con1']['type'] + " " + connectionDict['con1']['name'] + " -> " + connectionDict['con1']['destination'] : ""
-                font.pixelSize: styler.themeFontSizeLarge
-                verticalAlignment: Text.AlignVCenter
-            }
-
-            IconButtonPL {
-                id: showMoreTwoButton
-                iconHeight: styler.themeItemSizeSmall * 0.5
-                iconName: styler.iconDown
-                property bool isDown: true
-                onClicked: {
-                    if (showMoreTwoButton.isDown) {
-                        showMoreTwoButton.iconName = styler.iconUp;
-                    } else {
-                        showMoreTwoButton.iconName = styler.iconDown;
-                    }
-                    showMoreTwoButton.isDown = !showMoreTwoButton.isDown
-                }
-            }
+            text: hasTransfer ? connectionDict['con1']['type'] + " " + connectionDict['con1']['name'] + " -> " + connectionDict['con1']['destination'] : ""
+            font.pixelSize: styler.themeFontSizeLarge
+            verticalAlignment: Text.AlignVCenter
         }
-
         
-
         Rectangle {
             visible: hasTransfer
             height: 1
