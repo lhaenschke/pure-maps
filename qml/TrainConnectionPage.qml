@@ -201,7 +201,7 @@ PagePL {
             anchors.leftMargin: 8
             anchors.right: parent.right
             anchors.rightMargin: 8
-            text: getTimeDifference(connectionDict['con0']['ar_time_hh'], connectionDict['con0']['ar_time_mm'], connectionDict['con1']['dp_time_hh'], connectionDict['con1']['dp_time_mm']) + " minutes transfer"
+            text: hasTransfer ? getTimeDifference(connectionDict['con0']['ar_time_hh'], connectionDict['con0']['ar_time_mm'], connectionDict['con1']['dp_time_hh'], connectionDict['con1']['dp_time_mm']) + " minutes transfer" : ""
             font.pixelSize: styler.themeFontSizeMedium
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
@@ -230,7 +230,7 @@ PagePL {
             anchors.leftMargin: styler.themeHorizontalPageMargin
             anchors.right: parent.right
             anchors.rightMargin: styler.themeHorizontalPageMargin
-            text: connectionDict['con1']['type'] + " " + connectionDict['con1']['name'] + " -> " + connectionDict['con1']['destination']
+            text: hasTransfer ? connectionDict['con1']['type'] + " " + connectionDict['con1']['name'] + " -> " + connectionDict['con1']['destination'] : ""
             font.pixelSize: styler.themeFontSizeLarge
             verticalAlignment: Text.AlignVCenter
         }
@@ -311,21 +311,21 @@ PagePL {
                 id: dpTimeTwoLabel
                 width: page.width / 7
                 horizontalAlignment: Text.AlignLeft
-                text: connectionDict['con1']['dp_time_hh'] + ":" + connectionDict['con1']['dp_time_mm']
+                text: hasTransfer ? connectionDict['con1']['dp_time_hh'] + ":" + connectionDict['con1']['dp_time_mm'] : ""
             }
 
             LabelPL {
                 id: dpDirectionTwoLabel
                 width: page.width - (2 * styler.themeHorizontalPageMargin + dpTimeTwoLabel.width + dpTrackTwoLabel.width)
                 horizontalAlignment: Text.AlignLeft
-                text: connectionDict['con1']['start']
+                text: hasTransfer ? connectionDict['con1']['start'] : ""
             }
 
             LabelPL {
                 id: dpTrackTwoLabel
                 width: page.width / 4
                 horizontalAlignment: Text.AlignRight
-                text: connectionDict['con1']['dp_track']
+                text: hasTransfer ? connectionDict['con1']['dp_track'] : ""
             }
         } 
 
@@ -348,21 +348,21 @@ PagePL {
                 id: arTimeTwoLabel
                 width: page.width / 7
                 horizontalAlignment: Text.AlignLeft
-                text: connectionDict['con1']['ar_time_hh'] + ":" + connectionDict['con1']['ar_time_mm']
+                text: hasTransfer ? connectionDict['con1']['ar_time_hh'] + ":" + connectionDict['con1']['ar_time_mm'] : ""
             }
 
             LabelPL {
                 id: arDirectionTwoLabel
                 width: page.width - (2 * styler.themeHorizontalPageMargin + arTimeTwoLabel.width + arTrackTwoLabel.width)
                 horizontalAlignment: Text.AlignLeft
-                text: connectionDict['con1']['target']
+                text: hasTransfer ? connectionDict['con1']['target'] : ""
             }
 
             LabelPL {
                 id: arTrackTwoLabel
                 width: page.width / 4
                 horizontalAlignment: Text.AlignRight
-                text: connectionDict['con1']['ar_track']
+                text: hasTransfer ? connectionDict['con1']['ar_track'] : ""
             }
         } 
 
