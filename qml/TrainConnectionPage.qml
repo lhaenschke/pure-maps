@@ -53,13 +53,13 @@ PagePL {
             verticalAlignment: Text.AlignVCenter
         }
 
-        IconListItem {
-            iconHeight: styler.themeItemSizeSmall * 0.5
-            iconWidth: iconHeight
-            icon: styler.iconDown
-            onClicked: {
-                console.log('Test');
-            }
+        IconPL {
+            id: icon
+            anchors.left: parent.left
+            anchors.leftMargin: styler.themeHorizontalPageMargin
+            anchors.verticalCenter: parent.verticalCenter
+            iconHeight: styler.themeItemSizeSmall * 0.8
+            iconName: styler.iconDown
         }
 
         Rectangle {
