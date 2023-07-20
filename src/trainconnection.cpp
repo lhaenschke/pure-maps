@@ -94,8 +94,6 @@ KPublicTransport::LocationRequest TrainConnection::createLocationRequest(const Q
     KPublicTransport::LocationRequest req;
     req.setName(name);
 
-    KPublicTransport::Manager manager = 
-
     std::cout << "Test from CPP" << "\n";
 
     return req;
