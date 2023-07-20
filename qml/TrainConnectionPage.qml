@@ -54,8 +54,8 @@ PagePL {
         }
 
         IconListItem {
+            iconHeight: styler.themeItemSizeSmall * 0.5
             icon: styler.iconDown
-            label: ""
             onClicked: {
                 console.log('Test');
             }
