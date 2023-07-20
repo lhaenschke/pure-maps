@@ -34,9 +34,9 @@ PagePL {
         Rectangle {
             height: 2
             anchors.left: parent.left
-            anchors.leftMargin: styler.themeHorizontalPageMargin
+            anchors.leftMargin: 8
             anchors.right: parent.right
-            anchors.rightMargin: styler.themeHorizontalPageMargin
+            anchors.rightMargin: 8
             color: "gray"
         }
 
@@ -53,7 +53,7 @@ PagePL {
         }
 
         Rectangle {
-            height: 2
+            height: 1
             anchors.left: parent.left
             anchors.leftMargin: styler.themeHorizontalPageMargin
             anchors.right: parent.right
@@ -76,26 +76,27 @@ PagePL {
             anchors.rightMargin: styler.themeHorizontalPageMargin
 
             LabelPL {
-                id: depTimeHeader
-                width: page.width / 8
+                width: page.width / 4
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Time")
             }
 
             LabelPL {
-                id: directionHeader
-                width: page.width / 2.35
+                width: page.width / 2
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Direction")
             }
 
             LabelPL {
-                id: trackItem
-                width: page.width / 8
+                width: page.width / 4
                 horizontalAlignment: Text.AlignRight
                 text: app.tr("Track")
             }
         } 
+
+        Spacer {
+            height: styler.themePaddingMedium
+        }
 
         LabelPL {
             color: styler.themeHighlightColor
