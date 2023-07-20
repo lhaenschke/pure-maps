@@ -97,6 +97,47 @@ PagePL {
             }
         } 
 
+        Rectangle {
+            height: 1
+            anchors.left: parent.left
+            anchors.leftMargin: styler.themeHorizontalPageMargin
+            anchors.right: parent.right
+            anchors.rightMargin: styler.themeHorizontalPageMargin
+            color: "gray"
+        }
+
+        Grid {
+            id: dpGrid
+            columns: 3
+            rows: 1
+            spacing: styler.themePaddingMedium
+            anchors.left: parent.left
+            anchors.leftMargin: styler.themeHorizontalPageMargin
+            anchors.right: parent.right
+            anchors.rightMargin: styler.themeHorizontalPageMargin
+
+            LabelPL {
+                id: dpTimeLabel
+                width: parent.width / 8
+                horizontalAlignment: Text.AlignLeft
+                text: connectionDict['con0']['dp_time_hh'] + ":" + connectionDict['con0']['dp_time_mm']
+            }
+
+            LabelPL {
+                id: dpDirectionLabel
+                width: parent.width - (2 * styler.themeHorizontalPageMargin + timeHeader + trackHeader)
+                horizontalAlignment: Text.AlignLeft
+                text: connectionDict['con0']['destination']
+            }
+
+            LabelPL {
+                id: dpTrackLabel
+                width: parent.width / 4
+                horizontalAlignment: Text.AlignRight
+                text: connectionDict['con0']['dp_track']
+            }
+        } 
+
         Spacer {
             height: styler.themePaddingMedium
         }
