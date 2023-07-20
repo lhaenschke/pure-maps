@@ -275,6 +275,7 @@ PagePL {
                         if (key == model['con0']['train_id']) {
                             app.push(Qt.resolvedUrl("TrainConnectionPage.qml"), {
                                 "connectionDict": value,
+                                "hasTransfer": (parseInt(value['count']) > 1),
                             });
                         }
                     }
