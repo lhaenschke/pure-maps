@@ -25,7 +25,8 @@ PagePL {
     id: page
     title: app.tr("Details")
 
-    property var connectionDict
+    property var  connectionDict
+    property bool hasTransfer
 
     Column {
         id: column
@@ -193,6 +194,7 @@ PagePL {
         }
 
         LabelPL {
+            visible: hasTransfer
             color: styler.themeHighlightColor
             height: implicitHeight + styler.themePaddingMedium
             anchors.left: parent.left
@@ -200,23 +202,193 @@ PagePL {
             anchors.right: parent.right
             anchors.rightMargin: 8
             text: getTimeDifference(connectionDict['con0']['ar_time_hh'], connectionDict['con0']['ar_time_mm'], connectionDict['con1']['dp_time_hh'], connectionDict['con1']['dp_time_mm']) + " minutes transfer"
-            font.pixelSize: styler.themeFontSizeLarge
+            font.pixelSize: styler.themeFontSizeMedium
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
         } 
 
         Spacer {
+            visible: hasTransfer
             height: styler.themePaddingLarge
         }
 
-        LabelPL {
-            color: styler.themeHighlightColor
-            height: implicitHeight + styler.themePaddingMedium
+        Rectangle {
+            visible: hasTransfer
+            height: 2
             anchors.left: parent.left
             anchors.leftMargin: 8
             anchors.right: parent.right
             anchors.rightMargin: 8
+            color: "gray"
+            visible: 
+        }
+
+        LabelPL {
+            visible: hasTransfer
+            color: styler.themeHighlightColor
+            height: implicitHeight + styler.themePaddingMedium
+            anchors.left: parent.left
+            anchors.leftMargin: styler.themeHorizontalPageMargin
+            anchors.right: parent.right
+            anchors.rightMargin: styler.themeHorizontalPageMargin
+            text: connectionDict['con1']['type'] + connectionDict['con1']['name']
+            font.pixelSize: styler.themeFontSizeLarge
+            verticalAlignment: Text.AlignVCenter
+        }
+
+        Rectangle {
+            visible: hasTransfer
+            height: 1
+            anchors.left: parent.left
+            anchors.leftMargin: styler.themeHorizontalPageMargin
+            anchors.right: parent.right
+            anchors.rightMargin: styler.themeHorizontalPageMargin
+            color: "gray"
+        }
+
+        Spacer {
+            visible: hasTransfer
+            height: styler.themePaddingMedium
+        }
+
+        Grid {
+            id: headerGrid
+            visible: hasTransfer
+            columns: 3
+            rows: 1
+            anchors.left: parent.left
+            anchors.leftMargin: styler.themeHorizontalPageMargin
+            anchors.right: parent.right
+            anchors.rightMargin: styler.themeHorizontalPageMargin
+
+            LabelPL {
+                id: timeHeader
+                width: page.width / 7
+                horizontalAlignment: Text.AlignLeft
+                text: app.tr("Time")
+            }
+
+            LabelPL {
+                id: directionHeader
+                width: page.width - (2 * styler.themeHorizontalPageMargin + timeHeader.width + trackHeader.width)
+                horizontalAlignment: Text.AlignLeft
+                text: app.tr("Direction")
+            }
+
+            LabelPL {
+                id: trackHeader
+                width: page.width / 4
+                horizontalAlignment: Text.AlignRight
+                text: app.tr("Track")
+            }
+        } 
+
+        Rectangle {
+            visible: hasTransfer
+            height: 1
+            anchors.left: parent.left
+            anchors.leftMargin: styler.themeHorizontalPageMargin
+            anchors.right: parent.right
+            anchors.rightMargin: styler.themeHorizontalPageMargin
+            color: "gray"
+        }
+
+        Spacer {
+            visible: hasTransfer
+            height: styler.themePaddingMedium
+        }
+
+        Grid {
+            id: dpOneGrid
+            visible: hasTransfer
+            columns: 3
+            rows: 1
+            anchors.left: parent.left
+            anchors.leftMargin: styler.themeHorizontalPageMargin
+            anchors.right: parent.right
+            anchors.rightMargin: styler.themeHorizontalPageMargin
+
+            LabelPL {
+                id: dpTimeLabel
+                width: page.width / 7
+                horizontalAlignment: Text.AlignLeft
+                text: connectionDict['con1']['dp_time_hh'] + ":" + connectionDict['con1']['dp_time_mm']
+            }
+
+            LabelPL {
+                id: dpDirectionLabel
+                width: page.width - (2 * styler.themeHorizontalPageMargin + dpTimeLabel.width + dpTrackLabel.width)
+                horizontalAlignment: Text.AlignLeft
+                text: connectionDict['con1']['destination']
+            }
+
+            LabelPL {
+                id: dpTrackLabel
+                width: page.width / 4
+                horizontalAlignment: Text.AlignRight
+                text: connectionDict['con1']['dp_track']
+            }
+        } 
+
+        Spacer {
+            visible: hasTransfer
+            height: styler.themePaddingLarge
+        }
+
+        Grid {
+            id: arOneGrid
+            visible: hasTransfer
+            columns: 3
+            rows: 1
+            anchors.left: parent.left
+            anchors.leftMargin: styler.themeHorizontalPageMargin
+            anchors.right: parent.right
+            anchors.rightMargin: styler.themeHorizontalPageMargin
+
+            LabelPL {
+                id: arTimeLabel
+                width: page.width / 7
+                horizontalAlignment: Text.AlignLeft
+                text: connectionDict['con1']['ar_time_hh'] + ":" + connectionDict['con1']['ar_time_mm']
+            }
+
+            LabelPL {
+                id: arDirectionLabel
+                width: page.width - (2 * styler.themeHorizontalPageMargin + arTimeLabel.width + arTrackLabel.width)
+                horizontalAlignment: Text.AlignLeft
+                text: connectionDict['con1']['target']
+            }
+
+            LabelPL {
+                id: arTrackLabel
+                width: page.width / 4
+                horizontalAlignment: Text.AlignRight
+                text: connectionDict['con1']['ar_track']
+            }
+        } 
+
+        Spacer {
+            visible: hasTransfer
+            height: styler.themePaddingMedium
+        }
+
+        Rectangle {
+            visible: hasTransfer
+            height: 2
+            anchors.left: parent.left
+            anchors.leftMargin: 8
+            anchors.right: parent.right
+            anchors.rightMargin: 8
+            color: "gray"
+        }
+
+        ListItemLabel {
+            color: styler.themeHighlightColor
+            height: implicitHeight + styler.themePaddingMedium
             text: app.tr('The times indicated are timetable times, not real-time')
+            truncMode: truncModes.none
+            visible: connectionRepeater.model.count > 0
+            verticalAlignment: Text.AlignTop
         } 
 
     }
