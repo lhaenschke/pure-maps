@@ -399,6 +399,7 @@ class TrainConnectionManager:
                 time       = train.find(key).attrib.get('pt')   if train.find(key).attrib.get('pt')   != None else ""
                 track      = train.find(key).attrib.get('pp')   if train.find(key).attrib.get('pp')   != None else ""
                 stops      = train.find(key).attrib.get('ppth') if train.find(key).attrib.get('ppth') != None else ""
+                start      = xml_root.attrib.get('station')     if xml_root.attrib.get('station')     != None else ""
 
                 # Creates a dictionary and initialize it with some of its values
                 train_dict = dict(
@@ -406,6 +407,7 @@ class TrainConnectionManager:
                     name        = name,
                     train_id    = train_id,
                     destination = stops.split('|')[-1] if stops != "" else "",
+                    start       = start,
                 )
                 # Add the remaining values by the key
                 train_dict["".join((key, "_time_hh"))] = time[6:8] if len(time) > 9 else ""
@@ -444,6 +446,7 @@ class TrainConnectionManager:
                                 name        = train_dict.get('name'),
                                 train_id    = train_dict.get('train_id'),
                                 destination = train_dict.get('destination'),
+                                start       = train_dict.get('start'),
                                 target      = destination_name,
                                 dp_time_hh  = train_dict.get('dp_time_hh'),
                                 dp_time_mm  = train_dict.get('dp_time_mm'),

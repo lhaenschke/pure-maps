@@ -48,7 +48,7 @@ PagePL {
             anchors.leftMargin: styler.themeHorizontalPageMargin
             anchors.right: parent.right
             anchors.rightMargin: styler.themeHorizontalPageMargin
-            text: connectionDict['con0']['type'] + connectionDict['con0']['name']
+            text: connectionDict['con0']['type'] + " " + connectionDict['con0']['name'] + " -> " + connectionDict['con0']['destination']
             font.pixelSize: styler.themeFontSizeLarge
             verticalAlignment: Text.AlignVCenter
         }
@@ -86,7 +86,7 @@ PagePL {
                 id: directionOneHeader
                 width: page.width - (2 * styler.themeHorizontalPageMargin + timeOneHeader.width + trackOneHeader.width)
                 horizontalAlignment: Text.AlignLeft
-                text: app.tr("Direction")
+                text: app.tr("Station")
             }
 
             LabelPL {
@@ -130,7 +130,7 @@ PagePL {
                 id: dpDirectionOneLabel
                 width: page.width - (2 * styler.themeHorizontalPageMargin + dpTimeOneLabel.width + dpTrackOneLabel.width)
                 horizontalAlignment: Text.AlignLeft
-                text: connectionDict['con0']['destination']
+                text: connectionDict['con0']['start']
             }
 
             LabelPL {
@@ -230,7 +230,7 @@ PagePL {
             anchors.leftMargin: styler.themeHorizontalPageMargin
             anchors.right: parent.right
             anchors.rightMargin: styler.themeHorizontalPageMargin
-            text: connectionDict['con1']['type'] + " " + connectionDict['con1']['name']
+            text: connectionDict['con1']['type'] + " " + connectionDict['con1']['name'] + " -> " + connectionDict['con1']['destination']
             font.pixelSize: styler.themeFontSizeLarge
             verticalAlignment: Text.AlignVCenter
         }
@@ -318,7 +318,7 @@ PagePL {
                 id: dpDirectionTwoLabel
                 width: page.width - (2 * styler.themeHorizontalPageMargin + dpTimeTwoLabel.width + dpTrackTwoLabel.width)
                 horizontalAlignment: Text.AlignLeft
-                text: connectionDict['con1']['destination']
+                text: connectionDict['con1']['start']
             }
 
             LabelPL {
@@ -381,12 +381,15 @@ PagePL {
             color: "gray"
         }
 
+        Spacer {
+            height: styler.themePaddingMedium
+        }
+
         ListItemLabel {
             color: styler.themeHighlightColor
             height: implicitHeight + styler.themePaddingMedium
             text: app.tr('The times indicated are timetable times, not real-time')
             truncMode: truncModes.none
-            visible: connectionRepeater.model.count > 0
             verticalAlignment: Text.AlignTop
         } 
 
