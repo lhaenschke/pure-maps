@@ -199,7 +199,10 @@ PagePL {
             anchors.leftMargin: 8
             anchors.right: parent.right
             anchors.rightMargin: 8
-            text: connectionDict['transfer_time'] + " minutes transfer"
+            text: getTimeDifference(dict['con0']['ar_time_hh'], dict['con0']['ar_time_mm'], dict['con1']['dp_time_hh'], dict['con1']['dp_time_mm']) + " minutes transfer"
+            font.pixelSize: styler.themeFontSizeLarge
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
         } 
 
         Spacer {
@@ -215,6 +218,18 @@ PagePL {
             anchors.rightMargin: 8
             text: app.tr('The times indicated are timetable times, not real-time')
         } 
+
+    }
+
+    function getTimeDifference(time_one_hh, time_one_mm, time_two_hh, time_two_mm) {
+        var diff_minutes = Math.abs(parseInt(time_one_mm) - parseInt(time_two_mm));
+        var hour_diff = Math.abs(parseInt(time_one_hh) - parseInt(time_two_hh));
+
+        if (hour_diff > 0) {
+            diff_minutes = Math.abs(diff_minutes - 60);
+        }
+
+        return diff_minutes;
 
     }
 

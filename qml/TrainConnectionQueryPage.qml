@@ -114,7 +114,6 @@ PagePL {
                             dict['ar_time_mm'] = dict['con1']['ar_time_mm'];
 
                             dict['diff_minutes'] = getTimeDifference(dict['dp_time_hh'], dict['dp_time_mm'], dict['ar_time_hh'], dict['ar_time_mm']);
-                            dict['transfer_time'] = getTimeDifference(dict['con0']['ar_time_hh'], dict['con0']['ar_time_mm'], dict['con1']['dp_time_mm'], dict['con1']['dp_time_mm']);
                             dict['names'] = dict['con0']['type'] + " " + dict['con0']['name'] + ", " + dict['con1']['type'] + " " + dict['con1']['name'];
 
                         } else {
