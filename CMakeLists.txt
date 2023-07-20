@@ -189,14 +189,14 @@ add_custom_target(Sources SOURCES
 find_package(KPublicTransport)
 set_package_properties(KPublicTransport PROPERTIES TYPE REQUIRED PURPOSE "Query online journey information")
 
+file(GLOB_RECURSE ALL_SOURCE_FILES *.cpp *.h *.qml)
+
 # process linking and installation in the subdirs where needed
 add_subdirectory(src)
 add_subdirectory(poor)
 add_subdirectory(thirdparty)
 add_subdirectory(qml)
 add_subdirectory(po)
-
-file(GLOB_RECURSE ALL_SOURCE_FILES *.cpp *.h *.qml)
 
 # appdata
 install(FILES packaging/pure-maps.appdata.xml
