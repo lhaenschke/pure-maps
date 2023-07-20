@@ -53,6 +53,14 @@ PagePL {
             verticalAlignment: Text.AlignVCenter
         }
 
+        IconListItem {
+            icon: styler.iconDown
+            label: ""
+            onClicked: {
+                console.log('Test');
+            }
+        }
+
         Rectangle {
             height: 1
             anchors.left: parent.left
