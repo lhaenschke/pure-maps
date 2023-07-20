@@ -253,7 +253,7 @@ PagePL {
 
             LabelPL {
                 color: styler.themeHighlightColor
-                width: parent.width - (showMoreOneButton.width)
+                width: parent.width - (showMoreTwoButton.width)
                 height: implicitHeight + styler.themePaddingMedium
                 text: hasTransfer ? connectionDict['con1']['type'] + " " + connectionDict['con1']['name'] + " -> " + connectionDict['con1']['destination'] : ""
                 font.pixelSize: styler.themeFontSizeLarge
@@ -271,7 +271,7 @@ PagePL {
                     } else {
                         showMoreTwoButton.iconName = styler.iconDown;
                     }
-                    showMoreTwoButton.isDown = !showMoreOneButton.isDown
+                    showMoreTwoButton.isDown = !showMoreTwoButton.isDown
                 }
             }
         }
