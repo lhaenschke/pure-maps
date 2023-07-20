@@ -19,6 +19,7 @@
 import QtQuick 2.0
 import QtPositioning 5.4
 import org.puremaps 1.0
+import org.kde.kpublictransport 1.0 as KPT
 import "."
 import "platform"
 
@@ -88,7 +89,7 @@ PageListPL {
     }
 
     function fillModel(query) {
-        TrainConnection.createLocationRequest(query);
+        queryModel.request = TrainConnection.createLocationRequest(query);
         // py.call("poor.app.trainconnections.get_suggestions", [query, latitude, longitude], function(results) {
         //     page.model.clear();
         //     results.forEach( function(p) { 
@@ -97,6 +98,11 @@ PageListPL {
         //         }
         //     });
         // });
+    }
+
+    KPT.LocationQueryModel {
+        id: queryModel
+        manager: Manager
     }
 
 }

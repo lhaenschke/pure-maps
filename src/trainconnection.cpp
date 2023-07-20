@@ -10,6 +10,8 @@
 #include <QStandardPaths>
 #include <QUrl>
 
+#include <iostream>
+
 TrainConnection::TrainConnection(QObject *parent)
     : QObject(parent)
     , m_start()
@@ -85,7 +87,7 @@ KPublicTransport::LocationRequest TrainConnection::createLocationRequest(const Q
     KPublicTransport::LocationRequest req;
     req.setName(name);
 
-    printf("Ausgeführt\n");
+    std::cout << "Test from CPP" << "\n";
 
     return req;
 }
