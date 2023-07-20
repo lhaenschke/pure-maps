@@ -87,7 +87,7 @@ PageListPL {
     }
 
     function fillModel(query) {
-        Controller.createLocationRequest(text);
+        TrainConnection.createLocationRequest(text);
         // py.call("poor.app.trainconnections.get_suggestions", [query, latitude, longitude], function(results) {
         //     page.model.clear();
         //     results.forEach( function(p) { 
