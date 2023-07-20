@@ -243,18 +243,40 @@ PagePL {
             color: "gray"
         }
 
-        LabelPL {
-            visible: hasTransfer
-            color: styler.themeHighlightColor
-            height: implicitHeight + styler.themePaddingMedium
+        Grid {
+            columns: 2
+            rows: 1
             anchors.left: parent.left
             anchors.leftMargin: styler.themeHorizontalPageMargin
             anchors.right: parent.right
             anchors.rightMargin: styler.themeHorizontalPageMargin
-            text: hasTransfer ? connectionDict['con1']['type'] + " " + connectionDict['con1']['name'] + " -> " + connectionDict['con1']['destination'] : ""
-            font.pixelSize: styler.themeFontSizeLarge
-            verticalAlignment: Text.AlignVCenter
+
+            LabelPL {
+                color: styler.themeHighlightColor
+                width: parent.width - (showMoreOneButton.width)
+                height: implicitHeight + styler.themePaddingMedium
+                text: hasTransfer ? connectionDict['con1']['type'] + " " + connectionDict['con1']['name'] + " -> " + connectionDict['con1']['destination'] : ""
+                font.pixelSize: styler.themeFontSizeLarge
+                verticalAlignment: Text.AlignVCenter
+            }
+
+            IconButtonPL {
+                id: showMoreTwoButton
+                iconHeight: styler.themeItemSizeSmall * 0.5
+                iconName: styler.iconDown
+                property bool isDown: true
+                onClicked: {
+                    if (showMoreTwoButton.isDown) {
+                        showMoreTwoButton.iconName = styler.iconUp;
+                    } else {
+                        showMoreTwoButton.iconName = styler.iconDown;
+                    }
+                    showMoreTwoButton.isDown = !showMoreOneButton.isDown
+                }
+            }
         }
+
+        
 
         Rectangle {
             visible: hasTransfer
