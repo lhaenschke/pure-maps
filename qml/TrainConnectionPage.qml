@@ -84,7 +84,6 @@ PagePL {
 
             LabelPL {
                 id: directionHeader
-                width: page.width / 2.2
                 width: parent.width - (2 * themeHorizontalPageMargin + timeHeader + trackHeader)
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Direction")
