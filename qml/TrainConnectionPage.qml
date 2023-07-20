@@ -84,7 +84,7 @@ PagePL {
 
             LabelPL {
                 id: directionHeader
-                width: parent.width - (2 * styler.themeHorizontalPageMargin + timeHeader + trackHeader)
+                width: parent.width - (2 * styler.themeHorizontalPageMargin + timeHeader.width + trackHeader.width)
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Direction")
             }
@@ -104,6 +104,10 @@ PagePL {
             anchors.right: parent.right
             anchors.rightMargin: styler.themeHorizontalPageMargin
             color: "gray"
+        }
+
+        Spacer {
+            height: styler.themePaddingMedium
         }
 
         Grid {
