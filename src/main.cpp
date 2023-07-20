@@ -53,6 +53,7 @@
 #include "navigatordbusadapter.h"
 #include "positionsource.h"
 #include "util.h"
+#include "trainconnection.h"
 
 
 int main(int argc, char *argv[])
@@ -202,7 +203,8 @@ int main(int argc, char *argv[])
   qmlRegisterSingletonType<Commander>("org.puremaps", 1, 0, "Commander", [](QQmlEngine *, QJSEngine *) -> QObject * {
       return static_cast<QObject *>(Commander::instance());
   });
-
+  TrainConnection trainConnection;
+  qmlRegisterSingletonInstance<TrainConnection>("org.kde.ktrip", 1, 0, "TrainConnection", &trainConnection);
 
 #ifdef IS_SAILFISH_OS
   if (v)
