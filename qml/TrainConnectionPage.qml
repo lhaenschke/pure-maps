@@ -53,8 +53,7 @@ PagePL {
             verticalAlignment: Text.AlignVCenter
         }
 
-        IconPL {
-            id: icon
+        IconButtonPL {
             iconHeight: styler.themeItemSizeSmall * 0.8
             iconName: styler.iconDown
             onClicked: {
