@@ -220,7 +220,6 @@ PagePL {
             anchors.right: parent.right
             anchors.rightMargin: 8
             color: "gray"
-            visible: hasTransfer
         }
 
         LabelPL {
