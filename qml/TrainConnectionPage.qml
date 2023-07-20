@@ -69,7 +69,6 @@ PagePL {
             id: headerGrid
             columns: 3
             rows: 1
-            spacing: styler.themePaddingMedium
             anchors.left: parent.left
             anchors.leftMargin: styler.themeHorizontalPageMargin
             anchors.right: parent.right
