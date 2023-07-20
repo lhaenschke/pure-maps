@@ -188,6 +188,24 @@ PagePL {
             color: "gray"
         }
 
+        Spacer {
+            height: styler.themePaddingLarge
+        }
+
+        LabelPL {
+            color: styler.themeHighlightColor
+            height: implicitHeight + styler.themePaddingMedium
+            anchors.left: parent.left
+            anchors.leftMargin: 8
+            anchors.right: parent.right
+            anchors.rightMargin: 8
+            text: connectionDict['transfer_time'] + " minutes transfer"
+        } 
+
+        Spacer {
+            height: styler.themePaddingLarge
+        }
+
         LabelPL {
             color: styler.themeHighlightColor
             height: implicitHeight + styler.themePaddingMedium
