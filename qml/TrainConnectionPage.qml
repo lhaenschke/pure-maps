@@ -34,26 +34,26 @@ PagePL {
         Rectangle {
             height: 2
             anchors.left: parent.left
-            anchors.leftMargin: 0
+            anchors.leftMargin: 8
             anchors.right: parent.right
-            anchors.rightMargin: 0
+            anchors.rightMargin: 8
             color: "gray"
         }
 
-        ListItemLabel {
+        LabelPL {
             color: styler.themeHighlightColor
             height: implicitHeight + styler.themePaddingMedium
             text: connectionDict['con0']['type'] + connectionDict['con0']['name']
-            truncMode: truncModes.none
-            verticalAlignment: Text.AlignTop
+            font.pixelSize: styler.themeFontSizeLarge
+            verticalAlignment: Text.AlignVCenter
         }
 
         Rectangle {
             height: 2
             anchors.left: parent.left
-            anchors.leftMargin: 0
+            anchors.leftMargin: 8
             anchors.right: parent.right
-            anchors.rightMargin: 0
+            anchors.rightMargin: 8
             color: "gray"
         }
 
@@ -61,12 +61,10 @@ PagePL {
             height: styler.themePaddingLarge
         }
 
-        ListItemLabel {
+        LabelPL {
             color: styler.themeHighlightColor
             height: implicitHeight + styler.themePaddingMedium
             text: app.tr('The times indicated are timetable times, not real-time')
-            truncMode: truncModes.none
-            verticalAlignment: Text.AlignTop
         } 
 
     }
