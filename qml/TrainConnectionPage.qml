@@ -51,7 +51,7 @@ PagePL {
 
             LabelPL {
                 color: styler.themeHighlightColor
-                width: parent.width - (2 * styler.themeHorizontalPageMargin + showMoreOneButton.width)
+                width: parent.width - (showMoreOneButton.width)
                 height: implicitHeight + styler.themePaddingMedium
                 text: connectionDict['con0']['type'] + " " + connectionDict['con0']['name'] + " -> " + connectionDict['con0']['destination']
                 font.pixelSize: styler.themeFontSizeLarge
@@ -62,6 +62,7 @@ PagePL {
                 id: showMoreOneButton
                 iconHeight: styler.themeItemSizeSmall * 0.4
                 iconName: styler.iconDown
+                verticalAlignment: Text.AlignVCenter
                 property bool isDown: true
                 onClicked: {
                     if (showMoreOneButton.isDown) {
