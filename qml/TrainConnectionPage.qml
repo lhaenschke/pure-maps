@@ -43,6 +43,10 @@ PagePL {
         LabelPL {
             color: styler.themeHighlightColor
             height: implicitHeight + styler.themePaddingMedium
+            anchors.left: parent.left
+            anchors.leftMargin: 8
+            anchors.right: parent.right
+            anchors.rightMargin: 8
             text: connectionDict['con0']['type'] + connectionDict['con0']['name']
             font.pixelSize: styler.themeFontSizeLarge
             verticalAlignment: Text.AlignVCenter
@@ -64,6 +68,10 @@ PagePL {
         LabelPL {
             color: styler.themeHighlightColor
             height: implicitHeight + styler.themePaddingMedium
+            anchors.left: parent.left
+            anchors.leftMargin: 8
+            anchors.right: parent.right
+            anchors.rightMargin: 8
             text: app.tr('The times indicated are timetable times, not real-time')
         } 
 
