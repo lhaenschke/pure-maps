@@ -95,10 +95,12 @@ KPublicTransport::LocationRequest TrainConnection::createLocationRequest(const Q
     KPublicTransport::LocationRequest req;
     req.setName(name);
 
+    std::cout << "IsValid: " << reg.isValid() << std::endl;
+
     std::vector<QJsonObject> jsonObjects;
     KPublicTransport::LocationReply *reply = manager.queryLocation(req);
 
-    std::cout << reply->errorString().toStdString() << std::endl;
+    std::cout << "ErrorString: " << reply->errorString().toStdString() << std::endl;
 
     const std::vector<KPublicTransport::Location> &resultsArray = reply->result();
 
