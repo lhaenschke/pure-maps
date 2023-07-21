@@ -869,7 +869,7 @@ PagePL {
                 id: publicTransportProviders
                 title: app.tr("Public Transport Providers")
                 content.sourceComponent: Column {
-                    id: keysColumn
+                    id: publicTransortColumn
                     spacing: styler.themePaddingMedium
                     width: sectionKeys.width
 
