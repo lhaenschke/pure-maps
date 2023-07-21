@@ -8,6 +8,7 @@
 #include <QDesktopServices>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QStringList>
 #include <QStandardPaths>
 #include <QUrl>
 
@@ -101,9 +102,11 @@ KPublicTransport::LocationRequest TrainConnection::createLocationRequest(const Q
         jsonObjects.push_back(KPublicTransport::Location::toJson(result));
     }
 
-    // for (auto json: jsonObjects) {
-    //     std::cout << json.keys() << "\n";
-    // }
+    for (auto json: jsonObjects) {
+        QStringList strList = json.keys();
+        for (int i = 0; i < strList.size(); ++i)
+            str::cout << strList.at(i).toLocal8Bit().constData() << "\n";
+    }
 
     return req;
 }
