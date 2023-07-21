@@ -41,19 +41,54 @@ DialogPL {
             wrapMode: Text.WordWrap
         }
 
+        Spacer {
+            height: styler.themePaddingLarge
+        }
+
         ListView {
             model: backendModel
             
             delegate: ListItemPL {
                 id: listItem
-                contentHeight: nameLabel.height + styler.themePaddingMedium
+                contentHeight: titleItem.height + spacer.height * 2
 
-                LabelPL {
-                    id: nameLabel
-                    text: model.name
+                Column {
+                    id: column
+                    width: page.width
+
+                    Spacer {
+                        id: spacer
+                        height: styler.themePaddingLarge / 2
+                    }
+
+                    ListItemLabel {
+                        id: titleItem
+                        color: listItem.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
+                        height: implicitHeight + styler.themePaddingMedium
+                        text: model.name
+                        verticalAlignment: Text.AlignVCenter
+                    }
+
+                }
+
+                onClicked: {
+                    console.log('Test');
                 }
 
             }
+
+                // TextSwitchPL {
+                //     checked: app.conf.basemapAutoMode
+                //     description: app.tr("Automatically switch between map types of the provider according to the current task. " +
+                //                         "For example, show map designed for navigation while routing.")
+                //     text: app.tr("Switch map modes")
+                //     onCheckedChanged: {
+                //         app.conf.set("basemap_auto_mode", checked);
+                //         py.call_sync("poor.app.basemap.update", []);
+                //     }
+                // }
+
+            
 
         }
 
