@@ -45,7 +45,7 @@ DialogPL {
             height: styler.themePaddingLarge
         }
 
-        ListView {
+        Repeater {
             id: repeater
             model: KPT.BackendModel {
                 manager: Manager
@@ -59,21 +59,24 @@ DialogPL {
                     id: column
                     width: page.width
 
-                    ListItemLabel {
-                        id: titleLabel
-                        color: listItem.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
-                        height: implicitHeight + styler.themePaddingMedium
+                    TextSwitchPL {
+                        checked: model.backendEnabled
+                        description: model.description
                         text: model.name
-                        verticalAlignment: Text.AlignVCenter
+                        onCheckedChanged: {
+                            model.backendEnabled = checked
+                            // app.conf.set("basemap_auto_mode", checked);
+                            // py.call_sync("poor.app.basemap.update", []);
+                        }
                     }
 
-                    ListItemLabel {
-                        id: descriptionLabel
-                        color: listItem.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
-                        height: implicitHeight + styler.themePaddingMedium
-                        text: model.description
-                        verticalAlignment: Text.AlignLeft
-                    }
+                    // ListItemLabel {
+                    //     id: descriptionLabel
+                    //     color: listItem.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
+                    //     height: implicitHeight + styler.themePaddingMedium
+                    //     text: model.description
+                    //     verticalAlignment: Text.AlignLeft
+                    // }
 
                     Spacer {
                         id: spacer
@@ -82,41 +85,10 @@ DialogPL {
 
                 }
 
-                onClicked: {
-                    console.log('Test');
-                }
-
             }
 
-            section.property: "countryCode"
-            section.delegate: SectionHeaderPL {
-                text: {
-                    switch (section) {
-                        case "":
-                        case "UN":
-                            return "Global";
-                        case "EU":
-                            return "🇪🇺 European Union";
-                        default:
-                            const c = Country.fromAlpha2(section);
-                            return "emoji flag, country name", "%1 %2", c.emojiFlag, c.name;
-                    }
-                }
-            }
-            section.criteria: ViewSection.FullString
-            section.labelPositioning: ViewSection.CurrentLabelAtStart | ViewSection.InlineLabels
 
-
-                // TextSwitchPL {
-                //     checked: app.conf.basemapAutoMode
-                //     description: app.tr("Automatically switch between map types of the provider according to the current task. " +
-                //                         "For example, show map designed for navigation while routing.")
-                //     text: app.tr("Switch map modes")
-                //     onCheckedChanged: {
-                //         app.conf.set("basemap_auto_mode", checked);
-                //         py.call_sync("poor.app.basemap.update", []);
-                //     }
-                // }
+                
 
             
 
