@@ -105,7 +105,7 @@ KPublicTransport::LocationRequest TrainConnection::createLocationRequest(const Q
     for (auto json: jsonObjects) {
         QStringList strList = json.keys();
         for (int i = 0; i < strList.size(); ++i)
-            str::cout << strList.at(i).toLocal8Bit().constData() << "\n";
+            std::cout << strList.at(i).toLocal8Bit().constData() << "\n";
     }
 
     return req;
