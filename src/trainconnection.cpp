@@ -97,7 +97,7 @@ KPublicTransport::LocationRequest TrainConnection::createLocationRequest(const Q
     KPublicTransport::LocationReply *reply = manager.queryLocation(req);
     const std::vector<KPublicTransport::Location> &resultsArray = reply->result();
 
-    for (auto &result: resultsArray) {
+    for (auto result: resultsArray) {
         jsonObjects.push_back(KPublicTransport::Location::toJson(result));
     }
 
