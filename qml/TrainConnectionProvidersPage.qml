@@ -53,19 +53,14 @@ DialogPL {
             
             delegate: ListItemPL {
                 id: listItem
-                contentHeight: titleItem.height + spacer.height * 2
+                contentHeight: column.height
 
                 Column {
                     id: column
                     width: page.width
 
-                    Spacer {
-                        id: spacer
-                        height: styler.themePaddingLarge / 2
-                    }
-
                     ListItemLabel {
-                        id: titleItem
+                        id: titleLabel
                         color: listItem.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
                         height: implicitHeight + styler.themePaddingMedium
                         text: model.name
@@ -73,11 +68,16 @@ DialogPL {
                     }
 
                     ListItemLabel {
-                        id: descriptionItem
+                        id: descriptionLabel
                         color: listItem.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
                         height: implicitHeight + styler.themePaddingMedium
                         text: model.description
-                        verticalAlignment: Text.AlignVCenter
+                        verticalAlignment: Text.AlignLeft
+                    }
+
+                    Spacer {
+                        id: spacer
+                        height: styler.themePaddingLarge / 2
                     }
 
                 }
