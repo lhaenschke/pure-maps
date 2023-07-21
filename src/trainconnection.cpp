@@ -5,6 +5,7 @@
 #include <QQmlApplicationEngine>
 #include <QDateTime>
 #include <QDebug>
+#include <QString>
 #include <QDesktopServices>
 #include <QJsonDocument>
 #include <QJsonObject>
