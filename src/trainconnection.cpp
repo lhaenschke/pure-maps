@@ -14,6 +14,7 @@
 #include <QUrl>
 
 #include <iostream>
+#include <vector>
 
 TrainConnection::TrainConnection(QObject *parent)
     : QObject(parent)
@@ -104,7 +105,7 @@ KPublicTransport::LocationRequest TrainConnection::createLocationRequest(const Q
 
     const std::vector<KPublicTransport::Location> &resultsArray = reply->result();
 
-    std::cout << "ResultArray Count: " << resultsArray.size() << std::endl;
+    std::cout << "ResultArray Empty: " << resultsArray.empty() << std::endl;
 
     for (auto result: resultsArray) {
         jsonObjects.push_back(KPublicTransport::Location::toJson(result));
