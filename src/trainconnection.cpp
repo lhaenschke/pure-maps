@@ -103,7 +103,7 @@ KPublicTransport::LocationRequest TrainConnection::createLocationRequest(const Q
 
     std::cout << "ErrorString: " << reply->errorString().toStdString() << std::endl;
 
-    std::vector<KPublicTransport::Location> &resultsArray = reply->result();
+    std::vector<KPublicTransport::Location> &&resultsArray = reply->takeResult();
 
     std::cout << "ResultArray Empty: " << resultsArray.size() << std::endl;
 
