@@ -1,5 +1,3 @@
-
-
 #include "trainconnection.h"
 
 #include <QQmlApplicationEngine>
