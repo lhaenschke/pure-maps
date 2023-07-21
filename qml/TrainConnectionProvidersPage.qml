@@ -8,16 +8,15 @@ import org.puremaps 1.0
 
 Kirigami.ScrollablePage {
     id: root
-    title: i18n("Providers")
+    title: "Providers"
 
         header: Kirigami.InlineMessage {
-        text: i18n("Select the providers relevant for your area")
+        text: "Select the providers relevant for your area"
         visible: true
     }
 
     actions.main: Kirigami.Action {
-        text: i18n("Save")
-        iconName: "emblem-ok-symbolic"
+        text: "Save"
         onTriggered: pageStack.pop()
     }
 
@@ -87,16 +86,7 @@ Kirigami.ScrollablePage {
         section.property: "countryCode"
         section.delegate: Kirigami.ListSectionHeader {
             text: {
-                switch (section) {
-                    case "":
-                    case "UN":
-                        return i18n("Global")
-                    case "EU":
-                        return i18n("🇪🇺 European Union");
-                    default:
-                        const c = Country.fromAlpha2(section);
-                        return i18nc("emoji flag, country name", "%1 %2", c.emojiFlag, c.name);
-                }
+                "Test"
             }
         }
         section.criteria: ViewSection.FullString
