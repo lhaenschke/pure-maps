@@ -37,6 +37,8 @@
 
 #include <QtGlobal>
 
+#include <KPublicTransport/Manager>
+
 #include <iostream>
 #include <stdlib.h>
 
@@ -191,6 +193,11 @@ int main(int argc, char *argv[])
   qmlRegisterType<Navigator>("org.puremaps", 1, 0, "NavigatorBase");
   qmlRegisterType<ManeuverModel>("org.puremaps", 1, 0, "ManeuverList");
   qmlRegisterType<PositionSource>("org.puremaps", 1, 0, "PositionSource");
+
+  KPublicTransport::Manager manager;
+  manager.setAllowInsecureBackends(true);
+  manager.setBackendsEnabledByDefault(false);
+  qmlRegisterSingletonInstance<KPublicTransport::Manager>("org.puremaps", 1, 0, "Manager", &manager);
 
   TrainConnection trainConnection;
   qmlRegisterSingletonInstance<TrainConnection>("org.puremaps", 1, 0, "TrainConnection", &trainConnection);

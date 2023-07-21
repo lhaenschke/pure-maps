@@ -24,9 +24,6 @@ TrainConnection::TrainConnection(QObject *parent)
     m_departureDate = QDate::currentDate();
     m_departureTime = QTime::currentTime();
     
-    manager.setAllowInsecureBackends(true);
-    manager.setBackendsEnabledByDefault(false);
-
     qmlRegisterSingletonInstance<KPublicTransport::Manager>("org.puremaps", 1, 0, "Manager", &manager);
 }
 

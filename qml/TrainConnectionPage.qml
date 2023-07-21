@@ -66,12 +66,11 @@ PagePL {
             preferredWidth: page.width - (2 * styler.themeHorizontalPageMargin)
             text: app.tr("Choose Destination")
             onClicked: {
-                // app.push(Qt.resolvedUrl("TrainConnectionDestinationQueryPage.qml"), {
-                //     "latitude": poi.coordinate.latitude,
-                //     "longitude": poi.coordinate.longitude,
-                //     "callback": page.destinationCallback
-                // });
-                app.push(Qt.resolvedUrl("TrainConnectionProvidersPage.qml"), {});
+                app.push(Qt.resolvedUrl("TrainConnectionDestinationQueryPage.qml"), {
+                    "latitude": poi.coordinate.latitude,
+                    "longitude": poi.coordinate.longitude,
+                    "callback": page.destinationCallback
+                });
             }
         }
         

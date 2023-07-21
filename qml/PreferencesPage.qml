@@ -866,6 +866,40 @@ PagePL {
             }
 
             ExpandingSectionPL {
+                id: publicTransportProviders
+                title: app.tr("Public Transport Providers")
+                content.sourceComponent: Column {
+                    id: keysColumn
+                    spacing: styler.themePaddingMedium
+                    width: sectionKeys.width
+
+                    ListItemLabel {
+                        color: styler.themeHighlightColor
+                        text: app.tr("You can select the providers which are used to calculate public-transport-routes.")
+                        truncMode: truncModes.none
+                        wrapMode: Text.WordWrap
+                    }
+
+                    ListItemLabel {
+                        color: styler.themeHighlightColor
+                        text: app.tr("Please restart application after changing providers.")
+                        truncMode: truncModes.none
+                        wrapMode: Text.WordWrap
+                    }
+
+                    ButtonPL {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        preferredWidth: styler.themeButtonWidthLarge
+                        text: app.tr("Select Provders")
+                        onClicked: {
+                            app.push(Qt.resolvedUrl("TrainConnectionProvidersPage.qml"), {});
+                        }
+                    }
+
+                }
+            }
+
+            ExpandingSectionPL {
                 id: sectionAutoZoom
                 title: app.tr("Zoom")
                 content.sourceComponent: Column {

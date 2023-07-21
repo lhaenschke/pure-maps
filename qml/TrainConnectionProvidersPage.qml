@@ -45,15 +45,6 @@ Kirigami.ScrollablePage {
                     // try to retain trailing abbreviations when we have to elide
                     elide: text.endsWith(")") ? Text.ElideMiddle : Text.ElideRight
                 }
-                Kirigami.Icon {
-                    id: securityIcon
-                    source: model.isSecure ? "channel-secure-symbolic" : "channel-insecure-symbolic"
-                    color: model.isSecure ? Kirigami.Theme.positiveTextColor : Kirigami.Theme.negativeTextColor
-                    width: height
-                    height: Kirigami.Units.gridUnit
-                    anchors.top: parent.top
-                    anchors.right: toggle.left
-                }
                 QQC2.Switch {
                     id: toggle
                     checked: model.backendEnabled
@@ -86,7 +77,17 @@ Kirigami.ScrollablePage {
         section.property: "countryCode"
         section.delegate: Kirigami.ListSectionHeader {
             text: {
-                "Test"
+                switch (section) {
+                    case "":
+                    case "UN":
+                        return "Global";
+                    case "EU":
+                        return 🇪🇺 European Union";
+                    default:
+                        const c = Country.fromAlpha2(section);
+                        return "emoji flag, country name", "%1 %2", c.emojiFlag, c.name;
+                }
+
             }
         }
         section.criteria: ViewSection.FullString
