@@ -103,9 +103,9 @@ KPublicTransport::LocationRequest TrainConnection::createLocationRequest(const Q
 
     std::cout << "ErrorString: " << reply->errorString().toStdString() << std::endl;
 
-    const std::vector<KPublicTransport::Location> &resultsArray = reply->result();
+    std::vector<KPublicTransport::Location> &resultsArray = reply->result();
 
-    std::cout << "ResultArray Empty: " << resultsArray.empty() << std::endl;
+    std::cout << "ResultArray Empty: " << resultsArray.size() << std::endl;
 
     for (auto result: resultsArray) {
         jsonObjects.push_back(KPublicTransport::Location::toJson(result));
