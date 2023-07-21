@@ -45,7 +45,7 @@ DialogPL {
             height: styler.themePaddingLarge
         }
 
-        Repeater {
+        ListView {
             id: repeater
             model: KPT.BackendModel {
                 manager: Manager
@@ -88,23 +88,23 @@ DialogPL {
 
             }
 
-            // section.property: "countryCode"
-            // section.delegate: SectionHeaderPL {
-            //     text: {
-            //         switch (section) {
-            //             case "":
-            //             case "UN":
-            //                 return "Global";
-            //             case "EU":
-            //                 return "🇪🇺 European Union";
-            //             default:
-            //                 const c = Country.fromAlpha2(section);
-            //                 return "emoji flag, country name", "%1 %2", c.emojiFlag, c.name;
-            //         }
-            //     }
-            // }
-            // section.criteria: ViewSection.FullString
-            // section.labelPositioning: ViewSection.CurrentLabelAtStart | ViewSection.InlineLabels
+            section.property: "countryCode"
+            section.delegate: SectionHeaderPL {
+                text: {
+                    switch (section) {
+                        case "":
+                        case "UN":
+                            return "Global";
+                        case "EU":
+                            return "🇪🇺 European Union";
+                        default:
+                            const c = Country.fromAlpha2(section);
+                            return "emoji flag, country name", "%1 %2", c.emojiFlag, c.name;
+                    }
+                }
+            }
+            section.criteria: ViewSection.FullString
+            section.labelPositioning: ViewSection.CurrentLabelAtStart | ViewSection.InlineLabels
 
 
                 // TextSwitchPL {
