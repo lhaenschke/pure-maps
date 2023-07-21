@@ -98,14 +98,18 @@ KPublicTransport::LocationRequest TrainConnection::createLocationRequest(const Q
 
     std::cout << "IsValid: " << req.isValid() << std::endl;
 
-    std::vector<QJsonObject> jsonObjects;
-    KPublicTransport::LocationReply *reply = manager.queryLocation(req);
+    const QStringList backendIDs = req.backendIds();
+    for (int i = 0; i < backendIDs.size(); ++i)
+        std::cout << "BackendID: " << backendIDs.at(i).toLocal8Bit().constData() << std::endl;
+    
+    // std::vector<QJsonObject> jsonObjects;
+    // KPublicTransport::LocationReply *reply = manager.queryLocation(req);
 
-    std::cout << "ErrorString: " << reply->errorString().toStdString() << std::endl;
+    // std::cout << "ErrorString: " << reply->errorString().toStdString() << std::endl;
 
-    const std::vector<KPublicTransport::Location> &resultsArray = reply->result();
+    // const std::vector<KPublicTransport::Location> &resultsArray = reply->result();
 
-    std::cout << "ResultArray Empty: " << resultsArray->size() << std::endl;
+    // std::cout << "ResultArray Size: " << resultsArray.size() << std::endl;
 
     // for (auto result: resultsArray) {
     //     jsonObjects.push_back(KPublicTransport::Location::toJson(result));
