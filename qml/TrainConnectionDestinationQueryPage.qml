@@ -19,7 +19,6 @@
 import QtQuick 2.0
 import QtPositioning 5.4
 import org.puremaps 1.0
-import org.kde.kpublictransport 1.0 as KPT
 import "."
 import "platform"
 
@@ -98,11 +97,6 @@ PageListPL {
         //         }
         //     });
         // });
-    }
-
-    KPT.LocationQueryModel {
-        id: queryModel
-        manager: Manager
     }
 
 }

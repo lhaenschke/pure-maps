@@ -892,7 +892,11 @@ PagePL {
                         preferredWidth: styler.themeButtonWidthLarge
                         text: app.tr("Select Provders")
                         onClicked: {
-                            app.push(Qt.resolvedUrl("TrainConnectionProvidersPage.qml"), {});
+                            var dialog = app.push(Qt.resolvedUrl("TrainConnectionProvidersPage.qml"), {});
+                            // dialog.accepted.connect(function() {
+                            //     pois.update(dialog.poi);
+                            // })
+                            // app.push(Qt.resolvedUrl("TrainConnectionProvidersPage.qml"), {});
                         }
                     }
 
