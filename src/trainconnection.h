@@ -10,6 +10,7 @@
 #include <KPublicTransport/Location>
 #include <KPublicTransport/Manager>
 #include <KPublicTransport/LocationRequest>
+#include <KPublicTransport/LocationReply>
 #include <KPublicTransport/StopoverRequest>
 
 class TrainConnection : public QObject
