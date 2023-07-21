@@ -45,8 +45,11 @@ DialogPL {
             height: styler.themePaddingLarge
         }
 
-        ListView {
-            model: backendModel
+        Repeater {
+            id: repeater
+            model: KPT.BackendModel {
+                manager: Manager
+            }
             
             delegate: ListItemPL {
                 id: listItem
@@ -66,6 +69,14 @@ DialogPL {
                         color: listItem.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
                         height: implicitHeight + styler.themePaddingMedium
                         text: model.name
+                        verticalAlignment: Text.AlignVCenter
+                    }
+
+                    ListItemLabel {
+                        id: descriptionItem
+                        color: listItem.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
+                        height: implicitHeight + styler.themePaddingMedium
+                        text: model.description
                         verticalAlignment: Text.AlignVCenter
                     }
 
@@ -92,11 +103,6 @@ DialogPL {
 
         }
 
-    }
-
-    KPT.BackendModel {
-        id: backendModel
-        manager: Manager
     }
 
     onAccepted: {
