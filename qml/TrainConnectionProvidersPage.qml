@@ -91,7 +91,7 @@ DialogPL {
     onPageStatusActivating: {
         const kpt_backends = py.evaluate("poor.app.history.kpt_backends");
         console.log('Keys: ', kpt_backends);
-        TrainConnection.setBackendEnable();
+        fruits.forEach( function(x) { TrainConnection.setBackendEnable(x, true); } );
     }
 
     onAccepted: {

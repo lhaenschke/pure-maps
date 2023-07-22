@@ -137,8 +137,10 @@ KPublicTransport::StopoverRequest TrainConnection::createStopoverRequest()
     return req;
 }
 
-void TrainConnection::setBackendEnable() 
+void setBackendEnable(const QString &identifier, bool enabeld)
 {
+    m_manager.setBackendEnabled(identifier, enabeld);
+
     const std::vector<KPublicTransport::Backend> &backends = m_manager.backends();
     for (auto backend: backends) {
         std::cout << "Name: " << backend.name().toLocal8Bit().constData() << " Identifier: " << backend.identifier().toLocal8Bit().constData() << " IsSecure: " << backend.isSecure() << " IsEnabled: " << m_manager.isBackendEnabled(backend.identifier()) << std::endl;
