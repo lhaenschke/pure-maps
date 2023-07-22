@@ -52,7 +52,7 @@ PageListPL {
                 id: titleItem
                 color: listItem.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
                 height: implicitHeight + styler.themePaddingMedium
-                text: model.name
+                text: location.name
                 // text: {
                 //     if (model['status'] == 200) {
                 //         return model['name'];
