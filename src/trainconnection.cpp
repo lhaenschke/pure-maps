@@ -133,12 +133,3 @@ KPublicTransport::StopoverRequest TrainConnection::createStopoverRequest()
     req.setDateTime(depTime);
     return req;
 }
-
-void TrainConnection::setBackendIdEnable(const QString &identifier)
-{
-    manager.setBackendEnabled(identifier, true);
-}
-void TrainConnection::setBackendIdDisable(const QString &identifier)
-{
-    manager.setBackendEnabled(identifier, false);
-}

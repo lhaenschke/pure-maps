@@ -41,9 +41,6 @@ public:
     Q_INVOKABLE KPublicTransport::LocationRequest createLocationRequest(const QString &name);
     Q_INVOKABLE KPublicTransport::StopoverRequest createStopoverRequest();
 
-    void setBackendIdEnable(const QString &name);
-    void setBackendIdDisable(const QString &name);
-
 Q_SIGNALS:
     void startChanged();
     void destinationChanged();
