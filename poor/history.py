@@ -40,6 +40,7 @@ class HistoryManager:
         self._place_types = []
         self._places = []
         self._routes = []
+        self._kpt_backends = []
         self._read()
 
     def add_destination(self, dest):
@@ -83,6 +84,18 @@ class HistoryManager:
         self.remove_route(route)
         self._routes.insert(0, route)
 
+    def add_kpt_backend(self, name, description, identifier, isSecure, isEndabled):
+        """Add `kpt_backend` to the list of kpt backends."""
+        backend = dict(
+            name = name,
+            description = description,
+            identifier = identifier,
+            isSecure = isSecure,
+            isEnabled = isEndabled
+        )
+        self.remove_kpt_backend(backend)
+        self._kpt_backends.insert(0, backend)
+
     def clear(self):
         """Clear all history"""
         self._destinations = []
@@ -90,6 +103,7 @@ class HistoryManager:
         self._place_types = []
         self._places = []
         self._routes = []
+        self._kpt_backends = []
         self.write()
 
     @property
@@ -148,6 +162,11 @@ class HistoryManager:
     def routes(self):
         """Return a list of routes."""
         return self._routes[:]
+    
+    @property
+    def kpt_backends(self):
+        """Return a list of kpt-backends."""
+        return self._kpt_backends[:]
 
     def remove_destination(self, dtxt):
         """Remove destination with the text `dtxt` from the list of destinations."""
@@ -187,6 +206,13 @@ class HistoryManager:
         for i in reversed(range(len(self._routes))):
             if rkey(self._routes[i]) == key:
                 del self._routes[i]
+
+    def remove_kpt_backend(self, kpt_backend):
+        """Remove backend."""
+        key = kpt_backend['identifier']
+        for i in reversed(range(len(self._kpt_backends))):
+            if self._kpt_backends[i]['identifier'] == key:
+                del self._kpt_backends[i]
 
     def write(self):
         """Write list of queries to file."""

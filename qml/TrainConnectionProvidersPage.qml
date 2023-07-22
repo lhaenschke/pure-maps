@@ -47,9 +47,7 @@ DialogPL {
 
         Repeater {
             id: repeater
-            model: KPT.BackendModel {
-                manager: Manager
-            }
+            model: backendModel
             
             delegate: ListItemPL {
                 id: listItem
@@ -63,6 +61,11 @@ DialogPL {
                         checked: model.backendEnabled
                         description: model.description
                         text: model.name
+                        onCheckedChanged: { 
+                            if (checked) {
+                                
+                            }
+                        }
                     }
 
                     Spacer {
@@ -81,6 +84,11 @@ DialogPL {
     onAccepted: {
         TrainConnection.createLocationRequest("Ess");
         app.pages.pop();
+    }
+
+    KPT.BackendModel {
+        id: backendModel
+        manager: Manager
     }
 
 }

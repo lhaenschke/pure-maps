@@ -196,15 +196,9 @@ int main(int argc, char *argv[])
   qmlRegisterType<PositionSource>("org.puremaps", 1, 0, "PositionSource");
 
   KPublicTransport::Manager manager;
-  manager.setAllowInsecureBackends(true);
-  manager.setBackendsEnabledByDefault(false);
-
-  const std::vector<KPublicTransport::Backend> &backends = manager.backends();
-  for (auto backend: backends) {
-    std::cout << "Name: " << backend.name().toLocal8Bit().constData() << " Identifier: " << backend.identifier().toLocal8Bit().constData() << " IsSecure: " << backend.isSecure() << " IsEnabled: " << manager.isBackendEnabled(backend.identifier()) << std::endl;
-  }
-
   qmlRegisterSingletonInstance<KPublicTransport::Manager>("org.puremaps", 1, 0, "Manager", &manager);
+  manager.setAllowInsecureBackends(false);
+  manager.setBackendsEnabledByDefault(false);
 
   TrainConnection trainConnection;
   qmlRegisterSingletonInstance<TrainConnection>("org.puremaps", 1, 0, "TrainConnection", &trainConnection);

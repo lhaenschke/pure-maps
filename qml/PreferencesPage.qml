@@ -893,10 +893,6 @@ PagePL {
                         text: app.tr("Select Provders")
                         onClicked: {
                             var dialog = app.push(Qt.resolvedUrl("TrainConnectionProvidersPage.qml"), {});
-                            // dialog.accepted.connect(function() {
-                            //     pois.update(dialog.poi);
-                            // })
-                            // app.push(Qt.resolvedUrl("TrainConnectionProvidersPage.qml"), {});
                         }
                     }
 

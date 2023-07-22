@@ -22,7 +22,7 @@ TrainConnection::TrainConnection(QObject *parent)
     m_departureDate = QDate::currentDate();
     m_departureTime = QTime::currentTime();
     
-    qmlRegisterSingletonInstance<KPublicTransport::Manager>("org.puremaps", 1, 0, "Manager", &manager);
+    // qmlRegisterSingletonInstance<KPublicTransport::Manager>("org.puremaps", 1, 0, "Manager", &manager);
 }
 
 void TrainConnection::setStart(const KPublicTransport::Location &start)
