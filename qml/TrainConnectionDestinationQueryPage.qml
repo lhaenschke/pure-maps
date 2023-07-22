@@ -33,7 +33,7 @@ PageListPL {
     property var    callback
     property var    searchField: undefined
 
-    model: ListModel {}
+    model: queryModel
 
     delegate: ListItemPL {
         id: listItem
@@ -52,22 +52,24 @@ PageListPL {
                 id: titleItem
                 color: listItem.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
                 height: implicitHeight + styler.themePaddingMedium
-                text: {
-                    if (model['status'] == 200) {
-                        return model['name'];
-                    } else {
-                        return "";
-                    }
-                }
+                text: model.name
+                // text: {
+                //     if (model['status'] == 200) {
+                //         return model['name'];
+                //     } else {
+                //         return "";
+                //     }
+                // }
                 verticalAlignment: Text.AlignVCenter
             }
 
         }
 
         onClicked: {
-            const result = {'name': model['name'], 'eva': model['eva']};
-            callback(result);
-            app.pages.pop();
+            // const result = {'name': model['name'], 'eva': model['eva']};
+            // callback(result);
+            // app.pages.pop();
+
         }
 
     }
