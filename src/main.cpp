@@ -38,6 +38,7 @@
 #include <QtGlobal>
 
 #include <KPublicTransport/Manager>
+#include <KPublicTransport/Backend>
 
 #include <iostream>
 #include <stdlib.h>
