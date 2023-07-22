@@ -9,6 +9,7 @@
 #include <KPublicTransport/JourneyRequest>
 #include <KPublicTransport/Location>
 #include <KPublicTransport/Manager>
+#include <KPublicTransport/Backend>
 #include <KPublicTransport/LocationRequest>
 #include <KPublicTransport/LocationReply>
 #include <KPublicTransport/StopoverRequest>
