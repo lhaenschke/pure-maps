@@ -22,7 +22,7 @@ TrainConnection::TrainConnection(QObject *parent)
     m_departureDate = QDate::currentDate();
     m_departureTime = QTime::currentTime();
     
-    qmlRegisterSingletonInstance<KPublicTransport::Manager>("org.puremaps", 1, 0, "Manager", &m_manager);
+    // qmlRegisterSingletonInstance<KPublicTransport::Manager>("org.puremaps", 1, 0, "Manager", &m_manager);
 }
 
 void TrainConnection::setStart(const KPublicTransport::Location &start)
@@ -91,10 +91,10 @@ KPublicTransport::LocationRequest TrainConnection::createLocationRequest(const Q
     KPublicTransport::LocationRequest req;
     req.setName(name);
 
-    const std::vector<KPublicTransport::Backend> &backends = m_manager.backends();
-    for (auto backend: backends) {
-      std::cout << "Name: " << backend.name().toLocal8Bit().constData() << " Identifier: " << backend.identifier().toLocal8Bit().constData() << " IsSecure: " << backend.isSecure() << " IsEnabled: " << m_manager.isBackendEnabled(backend.identifier()) << std::endl;
-    }
+    // const std::vector<KPublicTransport::Backend> &backends = m_manager.backends();
+    // for (auto backend: backends) {
+    //   std::cout << "Name: " << backend.name().toLocal8Bit().constData() << " Identifier: " << backend.identifier().toLocal8Bit().constData() << " IsSecure: " << backend.isSecure() << " IsEnabled: " << m_manager.isBackendEnabled(backend.identifier()) << std::endl;
+    // }
 
     std::cout << "IsValid: " << req.isValid() << std::endl;
 
