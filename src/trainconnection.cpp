@@ -7,6 +7,7 @@
 #include <QDesktopServices>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QJsonValue>
 #include <QStringList>
 #include <QStandardPaths>
 #include <QUrl>
@@ -104,7 +105,7 @@ KPublicTransport::LocationRequest TrainConnection::createLocationRequest(const Q
     }
 
     for (auto json: jsonObjects) {
-        std::cout << "Name: " << json.take("name").toLocal8Bit().constData() << std::endl;
+        std::cout << "Name: " << json.take("name").toString().toLocal8Bit().constData() << std::endl;
     }
 
     return req;
