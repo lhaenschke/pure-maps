@@ -105,6 +105,7 @@ KPublicTransport::LocationRequest TrainConnection::createLocationRequest(const Q
     }
 
     for (auto json: jsonObjects) {
+        std::cout << "Keys: " << json.keys().join('-').toLocal8Bit().constData() << std::endl;
         std::cout << "Name: " << json.take("name").toString().toLocal8Bit().constData() << std::endl;
     }
 

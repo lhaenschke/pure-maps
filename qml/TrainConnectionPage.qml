@@ -308,7 +308,7 @@ PagePL {
 
     function destinationCallback(data) {
         selectedStation = data;
-        pickDestinationButton.text = selectedStation['name'];
+        pickDestinationButton.text = selectedStation.name;
         searchButton.enabled = true;
     }
 

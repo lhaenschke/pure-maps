@@ -66,9 +66,8 @@ PageListPL {
         }
 
         onClicked: {
-            // const result = {'name': model['name'], 'eva': model['eva']};
-            // callback(result);
-            // app.pages.pop();
+            callback(location);
+            app.pages.pop();
 
         }
 
