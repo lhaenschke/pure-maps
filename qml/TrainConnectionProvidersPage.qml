@@ -66,12 +66,11 @@ DialogPL {
                                 // Manager.setBackendEnabled(model.identifier, true);
                                 // TrainConnection.setBackendIdEnable(model.identifier);
                                 py.call_sync("poor.app.history.add_kpt_backend", [model.identifier]);
-                                model.backendEnabled = true;
+
                             } else {
                                 // Manager.setBackendEnabled(model.identifier, false);
                                 // TrainConnection.setBackendIdDisable(model.identifier);
                                 py.call_sync("poor.app.history.remove_kpt_backend", [model.identifier]);
-                                model.backendEnabled = false;
                             }
                         }
                     }
@@ -90,7 +89,7 @@ DialogPL {
     }
 
     onAccepted: {
-        TrainConnection.createLocationRequest("Ess");
+        TrainConnection.setBackendEnable();
         app.pages.pop();
     }
 

@@ -22,7 +22,10 @@ TrainConnection::TrainConnection(QObject *parent)
     m_departureDate = QDate::currentDate();
     m_departureTime = QTime::currentTime();
     
-    // qmlRegisterSingletonInstance<KPublicTransport::Manager>("org.puremaps", 1, 0, "Manager", &m_manager);
+    m_manager.setAllowInsecureBackends(false);
+    m_manager.setBackendsEnabledByDefault(false);
+    
+    qmlRegisterSingletonInstance<KPublicTransport::Manager>("org.puremaps", 1, 0, "Manager", &manager);
 }
 
 void TrainConnection::setStart(const KPublicTransport::Location &start)
@@ -132,4 +135,12 @@ KPublicTransport::StopoverRequest TrainConnection::createStopoverRequest()
     QDateTime depTime(m_departureDate, m_departureTime);
     req.setDateTime(depTime);
     return req;
+}
+
+void TrainConnection::setBackendEnable() 
+{
+    const std::vector<KPublicTransport::Backend> &backends = m_manager.backends();
+    for (auto backend: backends) {
+        std::cout << "Name: " << backend.name().toLocal8Bit().constData() << " Identifier: " << backend.identifier().toLocal8Bit().constData() << " IsSecure: " << backend.isSecure() << " IsEnabled: " << m_manager.isBackendEnabled(backend.identifier()) << std::endl;
+    }
 }
