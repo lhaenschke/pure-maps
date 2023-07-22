@@ -84,7 +84,7 @@ DialogPL {
     }
 
     onAccepted: {
-        TrainConnection.test();
+        TrainConnection.createLocationRequest("Ess");
         app.pages.pop();
     }
 
