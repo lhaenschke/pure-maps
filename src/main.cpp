@@ -201,7 +201,7 @@ int main(int argc, char *argv[])
 
   const std::vector<KPublicTransport::Backend> &backends = manager.backends();
   for (auto backend: backends) {
-    std::cout << "Name: " << backend.name() << " Identifier: " << backend.identifier().toLocal8Bit().constData() << " IsSecure: " << backend.isSecure() << " IsEnabled: " << manager.isBackendEnabled(backend.identifier()) << std::endl;
+    std::cout << "Name: " << backend.name().toLocal8Bit().constData() << " Identifier: " << backend.identifier().toLocal8Bit().constData() << " IsSecure: " << backend.isSecure() << " IsEnabled: " << manager.isBackendEnabled(backend.identifier()) << std::endl;
   }
 
   qmlRegisterSingletonInstance<KPublicTransport::Manager>("org.puremaps", 1, 0, "Manager", &manager);
