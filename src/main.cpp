@@ -197,7 +197,7 @@ int main(int argc, char *argv[])
 
   KPublicTransport::Manager manager;
   manager.setAllowInsecureBackends(true);
-  // manager.setBackendsEnabledByDefault(false);
+  manager.setBackendsEnabledByDefault(false);
 
   const std::vector<KPublicTransport::Backend> &backends = manager.backends();
   for (auto backend: backends) {
