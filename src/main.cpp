@@ -195,7 +195,7 @@ int main(int argc, char *argv[])
   qmlRegisterType<PositionSource>("org.puremaps", 1, 0, "PositionSource");
 
   KPublicTransport::Manager manager;
-  manager.setAllowInsecureBackends(true);
+  manager.setAllowInsecureBackends(false);
   manager.setBackendsEnabledByDefault(false);
   qmlRegisterSingletonInstance<KPublicTransport::Manager>("org.puremaps", 1, 0, "Manager", &manager);
 

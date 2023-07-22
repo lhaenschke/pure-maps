@@ -92,6 +92,7 @@ DialogPL {
     }
 
     onAccepted: {
+        
         app.pages.pop();
     }
 
