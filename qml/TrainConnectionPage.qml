@@ -290,7 +290,7 @@ PagePL {
 
     onPageStatusActivating: {
         const kpt_backends = py.evaluate("poor.app.history.kpt_backends");
-        console.log('Keys: ', kpt_backends);
+        kpt_backends.forEach( function(x) { TrainConnection.setBackendEnable(x, true); } );
     }
 
     function getTimeDifference(time_one_hh, time_one_mm, time_two_hh, time_two_mm) {

@@ -93,6 +93,7 @@ KPublicTransport::LocationRequest TrainConnection::createLocationRequest(const Q
 {
     KPublicTransport::LocationRequest req;
     req.setName(name);
+    req.setBackendIds(m_manager.enabledBackends());
 
     // const std::vector<KPublicTransport::Backend> &backends = m_manager.backends();
     // for (auto backend: backends) {
