@@ -129,11 +129,11 @@ KPublicTransport::StopoverRequest TrainConnection::createStopoverRequest()
     return req;
 }
 
-void KPublicTransport::setBackendIdEnable(const QString &identifier)
+void TrainConnection::setBackendIdEnable(const QString &identifier)
 {
     manager.setBackendEnabled(identifier, true);
 }
-void KPublicTransport::setBackendIdDisable(const QString &identifier)
+void TrainConnection::setBackendIdDisable(const QString &identifier)
 {
     manager.setBackendEnabled(identifier, false);
 }
