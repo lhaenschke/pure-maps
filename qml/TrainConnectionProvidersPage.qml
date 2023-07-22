@@ -63,8 +63,10 @@ DialogPL {
                         text: model.name
                         onCheckedChanged: { 
                             if (checked) {
+                                TrainConnection.setBackendIdEnable(model.identifier);
                                 py.call_sync("poor.app.history.add_kpt_backend", [model.identifier]);
                             } else {
+                                TrainConnection.setBackendIdDisable(model.identifier);
                                 py.call_sync("poor.app.history.remove_kpt_backend", [model.identifier]);
                             }
                         }

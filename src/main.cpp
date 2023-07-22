@@ -198,9 +198,7 @@ int main(int argc, char *argv[])
   KPublicTransport::Manager manager;
   manager.setAllowInsecureBackends(false);
   manager.setBackendsEnabledByDefault(false);
-
-  manager.setBackendEnabled("de_db", true);
-
+  
   // const std::vector<KPublicTransport::Backend> &backends = manager.backends();
   // for (auto backend: backends) {
   //   std::cout << "Name: " << backend.name().toLocal8Bit().constData() << " Identifier: " << backend.identifier().toLocal8Bit().constData() << " IsSecure: " << backend.isSecure() << " IsEnabled: " << manager.isBackendEnabled(backend.identifier()) << std::endl;

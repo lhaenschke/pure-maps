@@ -42,6 +42,9 @@ public:
 
     Q_INVOKABLE void showOnMap(KPublicTransport::Location location);
 
+    void setBackendIdEnable(const QString &name);
+    void setBackendIdDisable(const QString &name);
+
 Q_SIGNALS:
     void startChanged();
     void destinationChanged();

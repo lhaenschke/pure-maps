@@ -892,6 +892,8 @@ PagePL {
                         preferredWidth: styler.themeButtonWidthLarge
                         text: app.tr("Select Provders")
                         onClicked: {
+                            var keys = py.evaluate("poor.app.history.kpt_backends");
+                            console.log('Keys: ', keys);
                             var dialog = app.push(Qt.resolvedUrl("TrainConnectionProvidersPage.qml"), {});
                         }
                     }

@@ -129,10 +129,11 @@ KPublicTransport::StopoverRequest TrainConnection::createStopoverRequest()
     return req;
 }
 
-void TrainConnection::showOnMap(KPublicTransport::Location location)
+void KPublicTransport::setBackendIdEnable(const QString &identifier)
 {
-    if (!location.hasCoordinate())
-        return;
-    QUrl url(QLatin1String("geo:") + QString::number(location.latitude()) + QLatin1Char(',') + QString::number(location.longitude()));
-    QDesktopServices::openUrl(url);
+    manager.setBackendEnabled(identifier, true);
+}
+void KPublicTransport::setBackendIdDisable(const QString &identifier)
+{
+    manager.setBackendEnabled(identifier, false);
 }
