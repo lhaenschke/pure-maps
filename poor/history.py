@@ -84,17 +84,10 @@ class HistoryManager:
         self.remove_route(route)
         self._routes.insert(0, route)
 
-    def add_kpt_backend(self, name, description, identifier, isSecure, isEndabled):
-        """Add `kpt_backend` to the list of kpt backends."""
-        backend = dict(
-            name = name,
-            description = description,
-            identifier = identifier,
-            isSecure = isSecure,
-            isEnabled = isEndabled
-        )
-        self.remove_kpt_backend(backend)
-        self._kpt_backends.insert(0, backend)
+    def add_kpt_backend(self, backend_identifier):
+        """Add `kpt_backend_id` to the list of kpt backends."""
+        self.remove_kpt_backend(backend_identifier)
+        self._kpt_backends.insert(0, backend_identifier)
 
     def clear(self):
         """Clear all history"""
@@ -136,6 +129,7 @@ class HistoryManager:
                 self._place_names = history.get("place_names", [])
                 self._place_types = history.get("place_types", [])
                 self._routes = history.get("routes", [])
+                self._kpt_backends = history.get("kpt_backends", [])
         for place in self._places_blacklist:
             self.remove_place(place)
         if not self._place_types:
@@ -207,11 +201,10 @@ class HistoryManager:
             if rkey(self._routes[i]) == key:
                 del self._routes[i]
 
-    def remove_kpt_backend(self, kpt_backend):
-        """Remove backend."""
-        key = kpt_backend['identifier']
+    def remove_kpt_backend(self, backend_identifier):
+        """Remove kpt_backend."""
         for i in reversed(range(len(self._kpt_backends))):
-            if self._kpt_backends[i]['identifier'] == key:
+            if self._kpt_backends[i] == backend_identifier:
                 del self._kpt_backends[i]
 
     def write(self):
@@ -222,5 +215,6 @@ class HistoryManager:
                 "places": self._places[:1000],
                 "place_names": self._place_names[:1000],
                 "place_types": self._place_types[:1000],
-                "routes": self._routes[:25]
+                "routes": self._routes[:25],
+                "kpt_backends": self._kpt_backends[:150]
             }, self._path)
