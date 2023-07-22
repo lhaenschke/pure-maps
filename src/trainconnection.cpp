@@ -137,7 +137,7 @@ KPublicTransport::StopoverRequest TrainConnection::createStopoverRequest()
     return req;
 }
 
-void setBackendEnable(const QString &identifier, bool enabeld)
+void TrainConnection::setBackendEnable(const QString &identifier, bool enabeld)
 {
     m_manager.setBackendEnabled(identifier, enabeld);
 
