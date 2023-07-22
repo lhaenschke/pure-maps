@@ -37,7 +37,7 @@ public:
     QTime departureTime() const;
     void setDepartureTime(const QTime &time);
 
-    void setBackendEnable();
+    Q_INVOKABLE void setBackendEnable();
 
     Q_INVOKABLE KPublicTransport::JourneyRequest createJourneyRequest();
     Q_INVOKABLE KPublicTransport::LocationRequest createLocationRequest(const QString &name);
