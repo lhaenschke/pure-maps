@@ -62,6 +62,7 @@ DialogPL {
                         description: model.description
                         text: model.name
                         onCheckedChanged: { 
+                            model.backendEnabled = checked;
                             if (checked) {
                                 // Manager.setBackendEnabled(model.identifier, true);
                                 // TrainConnection.setBackendIdEnable(model.identifier);
