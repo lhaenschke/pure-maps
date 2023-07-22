@@ -70,14 +70,6 @@ DialogPL {
                         // }
                     }
 
-                    // ListItemLabel {
-                    //     id: descriptionLabel
-                    //     color: listItem.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
-                    //     height: implicitHeight + styler.themePaddingMedium
-                    //     text: model.description
-                    //     verticalAlignment: Text.AlignLeft
-                    // }
-
                     Spacer {
                         id: spacer
                         height: styler.themePaddingLarge / 2
@@ -92,7 +84,7 @@ DialogPL {
     }
 
     onAccepted: {
-        
+        TrainConnection.test();
         app.pages.pop();
     }
 

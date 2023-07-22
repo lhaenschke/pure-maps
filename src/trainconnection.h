@@ -42,6 +42,8 @@ public:
 
     Q_INVOKABLE void showOnMap(KPublicTransport::Location location);
 
+    void test();
+
 Q_SIGNALS:
     void startChanged();
     void destinationChanged();

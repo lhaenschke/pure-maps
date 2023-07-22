@@ -136,3 +136,12 @@ void TrainConnection::showOnMap(KPublicTransport::Location location)
     QUrl url(QLatin1String("geo:") + QString::number(location.latitude()) + QLatin1Char(',') + QString::number(location.longitude()));
     QDesktopServices::openUrl(url);
 }
+
+void TrainConnection::test() {
+    const std::vector<Backend> &backends = manager.backends();
+
+    for (auto backend: backends) {
+        std::cout << "Backend Description: " << backend.description() << std::endl; 
+    }
+
+}
