@@ -63,11 +63,6 @@ DialogPL {
                         checked: model.backendEnabled
                         description: model.description
                         text: model.name
-                        // onCheckedChanged: {
-                        //     model.backendEnabled = checked
-                        //     // app.conf.set("basemap_auto_mode", checked);
-                        //     // py.call_sync("poor.app.basemap.update", []);
-                        // }
                     }
 
                     Spacer {
