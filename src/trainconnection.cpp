@@ -25,7 +25,7 @@ TrainConnection::TrainConnection(QObject *parent)
     m_manager.setAllowInsecureBackends(false);
     m_manager.setBackendsEnabledByDefault(false);
     
-    qmlRegisterSingletonInstance<KPublicTransport::Manager>("org.puremaps", 1, 0, "Manager", &manager);
+    qmlRegisterSingletonInstance<KPublicTransport::Manager>("org.puremaps", 1, 0, "Manager", &m_manager);
 }
 
 void TrainConnection::setStart(const KPublicTransport::Location &start)

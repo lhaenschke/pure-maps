@@ -288,6 +288,11 @@ PagePL {
 
     }
 
+    onPageStatusActivating: {
+        const kpt_backends = py.evaluate("poor.app.history.kpt_backends");
+        console.log('Keys: ', kpt_backends);
+    }
+
     function getTimeDifference(time_one_hh, time_one_mm, time_two_hh, time_two_mm) {
         var diff_minutes = Math.abs(parseInt(time_one_mm) - parseInt(time_two_mm));
         var hour_diff = Math.abs(parseInt(time_one_hh) - parseInt(time_two_hh));

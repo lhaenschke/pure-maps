@@ -17,6 +17,7 @@
  */
 
 import QtQuick 2.0
+import org.puremaps 1.0
 import "."
 import "platform"
 
@@ -894,6 +895,7 @@ PagePL {
                         onClicked: {
                             var keys = py.evaluate("poor.app.history.kpt_backends");
                             console.log('Keys: ', keys);
+                            TrainConnection.setBackendEnable();
                             var dialog = app.push(Qt.resolvedUrl("TrainConnectionProvidersPage.qml"), {});
                         }
                     }
