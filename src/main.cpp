@@ -199,10 +199,12 @@ int main(int argc, char *argv[])
   manager.setAllowInsecureBackends(false);
   manager.setBackendsEnabledByDefault(false);
 
-  const std::vector<KPublicTransport::Backend> &backends = manager.backends();
-  for (auto backend: backends) {
-    std::cout << "Name: " << backend.name().toLocal8Bit().constData() << " Identifier: " << backend.identifier().toLocal8Bit().constData() << " IsSecure: " << backend.isSecure() << " IsEnabled: " << manager.isBackendEnabled(backend.identifier()) << std::endl;
-  }
+  manager.setBackendEnabled("de_db", true);
+
+  // const std::vector<KPublicTransport::Backend> &backends = manager.backends();
+  // for (auto backend: backends) {
+  //   std::cout << "Name: " << backend.name().toLocal8Bit().constData() << " Identifier: " << backend.identifier().toLocal8Bit().constData() << " IsSecure: " << backend.isSecure() << " IsEnabled: " << manager.isBackendEnabled(backend.identifier()) << std::endl;
+  // }
 
   qmlRegisterSingletonInstance<KPublicTransport::Manager>("org.puremaps", 1, 0, "Manager", &manager);
 

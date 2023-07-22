@@ -60,12 +60,14 @@ DialogPL {
                     TextSwitchPL {
                         checked: model.backendEnabled
                         description: model.description
-                        text: model.identifier
-                        // onCheckedChanged: { 
-                        //     if (checked) {
-                        //         py.call_sync("poor.app.history.add_place", [model.identifier]);
-                        //     }
-                        // }
+                        text: model.name
+                        onCheckedChanged: { 
+                            if (checked) {
+                                py.call_sync("poor.app.history.add_kpt_backend", [model.identifier]);
+                            } else {
+                                py.call_sync("poor.app.history.remove_kpt_backend", [model.identifier]);
+                            }
+                        }
                     }
 
                     Spacer {
