@@ -85,7 +85,7 @@ PagePL {
             id: searchButton
             anchors.horizontalCenter: parent.horizontalCenter
             preferredWidth: styler.themeButtonWidthLarge
-            enabled: false
+            enabled: TrainConnection.destination.name
             text: app.tr("Search")
             onClicked: {
                 // searchButton.enabled = false;
@@ -307,7 +307,7 @@ PagePL {
     }
 
     function destinationCallback(data) {
-        TrainConnection.setDestination(data);
+        TrainConnection.destination = data;
         // selectedStation = data;
         // pickDestinationButton.text = selectedStation.name;
         searchButton.enabled = true;
