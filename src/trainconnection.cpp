@@ -92,7 +92,7 @@ void TrainConnection::startLocationRequest(float lat, float lon, const QString &
     KPublicTransport::LocationReply *reply = m_manager.queryLocation(req);
     const std::vector<KPublicTransport::Location> &resultsArray = reply->result();
     
-    setStart(resultsArray.get(0));
+    setStart(resultsArray.begin());
 
     // for (auto result: resultsArray) {
     //     QJsonObject json = KPublicTransport::Location::toJson(result);
