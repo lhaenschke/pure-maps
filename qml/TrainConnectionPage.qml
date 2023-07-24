@@ -229,7 +229,7 @@ PagePL {
                             id: diffTimeLabel
                             width: parent.width / 3.5
                             horizontalAlignment: Text.AlignLeft
-                            text: "(" + model['diff_minutes'] + " min)"
+                            text: "(" + "Test" + " min)"
                         }
 
                     }
@@ -249,6 +249,10 @@ PagePL {
                 }
 
                 onClicked: {
+                    journey.sections.forEach( function(x) { 
+                        console.log("Test"); 
+                        console.log(x.route.line.name); 
+                    });
                 }
 
             }
