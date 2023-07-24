@@ -187,7 +187,7 @@ PagePL {
                         anchors.rightMargin: 8
 
                         LabelPL {
-                            id: diffTimeLabel
+                            id: dpTimeLabel
                             width: parent.width / 3.5
                             horizontalAlignment: Text.AlignLeft
                             text: firstJourney.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat)
@@ -247,7 +247,7 @@ PagePL {
                             id: diffTimeLabel
                             width: parent.width / 3.5
                             horizontalAlignment: Text.AlignLeft
-                            text: "(" + "Test" + " min)"
+                            text: "(" + (journey.duration / 60) + " min)"
                         }
 
                     }
