@@ -192,7 +192,7 @@ PagePL {
 
             LabelPL {
                 id: delayHeader
-                width: parent.width / 7
+                width: parent.width / 8
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Delay")
             }
@@ -264,7 +264,7 @@ PagePL {
 
                         LabelPL {
                             id: firstDelayLabel
-                            width: parent.width / 7
+                            width: parent.width / 8
                             horizontalAlignment: Text.AlignLeft
                             text: "+" + firstJourney.departureDelay
                             color: firstJourney.departureDelay > 3 ? "red" : "green"
@@ -293,21 +293,24 @@ PagePL {
                             id: lastTimeLabel
                             width: parent.width / 5.8
                             horizontalAlignment: Text.AlignLeft
-                            text: lastJourney.scheduledArrivalTime.toLocaleTimeString(Locale.ShortFormat) 
+                            text: lastJourney.scheduledArrivalTime.toLocaleTimeString(Locale.ShortFormat)
+                            font.strikeout: cancelled
                         }
 
                         LabelPL {
                             id: lastDelayLabel
-                            width: parent.width / 7
+                            width: parent.width / 8
                             horizontalAlignment: Text.AlignLeft
                             text: lastJourney.hasExpectedDepartureTime ? "+" + lastJourney.departureDelay : ""
                             color: lastJourney.departureDelay > 3 ? "red" : "green"
+                            font.strikeout: cancelled
                         }
 
                         LabelPL {
                             width: parent.width - (lastTimeLabel.width + lastDelayLabel.width + changesLabel.width + styler.themeHorizontalPageMargin)
                             horizontalAlignment: Text.AlignLeft
                             text: lastJourney.to.name
+                            font.strikeout: cancelled
                         }
 
                         LabelPL {
@@ -315,6 +318,7 @@ PagePL {
                             width: parent.width / 8
                             horizontalAlignment: Text.AlignRight
                             text: journey.numberOfChanges + " changes"
+                            font.strikeout: cancelled
                         }
 
                     }
@@ -333,11 +337,12 @@ PagePL {
                             width: parent.width / 5.8
                             horizontalAlignment: Text.AlignLeft
                             text: "(" + (journey.duration / 60) + " min)"
+                            font.strikeout: cancelled
                         }
 
                         LabelPL {
                             id: delayPlaceholderLabel
-                            width: parent.width / 7
+                            width: parent.width / 8
                             horizontalAlignment: Text.AlignLeft
                             text: ""
                         }
@@ -353,6 +358,7 @@ PagePL {
                                 });
                                 return str;
                             }
+                            font.strikeout: cancelled
                         }
 
                     }
