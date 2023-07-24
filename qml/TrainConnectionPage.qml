@@ -185,14 +185,14 @@ PagePL {
 
             LabelPL {
                 id: timeHeader
-                width: parent.width / 5.5
+                width: parent.width / 5.8
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Time")
             }
 
             LabelPL {
                 id: delayHeader
-                width: parent.width / 6
+                width: parent.width / 7
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Delay")
             }
@@ -256,18 +256,17 @@ PagePL {
 
                         LabelPL {
                             id: firstTimeLabel
-                            width: parent.width / 5.5
+                            width: parent.width / 5.8
                             horizontalAlignment: Text.AlignLeft
                             text: firstJourney.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat)
                         }
 
                         LabelPL {
                             id: firstDelayLabel
-                            width: parent.width / 6
+                            width: parent.width / 7
                             horizontalAlignment: Text.AlignLeft
                             text: "+" + firstJourney.departureDelay
                             color: firstJourney.departureDelay > 3 ? "red" : "green"
-                            visible: firstJourney.hasExpectedDepartureTime
                         }
 
                         LabelPL {
@@ -289,14 +288,14 @@ PagePL {
 
                         LabelPL {
                             id: lastTimeLabel
-                            width: parent.width / 5.5
+                            width: parent.width / 5.8
                             horizontalAlignment: Text.AlignLeft
                             text: lastJourney.scheduledArrivalTime.toLocaleTimeString(Locale.ShortFormat) 
                         }
 
                         LabelPL {
                             id: lastDelayLabel
-                            width: parent.width / 6
+                            width: parent.width / 7
                             horizontalAlignment: Text.AlignLeft
                             text: lastJourney.hasExpectedDepartureTime ? "+" + lastJourney.departureDelay : ""
                             color: lastJourney.departureDelay > 3 ? "red" : "green"
@@ -328,14 +327,14 @@ PagePL {
 
                         LabelPL {
                             id: durationLabel
-                            width: parent.width / 5.5
+                            width: parent.width / 5.8
                             horizontalAlignment: Text.AlignLeft
                             text: "(" + (journey.duration / 60) + " min)"
                         }
 
                         LabelPL {
                             id: delayPlaceholderLabel
-                            width: parent.width / 6
+                            width: parent.width / 7
                             horizontalAlignment: Text.AlignLeft
                             text: ""
                         }
@@ -346,7 +345,7 @@ PagePL {
                             text: {
                                 var str = "";
                                 journey.sections.forEach( function(x) { 
-                                    str += x.route.line.name; 
+                                    str += (x.route.line.name).trim(); 
                                     str += " ";
                                 });
                                 return str;
