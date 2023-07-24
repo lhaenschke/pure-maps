@@ -118,7 +118,7 @@ PagePL {
             anchors.leftMargin: styler.themeHorizontalPageMargin
             anchors.right: parent.right
             anchors.rightMargin: styler.themeHorizontalPageMargin
-            visible: connectionRepeater.model.count > 0
+            visible: connectionModel.count > 0
 
             LabelPL {
                 id: timeHeader
@@ -150,7 +150,7 @@ PagePL {
             anchors.right: parent.right
             anchors.rightMargin: styler.themeHorizontalPageMargin
             color: "gray"
-            visible: connectionRepeater.model.count > 0
+            visible: connectionModel.count > 0
         }
 
         Repeater {
@@ -179,7 +179,7 @@ PagePL {
 
                     Grid {
                         id: firstRow
-                        columns: 1
+                        columns: 2
                         rows: 1
                         anchors.left: parent.left
                         anchors.leftMargin: 8
@@ -187,10 +187,17 @@ PagePL {
                         anchors.rightMargin: 8
 
                         LabelPL {
-                            id: dpTimeLabel
                             width: parent.width / 3.5
                             horizontalAlignment: Text.AlignLeft
                             text: firstJourney.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat)
+                        }
+
+                        LabelPL {
+                            width: parent.width / 3.5
+                            horizontalAlignment: Text.AlignLeft
+                            text: firstJourney.departureDelay
+                            color: firstJourney.departureDelay > 3 ? "red" : "green"
+                            visible: firstJourney.hasExpectedDepartureTime
                         }
 
                     }
@@ -212,8 +219,17 @@ PagePL {
                         }
 
                         LabelPL {
+                            id: delayTimeLabel
+                            width: parent.width / 3.5
+                            horizontalAlignment: Text.AlignLeft
+                            text: lastJourney.departureDelay
+                            color: lastJourney.departureDelay > 3 ? "red" : "green"
+                            visible: lastJourney.hasExpectedDepartureTime
+                        }
+
+                        LabelPL {
                             id: arStationLabel
-                            width: parent.width - (arTimeLabel.width + changesLabel.width + styler.themeHorizontalPageMargin)
+                            width: parent.width - (arTimeLabel.width + delayTimeLabel.width + changesLabel.width + styler.themeHorizontalPageMargin)
                             horizontalAlignment: Text.AlignLeft
                             text: {
                                 var str = "";
@@ -244,7 +260,6 @@ PagePL {
                         anchors.rightMargin: 8
 
                         LabelPL {
-                            id: diffTimeLabel
                             width: parent.width / 3.5
                             horizontalAlignment: Text.AlignLeft
                             text: "(" + (journey.duration / 60) + " min)"
