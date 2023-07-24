@@ -51,19 +51,6 @@ KPublicTransport::Location TrainConnection::destination() const
     return m_destination;
 }
 
-KPublicTransport::JourneyRequest TrainConnection::createJourneyRequest()
-{
-    KPublicTransport::JourneyRequest req;
-    req.setFrom(m_start);
-    req.setTo(m_destination);
-    req.setDownloadAssets(true);
-
-    QDateTime depTime(m_departureDate, m_departureTime);
-    req.setDepartureTime(depTime);
-
-    return req;
-}
-
 QDate TrainConnection::departureDate() const
 {
     return m_departureDate;
@@ -90,26 +77,51 @@ void TrainConnection::setDepartureTime(const QTime &time)
     }
 }
 
-KPublicTransport::LocationRequest TrainConnection::createLocationRequest(const QString &name)
+void TrainConnection::setBackendEnable(const QString &identifier, bool enabeld)
+{
+    m_manager.setBackendEnabled(identifier, enabeld);
+}
+
+void TrainConnection::startLocationRequest(float lat, float lon)
 {
     KPublicTransport::LocationRequest req;
-    req.setName(name);
     req.setBackendIds(m_manager.enabledBackends());
+    req.setCoordinate (lat, lon);
+
+    KPublicTransport::LocationReply *reply = m_manager.queryLocation(req);
+    const std::vector<KPublicTransport::Location> &resultsArray = reply->result();
     
-    // req json keys: identifier-latitude-longitude-name-type
+    for (auto result: resultsArray) {
+        std::cout << "Name: " << json.take("name").toString().toLocal8Bit().constData() << std::endl;
+    }
 
-    // KPublicTransport::LocationReply *reply = m_manager.queryLocation(req);
-    // const std::vector<KPublicTransport::Location> &resultsArray = reply->result();
+}
 
-    // for (auto result: resultsArray) {
-    //     QJsonObject json = KPublicTransport::Location::toJson(result);
-    //     std::cout << "Keys: " << json.keys().join('-').toLocal8Bit().constData() << std::endl;
-        
-    //     std::cout << "Name: " << json.take("name").toString().toLocal8Bit().constData() << std::endl;
-    // }
+KPublicTransport::JourneyRequest TrainConnection::createJourneyRequest()
+{
+    KPublicTransport::JourneyRequest req;
+    req.setFrom(m_start);
+    req.setTo(m_destination);
+    req.setDownloadAssets(true);
+
+    QDateTime depTime(m_departureDate, m_departureTime);
+    req.setDepartureTime(depTime);
 
     return req;
 }
+
+KPublicTransport::LocationRequest TrainConnection::createLocationRequest(const QString &name)
+{
+    KPublicTransport::LocationRequest req;
+    req.setBackendIds(m_manager.enabledBackends());
+    req.setName(name);
+    
+    // req json keys: identifier-latitude-longitude-name-type
+
+    return req;
+}
+
+
 
 KPublicTransport::StopoverRequest TrainConnection::createStopoverRequest()
 {
@@ -120,7 +132,3 @@ KPublicTransport::StopoverRequest TrainConnection::createStopoverRequest()
     return req;
 }
 
-void TrainConnection::setBackendEnable(const QString &identifier, bool enabeld)
-{
-    m_manager.setBackendEnabled(identifier, enabeld);
-}
