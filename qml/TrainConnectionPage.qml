@@ -109,14 +109,12 @@ PagePL {
                     "title": app.tr("Select date")
                 });
                 dialog.accepted.connect(function() {
-                    TrainConnection.departureDate = dialog.date
-                    // dateItem.date = dialog.date;
-                    // dateItem.text = dialog.date.toLocaleDateString();
-                    // // Format date as YYYY-MM-DD.
-                    // var year = ("0000" + dialog.date.getFullYear()).substr(-4);
-                    // var month = ("00" + (dialog.date.getMonth()+1)).substr(-2);
-                    // var day = ("00" + dialog.date.getDate()).substr(-2);
-                    // page.params.date = "%1-%2-%3".arg(year).arg(month).arg(day);
+                    if (dialog.date < new Date()) {
+                        TrainConnection.departureDate = new Date();
+                    } else {
+                        TrainConnection.departureDate = dialog.date;
+                    }
+                    
                 });
             }
         }
@@ -146,12 +144,11 @@ PagePL {
                     time.setHours(dialog.hour);
                     time.setMinutes(dialog.minute);
                     time.setSeconds(0);
-                    TrainConnection.departureTime = time;
-                    // timeItem.text = timeItem.time.toLocaleTimeString();
-                    // Format date as YYYY-MM-DD.
-                    // var hour = ("00" + dialog.hour).substr(-2);
-                    // var minute = ("00" + dialog.minute).substr(-2);
-                    // page.params.time = "%1:%2:00".arg(hour).arg(minute);
+                    if (time < new Date()) {
+                        TrainConnection.departureTime = new Date();    
+                    } else {
+                        TrainConnection.departureTime = time;
+                    }
                 });
             }
         }
@@ -185,7 +182,6 @@ PagePL {
             anchors.leftMargin: styler.themeHorizontalPageMargin
             anchors.right: parent.right
             anchors.rightMargin: styler.themeHorizontalPageMargin
-            visible: connectionModel.count > 0
 
             LabelPL {
                 id: timeHeader
@@ -217,13 +213,11 @@ PagePL {
             anchors.right: parent.right
             anchors.rightMargin: styler.themeHorizontalPageMargin
             color: "gray"
-            visible: connectionRepeater.model.count > 0
         }
 
         Repeater {
             id: connectionRepeater
             width: page.width
-            visible: model.count > 0
 
             model: connectionModel
 
