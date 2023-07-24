@@ -43,19 +43,42 @@ PagePL {
         id: column
         width: page.width
 
+        // ListItemLabel {
+        //     color: styler.themeHighlightColor
+        //     height: implicitHeight + styler.themePaddingMedium
+        //     text: poi.address ? app.tr('From:\n') + poi.address : ""
+        //     truncMode: truncModes.none
+        //     verticalAlignment: Text.AlignTop
+        //     wrapMode: Text.WordWrap
+        // }
+
         ListItemLabel {
             color: styler.themeHighlightColor
             height: implicitHeight + styler.themePaddingMedium
-            text: poi.address ? app.tr('From:\n') + poi.address : ""
+            text: app.tr('Start:')
             truncMode: truncModes.none
             verticalAlignment: Text.AlignTop
             wrapMode: Text.WordWrap
         }
 
+        ButtonPL {
+            id: pickStartButton
+            anchors.horizontalCenter: parent.horizontalCenter
+            preferredWidth: page.width - (2 * styler.themeHorizontalPageMargin)
+            text: TrainConnection.start.name ? TrainConnection.start.name : app.tr("Choose Start")
+            onClicked: {
+                app.push(Qt.resolvedUrl("TrainConnectionDestinationQueryPage.qml"), {
+                    "latitude": poi.coordinate.latitude,
+                    "longitude": poi.coordinate.longitude,
+                    "callback": page.startCallback
+                });
+            }
+        }
+
         ListItemLabel {
             color: styler.themeHighlightColor
             height: implicitHeight + styler.themePaddingMedium
-            text: app.tr('To:')
+            text: app.tr('Destination:')
             truncMode: truncModes.none
             verticalAlignment: Text.AlignTop
             wrapMode: Text.WordWrap
@@ -308,11 +331,12 @@ PagePL {
 
     }
 
+    function startCallback(data) {
+        TrainConnection.start = data;
+    }
+
     function destinationCallback(data) {
         TrainConnection.destination = data;
-        // selectedStation = data;
-        // pickDestinationButton.text = selectedStation.name;
-        searchButton.enabled = true;
     }
 
 }
