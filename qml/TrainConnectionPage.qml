@@ -27,7 +27,7 @@ PagePL {
     title: app.tr("Connections for ") + poi.title
 
     property var poi
-    property var selectedStation
+    // property var selectedStation
 
     // pageMenu: PageMenuPL {
     //     PageMenuItemPL {
@@ -65,7 +65,7 @@ PagePL {
             id: pickDestinationButton
             anchors.horizontalCenter: parent.horizontalCenter
             preferredWidth: page.width - (2 * styler.themeHorizontalPageMargin)
-            text: app.tr("Choose Destination")
+            text: TrainConnection.destination().name ? TrainConnection.destination().name : app.tr("Choose Destination")
             onClicked: {
                 app.push(Qt.resolvedUrl("TrainConnectionDestinationQueryPage.qml"), {
                     "latitude": poi.coordinate.latitude,
@@ -88,48 +88,48 @@ PagePL {
             enabled: false
             text: app.tr("Search")
             onClicked: {
-                searchButton.enabled = false;
-                searchButton.text = app.tr("Loading");
+                // searchButton.enabled = false;
+                // searchButton.text = app.tr("Loading");
                 
-                connectionRepeater.model.clear();
+                // connectionRepeater.model.clear();
 
-                py.call("poor.app.trainconnections.search_connections", [poi.coordinate.latitude, poi.coordinate.longitude, selectedStation['eva'], selectedStation['name']], function(results) {
-                    searchButton.enabled = true;
-                    searchButton.text = app.tr("Search");
+                // py.call("poor.app.trainconnections.search_connections", [poi.coordinate.latitude, poi.coordinate.longitude, selectedStation['eva'], selectedStation['name']], function(results) {
+                //     searchButton.enabled = true;
+                //     searchButton.text = app.tr("Search");
                     
-                    results.forEach( function (p) { 
-                        var dict = {};
-                        for (var i = 0; i < p.length; i++) {
-                            const key = 'con' + i;
-                            dict[key] = p[i];
-                            dict['count'] = i + 1;
-                        }
+                //     results.forEach( function (p) { 
+                //         var dict = {};
+                //         for (var i = 0; i < p.length; i++) {
+                //             const key = 'con' + i;
+                //             dict[key] = p[i];
+                //             dict['count'] = i + 1;
+                //         }
 
-                        if (parseInt(dict['count']) > 1) {
-                            dict['dp_time_hh'] = dict['con0']['dp_time_hh'];
-                            dict['dp_time_mm'] = dict['con0']['dp_time_mm'];
-                            dict['ar_time_hh'] = dict['con1']['ar_time_hh'];
-                            dict['ar_time_mm'] = dict['con1']['ar_time_mm'];
+                //         if (parseInt(dict['count']) > 1) {
+                //             dict['dp_time_hh'] = dict['con0']['dp_time_hh'];
+                //             dict['dp_time_mm'] = dict['con0']['dp_time_mm'];
+                //             dict['ar_time_hh'] = dict['con1']['ar_time_hh'];
+                //             dict['ar_time_mm'] = dict['con1']['ar_time_mm'];
 
-                            dict['diff_minutes'] = getTimeDifference(dict['dp_time_hh'], dict['dp_time_mm'], dict['ar_time_hh'], dict['ar_time_mm']);
-                            dict['names'] = dict['con0']['type'] + " " + dict['con0']['name'] + ", " + dict['con1']['type'] + " " + dict['con1']['name']
+                //             dict['diff_minutes'] = getTimeDifference(dict['dp_time_hh'], dict['dp_time_mm'], dict['ar_time_hh'], dict['ar_time_mm']);
+                //             dict['names'] = dict['con0']['type'] + " " + dict['con0']['name'] + ", " + dict['con1']['type'] + " " + dict['con1']['name']
 
-                        } else {
-                            dict['dp_time_hh'] = dict['con0']['dp_time_hh'];
-                            dict['dp_time_mm'] = dict['con0']['dp_time_mm'];
-                            dict['ar_time_hh'] = dict['con0']['ar_time_hh'];
-                            dict['ar_time_mm'] = dict['con0']['ar_time_mm'];
+                //         } else {
+                //             dict['dp_time_hh'] = dict['con0']['dp_time_hh'];
+                //             dict['dp_time_mm'] = dict['con0']['dp_time_mm'];
+                //             dict['ar_time_hh'] = dict['con0']['ar_time_hh'];
+                //             dict['ar_time_mm'] = dict['con0']['ar_time_mm'];
 
-                            dict['diff_minutes'] = getTimeDifference(dict['dp_time_hh'], dict['dp_time_mm'], dict['ar_time_hh'], dict['ar_time_mm']);
-                            dict['names'] = dict['con0']['type'] + " " + dict['con0']['name']
+                //             dict['diff_minutes'] = getTimeDifference(dict['dp_time_hh'], dict['dp_time_mm'], dict['ar_time_hh'], dict['ar_time_mm']);
+                //             dict['names'] = dict['con0']['type'] + " " + dict['con0']['name']
 
-                        }
+                //         }
 
-                        connectionRepeater.model.append(dict);
+                //         connectionRepeater.model.append(dict);
 
-                    });
+                //     });
                     
-                });
+                // });
 
             }
         }
@@ -307,8 +307,9 @@ PagePL {
     }
 
     function destinationCallback(data) {
-        selectedStation = data;
-        pickDestinationButton.text = selectedStation.name;
+        TrainConnection.setDestination(data);
+        // selectedStation = data;
+        // pickDestinationButton.text = selectedStation.name;
         searchButton.enabled = true;
     }
 

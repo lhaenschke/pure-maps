@@ -96,18 +96,17 @@ KPublicTransport::LocationRequest TrainConnection::createLocationRequest(const Q
     req.setName(name);
     req.setBackendIds(m_manager.enabledBackends());
     
-    std::vector<QJsonObject> jsonObjects;
-    KPublicTransport::LocationReply *reply = m_manager.queryLocation(req);
-    const std::vector<KPublicTransport::Location> &resultsArray = reply->result();
+    // req json keys: identifier-latitude-longitude-name-type
 
-    for (auto result: resultsArray) {
-        jsonObjects.push_back(KPublicTransport::Location::toJson(result));
-    }
+    // KPublicTransport::LocationReply *reply = m_manager.queryLocation(req);
+    // const std::vector<KPublicTransport::Location> &resultsArray = reply->result();
 
-    for (auto json: jsonObjects) {
-        std::cout << "Keys: " << json.keys().join('-').toLocal8Bit().constData() << std::endl;
-        std::cout << "Name: " << json.take("name").toString().toLocal8Bit().constData() << std::endl;
-    }
+    // for (auto result: resultsArray) {
+    //     QJsonObject json = KPublicTransport::Location::toJson(result);
+    //     std::cout << "Keys: " << json.keys().join('-').toLocal8Bit().constData() << std::endl;
+        
+    //     std::cout << "Name: " << json.take("name").toString().toLocal8Bit().constData() << std::endl;
+    // }
 
     return req;
 }
