@@ -1,6 +1,6 @@
 /* -*- coding: utf-8-unix -*-
  *
- * Copyright (C) 2018 lhaenschke
+ * Copyright (C) 2023 lhaenschke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,380 +18,308 @@
 
 import QtQuick 2.0
 import QtPositioning 5.4
+import org.puremaps 1.0
+import org.kde.kpublictransport 1.0 as KPT
 import "."
 import "platform"
 
 PagePL {
     id: page
-    title: app.tr("Details")
+    title: app.tr("Trainconnections")
 
-    property var  connectionDict
-    property bool hasTransfer
+    property var poi
+
+    // pageMenu: PageMenuPL {
+    //     PageMenuItemPL {
+    //         enabled: page.active
+    //         text: useAPI ? app.tr('Press toe use API-Mode') : app.tr('Press to use Scraping-Mode')
+    //         onClicked: {
+    //             useAPI = !useAPI
+    //         }
+    //     }
+    // }
 
     Column {
         id: column
         width: page.width
 
-        Rectangle {
-            height: 2
-            anchors.left: parent.left
-            anchors.leftMargin: 8
-            anchors.right: parent.right
-            anchors.rightMargin: 8
-            color: "gray"
-        }
-
-        LabelPL {
+        ListItemLabel {
             color: styler.themeHighlightColor
             height: implicitHeight + styler.themePaddingMedium
-            anchors.left: parent.left
-            anchors.leftMargin: styler.themeHorizontalPageMargin
-            anchors.right: parent.right
-            anchors.rightMargin: styler.themeHorizontalPageMargin
-            text: connectionDict['con0']['type'] + " " + connectionDict['con0']['name'] + " -> " + connectionDict['con0']['destination']
-            font.pixelSize: styler.themeFontSizeLarge
-            verticalAlignment: Text.AlignVCenter
+            text: app.tr('Start:')
+            truncMode: truncModes.none
+            verticalAlignment: Text.AlignTop
+            wrapMode: Text.WordWrap
         }
 
-        Rectangle {
-            height: 1
-            anchors.left: parent.left
-            anchors.leftMargin: styler.themeHorizontalPageMargin
-            anchors.right: parent.right
-            anchors.rightMargin: styler.themeHorizontalPageMargin
-            color: "gray"
-        }
-
-        Spacer {
-            height: styler.themePaddingMedium
-        }
-
-        Grid {
-            id: headerOneGrid
-            columns: 3
-            rows: 1
-            anchors.left: parent.left
-            anchors.leftMargin: styler.themeHorizontalPageMargin
-            anchors.right: parent.right
-            anchors.rightMargin: styler.themeHorizontalPageMargin
-
-            LabelPL {
-                id: timeOneHeader
-                width: page.width / 7
-                horizontalAlignment: Text.AlignLeft
-                text: app.tr("Time")
+        ButtonPL {
+            id: pickStartButton
+            anchors.horizontalCenter: parent.horizontalCenter
+            preferredWidth: page.width - (2 * styler.themeHorizontalPageMargin)
+            text: TrainConnection.start.name ? TrainConnection.start.name : app.tr("Choose Start")
+            onClicked: {
+                app.push(Qt.resolvedUrl("TrainConnectionDestinationQueryPage.qml"), {
+                    "latitude": poi.coordinate.latitude,
+                    "longitude": poi.coordinate.longitude,
+                    "callback": page.startCallback
+                });
             }
-
-            LabelPL {
-                id: directionOneHeader
-                width: page.width - (2 * styler.themeHorizontalPageMargin + timeOneHeader.width + trackOneHeader.width)
-                horizontalAlignment: Text.AlignLeft
-                text: app.tr("Station")
-            }
-
-            LabelPL {
-                id: trackOneHeader
-                width: page.width / 4
-                horizontalAlignment: Text.AlignRight
-                text: app.tr("Track")
-            }
-        } 
-
-        Rectangle {
-            height: 1
-            anchors.left: parent.left
-            anchors.leftMargin: styler.themeHorizontalPageMargin
-            anchors.right: parent.right
-            anchors.rightMargin: styler.themeHorizontalPageMargin
-            color: "gray"
-        }
-
-        Spacer {
-            height: styler.themePaddingMedium
-        }
-
-        Grid {
-            id: dpOneGrid
-            columns: 3
-            rows: 1
-            anchors.left: parent.left
-            anchors.leftMargin: styler.themeHorizontalPageMargin
-            anchors.right: parent.right
-            anchors.rightMargin: styler.themeHorizontalPageMargin
-
-            LabelPL {
-                id: dpTimeOneLabel
-                width: page.width / 7
-                horizontalAlignment: Text.AlignLeft
-                text: connectionDict['con0']['dp_time_hh'] + ":" + connectionDict['con0']['dp_time_mm']
-            }
-
-            LabelPL {
-                id: dpDirectionOneLabel
-                width: page.width - (2 * styler.themeHorizontalPageMargin + dpTimeOneLabel.width + dpTrackOneLabel.width)
-                horizontalAlignment: Text.AlignLeft
-                text: connectionDict['con0']['start']
-            }
-
-            LabelPL {
-                id: dpTrackOneLabel
-                width: page.width / 4
-                horizontalAlignment: Text.AlignRight
-                text: connectionDict['con0']['dp_track']
-            }
-        } 
-
-        Spacer {
-            height: styler.themePaddingLarge
-        }
-
-        Grid {
-            id: arOneGrid
-            columns: 3
-            rows: 1
-            anchors.left: parent.left
-            anchors.leftMargin: styler.themeHorizontalPageMargin
-            anchors.right: parent.right
-            anchors.rightMargin: styler.themeHorizontalPageMargin
-
-            LabelPL {
-                id: arTimeOneLabel
-                width: page.width / 7
-                horizontalAlignment: Text.AlignLeft
-                text: connectionDict['con0']['ar_time_hh'] + ":" + connectionDict['con0']['ar_time_mm']
-            }
-
-            LabelPL {
-                id: arDirectionOneLabel
-                width: page.width - (2 * styler.themeHorizontalPageMargin + arTimeOneLabel.width + arTrackOneLabel.width)
-                horizontalAlignment: Text.AlignLeft
-                text: connectionDict['con0']['target']
-            }
-
-            LabelPL {
-                id: arTrackOneLabel
-                width: page.width / 4
-                horizontalAlignment: Text.AlignRight
-                text: connectionDict['con0']['ar_track']
-            }
-        } 
-
-        Spacer {
-            height: styler.themePaddingMedium
-        }
-
-        Rectangle {
-            height: 2
-            anchors.left: parent.left
-            anchors.leftMargin: 8
-            anchors.right: parent.right
-            anchors.rightMargin: 8
-            color: "gray"
-        }
-
-        Spacer {
-            height: styler.themePaddingLarge
-        }
-
-        LabelPL {
-            visible: hasTransfer
-            color: styler.themeHighlightColor
-            height: implicitHeight + styler.themePaddingMedium
-            anchors.left: parent.left
-            anchors.leftMargin: 8
-            anchors.right: parent.right
-            anchors.rightMargin: 8
-            text: hasTransfer ? getTimeDifference(connectionDict['con0']['ar_time_hh'], connectionDict['con0']['ar_time_mm'], connectionDict['con1']['dp_time_hh'], connectionDict['con1']['dp_time_mm']) + " minutes transfer" : ""
-            font.pixelSize: styler.themeFontSizeMedium
-            verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignHCenter
-        } 
-
-        Spacer {
-            visible: hasTransfer
-            height: styler.themePaddingLarge
-        }
-
-        Rectangle {
-            visible: hasTransfer
-            height: 2
-            anchors.left: parent.left
-            anchors.leftMargin: 8
-            anchors.right: parent.right
-            anchors.rightMargin: 8
-            color: "gray"
-        }
-
-        LabelPL {
-            color: styler.themeHighlightColor
-            height: implicitHeight + styler.themePaddingMedium
-            anchors.left: parent.left
-            anchors.leftMargin: styler.themeHorizontalPageMargin
-            anchors.right: parent.right
-            anchors.rightMargin: styler.themeHorizontalPageMargin
-            text: hasTransfer ? connectionDict['con1']['type'] + " " + connectionDict['con1']['name'] + " -> " + connectionDict['con1']['destination'] : ""
-            font.pixelSize: styler.themeFontSizeLarge
-            verticalAlignment: Text.AlignVCenter
-        }
-        
-        Rectangle {
-            visible: hasTransfer
-            height: 1
-            anchors.left: parent.left
-            anchors.leftMargin: styler.themeHorizontalPageMargin
-            anchors.right: parent.right
-            anchors.rightMargin: styler.themeHorizontalPageMargin
-            color: "gray"
-        }
-
-        Spacer {
-            visible: hasTransfer
-            height: styler.themePaddingMedium
-        }
-
-        Grid {
-            id: headerTwoGrid
-            visible: hasTransfer
-            columns: 3
-            rows: 1
-            anchors.left: parent.left
-            anchors.leftMargin: styler.themeHorizontalPageMargin
-            anchors.right: parent.right
-            anchors.rightMargin: styler.themeHorizontalPageMargin
-
-            LabelPL {
-                id: timeTwoHeader
-                width: page.width / 7
-                horizontalAlignment: Text.AlignLeft
-                text: app.tr("Time")
-            }
-
-            LabelPL {
-                id: directionTwoHeader
-                width: page.width - (2 * styler.themeHorizontalPageMargin + timeTwoHeader.width + trackTwoHeader.width)
-                horizontalAlignment: Text.AlignLeft
-                text: app.tr("Direction")
-            }
-
-            LabelPL {
-                id: trackTwoHeader
-                width: page.width / 4
-                horizontalAlignment: Text.AlignRight
-                text: app.tr("Track")
-            }
-        } 
-
-        Rectangle {
-            visible: hasTransfer
-            height: 1
-            anchors.left: parent.left
-            anchors.leftMargin: styler.themeHorizontalPageMargin
-            anchors.right: parent.right
-            anchors.rightMargin: styler.themeHorizontalPageMargin
-            color: "gray"
-        }
-
-        Spacer {
-            visible: hasTransfer
-            height: styler.themePaddingMedium
-        }
-
-        Grid {
-            id: dpTwoGrid
-            visible: hasTransfer
-            columns: 3
-            rows: 1
-            anchors.left: parent.left
-            anchors.leftMargin: styler.themeHorizontalPageMargin
-            anchors.right: parent.right
-            anchors.rightMargin: styler.themeHorizontalPageMargin
-
-            LabelPL {
-                id: dpTimeTwoLabel
-                width: page.width / 7
-                horizontalAlignment: Text.AlignLeft
-                text: hasTransfer ? connectionDict['con1']['dp_time_hh'] + ":" + connectionDict['con1']['dp_time_mm'] : ""
-            }
-
-            LabelPL {
-                id: dpDirectionTwoLabel
-                width: page.width - (2 * styler.themeHorizontalPageMargin + dpTimeTwoLabel.width + dpTrackTwoLabel.width)
-                horizontalAlignment: Text.AlignLeft
-                text: hasTransfer ? connectionDict['con1']['start'] : ""
-            }
-
-            LabelPL {
-                id: dpTrackTwoLabel
-                width: page.width / 4
-                horizontalAlignment: Text.AlignRight
-                text: hasTransfer ? connectionDict['con1']['dp_track'] : ""
-            }
-        } 
-
-        Spacer {
-            visible: hasTransfer
-            height: styler.themePaddingLarge
-        }
-
-        Grid {
-            id: arTwoGrid
-            visible: hasTransfer
-            columns: 3
-            rows: 1
-            anchors.left: parent.left
-            anchors.leftMargin: styler.themeHorizontalPageMargin
-            anchors.right: parent.right
-            anchors.rightMargin: styler.themeHorizontalPageMargin
-
-            LabelPL {
-                id: arTimeTwoLabel
-                width: page.width / 7
-                horizontalAlignment: Text.AlignLeft
-                text: hasTransfer ? connectionDict['con1']['ar_time_hh'] + ":" + connectionDict['con1']['ar_time_mm'] : ""
-            }
-
-            LabelPL {
-                id: arDirectionTwoLabel
-                width: page.width - (2 * styler.themeHorizontalPageMargin + arTimeTwoLabel.width + arTrackTwoLabel.width)
-                horizontalAlignment: Text.AlignLeft
-                text: hasTransfer ? connectionDict['con1']['target'] : ""
-            }
-
-            LabelPL {
-                id: arTrackTwoLabel
-                width: page.width / 4
-                horizontalAlignment: Text.AlignRight
-                text: hasTransfer ? connectionDict['con1']['ar_track'] : ""
-            }
-        } 
-
-        Spacer {
-            visible: hasTransfer
-            height: styler.themePaddingMedium
-        }
-
-        Rectangle {
-            visible: hasTransfer
-            height: 2
-            anchors.left: parent.left
-            anchors.leftMargin: 8
-            anchors.right: parent.right
-            anchors.rightMargin: 8
-            color: "gray"
-        }
-
-        Spacer {
-            height: styler.themePaddingMedium
         }
 
         ListItemLabel {
             color: styler.themeHighlightColor
             height: implicitHeight + styler.themePaddingMedium
-            text: app.tr('The times indicated are timetable times, not real-time')
+            text: app.tr('Destination:')
             truncMode: truncModes.none
             verticalAlignment: Text.AlignTop
-        } 
+            wrapMode: Text.WordWrap
+        }
 
+        ButtonPL {
+            id: pickDestinationButton
+            anchors.horizontalCenter: parent.horizontalCenter
+            preferredWidth: page.width - (2 * styler.themeHorizontalPageMargin)
+            text: TrainConnection.destination.name ? TrainConnection.destination.name : app.tr("Choose Destination")
+            onClicked: {
+                app.push(Qt.resolvedUrl("TrainConnectionDestinationQueryPage.qml"), {
+                    "latitude": poi.coordinate.latitude,
+                    "longitude": poi.coordinate.longitude,
+                    "callback": page.destinationCallback
+                });
+            }
+        }
+        
+        ListItemLabel {
+            color: styler.themeHighlightColor
+            height: implicitHeight
+            text: ""
+        }
+
+        ButtonPL {
+            id: searchButton
+            anchors.horizontalCenter: parent.horizontalCenter
+            preferredWidth: styler.themeButtonWidthLarge
+            enabled: TrainConnection.destination.name
+            text: app.tr("Search")
+            onClicked: {
+                connectionModel.request = TrainConnection.createJourneyRequest();
+
+                // searchButton.enabled = false;
+                // searchButton.text = app.tr("Loading");
+                
+                // connectionRepeater.model.clear();
+
+                // py.call("poor.app.trainconnections.search_connections", [poi.coordinate.latitude, poi.coordinate.longitude, selectedStation['eva'], selectedStation['name']], function(results) {
+                //     searchButton.enabled = true;
+                //     searchButton.text = app.tr("Search");
+                    
+                //     results.forEach( function (p) { 
+                //         var dict = {};
+                //         for (var i = 0; i < p.length; i++) {
+                //             const key = 'con' + i;
+                //             dict[key] = p[i];
+                //             dict['count'] = i + 1;
+                //         }
+
+                //         if (parseInt(dict['count']) > 1) {
+                //             dict['dp_time_hh'] = dict['con0']['dp_time_hh'];
+                //             dict['dp_time_mm'] = dict['con0']['dp_time_mm'];
+                //             dict['ar_time_hh'] = dict['con1']['ar_time_hh'];
+                //             dict['ar_time_mm'] = dict['con1']['ar_time_mm'];
+
+                //             dict['diff_minutes'] = getTimeDifference(dict['dp_time_hh'], dict['dp_time_mm'], dict['ar_time_hh'], dict['ar_time_mm']);
+                //             dict['names'] = dict['con0']['type'] + " " + dict['con0']['name'] + ", " + dict['con1']['type'] + " " + dict['con1']['name']
+
+                //         } else {
+                //             dict['dp_time_hh'] = dict['con0']['dp_time_hh'];
+                //             dict['dp_time_mm'] = dict['con0']['dp_time_mm'];
+                //             dict['ar_time_hh'] = dict['con0']['ar_time_hh'];
+                //             dict['ar_time_mm'] = dict['con0']['ar_time_mm'];
+
+                //             dict['diff_minutes'] = getTimeDifference(dict['dp_time_hh'], dict['dp_time_mm'], dict['ar_time_hh'], dict['ar_time_mm']);
+                //             dict['names'] = dict['con0']['type'] + " " + dict['con0']['name']
+
+                //         }
+
+                //         connectionRepeater.model.append(dict);
+
+                //     });
+                    
+                // });
+
+            }
+        }
+
+        Spacer {
+            height: styler.themePaddingLarge
+        }
+
+        // ListItemLabel {
+        //     color: styler.themeHighlightColor
+        //     height: implicitHeight + styler.themePaddingMedium
+        //     text: app.tr('The times indicated are timetable times, not real-time')
+        //     truncMode: truncModes.none
+        //     visible: connectionRepeater.model.count > 0
+        //     verticalAlignment: Text.AlignTop
+        // } 
+
+        // Spacer {
+        //     height: styler.themePaddingMedium
+        // }
+
+        // Grid {
+        //     id: headerGrid
+        //     columns: 3
+        //     rows: 1
+        //     anchors.left: parent.left
+        //     anchors.leftMargin: styler.themeHorizontalPageMargin
+        //     anchors.right: parent.right
+        //     anchors.rightMargin: styler.themeHorizontalPageMargin
+        //     visible: connectionRepeater.model.count > 0
+
+        //     LabelPL {
+        //         id: timeHeader
+        //         width: parent.width / 3.5
+        //         horizontalAlignment: Text.AlignLeft
+        //         text: app.tr("Time")
+        //     }
+
+        //     LabelPL {
+        //         id: nameDestinationHeader
+        //         width: parent.width - (timeHeader.width + changesHeader.width)
+        //         horizontalAlignment: Text.AlignLeft
+        //         text: app.tr("Trains")
+        //     }
+
+        //     LabelPL {
+        //         id: changesHeader
+        //         width: parent.width / 8
+        //         horizontalAlignment: Text.AlignRight
+        //         text: app.tr("Changes")
+        //     }
+        // }
+
+        // Rectangle {
+        //     id: listSeperator
+        //     height: 1
+        //     anchors.left: parent.left
+        //     anchors.leftMargin: styler.themeHorizontalPageMargin
+        //     anchors.right: parent.right
+        //     anchors.rightMargin: styler.themeHorizontalPageMargin
+        //     color: "gray"
+        //     visible: connectionRepeater.model.count > 0
+        // }
+
+        Repeater {
+            id: connectionRepeater
+            width: page.width
+            visible: model.count > 0
+
+            model: connectionModel
+
+            delegate: ListItemPL {
+                id: listItem
+                width: page.width
+                contentHeight: connectionColumn.height
+
+                Column {
+                    id: connectionColumn
+                    width: page.width
+
+                    Spacer {
+                        height: styler.themePaddingLarge
+                    }
+
+                    ListItemLabel {
+                        color: listItem.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
+                        height: implicitHeight + styler.themePaddingMedium
+                        text: journey.sections[0].scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat) + " " + journey.sections[0].from.name
+                        verticalAlignment: Text.AlignVCenter
+                    }
+
+                    // Grid {
+                    //     id: firstRow
+                    //     columns: 3
+                    //     rows: 1
+                    //     anchors.left: parent.left
+                    //     anchors.leftMargin: 8
+                    //     anchors.right: parent.right
+                    //     anchors.rightMargin: 8
+
+                    //     LabelPL {
+                    //         id: arTimeLabel
+                    //         width: parent.width / 3.5
+                    //         horizontalAlignment: Text.AlignLeft
+                    //         text: model['dp_time_hh'] + ":" + model['dp_time_mm'] + " - " + model['ar_time_hh'] + ":" + model['ar_time_mm']
+                    //     }
+
+                    //     LabelPL {
+                    //         id: arStationLabel
+                    //         width: parent.width - (arTimeLabel.width + changesLabel.width + styler.themeHorizontalPageMargin)
+                    //         horizontalAlignment: Text.AlignLeft
+                    //         text: model['names']
+                    //     }
+
+                    //     LabelPL {
+                    //         id: changesLabel
+                    //         width: parent.width / 8
+                    //         horizontalAlignment: Text.AlignRight
+                    //         text: (parseInt(model['count']) - 1) + " changes"
+                    //     }
+
+                    // }
+
+                    // Grid {
+                    //     id: secoundRow
+                    //     columns: 1
+                    //     rows: 1
+                    //     anchors.left: parent.left
+                    //     anchors.leftMargin: 8
+                    //     anchors.right: parent.right
+                    //     anchors.rightMargin: 8
+
+                    //     LabelPL {
+                    //         id: diffTimeLabel
+                    //         width: parent.width / 3.5
+                    //         horizontalAlignment: Text.AlignLeft
+                    //         text: "(" + model['diff_minutes'] + " min)"
+                    //     }
+
+                    // }
+
+                    // Spacer {
+                    //     height: styler.themePaddingLarge
+                    // }
+
+                    // Rectangle {
+                    //     height: 1
+                    //     width: listSeperator.width
+                    //     anchors.left: parent.left
+                    //     anchors.leftMargin: 8
+                    //     color: "gray"
+                    // }
+
+                }
+
+                onClicked: {
+                }
+
+            }
+
+        }
+
+    }
+
+    KPT.JourneyQueryModel {
+        id: connectionModel
+        manager: Manager
+    }
+
+    onPageStatusActivating: {
+        const kpt_backends = py.evaluate("poor.app.history.kpt_backends");
+        kpt_backends.forEach( function(x) { TrainConnection.setBackendEnable(x, true); } );
+
+        TrainConnection.startLocationRequest(poi.coordinate.latitude, poi.coordinate.longitude, poi.title);
     }
 
     function getTimeDifference(time_one_hh, time_one_mm, time_two_hh, time_two_mm) {
@@ -404,6 +332,14 @@ PagePL {
 
         return diff_minutes;
 
+    }
+
+    function startCallback(data) {
+        TrainConnection.start = data;
+    }
+
+    function destinationCallback(data) {
+        TrainConnection.destination = data;
     }
 
 }

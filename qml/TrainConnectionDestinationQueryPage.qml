@@ -1,6 +1,6 @@
 /* -*- coding: utf-8-unix -*-
  *
- * Copyright (C) 2018 lhaenschke
+ * Copyright (C) 2023 lhaenschke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,6 +18,8 @@
 
 import QtQuick 2.0
 import QtPositioning 5.4
+import org.puremaps 1.0
+import org.kde.kpublictransport 1.0 as KPT
 import "."
 import "platform"
 
@@ -31,41 +33,34 @@ PageListPL {
     property var    callback
     property var    searchField: undefined
 
-    model: ListModel {}
+    model: queryModel
 
     delegate: ListItemPL {
         id: listItem
-        contentHeight: titleItem.height + spacer.height * 2
+        contentHeight: column.height
 
         Column {
             id: column
             width: page.width
 
             Spacer {
-                id: spacer
                 height: styler.themePaddingLarge / 2
             }
 
             ListItemLabel {
-                id: titleItem
                 color: listItem.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
                 height: implicitHeight + styler.themePaddingMedium
-                text: {
-                    if (model['status'] == 200) {
-                        return model['name'];
-                    } else {
-                        return "";
-                    }
-                }
+                text: location.name
                 verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
             }
 
         }
 
         onClicked: {
-            const result = {'name': model['name'], 'eva': model['eva']};
-            callback(result);
+            callback(location);
             app.pages.pop();
+
         }
 
     }
@@ -87,14 +82,12 @@ PageListPL {
     }
 
     function fillModel(query) {
-        py.call("poor.app.trainconnections.get_suggestions", [query, latitude, longitude], function(results) {
-            page.model.clear();
-            results.forEach( function(p) { 
-                if (p['status'] == 200) {
-                    page.model.append(p);
-                }
-            });
-        });
+        queryModel.request = TrainConnection.createLocationRequest(query);
+    }
+
+    KPT.LocationQueryModel {
+        id: queryModel
+        manager: Manager
     }
 
 }

@@ -182,6 +182,9 @@ add_custom_target(Sources SOURCES
     ${GCLUE2_SRC} ${GCLUE2_HEADERS} ${GCLUE2_XML}
     )
 
+find_package(KPublicTransport)
+set_package_properties(KPublicTransport PROPERTIES TYPE REQUIRED PURPOSE "Query online journey information")
+
 # process linking and installation in the subdirs where needed
 add_subdirectory(src)
 add_subdirectory(poor)
