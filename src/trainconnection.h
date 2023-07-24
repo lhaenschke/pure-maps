@@ -38,7 +38,7 @@ public:
     void setDepartureTime(const QTime &time);
 
     Q_INVOKABLE void setBackendEnable(const QString &identifier, bool enabeld);
-    Q_INVOKABLE void TrainConnection::startLocationRequest(float lat, float lon);
+    Q_INVOKABLE void startLocationRequest(float lat, float lon);
 
     Q_INVOKABLE KPublicTransport::JourneyRequest createJourneyRequest();
     Q_INVOKABLE KPublicTransport::LocationRequest createLocationRequest(const QString &name);
