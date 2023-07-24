@@ -80,6 +80,55 @@ DialogPL {
 
         }
 
+        ListView {
+            model: backendModel
+            delegate: ListItemPL {
+                contentHeight: repeaterColumn.height
+
+                Column {
+                    id: repeaterColumn
+                    width: page.width
+
+                    TextSwitchPL {
+                        checked: model.backendEnabled
+                        description: model.description
+                        text: model.name
+                        onCheckedChanged: { 
+                            if (checked) {
+                                py.call_sync("poor.app.history.add_kpt_backend", [model.identifier]);
+                            } else {
+                                py.call_sync("poor.app.history.remove_kpt_backend", [model.identifier]);
+                            }
+                        }
+                    }
+
+                    Spacer {
+                        height: styler.themePaddingLarge / 2
+                    }
+
+                }
+
+            }
+
+            section.property: "countryCode"
+            section.delegate: ListItemPL {
+                text: {
+                    switch (section) {
+                        case "":
+                        case "UN":
+                            return "United Nations";
+                        case "EU":
+                            return "European Union";
+                        default:
+                            return section;
+                    }
+                }
+            }
+            section.criteria: ViewSection.FullString
+            section.labelPositioning: ViewSection.CurrentLabelAtStart | ViewSection.InlineLabels
+        }
+
+
     }
 
     onPageStatusActivating: {
