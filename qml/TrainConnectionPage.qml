@@ -103,51 +103,6 @@ PagePL {
             text: app.tr("Search")
             onClicked: {
                 connectionModel.request = TrainConnection.createJourneyRequest();
-
-
-                // searchButton.enabled = false;
-                // searchButton.text = app.tr("Loading");
-                
-                // connectionRepeater.model.clear();
-
-                // py.call("poor.app.trainconnections.search_connections", [poi.coordinate.latitude, poi.coordinate.longitude, selectedStation['eva'], selectedStation['name']], function(results) {
-                //     searchButton.enabled = true;
-                //     searchButton.text = app.tr("Search");
-                    
-                //     results.forEach( function (p) { 
-                //         var dict = {};
-                //         for (var i = 0; i < p.length; i++) {
-                //             const key = 'con' + i;
-                //             dict[key] = p[i];
-                //             dict['count'] = i + 1;
-                //         }
-
-                //         if (parseInt(dict['count']) > 1) {
-                //             dict['dp_time_hh'] = dict['con0']['dp_time_hh'];
-                //             dict['dp_time_mm'] = dict['con0']['dp_time_mm'];
-                //             dict['ar_time_hh'] = dict['con1']['ar_time_hh'];
-                //             dict['ar_time_mm'] = dict['con1']['ar_time_mm'];
-
-                //             dict['diff_minutes'] = getTimeDifference(dict['dp_time_hh'], dict['dp_time_mm'], dict['ar_time_hh'], dict['ar_time_mm']);
-                //             dict['names'] = dict['con0']['type'] + " " + dict['con0']['name'] + ", " + dict['con1']['type'] + " " + dict['con1']['name']
-
-                //         } else {
-                //             dict['dp_time_hh'] = dict['con0']['dp_time_hh'];
-                //             dict['dp_time_mm'] = dict['con0']['dp_time_mm'];
-                //             dict['ar_time_hh'] = dict['con0']['ar_time_hh'];
-                //             dict['ar_time_mm'] = dict['con0']['ar_time_mm'];
-
-                //             dict['diff_minutes'] = getTimeDifference(dict['dp_time_hh'], dict['dp_time_mm'], dict['ar_time_hh'], dict['ar_time_mm']);
-                //             dict['names'] = dict['con0']['type'] + " " + dict['con0']['name']
-
-                //         }
-
-                //         connectionRepeater.model.append(dict);
-
-                //     });
-                    
-                // });
-
             }
         }
 
@@ -155,61 +110,48 @@ PagePL {
             height: styler.themePaddingLarge
         }
 
-        // ListItemLabel {
-        //     color: styler.themeHighlightColor
-        //     height: implicitHeight + styler.themePaddingMedium
-        //     text: app.tr('The times indicated are timetable times, not real-time')
-        //     truncMode: truncModes.none
-        //     visible: connectionRepeater.model.count > 0
-        //     verticalAlignment: Text.AlignTop
-        // } 
+        Grid {
+            id: headerGrid
+            columns: 3
+            rows: 1
+            anchors.left: parent.left
+            anchors.leftMargin: styler.themeHorizontalPageMargin
+            anchors.right: parent.right
+            anchors.rightMargin: styler.themeHorizontalPageMargin
+            visible: connectionRepeater.model.count > 0
 
-        // Spacer {
-        //     height: styler.themePaddingMedium
-        // }
+            LabelPL {
+                id: timeHeader
+                width: parent.width / 3.5
+                horizontalAlignment: Text.AlignLeft
+                text: app.tr("Time")
+            }
 
-        // Grid {
-        //     id: headerGrid
-        //     columns: 3
-        //     rows: 1
-        //     anchors.left: parent.left
-        //     anchors.leftMargin: styler.themeHorizontalPageMargin
-        //     anchors.right: parent.right
-        //     anchors.rightMargin: styler.themeHorizontalPageMargin
-        //     visible: connectionRepeater.model.count > 0
+            LabelPL {
+                id: nameDestinationHeader
+                width: parent.width - (timeHeader.width + changesHeader.width)
+                horizontalAlignment: Text.AlignLeft
+                text: app.tr("Trains/Buses")
+            }
 
-        //     LabelPL {
-        //         id: timeHeader
-        //         width: parent.width / 3.5
-        //         horizontalAlignment: Text.AlignLeft
-        //         text: app.tr("Time")
-        //     }
+            LabelPL {
+                id: changesHeader
+                width: parent.width / 8
+                horizontalAlignment: Text.AlignRight
+                text: app.tr("Changes")
+            }
+        }
 
-        //     LabelPL {
-        //         id: nameDestinationHeader
-        //         width: parent.width - (timeHeader.width + changesHeader.width)
-        //         horizontalAlignment: Text.AlignLeft
-        //         text: app.tr("Trains")
-        //     }
-
-        //     LabelPL {
-        //         id: changesHeader
-        //         width: parent.width / 8
-        //         horizontalAlignment: Text.AlignRight
-        //         text: app.tr("Changes")
-        //     }
-        // }
-
-        // Rectangle {
-        //     id: listSeperator
-        //     height: 1
-        //     anchors.left: parent.left
-        //     anchors.leftMargin: styler.themeHorizontalPageMargin
-        //     anchors.right: parent.right
-        //     anchors.rightMargin: styler.themeHorizontalPageMargin
-        //     color: "gray"
-        //     visible: connectionRepeater.model.count > 0
-        // }
+        Rectangle {
+            id: listSeperator
+            height: 1
+            anchors.left: parent.left
+            anchors.leftMargin: styler.themeHorizontalPageMargin
+            anchors.right: parent.right
+            anchors.rightMargin: styler.themeHorizontalPageMargin
+            color: "gray"
+            visible: connectionRepeater.model.count > 0
+        }
 
         Repeater {
             id: connectionRepeater
@@ -223,6 +165,10 @@ PagePL {
                 width: page.width
                 contentHeight: connectionColumn.height
 
+                readonly property var firstJourney: journey.sections[0]
+                readonly property var lastJourney: journey.sections[journey.sections.length - 1]
+                readonly property bool cancelled: journey.disruptionEffect == KPT.Disruption.NoService
+
                 Column {
                     id: connectionColumn
                     width: page.width
@@ -231,74 +177,77 @@ PagePL {
                         height: styler.themePaddingLarge
                     }
 
-                    ListItemLabel {
-                        color: listItem.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
-                        height: implicitHeight + styler.themePaddingMedium
-                        text: journey.sections[0].scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat) + " " + journey.sections[0].from.name
-                        verticalAlignment: Text.AlignVCenter
+                    // ListItemLabel {
+                    //     color: listItem.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
+                    //     height: implicitHeight + styler.themePaddingMedium
+                    //     text: journey.sections[0].scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat) + " " + journey.sections[0].from.name
+                    //     verticalAlignment: Text.AlignVCenter
+                    // }
+
+                    Grid {
+                        id: firstRow
+                        columns: 3
+                        rows: 1
+                        anchors.left: parent.left
+                        anchors.leftMargin: 8
+                        anchors.right: parent.right
+                        anchors.rightMargin: 8
+
+                        LabelPL {
+                            id: arTragetTimeLabel
+                            width: parent.width / 3.5
+                            horizontalAlignment: Text.AlignLeft
+                            text: firstJourney.scheduledDepartureTime " - " + lastJourney.scheduledArrivalTime
+                        }
+
+                        LabelPL {
+                            id: arStationLabel
+                            width: parent.width - (arTimeLabel.width + changesLabel.width + styler.themeHorizontalPageMargin)
+                            horizontalAlignment: Text.AlignLeft
+                            text: {
+                                var str = "";
+                                journey.sections.forEach( function(x) { str += x.route.line.name; str += " "; } );
+                            }
+                        }
+
+                        LabelPL {
+                            id: changesLabel
+                            width: parent.width / 8
+                            horizontalAlignment: Text.AlignRight
+                            text: journey.numberOfChanges + " changes"
+                        }
+
                     }
 
-                    // Grid {
-                    //     id: firstRow
-                    //     columns: 3
-                    //     rows: 1
-                    //     anchors.left: parent.left
-                    //     anchors.leftMargin: 8
-                    //     anchors.right: parent.right
-                    //     anchors.rightMargin: 8
+                    Grid {
+                        id: secoundRow
+                        columns: 1
+                        rows: 1
+                        anchors.left: parent.left
+                        anchors.leftMargin: 8
+                        anchors.right: parent.right
+                        anchors.rightMargin: 8
 
-                    //     LabelPL {
-                    //         id: arTimeLabel
-                    //         width: parent.width / 3.5
-                    //         horizontalAlignment: Text.AlignLeft
-                    //         text: model['dp_time_hh'] + ":" + model['dp_time_mm'] + " - " + model['ar_time_hh'] + ":" + model['ar_time_mm']
-                    //     }
+                        LabelPL {
+                            id: diffTimeLabel
+                            width: parent.width / 3.5
+                            horizontalAlignment: Text.AlignLeft
+                            text: "(" + model['diff_minutes'] + " min)"
+                        }
 
-                    //     LabelPL {
-                    //         id: arStationLabel
-                    //         width: parent.width - (arTimeLabel.width + changesLabel.width + styler.themeHorizontalPageMargin)
-                    //         horizontalAlignment: Text.AlignLeft
-                    //         text: model['names']
-                    //     }
+                    }
 
-                    //     LabelPL {
-                    //         id: changesLabel
-                    //         width: parent.width / 8
-                    //         horizontalAlignment: Text.AlignRight
-                    //         text: (parseInt(model['count']) - 1) + " changes"
-                    //     }
+                    Spacer {
+                        height: styler.themePaddingLarge
+                    }
 
-                    // }
-
-                    // Grid {
-                    //     id: secoundRow
-                    //     columns: 1
-                    //     rows: 1
-                    //     anchors.left: parent.left
-                    //     anchors.leftMargin: 8
-                    //     anchors.right: parent.right
-                    //     anchors.rightMargin: 8
-
-                    //     LabelPL {
-                    //         id: diffTimeLabel
-                    //         width: parent.width / 3.5
-                    //         horizontalAlignment: Text.AlignLeft
-                    //         text: "(" + model['diff_minutes'] + " min)"
-                    //     }
-
-                    // }
-
-                    // Spacer {
-                    //     height: styler.themePaddingLarge
-                    // }
-
-                    // Rectangle {
-                    //     height: 1
-                    //     width: listSeperator.width
-                    //     anchors.left: parent.left
-                    //     anchors.leftMargin: 8
-                    //     color: "gray"
-                    // }
+                    Rectangle {
+                        height: 1
+                        width: listSeperator.width
+                        anchors.left: parent.left
+                        anchors.leftMargin: 8
+                        color: "gray"
+                    }
 
                 }
 

@@ -52,7 +52,14 @@ PageListPL {
                 height: implicitHeight + styler.themePaddingMedium
                 text: location.name
                 verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
+            }
+
+            Rectangle {
+                height: 1
+                width: column.width
+                anchors.left: parent.left
+                anchors.leftMargin: 8
+                color: "gray"
             }
 
         }
