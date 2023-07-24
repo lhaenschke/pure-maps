@@ -142,14 +142,16 @@ PagePL {
                                             "title": app.tr("Select time")
                                         });
                 dialog.accepted.connect(function() {
-                    timeItem.time.setHours(dialog.hour);
-                    timeItem.time.setMinutes(dialog.minute);
-                    timeItem.time.setSeconds(0);
-                    timeItem.text = timeItem.time.toLocaleTimeString();
+                    var time = new Date();
+                    time.setHours(dialog.hour);
+                    time.setMinutes(dialog.minute);
+                    time.setSeconds(0);
+                    TrainConnection.departureTime = time;
+                    // timeItem.text = timeItem.time.toLocaleTimeString();
                     // Format date as YYYY-MM-DD.
-                    var hour = ("00" + dialog.hour).substr(-2);
-                    var minute = ("00" + dialog.minute).substr(-2);
-                    page.params.time = "%1:%2:00".arg(hour).arg(minute);
+                    // var hour = ("00" + dialog.hour).substr(-2);
+                    // var minute = ("00" + dialog.minute).substr(-2);
+                    // page.params.time = "%1:%2:00".arg(hour).arg(minute);
                 });
             }
         }
