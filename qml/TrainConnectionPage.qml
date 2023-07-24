@@ -185,7 +185,7 @@ PagePL {
 
             LabelPL {
                 id: timeHeader
-                width: parent.width / 5
+                width: parent.width / 5.5
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Time")
             }
@@ -247,7 +247,7 @@ PagePL {
 
                     Grid {
                         id: firstRow
-                        columns: 2
+                        columns: 3
                         rows: 1
                         anchors.left: parent.left
                         anchors.leftMargin: 8
@@ -255,17 +255,25 @@ PagePL {
                         anchors.rightMargin: 8
 
                         LabelPL {
-                            width: parent.width / 5
+                            id: firstTimeLabel
+                            width: parent.width / 5.5
                             horizontalAlignment: Text.AlignLeft
                             text: firstJourney.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat)
                         }
 
                         LabelPL {
+                            id: firstDelayLabel
                             width: parent.width / 6
                             horizontalAlignment: Text.AlignLeft
                             text: "+" + firstJourney.departureDelay
                             color: firstJourney.departureDelay > 3 ? "red" : "green"
                             visible: firstJourney.hasExpectedDepartureTime
+                        }
+
+                        LabelPL {
+                            width: parent.width - (firstTimeLabel.width + firstDelayLabel.width +  styler.themeHorizontalPageMargin)
+                            horizontalAlignment: Text.AlignLeft
+                            text: firstJourney.from.name
                         }
 
                     }
@@ -280,33 +288,24 @@ PagePL {
                         anchors.rightMargin: 8
 
                         LabelPL {
-                            id: arTimeLabel
-                            width: parent.width / 5
+                            id: lastTimeLabel
+                            width: parent.width / 5.5
                             horizontalAlignment: Text.AlignLeft
                             text: lastJourney.scheduledArrivalTime.toLocaleTimeString(Locale.ShortFormat) 
                         }
 
                         LabelPL {
-                            id: delayTimeLabel
+                            id: lastDelayLabel
                             width: parent.width / 6
                             horizontalAlignment: Text.AlignLeft
-                            text: lastJourney.departureDelay
+                            text: lastJourney.hasExpectedDepartureTime ? "+" + lastJourney.departureDelay : ""
                             color: lastJourney.departureDelay > 3 ? "red" : "green"
-                            visible: lastJourney.hasExpectedDepartureTime
                         }
 
                         LabelPL {
-                            id: arStationLabel
-                            width: parent.width - (arTimeLabel.width + delayTimeLabel.width + changesLabel.width + styler.themeHorizontalPageMargin)
+                            width: parent.width - (lastTimeLabel.width + lastDelayLabel.width + changesLabel.width + styler.themeHorizontalPageMargin)
                             horizontalAlignment: Text.AlignLeft
-                            text: {
-                                var str = "";
-                                journey.sections.forEach( function(x) { 
-                                    str += x.route.line.name; 
-                                    str += " ";
-                                });
-                                return str;
-                            }
+                            text: lastJourney.to.name
                         }
 
                         LabelPL {
@@ -320,7 +319,7 @@ PagePL {
 
                     Grid {
                         id: thirdRow
-                        columns: 1
+                        columns: 3
                         rows: 1
                         anchors.left: parent.left
                         anchors.leftMargin: 8
@@ -328,9 +327,30 @@ PagePL {
                         anchors.rightMargin: 8
 
                         LabelPL {
-                            width: parent.width / 5
+                            id: durationLabel
+                            width: parent.width / 5.5
                             horizontalAlignment: Text.AlignLeft
                             text: "(" + (journey.duration / 60) + " min)"
+                        }
+
+                        LabelPL {
+                            id: delayPlaceholderLabel
+                            width: parent.width / 6
+                            horizontalAlignment: Text.AlignLeft
+                            text: ""
+                        }
+
+                        LabelPL {
+                            width: parent.width - (durationLabel.width + delayPlaceholderLabel.width + styler.themeHorizontalPageMargin)
+                            horizontalAlignment: Text.AlignLeft
+                            text: {
+                                var str = "";
+                                journey.sections.forEach( function(x) { 
+                                    str += x.route.line.name; 
+                                    str += " ";
+                                });
+                                return str;
+                            }
                         }
 
                     }
