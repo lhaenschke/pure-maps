@@ -45,10 +45,10 @@ PagePL {
 
         ListItemLabel {
             color: styler.themeHighlightColor
-            height: implicitHeight + styler.themePaddingMedium
+            height: implicitHeight + styler.themePaddingLarge
             text: app.tr('Start:')
             truncMode: truncModes.none
-            verticalAlignment: Text.AlignTop
+            verticalAlignment: Text.AlignVCenter
             wrapMode: Text.WordWrap
         }
 
@@ -68,10 +68,10 @@ PagePL {
 
         ListItemLabel {
             color: styler.themeHighlightColor
-            height: implicitHeight + styler.themePaddingMedium
+            height: implicitHeight + styler.themePaddingLarge
             text: app.tr('Destination:')
             truncMode: truncModes.none
-            verticalAlignment: Text.AlignTop
+            verticalAlignment: Text.AlignVCenter
             wrapMode: Text.WordWrap
         }
 
@@ -88,6 +88,71 @@ PagePL {
                 });
             }
         }
+
+        ListItemLabel {
+            color: styler.themeHighlightColor
+            height: implicitHeight + styler.themePaddingLarge
+            text: app.tr('Date:')
+            truncMode: truncModes.none
+            verticalAlignment: Text.AlignVCenter
+            wrapMode: Text.WordWrap
+        }
+
+        ButtonPL {
+            id: pickDateButton
+            anchors.horizontalCenter: parent.horizontalCenter
+            preferredWidth: page.width - (2 * styler.themeHorizontalPageMargin)
+            text: Qt.formatDate(TrainConnection.departureDate, Qt.DefaultLocaleShortDate)
+            onClicked: {
+                var dialog = app.push(Qt.resolvedUrl("../qml/platform/DatePickerDialogPL.qml"), {
+                    "date": TrainConnection.departureDate,
+                    "title": app.tr("Select date")
+                });
+                dialog.accepted.connect(function() {
+                    TrainConnection.departureDate = dialog.date
+                    // dateItem.date = dialog.date;
+                    // dateItem.text = dialog.date.toLocaleDateString();
+                    // // Format date as YYYY-MM-DD.
+                    // var year = ("0000" + dialog.date.getFullYear()).substr(-4);
+                    // var month = ("00" + (dialog.date.getMonth()+1)).substr(-2);
+                    // var day = ("00" + dialog.date.getDate()).substr(-2);
+                    // page.params.date = "%1-%2-%3".arg(year).arg(month).arg(day);
+                });
+            }
+        }
+
+        ListItemLabel {
+            color: styler.themeHighlightColor
+            height: implicitHeight + styler.themePaddingLarge
+            text: app.tr('Time:')
+            truncMode: truncModes.none
+            verticalAlignment: Text.AlignVCenter
+            wrapMode: Text.WordWrap
+        }
+
+        ButtonPL {
+            id: pickTimeButton
+            anchors.horizontalCenter: parent.horizontalCenter
+            preferredWidth: page.width - (2 * styler.themeHorizontalPageMargin)
+            text: Qt.formatTime(TrainConnection.departureTime, Qt.DefaultLocaleShortDate)
+            onClicked: {
+                var dialog = app.push(Qt.resolvedUrl("../qml/platform/TimePickerDialogPL.qml"), {
+                                            "hour": TrainConnection.departureTime.getHours(),
+                                            "minute": TrainConnection.departureTime.getMinutes(),
+                                            "title": app.tr("Select time")
+                                        });
+                dialog.accepted.connect(function() {
+                    timeItem.time.setHours(dialog.hour);
+                    timeItem.time.setMinutes(dialog.minute);
+                    timeItem.time.setSeconds(0);
+                    timeItem.text = timeItem.time.toLocaleTimeString();
+                    // Format date as YYYY-MM-DD.
+                    var hour = ("00" + dialog.hour).substr(-2);
+                    var minute = ("00" + dialog.minute).substr(-2);
+                    page.params.time = "%1:%2:00".arg(hour).arg(minute);
+                });
+            }
+        }
         
         ListItemLabel {
             color: styler.themeHighlightColor
@@ -99,7 +164,7 @@ PagePL {
             id: searchButton
             anchors.horizontalCenter: parent.horizontalCenter
             preferredWidth: styler.themeButtonWidthLarge
-            enabled: TrainConnection.destination.name
+            enabled: TrainConnection.destination.name && TrainConnection.start.name
             text: app.tr("Search")
             onClicked: {
                 connectionModel.request = TrainConnection.createJourneyRequest();
@@ -112,7 +177,7 @@ PagePL {
 
         Grid {
             id: headerGrid
-            columns: 3
+            columns: 4
             rows: 1
             anchors.left: parent.left
             anchors.leftMargin: styler.themeHorizontalPageMargin
@@ -150,7 +215,7 @@ PagePL {
             anchors.right: parent.right
             anchors.rightMargin: styler.themeHorizontalPageMargin
             color: "gray"
-            visible: connectionModel.count > 0
+            visible: connectionRepeater.model.count > 0
         }
 
         Repeater {
@@ -187,13 +252,13 @@ PagePL {
                         anchors.rightMargin: 8
 
                         LabelPL {
-                            width: parent.width / 4
+                            width: parent.width / 5
                             horizontalAlignment: Text.AlignLeft
                             text: firstJourney.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat)
                         }
 
                         LabelPL {
-                            width: parent.width / 4
+                            width: parent.width / 5
                             horizontalAlignment: Text.AlignLeft
                             text: "+" + firstJourney.departureDelay
                             color: firstJourney.departureDelay > 3 ? "red" : "green"
@@ -320,6 +385,14 @@ PagePL {
 
     function destinationCallback(data) {
         TrainConnection.destination = data;
+    }
+
+    function dateCallback(data) {
+        TrainConnection.departureDate = data;
+    }
+
+    function timeCallback(data) {
+        TrainConnection.departureTime = data;
     }
 
 }
