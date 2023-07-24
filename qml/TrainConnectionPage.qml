@@ -204,7 +204,14 @@ PagePL {
                             id: arStationLabel
                             width: parent.width - (arTimeLabel.width + changesLabel.width + styler.themeHorizontalPageMargin)
                             horizontalAlignment: Text.AlignLeft
-                            text: ""
+                            text: {
+                                var str = "";
+                                journey.sections.forEach( function(x) { 
+                                    str += x.route.line.name; 
+                                    str += " ";
+                                });
+                                return str;
+                            }
                         }
 
                         LabelPL {
@@ -249,10 +256,6 @@ PagePL {
                 }
 
                 onClicked: {
-                    journey.sections.forEach( function(x) { 
-                        console.log("Test"); 
-                        console.log(x.route.line.name); 
-                    });
                 }
 
             }
