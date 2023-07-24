@@ -303,7 +303,7 @@ PagePL {
             icon: styler.iconNavigateTo
             label: app.tr("Search connection to destination")
             onClicked: {
-                app.push(Qt.resolvedUrl("TrainConnectionPage.qml"), {
+                app.push(Qt.resolvedUrl("TrainConnectionQueryPage.qml"), {
                     "poi": poi,
                 });
             }
