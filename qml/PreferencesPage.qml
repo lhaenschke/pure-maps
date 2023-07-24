@@ -866,12 +866,12 @@ PagePL {
             }
 
             ExpandingSectionPL {
-                id: publicTransportProviders
+                id: sectionPublicTransportProviders
                 title: app.tr("Public Transport Providers")
                 content.sourceComponent: Column {
                     id: publicTransortColumn
                     spacing: styler.themePaddingMedium
-                    width: sectionKeys.width
+                    width: sectionPublicTransportProviders.width
 
                     ListItemLabel {
                         color: styler.themeHighlightColor
@@ -880,17 +880,10 @@ PagePL {
                         wrapMode: Text.WordWrap
                     }
 
-                    ListItemLabel {
-                        color: styler.themeHighlightColor
-                        text: app.tr("Please restart application after changing providers.")
-                        truncMode: truncModes.none
-                        wrapMode: Text.WordWrap
-                    }
-
                     ButtonPL {
                         anchors.horizontalCenter: parent.horizontalCenter
                         preferredWidth: styler.themeButtonWidthLarge
-                        text: app.tr("Select Provders")
+                        text: app.tr("Select Providers")
                         onClicked: {
                             var dialog = app.push(Qt.resolvedUrl("TrainConnectionProvidersPage.qml"), {});
                         }

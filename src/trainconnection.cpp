@@ -1,3 +1,12 @@
+/*
+ * This file is part of Pure Maps.
+ *
+ * SPDX-FileCopyrightText: 2023 lhaenschke https://github.com/lhaenschke
+ *
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ *
+ */
+
 #include "trainconnection.h"
 
 #include <QQmlApplicationEngine>

@@ -1,6 +1,6 @@
 /* -*- coding: utf-8-unix -*-
  *
- * Copyright (C) 2018 lhaenschke
+ * Copyright (C) 2023 lhaenschke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,10 +25,9 @@ import "platform"
 
 PagePL {
     id: page
-    title: app.tr("Connections for ") + poi.title
+    title: app.tr("Trainconnections")
 
     property var poi
-    // property var selectedStation
 
     // pageMenu: PageMenuPL {
     //     PageMenuItemPL {
@@ -43,15 +42,6 @@ PagePL {
     Column {
         id: column
         width: page.width
-
-        // ListItemLabel {
-        //     color: styler.themeHighlightColor
-        //     height: implicitHeight + styler.themePaddingMedium
-        //     text: poi.address ? app.tr('From:\n') + poi.address : ""
-        //     truncMode: truncModes.none
-        //     verticalAlignment: Text.AlignTop
-        //     wrapMode: Text.WordWrap
-        // }
 
         ListItemLabel {
             color: styler.themeHighlightColor
