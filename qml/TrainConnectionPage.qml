@@ -192,7 +192,7 @@ PagePL {
 
             LabelPL {
                 id: delayHeader
-                width: parent.width / 10
+                width: parent.width / 6
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Delay")
             }
@@ -261,7 +261,7 @@ PagePL {
                         }
 
                         LabelPL {
-                            width: parent.width / 5
+                            width: parent.width / 6
                             horizontalAlignment: Text.AlignLeft
                             text: "+" + firstJourney.departureDelay
                             color: firstJourney.departureDelay > 3 ? "red" : "green"
@@ -281,14 +281,14 @@ PagePL {
 
                         LabelPL {
                             id: arTimeLabel
-                            width: parent.width / 4
+                            width: parent.width / 5
                             horizontalAlignment: Text.AlignLeft
                             text: lastJourney.scheduledArrivalTime.toLocaleTimeString(Locale.ShortFormat) 
                         }
 
                         LabelPL {
                             id: delayTimeLabel
-                            width: parent.width / 4
+                            width: parent.width / 6
                             horizontalAlignment: Text.AlignLeft
                             text: lastJourney.departureDelay
                             color: lastJourney.departureDelay > 3 ? "red" : "green"
@@ -328,7 +328,7 @@ PagePL {
                         anchors.rightMargin: 8
 
                         LabelPL {
-                            width: parent.width / 4
+                            width: parent.width / 5
                             horizontalAlignment: Text.AlignLeft
                             text: "(" + (journey.duration / 60) + " min)"
                         }
