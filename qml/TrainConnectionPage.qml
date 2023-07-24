@@ -194,7 +194,7 @@ PagePL {
                         anchors.rightMargin: 8
 
                         LabelPL {
-                            id: arTragetTimeLabel
+                            id: arTimeLabel
                             width: parent.width / 3.5
                             horizontalAlignment: Text.AlignLeft
                             text: firstJourney.scheduledDepartureTime + " - " + lastJourney.scheduledArrivalTime
@@ -206,7 +206,8 @@ PagePL {
                             horizontalAlignment: Text.AlignLeft
                             text: {
                                 var str = "";
-                                journey.sections.forEach( function(x) { str += x.route.line.name; str += " "; } );
+                                str += journey.route.line.name
+                                // journey.sections.forEach( function(x) { str += x.route.line.name; str += " "; } );
                             }
                         }
 

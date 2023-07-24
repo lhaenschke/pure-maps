@@ -54,6 +54,10 @@ PageListPL {
                 verticalAlignment: Text.AlignVCenter
             }
 
+            Spacer {
+                height: styler.themePaddingLarge / 2
+            }
+
             Rectangle {
                 height: 1
                 width: column.width
