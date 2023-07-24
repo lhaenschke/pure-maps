@@ -197,18 +197,14 @@ PagePL {
                             id: arTimeLabel
                             width: parent.width / 3.5
                             horizontalAlignment: Text.AlignLeft
-                            text: firstJourney.scheduledDepartureTime + " - " + lastJourney.scheduledArrivalTime
+                            text: firstJourney.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat) + " - " + lastJourney.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat)
                         }
 
                         LabelPL {
                             id: arStationLabel
                             width: parent.width - (arTimeLabel.width + changesLabel.width + styler.themeHorizontalPageMargin)
                             horizontalAlignment: Text.AlignLeft
-                            text: {
-                                var str = "";
-                                str += journey.route.line.name
-                                // journey.sections.forEach( function(x) { str += x.route.line.name; str += " "; } );
-                            }
+                            text: ""
                         }
 
                         LabelPL {
