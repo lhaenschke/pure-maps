@@ -165,8 +165,8 @@ PagePL {
                 width: page.width
                 contentHeight: connectionColumn.height
 
-                readonly property var firstJourney: journey.sections[0]
-                readonly property var lastJourney: journey.sections[journey.sections.length - 1]
+                readonly property var  firstJourney: journey.sections[0]
+                readonly property var  lastJourney: journey.sections[journey.sections.length - 1]
                 readonly property bool cancelled: journey.disruptionEffect == KPT.Disruption.NoService
 
                 Column {
@@ -177,15 +177,26 @@ PagePL {
                         height: styler.themePaddingLarge
                     }
 
-                    // ListItemLabel {
-                    //     color: listItem.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
-                    //     height: implicitHeight + styler.themePaddingMedium
-                    //     text: journey.sections[0].scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat) + " " + journey.sections[0].from.name
-                    //     verticalAlignment: Text.AlignVCenter
-                    // }
-
                     Grid {
                         id: firstRow
+                        columns: 1
+                        rows: 1
+                        anchors.left: parent.left
+                        anchors.leftMargin: 8
+                        anchors.right: parent.right
+                        anchors.rightMargin: 8
+
+                        LabelPL {
+                            id: diffTimeLabel
+                            width: parent.width / 3.5
+                            horizontalAlignment: Text.AlignLeft
+                            text: firstJourney.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat)
+                        }
+
+                    }
+
+                    Grid {
+                        id: secoundRow
                         columns: 3
                         rows: 1
                         anchors.left: parent.left
@@ -197,7 +208,7 @@ PagePL {
                             id: arTimeLabel
                             width: parent.width / 3.5
                             horizontalAlignment: Text.AlignLeft
-                            text: firstJourney.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat) + " - " + lastJourney.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat)
+                            text: lastJourney.scheduledArrivalTime.toLocaleTimeString(Locale.ShortFormat) 
                         }
 
                         LabelPL {
@@ -224,7 +235,7 @@ PagePL {
                     }
 
                     Grid {
-                        id: secoundRow
+                        id: thirdRow
                         columns: 1
                         rows: 1
                         anchors.left: parent.left
