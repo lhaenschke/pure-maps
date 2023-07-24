@@ -104,6 +104,7 @@ PagePL {
             onClicked: {
                 connectionModel.request = TrainConnection.createJourneyRequest();
 
+
                 // searchButton.enabled = false;
                 // searchButton.text = app.tr("Loading");
                 
