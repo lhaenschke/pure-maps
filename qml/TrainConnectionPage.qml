@@ -293,7 +293,7 @@ PagePL {
         const kpt_backends = py.evaluate("poor.app.history.kpt_backends");
         kpt_backends.forEach( function(x) { TrainConnection.setBackendEnable(x, true); } );
 
-        TrainConnection.startLocationRequest(poi.coordinate.latitude, poi.coordinate.longitude);
+        TrainConnection.startLocationRequest(poi.coordinate.latitude, poi.coordinate.longitude, poi.title);
     }
 
     function getTimeDifference(time_one_hh, time_one_mm, time_two_hh, time_two_mm) {

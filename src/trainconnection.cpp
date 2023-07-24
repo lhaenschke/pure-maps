@@ -82,11 +82,12 @@ void TrainConnection::setBackendEnable(const QString &identifier, bool enabeld)
     m_manager.setBackendEnabled(identifier, enabeld);
 }
 
-void TrainConnection::startLocationRequest(float lat, float lon)
+void TrainConnection::startLocationRequest(float lat, float lon, const QString &name)
 {
     KPublicTransport::LocationRequest req;
     req.setBackendIds(m_manager.enabledBackends());
-    req.setCoordinate (lat, lon);
+    req.setCoordinate(lat, lon);
+    req.setName(name);
 
     KPublicTransport::LocationReply *reply = m_manager.queryLocation(req);
     const std::vector<KPublicTransport::Location> &resultsArray = reply->result();
