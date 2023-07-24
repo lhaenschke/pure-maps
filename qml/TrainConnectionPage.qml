@@ -259,6 +259,7 @@ PagePL {
                             width: parent.width / 5.8
                             horizontalAlignment: Text.AlignLeft
                             text: firstJourney.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat)
+                            font.strikeout: cancelled
                         }
 
                         LabelPL {
@@ -267,12 +268,14 @@ PagePL {
                             horizontalAlignment: Text.AlignLeft
                             text: "+" + firstJourney.departureDelay
                             color: firstJourney.departureDelay > 3 ? "red" : "green"
+                            font.strikeout: cancelled
                         }
 
                         LabelPL {
                             width: parent.width - (firstTimeLabel.width + firstDelayLabel.width +  styler.themeHorizontalPageMargin)
                             horizontalAlignment: Text.AlignLeft
                             text: firstJourney.from.name
+                            font.strikeout: cancelled
                         }
 
                     }
