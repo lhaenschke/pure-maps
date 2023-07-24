@@ -243,7 +243,7 @@ PagePL {
                     ListItemLabel {
                         color: listItem.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
                         height: implicitHeight + styler.themePaddingMedium
-                        text: firstSection.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat) + " " + firstSection.from.name
+                        text: journey.numberOfChanges > 0
                         verticalAlignment: Text.AlignVCenter
                     }
 
