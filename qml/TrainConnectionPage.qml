@@ -122,7 +122,7 @@ PagePL {
 
             LabelPL {
                 id: timeHeader
-                width: parent.width / 3.5
+                width: parent.width / 3.4
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Time")
             }
@@ -187,15 +187,15 @@ PagePL {
                         anchors.rightMargin: 8
 
                         LabelPL {
-                            width: parent.width / 3.5
+                            width: parent.width / 4
                             horizontalAlignment: Text.AlignLeft
                             text: firstJourney.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat)
                         }
 
                         LabelPL {
-                            width: parent.width / 3.5
+                            width: parent.width / 4
                             horizontalAlignment: Text.AlignLeft
-                            text: firstJourney.departureDelay
+                            text: "+" + firstJourney.departureDelay
                             color: firstJourney.departureDelay > 3 ? "red" : "green"
                             visible: firstJourney.hasExpectedDepartureTime
                         }
@@ -204,7 +204,7 @@ PagePL {
 
                     Grid {
                         id: secoundRow
-                        columns: 3
+                        columns: 4
                         rows: 1
                         anchors.left: parent.left
                         anchors.leftMargin: 8
@@ -213,14 +213,14 @@ PagePL {
 
                         LabelPL {
                             id: arTimeLabel
-                            width: parent.width / 3.5
+                            width: parent.width / 4
                             horizontalAlignment: Text.AlignLeft
                             text: lastJourney.scheduledArrivalTime.toLocaleTimeString(Locale.ShortFormat) 
                         }
 
                         LabelPL {
                             id: delayTimeLabel
-                            width: parent.width / 3.5
+                            width: parent.width / 4
                             horizontalAlignment: Text.AlignLeft
                             text: lastJourney.departureDelay
                             color: lastJourney.departureDelay > 3 ? "red" : "green"
@@ -260,7 +260,7 @@ PagePL {
                         anchors.rightMargin: 8
 
                         LabelPL {
-                            width: parent.width / 3.5
+                            width: parent.width / 4
                             horizontalAlignment: Text.AlignLeft
                             text: "(" + (journey.duration / 60) + " min)"
                         }
