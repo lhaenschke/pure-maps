@@ -153,8 +153,8 @@ file(GLOB ROUTERS_SRC routers/*.json routers/*.md routers/*.qml routers/*.py)
 file(GLOB ROUTERS_EXTRA LIST_DIRECTORIES false routers/test/*)
 install(FILES ${ROUTERS_SRC} DESTINATION ${DATADIR}/routers)
 
-file(GLOB KPT_SRC KPublicTransport/*.cpp KPublicTransport/*.h)
-install(FILES ${KPT_SRC} DESTINATION ${DATADIR}/KPT)
+# file(GLOB KPT_SRC KPublicTransport/*.cpp KPublicTransport/*.h)
+# install(FILES ${KPT_SRC} DESTINATION ${DATADIR}/KPT)
 
 ## python sources: installed in subdir
 file(GLOB POOR_SRC poor/*.py)
@@ -183,7 +183,7 @@ add_custom_target(Sources SOURCES
     ${QML_SRC} ${QML_JS} ${QML_PLATFORMS} ${QML_DOCS}
     ${PM_SRC} ${PM_HEADERS}
     ${GCLUE2_SRC} ${GCLUE2_HEADERS} ${GCLUE2_XML}
-    ${KPT_SRC}
+    # ${KPT_SRC}
     )
 
 find_package(KPublicTransport)
