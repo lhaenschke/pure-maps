@@ -65,7 +65,7 @@ PagePL {
             id: pickDestinationButton
             anchors.horizontalCenter: parent.horizontalCenter
             preferredWidth: page.width - (2 * styler.themeHorizontalPageMargin)
-            text: TrainConnection.destination().name ? TrainConnection.destination().name : app.tr("Choose Destination")
+            text: TrainConnection.destination.name ? TrainConnection.destination.name : app.tr("Choose Destination")
             onClicked: {
                 app.push(Qt.resolvedUrl("TrainConnectionDestinationQueryPage.qml"), {
                     "latitude": poi.coordinate.latitude,
