@@ -37,29 +37,20 @@ PageListPL {
 
     delegate: ListItemPL {
         id: listItem
-        contentHeight: titleItem.height + spacer.height * 2
+        contentHeight: column.height
 
         Column {
             id: column
             width: page.width
 
             Spacer {
-                id: spacer
                 height: styler.themePaddingLarge / 2
             }
 
             ListItemLabel {
-                id: titleItem
                 color: listItem.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
                 height: implicitHeight + styler.themePaddingMedium
                 text: location.name
-                // text: {
-                //     if (model['status'] == 200) {
-                //         return model['name'];
-                //     } else {
-                //         return "";
-                //     }
-                // }
                 verticalAlignment: Text.AlignVCenter
             }
 
@@ -91,20 +82,11 @@ PageListPL {
 
     function fillModel(query) {
         queryModel.request = TrainConnection.createLocationRequest(query);
-        // py.call("poor.app.trainconnections.get_suggestions", [query, latitude, longitude], function(results) {
-        //     page.model.clear();
-        //     results.forEach( function(p) { 
-        //         if (p['status'] == 200) {
-        //             page.model.append(p);
-        //         }
-        //     });
-        // });
     }
 
     KPT.LocationQueryModel {
         id: queryModel
         manager: Manager
     }
-
 
 }

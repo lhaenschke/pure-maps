@@ -19,6 +19,7 @@
 import QtQuick 2.0
 import QtPositioning 5.4
 import org.puremaps 1.0
+import org.kde.kpublictransport 1.0 as KPT
 import "."
 import "platform"
 
@@ -111,6 +112,8 @@ PagePL {
             enabled: TrainConnection.destination.name
             text: app.tr("Search")
             onClicked: {
+                connectionModel.request = TrainConnection.createJourneyRequest();
+
                 // searchButton.enabled = false;
                 // searchButton.text = app.tr("Loading");
                 
@@ -161,68 +164,68 @@ PagePL {
             height: styler.themePaddingLarge
         }
 
-        ListItemLabel {
-            color: styler.themeHighlightColor
-            height: implicitHeight + styler.themePaddingMedium
-            text: app.tr('The times indicated are timetable times, not real-time')
-            truncMode: truncModes.none
-            visible: connectionRepeater.model.count > 0
-            verticalAlignment: Text.AlignTop
-        } 
+        // ListItemLabel {
+        //     color: styler.themeHighlightColor
+        //     height: implicitHeight + styler.themePaddingMedium
+        //     text: app.tr('The times indicated are timetable times, not real-time')
+        //     truncMode: truncModes.none
+        //     visible: connectionRepeater.model.count > 0
+        //     verticalAlignment: Text.AlignTop
+        // } 
 
-        Spacer {
-            height: styler.themePaddingMedium
-        }
+        // Spacer {
+        //     height: styler.themePaddingMedium
+        // }
 
-        Grid {
-            id: headerGrid
-            columns: 3
-            rows: 1
-            anchors.left: parent.left
-            anchors.leftMargin: styler.themeHorizontalPageMargin
-            anchors.right: parent.right
-            anchors.rightMargin: styler.themeHorizontalPageMargin
-            visible: connectionRepeater.model.count > 0
+        // Grid {
+        //     id: headerGrid
+        //     columns: 3
+        //     rows: 1
+        //     anchors.left: parent.left
+        //     anchors.leftMargin: styler.themeHorizontalPageMargin
+        //     anchors.right: parent.right
+        //     anchors.rightMargin: styler.themeHorizontalPageMargin
+        //     visible: connectionRepeater.model.count > 0
 
-            LabelPL {
-                id: timeHeader
-                width: parent.width / 3.5
-                horizontalAlignment: Text.AlignLeft
-                text: app.tr("Time")
-            }
+        //     LabelPL {
+        //         id: timeHeader
+        //         width: parent.width / 3.5
+        //         horizontalAlignment: Text.AlignLeft
+        //         text: app.tr("Time")
+        //     }
 
-            LabelPL {
-                id: nameDestinationHeader
-                width: parent.width - (timeHeader.width + changesHeader.width)
-                horizontalAlignment: Text.AlignLeft
-                text: app.tr("Trains")
-            }
+        //     LabelPL {
+        //         id: nameDestinationHeader
+        //         width: parent.width - (timeHeader.width + changesHeader.width)
+        //         horizontalAlignment: Text.AlignLeft
+        //         text: app.tr("Trains")
+        //     }
 
-            LabelPL {
-                id: changesHeader
-                width: parent.width / 8
-                horizontalAlignment: Text.AlignRight
-                text: app.tr("Changes")
-            }
-        }
+        //     LabelPL {
+        //         id: changesHeader
+        //         width: parent.width / 8
+        //         horizontalAlignment: Text.AlignRight
+        //         text: app.tr("Changes")
+        //     }
+        // }
 
-        Rectangle {
-            id: listSeperator
-            height: 1
-            anchors.left: parent.left
-            anchors.leftMargin: styler.themeHorizontalPageMargin
-            anchors.right: parent.right
-            anchors.rightMargin: styler.themeHorizontalPageMargin
-            color: "gray"
-            visible: connectionRepeater.model.count > 0
-        }
+        // Rectangle {
+        //     id: listSeperator
+        //     height: 1
+        //     anchors.left: parent.left
+        //     anchors.leftMargin: styler.themeHorizontalPageMargin
+        //     anchors.right: parent.right
+        //     anchors.rightMargin: styler.themeHorizontalPageMargin
+        //     color: "gray"
+        //     visible: connectionRepeater.model.count > 0
+        // }
 
         Repeater {
             id: connectionRepeater
             width: page.width
             visible: model.count > 0
 
-            model: ListModel {}
+            model: connectionModel
 
             delegate: ListItemPL {
                 id: listItem
@@ -237,67 +240,74 @@ PagePL {
                         height: styler.themePaddingLarge
                     }
 
-                    Grid {
-                        id: firstRow
-                        columns: 3
-                        rows: 1
-                        anchors.left: parent.left
-                        anchors.leftMargin: 8
-                        anchors.right: parent.right
-                        anchors.rightMargin: 8
-
-                        LabelPL {
-                            id: arTimeLabel
-                            width: parent.width / 3.5
-                            horizontalAlignment: Text.AlignLeft
-                            text: model['dp_time_hh'] + ":" + model['dp_time_mm'] + " - " + model['ar_time_hh'] + ":" + model['ar_time_mm']
-                        }
-
-                        LabelPL {
-                            id: arStationLabel
-                            width: parent.width - (arTimeLabel.width + changesLabel.width + styler.themeHorizontalPageMargin)
-                            horizontalAlignment: Text.AlignLeft
-                            text: model['names']
-                        }
-
-                        LabelPL {
-                            id: changesLabel
-                            width: parent.width / 8
-                            horizontalAlignment: Text.AlignRight
-                            text: (parseInt(model['count']) - 1) + " changes"
-                        }
-
+                    ListItemLabel {
+                        color: listItem.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
+                        height: implicitHeight + styler.themePaddingMedium
+                        text: firstSection.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat) + " " + firstSection.from.name
+                        verticalAlignment: Text.AlignVCenter
                     }
 
-                    Grid {
-                        id: secoundRow
-                        columns: 1
-                        rows: 1
-                        anchors.left: parent.left
-                        anchors.leftMargin: 8
-                        anchors.right: parent.right
-                        anchors.rightMargin: 8
+                    // Grid {
+                    //     id: firstRow
+                    //     columns: 3
+                    //     rows: 1
+                    //     anchors.left: parent.left
+                    //     anchors.leftMargin: 8
+                    //     anchors.right: parent.right
+                    //     anchors.rightMargin: 8
 
-                        LabelPL {
-                            id: diffTimeLabel
-                            width: parent.width / 3.5
-                            horizontalAlignment: Text.AlignLeft
-                            text: "(" + model['diff_minutes'] + " min)"
-                        }
+                    //     LabelPL {
+                    //         id: arTimeLabel
+                    //         width: parent.width / 3.5
+                    //         horizontalAlignment: Text.AlignLeft
+                    //         text: model['dp_time_hh'] + ":" + model['dp_time_mm'] + " - " + model['ar_time_hh'] + ":" + model['ar_time_mm']
+                    //     }
 
-                    }
+                    //     LabelPL {
+                    //         id: arStationLabel
+                    //         width: parent.width - (arTimeLabel.width + changesLabel.width + styler.themeHorizontalPageMargin)
+                    //         horizontalAlignment: Text.AlignLeft
+                    //         text: model['names']
+                    //     }
 
-                    Spacer {
-                        height: styler.themePaddingLarge
-                    }
+                    //     LabelPL {
+                    //         id: changesLabel
+                    //         width: parent.width / 8
+                    //         horizontalAlignment: Text.AlignRight
+                    //         text: (parseInt(model['count']) - 1) + " changes"
+                    //     }
 
-                    Rectangle {
-                        height: 1
-                        width: listSeperator.width
-                        anchors.left: parent.left
-                        anchors.leftMargin: 8
-                        color: "gray"
-                    }
+                    // }
+
+                    // Grid {
+                    //     id: secoundRow
+                    //     columns: 1
+                    //     rows: 1
+                    //     anchors.left: parent.left
+                    //     anchors.leftMargin: 8
+                    //     anchors.right: parent.right
+                    //     anchors.rightMargin: 8
+
+                    //     LabelPL {
+                    //         id: diffTimeLabel
+                    //         width: parent.width / 3.5
+                    //         horizontalAlignment: Text.AlignLeft
+                    //         text: "(" + model['diff_minutes'] + " min)"
+                    //     }
+
+                    // }
+
+                    // Spacer {
+                    //     height: styler.themePaddingLarge
+                    // }
+
+                    // Rectangle {
+                    //     height: 1
+                    //     width: listSeperator.width
+                    //     anchors.left: parent.left
+                    //     anchors.leftMargin: 8
+                    //     color: "gray"
+                    // }
 
                 }
 
@@ -310,6 +320,11 @@ PagePL {
 
         }
 
+    }
+
+    KPT.JourneyQueryModel {
+        id: connectionModel
+        manager: Manager
     }
 
     onPageStatusActivating: {

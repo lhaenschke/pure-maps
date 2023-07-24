@@ -89,9 +89,6 @@ void TrainConnection::startLocationRequest(float lat, float lon, const QString &
     req.setCoordinate(lat, lon);
     req.setName(name);
 
-    // KPublicTransport::LocationReply *reply = m_manager.queryLocation(req);
-    // const std::vector<KPublicTransport::Location> &resultsArray = m_manager.queryLocation(req)->result();
-
     for (auto result: m_manager.queryLocation(req)->result()) {
         setStart(result);
         break;
