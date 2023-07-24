@@ -302,8 +302,6 @@ PagePL {
                 }
 
                 onClicked: {
-                    console.log('Count: ', model['count']);
-                    console.log('Test: ', model['con1']['name']);
                 }
 
             }
