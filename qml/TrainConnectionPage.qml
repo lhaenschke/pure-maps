@@ -197,7 +197,7 @@ PagePL {
                             id: arTragetTimeLabel
                             width: parent.width / 3.5
                             horizontalAlignment: Text.AlignLeft
-                            text: firstJourney.scheduledDepartureTime " - " + lastJourney.scheduledArrivalTime
+                            text: firstJourney.scheduledDepartureTime + " - " + lastJourney.scheduledArrivalTime
                         }
 
                         LabelPL {
