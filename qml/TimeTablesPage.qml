@@ -215,6 +215,7 @@ PagePL {
         }     
 
         Rectangle {
+            id: listSeperator
             height: 1
             anchors.left: parent.left
             anchors.leftMargin: styler.themeHorizontalPageMargin
@@ -267,7 +268,7 @@ PagePL {
                         }
 
                         LabelPL {
-                            width: parent.width - (depTimeLabel.width + nameLabel.width + trackLabel.width - 16)
+                            width: parent.width - (depTimeLabel.width + nameLabel.width + trackLabel.width + 16)
                             horizontalAlignment: Text.AlignLeft
                             text: departure.route.direction
                             truncMode: truncModes.elide
