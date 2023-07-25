@@ -199,7 +199,7 @@ PagePL {
             height: styler.themePaddingLarge
         }
 
-        
+    }
     //     SectionHeaderPL {
     //         id: timetableHeader
     //         anchors.horizontalCenter: parent.horizontalCenter
