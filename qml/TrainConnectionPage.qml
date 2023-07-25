@@ -98,25 +98,40 @@ PagePL {
             wrapMode: Text.WordWrap
         }
 
-        ButtonPL {
-            id: pickDateButton
-            anchors.horizontalCenter: parent.horizontalCenter
-            preferredWidth: page.width - (2 * styler.themeHorizontalPageMargin)
-            text: Qt.formatDate(TrainConnection.departureDate, Qt.DefaultLocaleShortDate)
-            onClicked: {
-                var dialog = app.push(Qt.resolvedUrl("../qml/platform/DatePickerDialogPL.qml"), {
-                    "date": TrainConnection.departureDate,
-                    "title": app.tr("Select date")
-                });
-                dialog.accepted.connect(function() {
-                    if (dialog.date < new Date()) {
-                        TrainConnection.departureDate = new Date();
-                    } else {
-                        TrainConnection.departureDate = dialog.date;
-                    }
-                    
-                });
+        Row {
+            width: page.width
+
+            ButtonPL {
+                id: pickDateButton
+                anchors.left: parent.left
+                preferredWidth: styler.themeButtonWidthMedium
+                text: Qt.formatDate(TrainConnection.departureDate, Qt.DefaultLocaleShortDate)
+                onClicked: {
+                    var dialog = app.push(Qt.resolvedUrl("../qml/platform/DatePickerDialogPL.qml"), {
+                        "date": TrainConnection.departureDate,
+                        "title": app.tr("Select date")
+                    });
+                    dialog.accepted.connect(function() {
+                        if (dialog.date < new Date()) {
+                            TrainConnection.departureDate = new Date();
+                        } else {
+                            TrainConnection.departureDate = dialog.date;
+                        }
+                        
+                    });
+                }
             }
+
+            ButtonPL {
+                id: todayButton
+                anchors.right: parent.right
+                preferredWidth: styler.themeButtonWidthSmall
+                text: app.tr('Today')
+                onClicked: {
+                    TrainConnection.departureDate = new Date();
+                }
+            }
+
         }
 
         ListItemLabel {
@@ -130,8 +145,8 @@ PagePL {
 
         ButtonPL {
             id: pickTimeButton
-            anchors.horizontalCenter: parent.horizontalCenter
-            preferredWidth: page.width - (2 * styler.themeHorizontalPageMargin)
+            anchors.left: parent.left
+            preferredWidth: styler.themeButtonWidthMedium
             text: Qt.formatTime(TrainConnection.departureTime, Qt.DefaultLocaleShortDate)
             onClicked: {
                 var dialog = app.push(Qt.resolvedUrl("../qml/platform/TimePickerDialogPL.qml"), {
