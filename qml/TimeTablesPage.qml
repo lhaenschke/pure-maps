@@ -167,7 +167,7 @@ PagePL {
             id: searchButton
             anchors.horizontalCenter: parent.horizontalCenter
             preferredWidth: styler.themeButtonWidthLarge
-            enabled: TrainConnection.destination.name && TrainConnection.start.name
+            enabled: TrainConnection.start.name
             text: app.tr("Search")
             onClicked: {
                 // connectionModel.request = TrainConnection.createJourneyRequest();
@@ -187,7 +187,7 @@ PagePL {
         TrainConnection.startLocationRequest(poi.coordinate.latitude, poi.coordinate.longitude, poi.title);
     }
 
-    
+
     //     SectionHeaderPL {
     //         id: timetableHeader
     //         anchors.horizontalCenter: parent.horizontalCenter
