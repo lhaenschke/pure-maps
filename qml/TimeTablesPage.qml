@@ -234,11 +234,13 @@ PagePL {
                 width: page.width
                 contentHeight: listColumn.height
                 
-                property bool isVisible: false
-
                 Column {
                     id: listColumn
                     width: page.width
+
+                    Spacer {
+                        height: styler.themePaddingLarge
+                    }
 
                     Grid {
                         id: trainsGrid
@@ -265,7 +267,7 @@ PagePL {
                         }
 
                         LabelPL {
-                            width: parent.width - (depTimeLabel.width + nameLabel.width + trackLabel.width)
+                            width: parent.width - (depTimeLabel.width + nameLabel.width + trackLabel.width - 16)
                             horizontalAlignment: Text.AlignLeft
                             text: departure.route.direction
                             truncMode: truncModes.elide
@@ -285,10 +287,9 @@ PagePL {
 
                     Rectangle {
                         height: 1
+                        width: listSeperator.width
                         anchors.left: parent.left
                         anchors.leftMargin: 8
-                        anchors.right: parent.right
-                        anchors.rightMargin: 8
                         color: "gray"
                     }
 
