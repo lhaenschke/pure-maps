@@ -353,7 +353,7 @@ PagePL {
                 }
 
                 onClicked: {
-                    console.log('Stops: ', departure.intermediateStops);
+                    console.log('Stops: ', departure.route.intermediateStops);
 
                 }
 
