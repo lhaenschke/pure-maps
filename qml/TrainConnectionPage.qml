@@ -154,7 +154,6 @@ PagePL {
 
             ButtonPL {
                 id: pickTimeButton
-                anchors.left: parent.left
                 preferredWidth: styler.themeButtonWidthMedium
                 text: Qt.formatTime(TrainConnection.departureTime, Qt.DefaultLocaleShortDate)
                 onClicked: {
