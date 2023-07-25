@@ -235,7 +235,7 @@ PagePL {
                 width: page.width
                 contentHeight: listColumn.height
                 
-                property var data = model.modelData
+                property var data: model.modelData
 
                 Column {
                     id: listColumn
