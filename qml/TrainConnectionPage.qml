@@ -360,6 +360,7 @@ PagePL {
                                         LabelPL {
                                             height: durationLabel.height
                                             text: modelData.route.line.name
+                                            font.strikeout: cancelled
                                         }
                                     }
                                 }
