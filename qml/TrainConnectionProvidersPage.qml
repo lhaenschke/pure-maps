@@ -66,6 +66,7 @@ DialogPL {
                                 py.call_sync("poor.app.history.add_kpt_backend", [model.identifier]);
                             } else {
                                 py.call_sync("poor.app.history.remove_kpt_backend", [model.identifier]);
+                                TrainConnection.setBackendEnable(model.identifier, false);
                             }
                         }
                     }
