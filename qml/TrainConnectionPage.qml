@@ -356,20 +356,7 @@ PagePL {
                                 model: journey.sections
 
                                 delegate: Loader {
-                                    sourceComponent: model.modelData.route.line.hasLogo ? vehicleNameIcon : vehicleNameLabel
-
-                                    Component {
-                                        id: vehicleNameIcon
-                                        IconPL {
-                                            id: image
-                                            width: height
-                                            height: durationLabel.height
-                                            iconSource: modelData.route.line.logo
-                                        }
-                                    }
-
-                                    Component {
-                                        id: vehicleNameLabel
+                                    sourceComponent: Component {
                                         LabelPL {
                                             height: durationLabel.height
                                             text: modelData.route.line.name
