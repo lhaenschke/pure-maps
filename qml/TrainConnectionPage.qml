@@ -282,7 +282,7 @@ PagePL {
 
                     Grid {
                         id: secoundRow
-                        columns: 4
+                        columns: 3
                         rows: 1
                         anchors.left: parent.left
                         anchors.leftMargin: 8
@@ -307,26 +307,18 @@ PagePL {
                         }
 
                         LabelPL {
-                            width: parent.width - (lastTimeLabel.width + lastDelayLabel.width + changesLabel.width + 16)
+                            width: parent.width - (lastTimeLabel.width + lastDelayLabel.width + 16)
                             horizontalAlignment: Text.AlignLeft
                             text: lastJourney.to.name
                             font.strikeout: cancelled
                             truncMode: truncModes.elide
                         }
 
-                        LabelPL {
-                            id: changesLabel
-                            width: parent.width / 8
-                            horizontalAlignment: Text.AlignRight
-                            text: journey.numberOfChanges + " changes"
-                            font.strikeout: cancelled
-                        }
-
                     }
 
                     Grid {
                         id: thirdRow
-                        columns: 3
+                        columns: 4
                         rows: 1
                         anchors.left: parent.left
                         anchors.leftMargin: 8
@@ -351,6 +343,7 @@ PagePL {
                         Row {
                             id: vehicleRow
                             spacing: styler.themePaddingSmall
+                            width: parent.width - (durationLabel.width + delayPlaceholderLabel.width + changesLabel.width + 16)
 
                             Repeater {
                                 model: journey.sections
@@ -367,6 +360,14 @@ PagePL {
                             }
                         }
 
+                        LabelPL {
+                            id: changesLabel
+                            width: parent.width / 8
+                            horizontalAlignment: Text.AlignRight
+                            text: journey.numberOfChanges + " changes"
+                            font.strikeout: cancelled
+                        }
+
 
                         // LabelPL {
                         //     width: parent.width - (durationLabel.width + delayPlaceholderLabel.width + styler.themeHorizontalPageMargin)
@@ -375,7 +376,7 @@ PagePL {
                         //         var str = "";
                         //         journey.sections.forEach( function(x) { 
                         //             str += (x.route.line.name).trim(); 
-                        //             str += " ";
+                        //             str += " -> ";
                         //         });
                         //         return str;
                         //     }
