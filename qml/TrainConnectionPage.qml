@@ -311,7 +311,7 @@ PagePL {
                             horizontalAlignment: Text.AlignLeft
                             text: lastJourney.to.name
                             font.strikeout: cancelled
-                            truncMode = truncModes.elide
+                            truncMode: truncModes.elide
                         }
 
                         LabelPL {
