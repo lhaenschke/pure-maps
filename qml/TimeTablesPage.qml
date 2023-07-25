@@ -157,10 +157,8 @@ PagePL {
 
         }
 
-        ListItemLabel {
-            color: styler.themeHighlightColor
-            height: implicitHeight
-            text: ""
+        Spacer {
+            height: styler.themePaddingLarge
         }
 
         ButtonPL {
@@ -170,7 +168,7 @@ PagePL {
             enabled: TrainConnection.start.name
             text: app.tr("Search")
             onClicked: {
-                // connectionModel.request = TrainConnection.createJourneyRequest();
+                departureModel.request = TrainConnection.createStopoverRequest();
             }
         }
 
@@ -178,7 +176,279 @@ PagePL {
             height: styler.themePaddingLarge
         }
 
+        Grid {
+            id: headerGrid
+            columns: 4
+            rows: 1
+            spacing: styler.themePaddingMedium
+            anchors.left: parent.left
+            anchors.leftMargin: styler.themeHorizontalPageMargin
+            anchors.right: parent.right
+            anchors.rightMargin: styler.themeHorizontalPageMargin
+            visible: true
+
+            LabelPL {
+                id: depTimeHeader
+                width: page.width / 8
+                horizontalAlignment: Text.AlignLeft
+                text: app.tr("Time")
+            }
+
+            LabelPL {
+                id: nameHeader
+                width: page.width / 6
+                horizontalAlignment: Text.AlignLeft
+                text: app.tr("Name")
+            }
+
+            LabelPL {
+                id: directionHeader
+                width: page.width / 2.35
+                horizontalAlignment: Text.AlignLeft
+                text: app.tr("Direction")
+            }
+
+            LabelPL {
+                id: trackItem
+                width: page.width / 8
+                horizontalAlignment: Text.AlignRight
+                text: app.tr("Track")
+            }
+        }      
+
+        Repeater {
+            id: list
+            width: page.width
+            
+            model: departureModel
+
+            delegate: ListItemPL {
+                id: listItem
+                width: page.width
+                contentHeight: listColumn.height
+                
+                property bool isVisible: false
+
+                Column {
+                    id: listColumn
+                    width: page.width
+
+                    Grid {
+                        id: trainsGrid
+                        columns: 4
+                        rows: 1
+                        spacing: styler.themePaddingMedium
+                        anchors.left: parent.left
+                        anchors.leftMargin: 8
+                        anchors.right: parent.right
+                        anchors.rightMargin: 8
+
+                        LabelPL {
+                            id: depTimeLabel
+                            width: page.width / 8
+                            horizontalAlignment: Text.AlignLeft
+                            text: departure.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat)
+                        }
+
+                        LabelPL {
+                            id: nameLabel
+                            width: page.width / 6
+                            horizontalAlignment: Text.AlignLeft
+                            text: departure.route.line.name
+                        }
+
+                        LabelPL {
+                            id: directionLabel
+                            width: page.width / 2.35
+                            horizontalAlignment: Text.AlignLeft
+                            text: departure.route.direction
+                        }
+
+                        LabelPL {
+                            id: trackLabel
+                            width: page.width / 8
+                            horizontalAlignment: Text.AlignRight
+                            text: departure.scheduledPlatform
+                        }
+                    }
+
+                    Spacer {
+                        height: styler.themePaddingLarge
+                    }
+
+                    // Repeater {
+                    //     id: infoList
+                    //     width: page.width
+
+                    //     delegate: ListItemPL {
+                    //         id: infoListItem
+                    //         width: page.width
+                    //         contentHeight: furtherInfoGrid.height
+
+                    //         Grid {
+                    //             id: furtherInfoGrid
+                    //             columns: 4
+                    //             rows: 1
+                    //             spacing: styler.themePaddingMedium
+                    //             anchors.left: parent.left
+                    //             anchors.right: parent.right
+
+                    //             LabelPL {
+                    //                 id: depTimeLabel
+                    //                 width: page.width / 8
+                    //                 height: implicitHeight + styler.themePaddingMedium
+                    //                 horizontalAlignment: Text.AlignLeft
+                    //                 text: (model['dp_time_hh'] ? model['dp_time_hh'] + ":" + model['dp_time_mm'] : "")
+                    //             }
+
+                    //             LabelPL {
+                    //                 id: nameLabel
+                    //                 width: page.width / 6
+                    //                 height: implicitHeight + styler.themePaddingMedium
+                    //                 horizontalAlignment: Text.AlignLeft
+                    //                 text: model['type'] + " " + model['name']
+                    //             }
+
+                    //             LabelPL {
+                    //                 id: directionLabel
+                    //                 width: page.width / 2.35
+                    //                 height: implicitHeight + styler.themePaddingMedium
+                    //                 horizontalAlignment: Text.AlignLeft
+                    //                 text: model['destination']
+                    //             }
+
+                    //             LabelPL {
+                    //                 id: trackLabel
+                    //                 width: page.width / 8
+                    //                 height: implicitHeight + styler.themePaddingMedium
+                    //                 horizontalAlignment: Text.AlignRight
+                    //                 text: model['dp_track']
+                    //             }
+                    //         }
+
+                    //         onClicked: {
+                    //             if (model['dp_time_hh'] == "") {
+                    //                 py.call("poor.app.timetables.load_destination_informations", [model['train_id'], model['destination'], selectedTime], function(result) {
+                    //                     var arr = result.split('|');
+                    //                     model['dp_time_hh'] = arr[0];
+                    //                     model['dp_time_mm'] = arr[1];
+                    //                     model['dp_track'] = arr[2];
+                    //                 });
+                    //             }
+                    //         }
+
+                    //     }
+
+                    //     model: ListModel {}
+
+                    //     function fillInfoModel(type, name, next_stops, id) {
+                    //         infoList.model.clear();
+
+                    //         var arr = next_stops.split('|');
+                    //         for (var i = 0; i < arr.length; i++) {
+                    //             var dict = {
+                    //                 "type": type,
+                    //                 "name": name,
+                    //                 "train_id": id,
+                    //                 "dp_time_hh": "",
+                    //                 "dp_time_mm": "",
+                    //                 "dp_track": "",
+                    //                 "destination": arr[i]
+                    //             };
+                    //             infoList.model.append(dict);
+                    //         }
+
+                    //     }
+
+                    //     function clearInfoModel() {
+                    //         infoList.model.clear();
+                    //     }
+
+                    // }
+
+                    // ListItemLabel {
+                    //     color: styler.themeHighlightColor
+                    //     height: implicitHeight
+                    //     text: ""
+                    //     visible: true
+                    // }
+
+                    // Rectangle {
+                    //     id: listSeperator
+                    //     width: page.width - 20
+                    //     height: 1
+                    //     color: "gray"
+                    // }
+
+                }
+
+                onClicked: {
+                    isVisible = !isVisible;
+                    
+                    if (isVisible) {
+                        infoList.fillInfoModel(model['type'], model['name'], model['dp_stops'], model['train_id']);
+                    } else {
+                        infoList.clearInfoModel();
+                    }
+
+                }
+
+            }
+
+            // function fillModel() {
+            //     model.clear();
+            //     py.call("poor.app.timetables.get_trains", [], function(results) {
+            //         results.forEach( function (p) { model.append(p); });
+            //         if (model.count > 0) {
+            //             showFilterSelector = true;
+            //         } else {
+            //             showFilterSelector = false;
+            //         }
+            //         searchButton.text = "Search";
+            //         searchButton.enabled = true;
+            //         timetableHeader.text = app.tr('Timetables for ') + Qt.formatDateTime(new Date(), "dd.MM.yyyy") + " at " + selectedTime + ":00";
+            //     });
+            // }
+
+            // function filterModel() {
+            //     model.clear();
+            //     py.call("poor.app.timetables.get_trains", [], function(results) {
+            //         results.forEach( function (p) {
+            //             switch(selectedFilter) {
+            //             case 1:
+            //                 if (p['type'].toLowerCase().includes('S'.toLowerCase()) || p['type'].toLowerCase().includes('R'.toLowerCase())) {
+            //                     model.append(p); 
+            //                 }
+            //                 break;
+            //             case 2:
+            //                 if (!p['type'].toLowerCase().includes('S'.toLowerCase()) && !p['type'].toLowerCase().includes('R'.toLowerCase())) {
+            //                     model.append(p); 
+            //                 }
+            //                 break;
+            //             default:
+            //                 model.append(p);
+            //         }
+            //         });
+            //     });
+            // }
+            
+        }
+
+        ListItemLabel {
+            color: styler.themeHighlightColor
+            height: implicitHeight
+            visible: list.model.count > 0
+            text: app.tr('Press on destination to load further informations')
+            horizontalAlignment: Text.AlignHCenter
+        }
+
     }
+
+    KPT.StopoverQueryModel {
+        id: departureModel
+        manager: Manager
+    }
+
 
     onPageStatusActivating: {
         const kpt_backends = py.evaluate("poor.app.history.kpt_backends");
@@ -186,317 +456,6 @@ PagePL {
 
         TrainConnection.startLocationRequest(poi.coordinate.latitude, poi.coordinate.longitude, poi.title);
     }
-
-
-    //     SectionHeaderPL {
-    //         id: timetableHeader
-    //         anchors.horizontalCenter: parent.horizontalCenter
-    //         text: ""
-    //         visible: text
-    //     }
-
-    //     ListItemLabel {
-    //         color: styler.themeHighlightColor
-    //         height: implicitHeight
-    //         text: ""
-    //     }
-
-    //     ComboBoxPL {
-    //         id: filterComboBox
-    //         label: app.tr("Filter")
-    //         model: [app.tr("Any"), app.tr("Only Reginoal Trains"), app.tr("Only Long-distance Trains")]
-    //         visible: showFilterSelector
-    //         currentIndex: 0
-    //         onCurrentIndexChanged: {
-    //             selectedFilter = filterComboBox.currentIndex;
-    //             list.filterModel();
-    //         }   
-    //     }
-
-    //     ListItemLabel {
-    //         color: styler.themeHighlightColor
-    //         height: implicitHeight
-    //         text: ""
-    //     }
-
-    //     Grid {
-    //         id: headerGrid
-    //         columns: 4
-    //         rows: 1
-    //         spacing: styler.themePaddingMedium
-    //         anchors.left: parent.left
-    //         anchors.leftMargin: styler.themeHorizontalPageMargin
-    //         anchors.right: parent.right
-    //         anchors.rightMargin: styler.themeHorizontalPageMargin
-    //         visible: timetableHeader.text
-
-    //         LabelPL {
-    //             id: depTimeHeader
-    //             width: page.width / 8
-    //             horizontalAlignment: Text.AlignLeft
-    //             text: app.tr("Time")
-    //         }
-
-    //         LabelPL {
-    //             id: nameHeader
-    //             width: page.width / 6
-    //             horizontalAlignment: Text.AlignLeft
-    //             text: app.tr("Name")
-    //         }
-
-    //         LabelPL {
-    //             id: directionHeader
-    //             width: page.width / 2.35
-    //             horizontalAlignment: Text.AlignLeft
-    //             text: app.tr("Direction")
-    //         }
-
-    //         LabelPL {
-    //             id: trackItem
-    //             width: page.width / 8
-    //             horizontalAlignment: Text.AlignRight
-    //             text: app.tr("Track")
-    //         }
-    //     }      
-
-    //     Repeater {
-    //         id: list
-    //         width: page.width
-            
-    //         delegate: ListItemPL {
-    //             id: listItem
-    //             width: page.width
-    //             contentHeight: listColumn.height
-                
-    //             property bool isVisible: false
-
-    //             Column {
-    //                 id: listColumn
-    //                 width: page.width
-
-    //                 Grid {
-    //                     id: trainsGrid
-    //                     columns: 4
-    //                     rows: 1
-    //                     spacing: styler.themePaddingMedium
-    //                     anchors.left: parent.left
-    //                     anchors.leftMargin: 8
-    //                     anchors.right: parent.right
-    //                     anchors.rightMargin: 8
-
-    //                     LabelPL {
-    //                         id: depTimeLabel
-    //                         width: page.width / 8
-    //                         horizontalAlignment: Text.AlignLeft
-    //                         text: model['dp_time_hh'] + ":" + model['dp_time_mm']
-    //                     }
-
-    //                     LabelPL {
-    //                         id: nameLabel
-    //                         width: page.width / 6
-    //                         horizontalAlignment: Text.AlignLeft
-    //                         text: model['type'] + " " + model['name']
-    //                     }
-
-    //                     LabelPL {
-    //                         id: directionLabel
-    //                         width: page.width / 2.35
-    //                         horizontalAlignment: Text.AlignLeft
-    //                         text: model['destination']
-    //                     }
-
-    //                     LabelPL {
-    //                         id: trackLabel
-    //                         width: page.width / 8
-    //                         horizontalAlignment: Text.AlignRight
-    //                         text: model['dp_track']
-    //                     }
-    //                 }
-
-    //                 ListItemLabel {
-    //                     color: styler.themeHighlightColor
-    //                     height: implicitHeight
-    //                     text: ""
-    //                 }
-
-    //                 Repeater {
-    //                     id: infoList
-    //                     width: page.width
-
-    //                     delegate: ListItemPL {
-    //                         id: infoListItem
-    //                         width: page.width
-    //                         contentHeight: furtherInfoGrid.height
-
-    //                         Grid {
-    //                             id: furtherInfoGrid
-    //                             columns: 4
-    //                             rows: 1
-    //                             spacing: styler.themePaddingMedium
-    //                             anchors.left: parent.left
-    //                             anchors.right: parent.right
-
-    //                             LabelPL {
-    //                                 id: depTimeLabel
-    //                                 width: page.width / 8
-    //                                 height: implicitHeight + styler.themePaddingMedium
-    //                                 horizontalAlignment: Text.AlignLeft
-    //                                 text: (model['dp_time_hh'] ? model['dp_time_hh'] + ":" + model['dp_time_mm'] : "")
-    //                             }
-
-    //                             LabelPL {
-    //                                 id: nameLabel
-    //                                 width: page.width / 6
-    //                                 height: implicitHeight + styler.themePaddingMedium
-    //                                 horizontalAlignment: Text.AlignLeft
-    //                                 text: model['type'] + " " + model['name']
-    //                             }
-
-    //                             LabelPL {
-    //                                 id: directionLabel
-    //                                 width: page.width / 2.35
-    //                                 height: implicitHeight + styler.themePaddingMedium
-    //                                 horizontalAlignment: Text.AlignLeft
-    //                                 text: model['destination']
-    //                             }
-
-    //                             LabelPL {
-    //                                 id: trackLabel
-    //                                 width: page.width / 8
-    //                                 height: implicitHeight + styler.themePaddingMedium
-    //                                 horizontalAlignment: Text.AlignRight
-    //                                 text: model['dp_track']
-    //                             }
-    //                         }
-
-    //                         onClicked: {
-    //                             if (model['dp_time_hh'] == "") {
-    //                                 py.call("poor.app.timetables.load_destination_informations", [model['train_id'], model['destination'], selectedTime], function(result) {
-    //                                     var arr = result.split('|');
-    //                                     model['dp_time_hh'] = arr[0];
-    //                                     model['dp_time_mm'] = arr[1];
-    //                                     model['dp_track'] = arr[2];
-    //                                 });
-    //                             }
-    //                         }
-
-    //                     }
-
-    //                     model: ListModel {}
-
-    //                     function fillInfoModel(type, name, next_stops, id) {
-    //                         infoList.model.clear();
-
-    //                         var arr = next_stops.split('|');
-    //                         for (var i = 0; i < arr.length; i++) {
-    //                             var dict = {
-    //                                 "type": type,
-    //                                 "name": name,
-    //                                 "train_id": id,
-    //                                 "dp_time_hh": "",
-    //                                 "dp_time_mm": "",
-    //                                 "dp_track": "",
-    //                                 "destination": arr[i]
-    //                             };
-    //                             infoList.model.append(dict);
-    //                         }
-
-    //                     }
-
-    //                     function clearInfoModel() {
-    //                         infoList.model.clear();
-    //                     }
-
-    //                 }
-
-    //                 ListItemLabel {
-    //                     color: styler.themeHighlightColor
-    //                     height: implicitHeight
-    //                     text: ""
-    //                     visible: true
-    //                 }
-
-    //                 Rectangle {
-    //                     id: listSeperator
-    //                     width: page.width - 20
-    //                     height: 1
-    //                     color: "gray"
-    //                 }
-
-    //             }
-
-    //             onClicked: {
-    //                 isVisible = !isVisible;
-                    
-    //                 if (isVisible) {
-    //                     infoList.fillInfoModel(model['type'], model['name'], model['dp_stops'], model['train_id']);
-    //                 } else {
-    //                     infoList.clearInfoModel();
-    //                 }
-
-    //             }
-
-    //         }
-
-    //         model: ListModel {}
-
-    //         function fillModel() {
-    //             model.clear();
-    //             py.call("poor.app.timetables.get_trains", [], function(results) {
-    //                 results.forEach( function (p) { model.append(p); });
-    //                 if (model.count > 0) {
-    //                     showFilterSelector = true;
-    //                 } else {
-    //                     showFilterSelector = false;
-    //                 }
-    //                 searchButton.text = "Search";
-    //                 searchButton.enabled = true;
-    //                 timetableHeader.text = app.tr('Timetables for ') + Qt.formatDateTime(new Date(), "dd.MM.yyyy") + " at " + selectedTime + ":00";
-    //             });
-    //         }
-
-    //         function filterModel() {
-    //             model.clear();
-    //             py.call("poor.app.timetables.get_trains", [], function(results) {
-    //                 results.forEach( function (p) {
-    //                     switch(selectedFilter) {
-    //                     case 1:
-    //                         if (p['type'].toLowerCase().includes('S'.toLowerCase()) || p['type'].toLowerCase().includes('R'.toLowerCase())) {
-    //                             model.append(p); 
-    //                         }
-    //                         break;
-    //                     case 2:
-    //                         if (!p['type'].toLowerCase().includes('S'.toLowerCase()) && !p['type'].toLowerCase().includes('R'.toLowerCase())) {
-    //                             model.append(p); 
-    //                         }
-    //                         break;
-    //                     default:
-    //                         model.append(p);
-    //                 }
-    //                 });
-    //             });
-    //         }
-            
-    //     }
-
-    //     ListItemLabel {
-    //         color: styler.themeHighlightColor
-    //         height: implicitHeight
-    //         visible: list.model.count > 0
-    //         text: app.tr('Press on destination to load further informations')
-    //         horizontalAlignment: Text.AlignHCenter
-    //     }
-
-    //     ListItemLabel {
-    //         id: errorLable
-    //         color: styler.themeHighlightColor
-    //         height: implicitHeight
-    //         text: ""
-    //         visible: text
-    //         horizontalAlignment: Text.AlignHCenter
-    //     }
-
-    // }
 
     // onPageStatusInactive: {
     //     py.call_sync("poor.app.timetables.clear_cache", []);
