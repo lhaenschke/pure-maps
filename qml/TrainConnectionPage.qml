@@ -126,7 +126,7 @@ PagePL {
 
             ButtonPL {
                 id: todayButton
-                preferredWidth: styler.themeButtonWidthMedium
+                preferredWidth: parent.width - (pickDateButton.width + 2 * styler.themeHorizontalPageMargin)
                 text: app.tr('Today')
                 onClicked: {
                     TrainConnection.departureDate = new Date();
@@ -144,31 +144,48 @@ PagePL {
             wrapMode: Text.WordWrap
         }
 
-        ButtonPL {
-            id: pickTimeButton
+        Row {
             anchors.left: parent.left
-            preferredWidth: styler.themeButtonWidthMedium
-            text: Qt.formatTime(TrainConnection.departureTime, Qt.DefaultLocaleShortDate)
-            onClicked: {
-                var dialog = app.push(Qt.resolvedUrl("../qml/platform/TimePickerDialogPL.qml"), {
-                                            "hour": TrainConnection.departureTime.getHours(),
-                                            "minute": TrainConnection.departureTime.getMinutes(),
-                                            "title": app.tr("Select time")
-                                        });
-                dialog.accepted.connect(function() {
-                    var time = new Date();
-                    time.setHours(dialog.hour);
-                    time.setMinutes(dialog.minute);
-                    time.setSeconds(0);
-                    if (time < new Date()) {
-                        TrainConnection.departureTime = new Date();    
-                    } else {
-                        TrainConnection.departureTime = time;
-                    }
-                });
+            anchors.leftMargin: styler.themeHorizontalPageMargin
+            anchors.right: parent.right
+            anchors.rightMargin: styler.themeHorizontalPageMargin
+
+            ButtonPL {
+                id: pickTimeButton
+                anchors.left: parent.left
+                preferredWidth: styler.themeButtonWidthMedium
+                text: Qt.formatTime(TrainConnection.departureTime, Qt.DefaultLocaleShortDate)
+                onClicked: {
+                    var dialog = app.push(Qt.resolvedUrl("../qml/platform/TimePickerDialogPL.qml"), {
+                                                "hour": TrainConnection.departureTime.getHours(),
+                                                "minute": TrainConnection.departureTime.getMinutes(),
+                                                "title": app.tr("Select time")
+                                            });
+                    dialog.accepted.connect(function() {
+                        var time = new Date();
+                        time.setHours(dialog.hour);
+                        time.setMinutes(dialog.minute);
+                        time.setSeconds(0);
+                        if (time < new Date()) {
+                            TrainConnection.departureTime = new Date();
+                        } else {
+                            TrainConnection.departureTime = time;
+                        }
+                    });
+                }
             }
+
+            ButtonPL {
+                id: nowButton
+                preferredWidth: parent.width - (pickTimeButton.width + 2 * styler.themeHorizontalPageMargin)
+                text: app.tr('Now')
+                onClicked: {
+                    TrainConnection.departureTime = new Date();
+                }
+            }
+
         }
-        
+
         ListItemLabel {
             color: styler.themeHighlightColor
             height: implicitHeight
