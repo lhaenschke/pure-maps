@@ -188,39 +188,38 @@ PagePL {
 
             LabelPL {
                 id: depTimeHeader
-                width: page.width / 7
+                width: parent.width / 6.5
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Time")
             }
 
             LabelPL {
                 id: nameHeader
-                width: page.width / 7
+                width: parent.width / 7
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Name")
             }
 
             LabelPL {
-                id: directionHeader
-                width: parent.width - (depTimeHeader.width + nameHeader.width + trackHeader.width + 2 * styler.themeHorizontalPageMargin)
+                width: parent.width - (depTimeHeader.width + nameHeader.width + trackHeader.width)
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Direction")
             }
 
             LabelPL {
                 id: trackHeader
-                width: page.width / 8
+                width: parent.width / 8
                 horizontalAlignment: Text.AlignRight
                 text: app.tr("Track")
             }
         }     
 
         Rectangle {
-            id: headerSeperator
             height: 1
-            width: headerGrid.width
             anchors.left: parent.left
             anchors.leftMargin: styler.themeHorizontalPageMargin
+            anchors.right: parent.right
+            anchors.rightMargin: styler.themeHorizontalPageMargin
             color: "gray"
         } 
 
@@ -252,21 +251,21 @@ PagePL {
 
                         LabelPL {
                             id: depTimeLabel
-                            width: page.width / 7
+                            width: parent.width / 6.5
                             horizontalAlignment: Text.AlignLeft
                             text: departure.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat)
                         }
 
                         LabelPL {
                             id: nameLabel
-                            width: page.width / 7
+                            width: parent.width / 7
                             horizontalAlignment: Text.AlignLeft
                             text: departure.route.line.name
                             truncMode: truncModes.elide
                         }
 
                         LabelPL {
-                            width: parent.width - (depTimeLabel.width + nameLabel.width + trackLabel.width + 16)
+                            width: parent.width - (depTimeLabel.width + nameLabel.width + trackLabel.width)
                             horizontalAlignment: Text.AlignLeft
                             text: departure.route.direction
                             truncMode: truncModes.elide
@@ -274,7 +273,7 @@ PagePL {
 
                         LabelPL {
                             id: trackLabel
-                            width: page.width / 8
+                            width: parent.width / 8
                             horizontalAlignment: Text.AlignRight
                             text: departure.scheduledPlatform
                         }
@@ -285,8 +284,11 @@ PagePL {
                     }
 
                     Rectangle {
-                        width: headerSeperator.width
                         height: 1
+                        anchors.left: parent.left
+                        anchors.leftMargin: styler.themeHorizontalPageMargin
+                        anchors.right: parent.right
+                        anchors.rightMargin: styler.themeHorizontalPageMargin
                         color: "gray"
                     }
 
