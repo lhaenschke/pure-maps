@@ -18,6 +18,8 @@
 
 import QtQuick 2.0
 import QtPositioning 5.4
+import org.puremaps 1.0
+import org.kde.kpublictransport 1.0 as KPT
 import "."
 import "platform"
 
@@ -53,29 +55,6 @@ PagePL {
                     "latitude": poi.coordinate.latitude,
                     "longitude": poi.coordinate.longitude,
                     "callback": page.startCallback
-                });
-            }
-        }
-
-        ListItemLabel {
-            color: styler.themeHighlightColor
-            height: implicitHeight + styler.themePaddingLarge
-            text: app.tr('Destination:')
-            truncMode: truncModes.none
-            verticalAlignment: Text.AlignVCenter
-            wrapMode: Text.WordWrap
-        }
-
-        ButtonPL {
-            id: pickDestinationButton
-            anchors.horizontalCenter: parent.horizontalCenter
-            preferredWidth: page.width - (2 * styler.themeHorizontalPageMargin)
-            text: TrainConnection.destination.name ? TrainConnection.destination.name : app.tr("Choose Destination")
-            onClicked: {
-                app.push(Qt.resolvedUrl("TrainConnectionDestinationQueryPage.qml"), {
-                    "latitude": poi.coordinate.latitude,
-                    "longitude": poi.coordinate.longitude,
-                    "callback": page.destinationCallback
                 });
             }
         }
