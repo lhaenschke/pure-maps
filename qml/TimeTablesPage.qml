@@ -188,7 +188,7 @@ PagePL {
 
             LabelPL {
                 id: depTimeHeader
-                width: parent.width / 6.5
+                width: parent.width / 6
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Time")
             }
@@ -251,7 +251,7 @@ PagePL {
 
                         LabelPL {
                             id: depTimeLabel
-                            width: parent.width / 6.5
+                            width: parent.width / 6
                             horizontalAlignment: Text.AlignLeft
                             text: departure.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat)
                         }
@@ -286,9 +286,9 @@ PagePL {
                     Rectangle {
                         height: 1
                         anchors.left: parent.left
-                        anchors.leftMargin: styler.themeHorizontalPageMargin
+                        anchors.leftMargin: 8
                         anchors.right: parent.right
-                        anchors.rightMargin: styler.themeHorizontalPageMargin
+                        anchors.rightMargin: 8
                         color: "gray"
                     }
 
