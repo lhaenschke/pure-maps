@@ -235,7 +235,7 @@ PagePL {
                 width: page.width
                 contentHeight: listColumn.height
                 
-                property var data: model.modelData
+                property var departureData: model.modelData
 
                 Column {
                     id: listColumn
@@ -300,7 +300,7 @@ PagePL {
                         id: infoList
                         width: page.width
 
-                        model: data.intermediateStops
+                        model: departureData.intermediateStops
 
                         delegate: ListItemPL {
                             id: infoListItem
@@ -352,13 +352,6 @@ PagePL {
 
                     }
 
-                    // ListItemLabel {
-                    //     color: styler.themeHighlightColor
-                    //     height: implicitHeight
-                    //     text: ""
-                    //     visible: true
-                    // }
-
                 }
 
                 onClicked: {
@@ -373,43 +366,6 @@ PagePL {
                 }
 
             }
-
-            // function fillModel() {
-            //     model.clear();
-            //     py.call("poor.app.timetables.get_trains", [], function(results) {
-            //         results.forEach( function (p) { model.append(p); });
-            //         if (model.count > 0) {
-            //             showFilterSelector = true;
-            //         } else {
-            //             showFilterSelector = false;
-            //         }
-            //         searchButton.text = "Search";
-            //         searchButton.enabled = true;
-            //         timetableHeader.text = app.tr('Timetables for ') + Qt.formatDateTime(new Date(), "dd.MM.yyyy") + " at " + selectedTime + ":00";
-            //     });
-            // }
-
-            // function filterModel() {
-            //     model.clear();
-            //     py.call("poor.app.timetables.get_trains", [], function(results) {
-            //         results.forEach( function (p) {
-            //             switch(selectedFilter) {
-            //             case 1:
-            //                 if (p['type'].toLowerCase().includes('S'.toLowerCase()) || p['type'].toLowerCase().includes('R'.toLowerCase())) {
-            //                     model.append(p); 
-            //                 }
-            //                 break;
-            //             case 2:
-            //                 if (!p['type'].toLowerCase().includes('S'.toLowerCase()) && !p['type'].toLowerCase().includes('R'.toLowerCase())) {
-            //                     model.append(p); 
-            //                 }
-            //                 break;
-            //             default:
-            //                 model.append(p);
-            //         }
-            //         });
-            //     });
-            // }
             
         }
 
