@@ -235,6 +235,8 @@ PagePL {
                 width: page.width
                 contentHeight: listColumn.height
                 
+                property var data = model.modelData
+
                 Column {
                     id: listColumn
                     width: page.width
@@ -294,95 +296,61 @@ PagePL {
                         color: "gray"
                     }
 
-                    // Repeater {
-                    //     id: infoList
-                    //     width: page.width
+                    Repeater {
+                        id: infoList
+                        width: page.width
 
-                    //     delegate: ListItemPL {
-                    //         id: infoListItem
-                    //         width: page.width
-                    //         contentHeight: furtherInfoGrid.height
+                        model: data.intermediateStops
 
-                    //         Grid {
-                    //             id: furtherInfoGrid
-                    //             columns: 4
-                    //             rows: 1
-                    //             spacing: styler.themePaddingMedium
-                    //             anchors.left: parent.left
-                    //             anchors.right: parent.right
+                        delegate: ListItemPL {
+                            id: infoListItem
+                            width: page.width
+                            contentHeight: furtherInfoGrid.height
 
-                    //             LabelPL {
-                    //                 id: depTimeLabel
-                    //                 width: page.width / 8
-                    //                 height: implicitHeight + styler.themePaddingMedium
-                    //                 horizontalAlignment: Text.AlignLeft
-                    //                 text: (model['dp_time_hh'] ? model['dp_time_hh'] + ":" + model['dp_time_mm'] : "")
-                    //             }
+                            Grid {
+                                id: furtherInfoGrid
+                                columns: 4
+                                rows: 1
+                                spacing: styler.themePaddingMedium
+                                anchors.left: parent.left
+                                anchors.right: parent.right
 
-                    //             LabelPL {
-                    //                 id: nameLabel
-                    //                 width: page.width / 6
-                    //                 height: implicitHeight + styler.themePaddingMedium
-                    //                 horizontalAlignment: Text.AlignLeft
-                    //                 text: model['type'] + " " + model['name']
-                    //             }
+                                LabelPL {
+                                    id: depTimeLabel
+                                    width: page.width / 8
+                                    height: implicitHeight + styler.themePaddingMedium
+                                    horizontalAlignment: Text.AlignLeft
+                                    text: modelData.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat)
+                                }
 
-                    //             LabelPL {
-                    //                 id: directionLabel
-                    //                 width: page.width / 2.35
-                    //                 height: implicitHeight + styler.themePaddingMedium
-                    //                 horizontalAlignment: Text.AlignLeft
-                    //                 text: model['destination']
-                    //             }
+                                LabelPL {
+                                    id: nameLabel
+                                    width: page.width / 6
+                                    height: implicitHeight + styler.themePaddingMedium
+                                    horizontalAlignment: Text.AlignLeft
+                                    text: departure.route.line.name
+                                }
 
-                    //             LabelPL {
-                    //                 id: trackLabel
-                    //                 width: page.width / 8
-                    //                 height: implicitHeight + styler.themePaddingMedium
-                    //                 horizontalAlignment: Text.AlignRight
-                    //                 text: model['dp_track']
-                    //             }
-                    //         }
+                                LabelPL {
+                                    id: directionLabel
+                                    width: page.width / 2.35
+                                    height: implicitHeight + styler.themePaddingMedium
+                                    horizontalAlignment: Text.AlignLeft
+                                    text: modelData.stopPoint.name
+                                }
 
-                    //         onClicked: {
-                    //             if (model['dp_time_hh'] == "") {
-                    //                 py.call("poor.app.timetables.load_destination_informations", [model['train_id'], model['destination'], selectedTime], function(result) {
-                    //                     var arr = result.split('|');
-                    //                     model['dp_time_hh'] = arr[0];
-                    //                     model['dp_time_mm'] = arr[1];
-                    //                     model['dp_track'] = arr[2];
-                    //                 });
-                    //             }
-                    //         }
+                                LabelPL {
+                                    id: trackLabel
+                                    width: page.width / 8
+                                    height: implicitHeight + styler.themePaddingMedium
+                                    horizontalAlignment: Text.AlignRight
+                                    text: modelData.scheduledPlatform
+                                }
+                            }
 
-                    //     }
+                        }
 
-                    //     model: ListModel {}
-
-                    //     function fillInfoModel(type, name, next_stops, id) {
-                    //         infoList.model.clear();
-
-                    //         var arr = next_stops.split('|');
-                    //         for (var i = 0; i < arr.length; i++) {
-                    //             var dict = {
-                    //                 "type": type,
-                    //                 "name": name,
-                    //                 "train_id": id,
-                    //                 "dp_time_hh": "",
-                    //                 "dp_time_mm": "",
-                    //                 "dp_track": "",
-                    //                 "destination": arr[i]
-                    //             };
-                    //             infoList.model.append(dict);
-                    //         }
-
-                    //     }
-
-                    //     function clearInfoModel() {
-                    //         infoList.model.clear();
-                    //     }
-
-                    // }
+                    }
 
                     // ListItemLabel {
                     //     color: styler.themeHighlightColor
