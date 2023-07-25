@@ -180,7 +180,6 @@ PagePL {
             id: headerGrid
             columns: 4
             rows: 1
-            spacing: styler.themePaddingMedium
             anchors.left: parent.left
             anchors.leftMargin: styler.themeHorizontalPageMargin
             anchors.right: parent.right
@@ -189,32 +188,41 @@ PagePL {
 
             LabelPL {
                 id: depTimeHeader
-                width: page.width / 8
+                width: page.width / 7
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Time")
             }
 
             LabelPL {
                 id: nameHeader
-                width: page.width / 6
+                width: page.width / 7
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Name")
             }
 
             LabelPL {
                 id: directionHeader
-                width: page.width / 2.35
+                width: parent.width - (depTimeHeader.width + nameHeader.width + trackHeader.width + 2 * styler.themeHorizontalPageMargin)
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Direction")
             }
 
             LabelPL {
-                id: trackItem
+                id: trackHeader
                 width: page.width / 8
                 horizontalAlignment: Text.AlignRight
                 text: app.tr("Track")
             }
-        }      
+        }     
+
+        Rectangle {
+            id: headerSeperator
+            height: 1
+            width: headerGrid.width
+            anchors.left: parent.left
+            anchors.leftMargin: styler.themeHorizontalPageMargin
+            color: "gray"
+        } 
 
         Repeater {
             id: list
@@ -237,7 +245,6 @@ PagePL {
                         id: trainsGrid
                         columns: 4
                         rows: 1
-                        spacing: styler.themePaddingMedium
                         anchors.left: parent.left
                         anchors.leftMargin: 8
                         anchors.right: parent.right
@@ -245,23 +252,24 @@ PagePL {
 
                         LabelPL {
                             id: depTimeLabel
-                            width: page.width / 8
+                            width: page.width / 7
                             horizontalAlignment: Text.AlignLeft
                             text: departure.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat)
                         }
 
                         LabelPL {
                             id: nameLabel
-                            width: page.width / 6
+                            width: page.width / 7
                             horizontalAlignment: Text.AlignLeft
                             text: departure.route.line.name
+                            truncMode: truncModes.elide
                         }
 
                         LabelPL {
-                            id: directionLabel
-                            width: page.width / 2.35
+                            width: parent.width - (depTimeLabel.width + nameLabel.width + trackLabel.width + 16)
                             horizontalAlignment: Text.AlignLeft
                             text: departure.route.direction
+                            truncMode: truncModes.elide
                         }
 
                         LabelPL {
@@ -274,6 +282,12 @@ PagePL {
 
                     Spacer {
                         height: styler.themePaddingLarge
+                    }
+
+                    Rectangle {
+                        width: headerSeperator.width
+                        height: 1
+                        color: "gray"
                     }
 
                     // Repeater {
@@ -373,13 +387,6 @@ PagePL {
                     //     visible: true
                     // }
 
-                    // Rectangle {
-                    //     id: listSeperator
-                    //     width: page.width - 20
-                    //     height: 1
-                    //     color: "gray"
-                    // }
-
                 }
 
                 onClicked: {
@@ -449,7 +456,6 @@ PagePL {
         manager: Manager
     }
 
-
     onPageStatusActivating: {
         const kpt_backends = py.evaluate("poor.app.history.kpt_backends");
         kpt_backends.forEach( function(x) { TrainConnection.setBackendEnable(x, true); } );
@@ -457,8 +463,8 @@ PagePL {
         TrainConnection.startLocationRequest(poi.coordinate.latitude, poi.coordinate.longitude, poi.title);
     }
 
-    // onPageStatusInactive: {
-    //     py.call_sync("poor.app.timetables.clear_cache", []);
-    // }
+    function startCallback(data) {
+        TrainConnection.start = data;
+    }
 
 }
