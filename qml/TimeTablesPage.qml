@@ -235,8 +235,6 @@ PagePL {
                 width: page.width
                 contentHeight: listColumn.height
                 
-                property var departureData: model.modelData
-
                 Column {
                     id: listColumn
                     width: page.width
@@ -300,7 +298,7 @@ PagePL {
                         id: infoList
                         width: page.width
 
-                        model: departureData.intermediateStops
+                        model: departure.intermediateStops
 
                         delegate: ListItemPL {
                             id: infoListItem
