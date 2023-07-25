@@ -99,11 +99,13 @@ PagePL {
         }
 
         Row {
-            width: page.width
+            anchors.left: parent.left
+            anchors.leftMargin: styler.themeHorizontalPageMargin
+            anchors.right: parent.right
+            anchors.rightMargin: styler.themeHorizontalPageMargin
 
             ButtonPL {
                 id: pickDateButton
-                anchors.left: parent.left
                 preferredWidth: styler.themeButtonWidthMedium
                 text: Qt.formatDate(TrainConnection.departureDate, Qt.DefaultLocaleShortDate)
                 onClicked: {
@@ -124,7 +126,6 @@ PagePL {
 
             ButtonPL {
                 id: todayButton
-                anchors.right: parent.right
                 preferredWidth: styler.themeButtonWidthSmall
                 text: app.tr('Today')
                 onClicked: {
