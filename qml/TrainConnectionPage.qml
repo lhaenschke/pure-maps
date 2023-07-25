@@ -272,7 +272,7 @@ PagePL {
                         }
 
                         LabelPL {
-                            width: parent.width - (firstTimeLabel.width + firstDelayLabel.width +  styler.themeHorizontalPageMargin)
+                            width: parent.width - (firstTimeLabel.width + firstDelayLabel.width + 16)
                             horizontalAlignment: Text.AlignLeft
                             text: firstJourney.from.name
                             font.strikeout: cancelled
@@ -307,7 +307,7 @@ PagePL {
                         }
 
                         LabelPL {
-                            width: parent.width - (lastTimeLabel.width + lastDelayLabel.width + changesLabel.width + styler.themeHorizontalPageMargin)
+                            width: parent.width - (lastTimeLabel.width + lastDelayLabel.width + changesLabel.width + 16)
                             horizontalAlignment: Text.AlignLeft
                             text: lastJourney.to.name
                             font.strikeout: cancelled
@@ -350,7 +350,6 @@ PagePL {
 
                         Row {
                             id: vehicleRow
-
                             spacing: styler.themePaddingSmall
 
                             Repeater {
@@ -371,7 +370,7 @@ PagePL {
 
                                     Component {
                                         id: vehicleNameLabel
-                                        Label {
+                                        LabelPL {
                                             height: durationLabel.height
                                             text: modelData.route.line.name
                                         }
