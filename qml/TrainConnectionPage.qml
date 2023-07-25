@@ -107,7 +107,7 @@ PagePL {
 
             ButtonPL {
                 id: pickDateButton
-                preferredWidth: styler.themeButtonWidthMedium
+                preferredWidth: styler.themeButtonWidthLarge
                 text: Qt.formatDate(TrainConnection.departureDate, Qt.DefaultLocaleShortDate)
                 onClicked: {
                     var dialog = app.push(Qt.resolvedUrl("../qml/platform/DatePickerDialogPL.qml"), {
@@ -127,7 +127,7 @@ PagePL {
 
             ButtonPL {
                 id: todayButton
-                preferredWidth: parent.width - (pickDateButton.width + 2 * styler.themeHorizontalPageMargin + styler.themePaddingSmall)
+                preferredWidth: page.width - (pickDateButton.width + 2 * styler.themeHorizontalPageMargin + styler.themePaddingSmall)
                 text: app.tr('Today')
                 onClicked: {
                     TrainConnection.departureDate = new Date();
@@ -154,7 +154,7 @@ PagePL {
 
             ButtonPL {
                 id: pickTimeButton
-                preferredWidth: styler.themeButtonWidthMedium
+                preferredWidth: styler.themeButtonWidthLarge
                 text: Qt.formatTime(TrainConnection.departureTime, Qt.DefaultLocaleShortDate)
                 onClicked: {
                     var dialog = app.push(Qt.resolvedUrl("../qml/platform/TimePickerDialogPL.qml"), {
@@ -178,7 +178,7 @@ PagePL {
 
             ButtonPL {
                 id: nowButton
-                preferredWidth: parent.width - (pickTimeButton.width + 2 * styler.themeHorizontalPageMargin + styler.themePaddingSmall)
+                preferredWidth: page.width - (pickTimeButton.width + 2 * styler.themeHorizontalPageMargin + styler.themePaddingSmall)
                 text: app.tr('Now')
                 onClicked: {
                     TrainConnection.departureTime = new Date();
