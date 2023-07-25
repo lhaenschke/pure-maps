@@ -29,16 +29,6 @@ PagePL {
 
     property var poi
 
-    // pageMenu: PageMenuPL {
-    //     PageMenuItemPL {
-    //         enabled: page.active
-    //         text: useAPI ? app.tr('Press toe use API-Mode') : app.tr('Press to use Scraping-Mode')
-    //         onClicked: {
-    //             useAPI = !useAPI
-    //         }
-    //     }
-    // }
-
     Column {
         id: column
         width: page.width
@@ -158,10 +148,10 @@ PagePL {
                 text: Qt.formatTime(TrainConnection.departureTime, Qt.DefaultLocaleShortDate)
                 onClicked: {
                     var dialog = app.push(Qt.resolvedUrl("../qml/platform/TimePickerDialogPL.qml"), {
-                                                "hour": TrainConnection.departureTime.getHours(),
-                                                "minute": TrainConnection.departureTime.getMinutes(),
-                                                "title": app.tr("Select time")
-                                            });
+                        "hour": TrainConnection.departureTime.getHours(),
+                        "minute": TrainConnection.departureTime.getMinutes(),
+                        "title": app.tr("Select time")
+                    });
                     dialog.accepted.connect(function() {
                         var time = new Date();
                         time.setHours(dialog.hour);
@@ -187,10 +177,8 @@ PagePL {
 
         }
 
-        ListItemLabel {
-            color: styler.themeHighlightColor
-            height: implicitHeight
-            text: ""
+        Spacer {
+            height: styler.themePaddingLarge
         }
 
         ButtonPL {
@@ -268,8 +256,8 @@ PagePL {
                 contentHeight: connectionColumn.height
 
                 readonly property var  firstJourney: journey.sections[0]
-                readonly property var  lastJourney: journey.sections[journey.sections.length - 1]
-                readonly property bool cancelled: journey.disruptionEffect == KPT.Disruption.NoService
+                readonly property var  lastJourney:  journey.sections[journey.sections.length - 1]
+                readonly property bool cancelled:    journey.disruptionEffect == KPT.Disruption.NoService
 
                 Column {
                     id: connectionColumn
@@ -403,20 +391,6 @@ PagePL {
                         }
 
 
-                        // LabelPL {
-                        //     width: parent.width - (durationLabel.width + delayPlaceholderLabel.width + styler.themeHorizontalPageMargin)
-                        //     horizontalAlignment: Text.AlignLeft
-                        //     text: {
-                        //         var str = "";
-                        //         journey.sections.forEach( function(x) { 
-                        //             str += (x.route.line.name).trim(); 
-                        //             str += " -> ";
-                        //         });
-                        //         return str;
-                        //     }
-                        //     font.strikeout: cancelled
-                        // }
-
                     }
 
                     Spacer {
@@ -434,6 +408,9 @@ PagePL {
                 }
 
                 onClicked: {
+                    if (!cancelled) {
+                        console.log('Weitere Infos anzeigen.');
+                    }
                 }
 
             }
