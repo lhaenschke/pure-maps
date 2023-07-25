@@ -179,6 +179,15 @@ PagePL {
         }
 
     }
+
+    onPageStatusActivating: {
+        const kpt_backends = py.evaluate("poor.app.history.kpt_backends");
+        kpt_backends.forEach( function(x) { TrainConnection.setBackendEnable(x, true); } );
+
+        TrainConnection.startLocationRequest(poi.coordinate.latitude, poi.coordinate.longitude, poi.title);
+    }
+
+    
     //     SectionHeaderPL {
     //         id: timetableHeader
     //         anchors.horizontalCenter: parent.horizontalCenter
