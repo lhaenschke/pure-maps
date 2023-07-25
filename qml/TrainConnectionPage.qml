@@ -348,19 +348,52 @@ PagePL {
                             text: ""
                         }
 
-                        LabelPL {
-                            width: parent.width - (durationLabel.width + delayPlaceholderLabel.width + styler.themeHorizontalPageMargin)
-                            horizontalAlignment: Text.AlignLeft
-                            text: {
-                                var str = "";
-                                journey.sections.forEach( function(x) { 
-                                    str += (x.route.line.name).trim(); 
-                                    str += " ";
-                                });
-                                return str;
+                        Row {
+                            id: vehicleRow
+
+                            spacing: styler.themePaddingSmall
+
+                            Repeater {
+                                model: journey.sections
+
+                                delegate: Loader {
+                                    sourceComponent: model.modelData.route.line.hasLogo ? vehicleNameIcon : vehicleNameLabel
+
+                                    Component {
+                                        id: vehicleNameIcon
+                                        IconPL {
+                                            id: image
+                                            width: height
+                                            height: durationLabel.height
+                                            iconSource: modelData.route.line.logo
+                                        }
+                                    }
+
+                                    Component {
+                                        id: vehicleNameLabel
+                                        Label {
+                                            height: durationLabel.height
+                                            text: modelData.route.line.name
+                                        }
+                                    }
+                                }
                             }
-                            font.strikeout: cancelled
                         }
+
+
+                        // LabelPL {
+                        //     width: parent.width - (durationLabel.width + delayPlaceholderLabel.width + styler.themeHorizontalPageMargin)
+                        //     horizontalAlignment: Text.AlignLeft
+                        //     text: {
+                        //         var str = "";
+                        //         journey.sections.forEach( function(x) { 
+                        //             str += (x.route.line.name).trim(); 
+                        //             str += " ";
+                        //         });
+                        //         return str;
+                        //     }
+                        //     font.strikeout: cancelled
+                        // }
 
                     }
 
