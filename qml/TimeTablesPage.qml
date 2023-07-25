@@ -188,7 +188,7 @@ PagePL {
 
             LabelPL {
                 id: depTimeHeader
-                width: parent.width / 6
+                width: parent.width / 5.7
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Time")
             }
@@ -254,7 +254,7 @@ PagePL {
 
                         LabelPL {
                             id: depTimeLabel
-                            width: parent.width / 6
+                            width: parent.width / 5.7
                             horizontalAlignment: Text.AlignLeft
                             text: departure.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat)
                         }
@@ -353,13 +353,7 @@ PagePL {
                 }
 
                 onClicked: {
-                    isVisible = !isVisible;
-                    
-                    if (isVisible) {
-                        infoList.fillInfoModel(model['type'], model['name'], model['dp_stops'], model['train_id']);
-                    } else {
-                        infoList.clearInfoModel();
-                    }
+                    console.log('Stops: ', departure.intermediateStops);
 
                 }
 
