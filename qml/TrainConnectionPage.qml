@@ -126,7 +126,7 @@ PagePL {
 
             ButtonPL {
                 id: todayButton
-                preferredWidth: styler.themeButtonWidthSmall
+                preferredWidth: styler.themeButtonWidthMedium
                 text: app.tr('Today')
                 onClicked: {
                     TrainConnection.departureDate = new Date();
