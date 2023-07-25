@@ -103,6 +103,7 @@ PagePL {
             anchors.leftMargin: styler.themeHorizontalPageMargin
             anchors.right: parent.right
             anchors.rightMargin: styler.themeHorizontalPageMargin
+            spacing: styler.themePaddingSmall
 
             ButtonPL {
                 id: pickDateButton
@@ -126,7 +127,7 @@ PagePL {
 
             ButtonPL {
                 id: todayButton
-                preferredWidth: parent.width - (pickDateButton.width + 2 * styler.themeHorizontalPageMargin)
+                preferredWidth: parent.width - (pickDateButton.width + 2 * styler.themeHorizontalPageMargin + styler.themePaddingSmall)
                 text: app.tr('Today')
                 onClicked: {
                     TrainConnection.departureDate = new Date();
@@ -149,6 +150,7 @@ PagePL {
             anchors.leftMargin: styler.themeHorizontalPageMargin
             anchors.right: parent.right
             anchors.rightMargin: styler.themeHorizontalPageMargin
+            spacing: styler.themePaddingSmall
 
             ButtonPL {
                 id: pickTimeButton
@@ -177,7 +179,7 @@ PagePL {
 
             ButtonPL {
                 id: nowButton
-                preferredWidth: parent.width - (pickTimeButton.width + 2 * styler.themeHorizontalPageMargin)
+                preferredWidth: parent.width - (pickTimeButton.width + 2 * styler.themeHorizontalPageMargin + styler.themePaddingSmall)
                 text: app.tr('Now')
                 onClicked: {
                     TrainConnection.departureTime = new Date();
