@@ -107,7 +107,7 @@ PagePL {
 
             ButtonPL {
                 id: pickDateButton
-                preferredWidth: styler.themeButtonWidthLarge
+                preferredWidth: styler.themeButtonWidthLarge - (2 * styler.themeHorizontalPageMargin)
                 text: Qt.formatDate(TrainConnection.departureDate, Qt.DefaultLocaleShortDate)
                 onClicked: {
                     var dialog = app.push(Qt.resolvedUrl("../qml/platform/DatePickerDialogPL.qml"), {
@@ -154,7 +154,7 @@ PagePL {
 
             ButtonPL {
                 id: pickTimeButton
-                preferredWidth: styler.themeButtonWidthLarge
+                preferredWidth: styler.themeButtonWidthLarge - (2 * styler.themeHorizontalPageMargin)
                 text: Qt.formatTime(TrainConnection.departureTime, Qt.DefaultLocaleShortDate)
                 onClicked: {
                     var dialog = app.push(Qt.resolvedUrl("../qml/platform/TimePickerDialogPL.qml"), {
