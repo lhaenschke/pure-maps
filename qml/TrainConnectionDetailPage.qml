@@ -44,7 +44,9 @@ PagePL {
                 
                 sourceComponent: {
                     switch(sectionData.mode) {
-                        case 2: case 4: case 8: return transferComponent
+                        case 2: case 4: case 8: 
+                            console.log('Mode: ', sectionData.mode);
+                            return transferComponent
                         default: 
                             console.log('Mode: ', sectionData.mode);
                             return connectionComponent
