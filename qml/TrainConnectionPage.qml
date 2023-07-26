@@ -410,6 +410,7 @@ PagePL {
                 }
 
                 onClicked: {
+                    console.log('Section-Count: ', journey.sections.length);
                     if (!connectionIsCancelled) {
                         app.push(Qt.resolvedUrl("TrainConnectionDetailPage.qml"), {
                             "journey": journey

@@ -29,32 +29,42 @@ PagePL {
 
     property var journey
 
-    Repeater {
-        id: journeysRepeater
+    Column {
+        id: column
         width: page.width
 
-        model: journey.sections
-
-        delegate: ListItemPL {
-            id: listItem
+        Repeater {
+            id: journeysRepeater
             width: page.width
-            contentHeight: journeyColumn.height
 
-            Column {
-                id: journeyColumn
+            model: journey.sections
+
+            delegate: ListItemPL {
+                id: listItem
                 width: page.width
+                contentHeight: journeyColumn.height
 
-                LabelPL {
-                    id: firstTimeLabel
-                    width: parent.width / 5.8
-                    horizontalAlignment: Text.AlignLeft
-                    text: "Test"
+                Column {
+                    id: journeyColumn
+                    width: page.width
+
+                    LabelPL {
+                        id: firstTimeLabel
+                        width: parent.width / 5.8
+                        horizontalAlignment: Text.AlignLeft
+                        text: "Test"
+                    }
+
                 }
 
             }
 
         }
 
+    }
+
+    onPageStatusActivating: {
+        console.log('Section-Count: ', journey.sections.length);
     }
 
     // Column {
