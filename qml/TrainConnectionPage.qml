@@ -204,6 +204,7 @@ PagePL {
             anchors.leftMargin: styler.themeHorizontalPageMargin
             anchors.right: parent.right
             anchors.rightMargin: styler.themeHorizontalPageMargin
+            visible: connectionRepeater.count > 0
 
             LabelPL {
                 id: timeHeader
@@ -242,6 +243,7 @@ PagePL {
             anchors.right: parent.right
             anchors.rightMargin: styler.themeHorizontalPageMargin
             color: "gray"
+            visible: connectionRepeater.count > 0
         }
 
         Repeater {

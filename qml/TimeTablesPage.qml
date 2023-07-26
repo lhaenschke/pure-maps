@@ -184,6 +184,7 @@ PagePL {
             anchors.leftMargin: styler.themeHorizontalPageMargin
             anchors.right: parent.right
             anchors.rightMargin: styler.themeHorizontalPageMargin
+            visible: departureRepeater.count > 0
 
             LabelPL {
                 id: depTimeHeader
@@ -214,10 +215,11 @@ PagePL {
             anchors.right: parent.right
             anchors.rightMargin: styler.themeHorizontalPageMargin
             color: "gray"
+            visible: departureRepeater.count > 0
         } 
 
         Repeater {
-            id: list
+            id: departureRepeater
             width: page.width
             
             model: departureModel
@@ -282,14 +284,6 @@ PagePL {
 
             }
             
-        }
-
-        ListItemLabel {
-            color: styler.themeHighlightColor
-            height: implicitHeight
-            visible: list.model.count > 0
-            text: app.tr('Press on destination to load further informations')
-            horizontalAlignment: Text.AlignHCenter
         }
 
     }
