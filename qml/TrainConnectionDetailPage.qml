@@ -39,32 +39,37 @@ PagePL {
 
             model: journey.sections
 
-            delegate: ListItemPL {
-                id: listItem
-                width: page.width
-                contentHeight: journeyColumn.height
-
-                Column {
-                    id: journeyColumn
-                    width: page.width
-
-                    LabelPL {
-                        id: firstTimeLabel
-                        width: parent.width / 5.8
-                        horizontalAlignment: Text.AlignLeft
-                        text: "Test"
+            delegate: Loader {
+                property var sectionData: model.modelData
+                
+                sourceComponent: Component {
+                    switch(model.modelData.mode) {
+                        case JourneySection.Walking: case JourneySection.Waiting: case JourneySection.Transfer: return transferComponent
+                        default: return connectionComponent
                     }
-
                 }
 
             }
 
         }
 
-    }
+        Component {
+            id: connectionComponent
+            LabelPL {
+                text: sectionData.route.line.name
+                horizontalAlignment: Text.AlignHCenter
+            }
+        }
 
-    onPageStatusActivating: {
-        console.log('Section-Count: ', journey.sections.length);
+        Component {
+            id: transferComponent
+            LabelPL {
+                text: app.tr('Transfer: ') + sectionData.duration / 60 + " " + app.tr('minutes')
+                horizontalAlignment: Text.AlignHCenter
+            }
+        }
+
+
     }
 
     // Column {
