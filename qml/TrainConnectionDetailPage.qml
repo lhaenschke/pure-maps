@@ -48,7 +48,7 @@ PagePL {
                     id: firstTimeLabel
                     width: parent.width / 5.8
                     horizontalAlignment: Text.AlignLeft
-                    text: model.modelData.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat)
+                    text: "Test"
                 }
 
             }
