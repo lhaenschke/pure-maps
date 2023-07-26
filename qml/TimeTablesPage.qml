@@ -188,7 +188,7 @@ PagePL {
 
             LabelPL {
                 id: depTimeHeader
-                width: parent.width / 5
+                width: parent.width / 5.3
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Time")
             }
@@ -250,7 +250,7 @@ PagePL {
 
                         LabelPL {
                             id: depTimeLabel
-                            width: parent.width / 5
+                            width: parent.width / 5.3
                             horizontalAlignment: Text.AlignLeft
                             text: departure.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat)
                             font.strikeout: cancelled
