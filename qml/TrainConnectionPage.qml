@@ -259,7 +259,7 @@ PagePL {
 
                 readonly property var  firstJourney: journey.sections[0]
                 readonly property var  lastJourney:  journey.sections[journey.sections.length - 1]
-                readonly property bool cancelled:    journey.disruptionEffect == KPT.Disruption.NoService
+                readonly property bool connectionIsCancelled: journey.disruptionEffect == KPT.Disruption.NoService
 
                 Column {
                     id: connectionColumn
@@ -283,7 +283,7 @@ PagePL {
                             width: parent.width / 5.8
                             horizontalAlignment: Text.AlignLeft
                             text: firstJourney.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat)
-                            font.strikeout: cancelled
+                            font.strikeout: connectionIsCancelled
                         }
 
                         LabelPL {
@@ -292,14 +292,14 @@ PagePL {
                             horizontalAlignment: Text.AlignLeft
                             text: "+" + firstJourney.departureDelay
                             color: firstJourney.departureDelay > 3 ? "red" : "green"
-                            font.strikeout: cancelled
+                            font.strikeout: connectionIsCancelled
                         }
 
                         LabelPL {
                             width: parent.width - (firstTimeLabel.width + firstDelayLabel.width + 16)
                             horizontalAlignment: Text.AlignLeft
                             text: firstJourney.from.name
-                            font.strikeout: cancelled
+                            font.strikeout: connectionIsCancelled
                         }
 
                     }
@@ -318,7 +318,7 @@ PagePL {
                             width: parent.width / 5.8
                             horizontalAlignment: Text.AlignLeft
                             text: lastJourney.scheduledArrivalTime.toLocaleTimeString(Locale.ShortFormat)
-                            font.strikeout: cancelled
+                            font.strikeout: connectionIsCancelled
                         }
 
                         LabelPL {
@@ -327,14 +327,14 @@ PagePL {
                             horizontalAlignment: Text.AlignLeft
                             text: lastJourney.hasExpectedDepartureTime ? "+" + lastJourney.departureDelay : ""
                             color: lastJourney.departureDelay > 3 ? "red" : "green"
-                            font.strikeout: cancelled
+                            font.strikeout: connectionIsCancelled
                         }
 
                         LabelPL {
                             width: parent.width - (lastTimeLabel.width + lastDelayLabel.width + 16)
                             horizontalAlignment: Text.AlignLeft
                             text: lastJourney.to.name
-                            font.strikeout: cancelled
+                            font.strikeout: connectionIsCancelled
                             truncMode: truncModes.elide
                         }
 
@@ -354,7 +354,7 @@ PagePL {
                             width: parent.width / 5.8
                             horizontalAlignment: Text.AlignLeft
                             text: "(" + (journey.duration / 60) + " min)"
-                            font.strikeout: cancelled
+                            font.strikeout: connectionIsCancelled
                         }
 
                         LabelPL {
@@ -377,7 +377,7 @@ PagePL {
                                         LabelPL {
                                             height: durationLabel.height
                                             text: modelData.route.line.name
-                                            font.strikeout: cancelled
+                                            font.strikeout: connectionIsCancelled
                                         }
                                     }
                                 }
@@ -389,7 +389,7 @@ PagePL {
                             width: parent.width / 8
                             horizontalAlignment: Text.AlignRight
                             text: journey.numberOfChanges + " changes"
-                            font.strikeout: cancelled
+                            font.strikeout: connectionIsCancelled
                         }
 
 
@@ -410,8 +410,10 @@ PagePL {
                 }
 
                 onClicked: {
-                    if (!cancelled) {
-                        console.log('Weitere Infos anzeigen.');
+                    if (!connectionIsCancelled) {
+                        app.push(Qt.resolvedUrl("TrainConnectionDetailPage.qml"), {
+                            "journey": journey
+                        });
                     }
                 }
 
