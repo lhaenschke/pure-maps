@@ -229,6 +229,8 @@ PagePL {
                 width: page.width
                 contentHeight: listColumn.height
                 
+                readonly property bool cancelled: departure.disruptionEffect == KPT.Disruption.NoService
+
                 Column {
                     id: listColumn
                     width: page.width
@@ -251,6 +253,7 @@ PagePL {
                             width: parent.width / 5
                             horizontalAlignment: Text.AlignLeft
                             text: departure.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat)
+                            font.strikeout: cancelled
                         }
 
                         LabelPL {
@@ -258,6 +261,7 @@ PagePL {
                             horizontalAlignment: Text.AlignLeft
                             text: departure.route.line.name + " -> " + departure.route.direction
                             truncMode: truncModes.elide
+                            font.strikeout: cancelled
                         }
 
                         LabelPL {
@@ -265,6 +269,7 @@ PagePL {
                             width: parent.width / 8.5
                             horizontalAlignment: Text.AlignRight
                             text: departure.scheduledPlatform
+                            font.strikeout: cancelled
                         }
                     }
 
