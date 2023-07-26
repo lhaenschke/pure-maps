@@ -85,6 +85,7 @@ PagePL {
                         text: sectionData.route.line.name + " -> " + sectionData.route.direction
                         font.pixelSize: styler.themeFontSizeLarge
                         verticalAlignment: Text.AlignVCenter
+                        truncMode: truncModes.elide
                     }
 
                     IconButtonPL {
@@ -232,7 +233,7 @@ PagePL {
                     anchors.rightMargin: 8
                     color: "gray"
                 }
-                
+
                 Spacer {
                     height: styler.themePaddingLarge
                 }
