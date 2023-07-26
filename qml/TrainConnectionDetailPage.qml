@@ -42,8 +42,8 @@ PagePL {
             delegate: Loader {
                 property var sectionData: model.modelData
                 
-                sourceComponent: Component {
-                    switch(model.modelData.mode) {
+                sourceComponent: {
+                    switch(sectionData.mode) {
                         case JourneySection.Walking: case JourneySection.Waiting: case JourneySection.Transfer: return transferComponent
                         default: return connectionComponent
                     }
