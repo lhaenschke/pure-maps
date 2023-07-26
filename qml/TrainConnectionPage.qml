@@ -377,16 +377,6 @@ PagePL {
                                     text: modelData.route.line.name
                                     font.strikeout: connectionIsCancelled
                                 }
-
-                                // delegate: Loader {
-                                //     sourceComponent: Component {
-                                //         LabelPL {
-                                //             height: durationLabel.height
-                                //             text: modelData.route.line.name
-                                //             font.strikeout: connectionIsCancelled
-                                //         }
-                                //     }
-                                // }
                             }
                         }
 
