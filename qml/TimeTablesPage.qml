@@ -178,32 +178,24 @@ PagePL {
 
         Grid {
             id: headerGrid
-            columns: 4
+            columns: 3
             rows: 1
             anchors.left: parent.left
             anchors.leftMargin: styler.themeHorizontalPageMargin
             anchors.right: parent.right
             anchors.rightMargin: styler.themeHorizontalPageMargin
-            visible: true
 
             LabelPL {
                 id: depTimeHeader
-                width: parent.width / 5.7
+                width: parent.width / 6.5
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Time")
             }
 
             LabelPL {
-                id: nameHeader
-                width: parent.width / 7
+                width: parent.width - (depTimeHeader.width + trackHeader.width)
                 horizontalAlignment: Text.AlignLeft
-                text: app.tr("Name")
-            }
-
-            LabelPL {
-                width: parent.width - (depTimeHeader.width + nameHeader.width + trackHeader.width)
-                horizontalAlignment: Text.AlignLeft
-                text: app.tr("Direction")
+                text: app.tr("Line")
             }
 
             LabelPL {
@@ -245,7 +237,7 @@ PagePL {
 
                     Grid {
                         id: trainsGrid
-                        columns: 4
+                        columns: 3
                         rows: 1
                         anchors.left: parent.left
                         anchors.leftMargin: 8
@@ -254,23 +246,15 @@ PagePL {
 
                         LabelPL {
                             id: depTimeLabel
-                            width: parent.width / 5.7
+                            width: parent.width / 6.5
                             horizontalAlignment: Text.AlignLeft
                             text: departure.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat)
                         }
 
                         LabelPL {
-                            id: nameLabel
-                            width: parent.width / 7
+                            width: parent.width - (depTimeLabel.width + trackLabel.width + 16)
                             horizontalAlignment: Text.AlignLeft
-                            text: departure.route.line.name
-                            truncMode: truncModes.elide
-                        }
-
-                        LabelPL {
-                            width: parent.width - (depTimeLabel.width + nameLabel.width + trackLabel.width + 16)
-                            horizontalAlignment: Text.AlignLeft
-                            text: departure.route.direction
+                            text: departure.route.line.name + " -> " + departure.route.direction
                             truncMode: truncModes.elide
                         }
 
@@ -293,67 +277,6 @@ PagePL {
                         anchors.leftMargin: 8
                         color: "gray"
                     }
-
-                    Repeater {
-                        id: infoList
-                        width: page.width
-
-                        model: departure.intermediateStops
-
-                        delegate: ListItemPL {
-                            id: infoListItem
-                            width: page.width
-                            contentHeight: furtherInfoGrid.height
-
-                            Grid {
-                                id: furtherInfoGrid
-                                columns: 4
-                                rows: 1
-                                spacing: styler.themePaddingMedium
-                                anchors.left: parent.left
-                                anchors.right: parent.right
-
-                                LabelPL {
-                                    id: depTimeLabel
-                                    width: page.width / 8
-                                    height: implicitHeight + styler.themePaddingMedium
-                                    horizontalAlignment: Text.AlignLeft
-                                    text: modelData.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat)
-                                }
-
-                                LabelPL {
-                                    id: nameLabel
-                                    width: page.width / 6
-                                    height: implicitHeight + styler.themePaddingMedium
-                                    horizontalAlignment: Text.AlignLeft
-                                    text: departure.route.line.name
-                                }
-
-                                LabelPL {
-                                    id: directionLabel
-                                    width: page.width / 2.35
-                                    height: implicitHeight + styler.themePaddingMedium
-                                    horizontalAlignment: Text.AlignLeft
-                                    text: modelData.stopPoint.name
-                                }
-
-                                LabelPL {
-                                    id: trackLabel
-                                    width: page.width / 8
-                                    height: implicitHeight + styler.themePaddingMedium
-                                    horizontalAlignment: Text.AlignRight
-                                    text: modelData.scheduledPlatform
-                                }
-                            }
-
-                        }
-
-                    }
-
-                }
-
-                onClicked: {
-                    console.log('Stops: ', departure);
 
                 }
 
