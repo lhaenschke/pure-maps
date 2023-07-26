@@ -44,7 +44,7 @@ PagePL {
                 
                 sourceComponent: {
                     switch(sectionData.mode) {
-                        case JourneySection.Walking: case JourneySection.Waiting: case JourneySection.Transfer: return transferComponent
+                        case 2: case 4: case 8: return transferComponent
                         default: return connectionComponent
                     }
                 }
