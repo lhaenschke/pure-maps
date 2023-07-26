@@ -48,8 +48,7 @@ PagePL {
                     id: firstTimeLabel
                     width: parent.width / 5.8
                     horizontalAlignment: Text.AlignLeft
-                    text: model.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat)
-                    font.strikeout: connectionIsCancelled
+                    text: model.modelData.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat)
                 }
 
             }
