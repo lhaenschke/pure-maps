@@ -201,7 +201,7 @@ PagePL {
 
             LabelPL {
                 id: trackHeader
-                width: parent.width / 8
+                width: parent.width / 8.5
                 horizontalAlignment: Text.AlignRight
                 text: app.tr("Track")
             }
@@ -262,7 +262,7 @@ PagePL {
 
                         LabelPL {
                             id: trackLabel
-                            width: parent.width / 8
+                            width: parent.width / 8.5
                             horizontalAlignment: Text.AlignRight
                             text: departure.scheduledPlatform
                         }
