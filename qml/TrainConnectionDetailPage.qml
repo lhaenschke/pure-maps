@@ -339,7 +339,7 @@ PagePL {
 
                 LabelPL {
                     color: styler.themeHighlightColor
-                    width: parent.width - (showMoreButton.width)
+                    width: page.width
                     height: implicitHeight + styler.themePaddingMedium
                     text: app.tr('Transfer: ') + sectionData.duration / 60 + " " + app.tr('minutes')
                     font.pixelSize: styler.themeFontSizeLarge
