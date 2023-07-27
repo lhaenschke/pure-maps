@@ -187,6 +187,7 @@ PagePL {
                     }
 
                     LabelPL {
+                        id: nameLabel
                         width: parent.width - (timeLabel.width + delayLabel.width + trackLabel.width)
                         horizontalAlignment: Text.AlignLeft
                         text: sectionData.from.name
@@ -230,27 +231,27 @@ PagePL {
                                 anchors.rightMargin: 8
 
                                 LabelPL {
-                                    width: parent.width / 5
+                                    width: timeLabel.width
                                     horizontalAlignment: Text.AlignLeft
                                     text: stopData.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat)
                                 }
 
                                 LabelPL {
-                                    width: parent.width / 11
+                                    width: delayLabel.width
                                     horizontalAlignment: Text.AlignLeft
                                     text: stopData.departureDelay ? "+" + stopData.departureDelay : ""
                                     color: stopData.departureDelay > 3 ? "red" : "green"
                                 }
 
                                 LabelPL {
-                                    width: parent.width - (timeLabel.width + delayLabel.width + trackLabel.width + 2 * styler.themeHorizontalPageMargin)
+                                    width: nameLabel.width
                                     horizontalAlignment: Text.AlignLeft
                                     text: stopData.stopPoint.name
                                     truncMode: truncModes.elide
                                 }
 
                                 LabelPL {
-                                    width: parent.width / 8
+                                    width: trackLabel.width
                                     horizontalAlignment: Text.AlignRight
                                     text: stopData.scheduledPlatform
                                 }
