@@ -212,7 +212,7 @@ PagePL {
                         width: page.width
                         // contentHeight: intermediateStopGrid.height
 
-                        property var stopData = model.modelData
+                        property var stopData: model.modelData
 
                         LabelPL {
                             width: parent.width / 5
