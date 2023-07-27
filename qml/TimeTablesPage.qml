@@ -302,7 +302,7 @@ PagePL {
         const kpt_backends = py.evaluate("poor.app.history.kpt_backends");
         kpt_backends.forEach( function(x) { TrainConnection.setBackendEnable(x, true); } );
 
-        TrainConnection.specificLocationRequest(poi.coordinate.latitude, poi.coordinate.longitude, poi.title);
+        TrainConnection.setStartLocation(poi.coordinate.latitude, poi.coordinate.longitude, poi.title);
     }
 
     function startCallback(data) {

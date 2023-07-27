@@ -91,7 +91,7 @@ void TrainConnection::setBackendEnable(const QString &identifier, bool enabeld)
     m_manager.setBackendEnabled(identifier, enabeld);
 }
 
-void TrainConnection::specificLocationRequest(float lat, float lon, const QString &name)
+void TrainConnection::setStartLocation(float lat, float lon, const QString &name)
 {
     KPublicTransport::LocationRequest req;
     req.setBackendIds(m_manager.enabledBackends());
@@ -101,6 +101,19 @@ void TrainConnection::specificLocationRequest(float lat, float lon, const QStrin
     for (auto result: m_manager.queryLocation(req)->result()) {
         setStart(result);
         break;
+    }
+
+}
+
+KPublicTransport::Location TrainConnection::getCacheLocation(float lat, float lon, const QString &name)
+{
+    KPublicTransport::LocationRequest req;
+    req.setBackendIds(m_manager.enabledBackends());
+    req.setCoordinate(lat, lon);
+    req.setName(name);
+
+    for (auto result: m_manager.queryLocation(req)->result()) {
+        return result;
     }
 
 }
