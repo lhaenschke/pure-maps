@@ -88,7 +88,7 @@ PagePL {
                         id: showMoreButton
                         iconHeight: styler.themeItemSizeSmall * 0.5
                         iconName: styler.iconDown
-                        visible: sectionData.intermediateStops.count > 0
+                        visible: intermediateStopsRepeater.count > 0
                         property bool isDown: true
                         onClicked: {
                             if (showMoreButton.isDown) {
@@ -205,6 +205,7 @@ PagePL {
                 }
 
                 Repeater {
+                    id: intermediateStopsRepeater
                     width: page.width
                     visible: !showMoreButton.isDown
                     model: sectionData.intermediateStops
