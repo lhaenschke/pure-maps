@@ -33,7 +33,7 @@ PageListPL {
     property var    callback
     property var    searchField: undefined
 
-    model: queryModel
+    model: chacheModel
 
     delegate: ListItemPL {
         id: listItem
@@ -88,9 +88,17 @@ PageListPL {
             placeholderText: app.tr("Search")
             property string prevText: ""
             onTextChanged: {
-                var newText = searchField.text.trim().toLowerCase();
+                var newText = searchField.text.trim();
                 if (newText === lastQuery) return;
-                queryModel.request = TrainConnection.createLocationRequest(newText);
+                if (newText.length > 0) {
+                    page.model = queryModel;
+                    queryModel.request = TrainConnection.createLocationRequest(newText);
+                } else {
+                    const kpt_locations = py.evaluate("poor.app.history.kpt_locations");
+                    kpt_locations.forEach( function(x) { chacheModel.append(x); } );
+                    page.model = chacheModel;
+                }
+                
                 lastQuery = newText;
             }
 
@@ -114,15 +122,6 @@ PageListPL {
     onPageStatusActivating: {
         const kpt_locations = py.evaluate("poor.app.history.kpt_locations");
         kpt_locations.forEach( function(x) { chacheModel.append(x); } );
-    }
-
-    onPageStatusActive: {
-        if (searchField.length > 0) {
-            page.model = queryModel;
-        } else {
-            page.model = chacheModel;
-        }
-        
     }
 
 }
