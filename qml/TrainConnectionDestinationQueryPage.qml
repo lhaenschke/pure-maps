@@ -40,8 +40,6 @@ PageListPL {
         id: listItem
         contentHeight: column.height
 
-        property var cachedLocation: TrainConnection.getCacheLocation(model['latitude'], model['longitude'], model['name'])
-
         Column {
             id: column
             width: page.width
@@ -76,7 +74,7 @@ PageListPL {
                 py.call_sync("poor.app.history.add_kpt_location", [location.name, location.latitude, location.longitude]);
                 callback(location);
             } else {
-                callback(cachedLocation);
+                callback(TrainConnection.getCacheLocation(model['latitude'], model['longitude'], model['name']));
             }
     
             app.pages.pop();
