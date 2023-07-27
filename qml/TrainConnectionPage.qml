@@ -215,7 +215,7 @@ PagePL {
 
             LabelPL {
                 id: delayHeader
-                width: parent.width / 11
+                width: parent.width / 12
                 horizontalAlignment: Text.AlignLeft
                 text: ""
             }
