@@ -239,14 +239,15 @@ PagePL {
                                 LabelPL {
                                     width: parent.width / 11
                                     horizontalAlignment: Text.AlignLeft
-                                    text: stopData.hasExpectedTime ? "+" + stopData.Delay : ""
+                                    text: stopData.departureDelay ? "+" + stopData.departureDelay : "Test"
                                     color: stopData.departureDelay > 3 ? "red" : "green"
                                 }
 
                                 LabelPL {
-                                    width: parent.width - (timeLabel.width + delayLabel.width + trackLabel.width)
+                                    width: parent.width - (timeLabel.width + delayLabel.width + trackLabel.width + 16)
                                     horizontalAlignment: Text.AlignLeft
                                     text: stopData.stopPoint.name
+                                    truncMode: truncModes.elide
                                 }
 
                                 LabelPL {
