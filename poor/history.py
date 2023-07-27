@@ -41,6 +41,7 @@ class HistoryManager:
         self._places = []
         self._routes = []
         self._kpt_backends = []
+        self._kpt_locations = []
         self._read()
 
     def add_destination(self, dest):
@@ -85,9 +86,15 @@ class HistoryManager:
         self._routes.insert(0, route)
 
     def add_kpt_backend(self, backend_identifier):
-        """Add `kpt_backend_id` to the list of kpt backends."""
+        """Add `kpt_backend_id` to the list of kpt-backends."""
         self.remove_kpt_backend(backend_identifier)
         self._kpt_backends.insert(0, backend_identifier)
+
+    def add_kpt_location(self, name, latitude, longitude):
+        """Add `kpt_location` to the list of kpt-locations."""
+        location_dict = dict(name = name, latitude = latitude, longitude = longitude)
+        self.remove_kpt_location(location_dict)
+        self._kpt_backends.insert(0, location_dict)
 
     def clear(self):
         """Clear all history"""
@@ -97,6 +104,7 @@ class HistoryManager:
         self._places = []
         self._routes = []
         self._kpt_backends = []
+        self._kpt_locations = []
         self.write()
 
     @property
@@ -130,6 +138,7 @@ class HistoryManager:
                 self._place_types = history.get("place_types", [])
                 self._routes = history.get("routes", [])
                 self._kpt_backends = history.get("kpt_backends", [])
+                self._kpt_locations = history.get("kpt_locations", [])
         for place in self._places_blacklist:
             self.remove_place(place)
         if not self._place_types:
@@ -161,6 +170,11 @@ class HistoryManager:
     def kpt_backends(self):
         """Return a list of kpt-backends."""
         return self._kpt_backends[:]
+    
+    @property
+    def kpt_locations(self):
+        """Return a list of kpt-locations."""
+        return self._kpt_locations[:]
 
     def remove_destination(self, dtxt):
         """Remove destination with the text `dtxt` from the list of destinations."""
@@ -217,4 +231,5 @@ class HistoryManager:
                 "place_types": self._place_types[:1000],
                 "routes": self._routes[:25],
                 "kpt_backends": self._kpt_backends[:150]
+                "kpt_locations": self._kpt_locations[:50]
             }, self._path)
