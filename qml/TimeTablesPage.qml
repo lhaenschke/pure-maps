@@ -288,6 +288,11 @@ PagePL {
                 }
 
             }
+
+            BusyIndicator {
+                running: departureModel.loading
+                anchors.centerIn: parent
+            }
             
         }
 

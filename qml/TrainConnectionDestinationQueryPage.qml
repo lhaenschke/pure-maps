@@ -102,7 +102,7 @@ PageListPL {
         running: queryModel.loading
         anchors.centerIn: parent
     }
-
+    
     KPT.LocationQueryModel {
         id: queryModel
         manager: Manager

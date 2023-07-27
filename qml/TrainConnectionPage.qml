@@ -413,6 +413,11 @@ PagePL {
 
             }
 
+            BusyIndicator {
+                running: connectionModel.loading
+                anchors.centerIn: parent
+            }
+
         }
 
     }
