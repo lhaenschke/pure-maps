@@ -208,14 +208,14 @@ PagePL {
 
             LabelPL {
                 id: timeHeader
-                width: parent.width / 5
+                width: parent.width / 5.8
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Time")
             }
 
             LabelPL {
                 id: delayHeader
-                width: parent.width / 10
+                width: parent.width / 11
                 horizontalAlignment: Text.AlignLeft
                 text: ""
             }
