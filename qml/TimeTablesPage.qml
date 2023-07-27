@@ -300,7 +300,7 @@ PagePL {
 
     onPageStatusActivating: {
         const kpt_backends = py.evaluate("poor.app.history.kpt_backends");
-        kpt_backends.forEach( function(x) { TrainConnection.setBackendEnable(x, true); } );
+        kpt_backends.forEach( function(x) { TrainConnection.setBackendEnable(x.identifier, true); } );
 
         TrainConnection.startLocationRequest(poi.coordinate.latitude, poi.coordinate.longitude, poi.title);
     }
