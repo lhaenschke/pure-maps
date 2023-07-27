@@ -51,7 +51,7 @@ PageListPL {
             ListItemLabel {
                 color: listItem.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
                 height: implicitHeight + styler.themePaddingMedium
-                text: searchField.length > 0 ? location.name : model['name']
+                text: showCache ? model['name'] : location.name
                 verticalAlignment: Text.AlignVCenter
             }
 
@@ -71,10 +71,8 @@ PageListPL {
 
         onClicked: {
             if (showCache) {
-                console.log(model['name'], model['json_string']);
                 callback(TrainConnection.convertJsonStringToLocation(model['json_string']));
             } else {
-                console.log("Json: ", TrainConnection.convertLocationToJsonString(location))
                 py.call_sync("poor.app.history.add_kpt_location", [location.name, TrainConnection.convertLocationToJsonString(location)]);
                 callback(location);
             }
