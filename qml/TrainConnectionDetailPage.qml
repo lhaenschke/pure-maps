@@ -238,12 +238,12 @@ PagePL {
                                 LabelPL {
                                     width: parent.width / 11
                                     horizontalAlignment: Text.AlignLeft
-                                    text: stopData.departureDelay ? "+" + stopData.departureDelay : "Test"
+                                    text: stopData.departureDelay ? "+" + stopData.departureDelay : ""
                                     color: stopData.departureDelay > 3 ? "red" : "green"
                                 }
 
                                 LabelPL {
-                                    width: parent.width - (timeLabel.width + delayLabel.width + trackLabel.width + 16)
+                                    width: parent.width - (timeLabel.width + delayLabel.width + trackLabel.width + 2 * styler.themeHorizontalPageMargin)
                                     horizontalAlignment: Text.AlignLeft
                                     text: stopData.stopPoint.name
                                     truncMode: truncModes.elide
