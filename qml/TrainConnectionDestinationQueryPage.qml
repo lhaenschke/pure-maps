@@ -72,15 +72,10 @@ PageListPL {
         onClicked: {
             if (showCache) {
                 console.log(model['name'], model['json_string']);
-                
-
-                const location = TrainConnection.getCacheLocation(model['latitude'], model['longitude'], model['name'])
-                console.log("Location: ", location);
-                callback(location);
+                callback(TrainConnection.convertJsonStringToLocation(model['json_string']));
             } else {
-                const jsonStr = TrainConnection.convertLocationToJsonString(location);
-                console.log("Json: ", jsonStr)
-                py.call_sync("poor.app.history.add_kpt_location", [location.name, jsonStr]);
+                console.log("Json: ", TrainConnection.convertLocationToJsonString(location))
+                py.call_sync("poor.app.history.add_kpt_location", [location.name, TrainConnection.convertLocationToJsonString(location)]);
                 callback(location);
             }
     

@@ -110,10 +110,10 @@ QString TrainConnection::convertLocationToJsonString(const KPublicTransport::Loc
     return QJsonDocument(KPublicTransport::Location::toJson(location)).toJson(QJsonDocument::Compact);
 }
 
-// KPublicTransport::Location TrainConnection::convertJsonStringToLocation(const QString &jsonString)
-// {
-//     return KPublicTransport::Location::fromJson(QJsonDocument::fromJson(jsonString.toUtf8()).object());
-// }
+KPublicTransport::Location TrainConnection::convertJsonStringToLocation(const QString &jsonString)
+{
+    return KPublicTransport::Location::fromJson(QJsonDocument::fromJson(jsonString.toUtf8()).object());
+}
 
 // KPublicTransport::Location TrainConnection::getCacheLocation(float lat, float lon, const QString &name)
 // {
