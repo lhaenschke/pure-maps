@@ -33,7 +33,7 @@ PageListPL {
     property var    callback
     property var    searchField: undefined
 
-    model: searchField.length > 0 ? queryModel : chacheModel
+    model: queryModel
 
     delegate: ListItemPL {
         id: listItem
@@ -114,6 +114,15 @@ PageListPL {
     onPageStatusActivating: {
         const kpt_locations = py.evaluate("poor.app.history.kpt_locations");
         kpt_locations.forEach( function(x) { chacheModel.append(x); } );
+    }
+
+    onPageStatusActiv: {
+        if (searchField.length > 0) {
+            page.model = queryModel;
+        } else {
+            page.model = chacheModel;
+        }
+        
     }
 
 }
