@@ -76,7 +76,7 @@ PagePL {
 
                     LabelPL {
                         color: styler.themeHighlightColor
-                        width: parent.width - (showMoreOneButton.width)
+                        width: parent.width - (showMoreButton.width)
                         height: implicitHeight + styler.themePaddingMedium
                         text: sectionData.route.line.name + " -> " + sectionData.route.direction
                         font.pixelSize: styler.themeFontSizeLarge
@@ -203,11 +203,51 @@ PagePL {
                     height: styler.themePaddingLarge
                 }
 
-                LabelPL {
-                    width: parent.width / 5
-                    horizontalAlignment: Text.AlignLeft
-                    text: sectionData.scheduledArrivalTime.toLocaleTimeString(Locale.ShortFormat)
+                Repeater {
+                    width: page.width
                     visible: !showMoreButton.isDown
+                    model: sectionData.intermediateStops
+
+                    delegate: ListItemPL {
+                        width: page.width
+                        contentHeight: intermediateStopGrid.height
+
+                        Grid {
+                            id: intermediateStopGrid
+                            columns: 4
+                            rows: 1
+                            anchors.left: parent.left
+                            anchors.leftMargin: styler.themeHorizontalPageMargin
+                            anchors.right: parent.right
+                            anchors.rightMargin: styler.themeHorizontalPageMargin
+
+                            LabelPL {
+                                width: parent.width / 5
+                                horizontalAlignment: Text.AlignLeft
+                                text: model.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat)
+                            }
+
+                            LabelPL {
+                                width: parent.width / 11
+                                horizontalAlignment: Text.AlignLeft
+                                text: model.hasExpectedDepartureTime ? "+" + model.departureDelay : ""
+                                color: model.departureDelay > 3 ? "red" : "green"
+                            }
+
+                            LabelPL {
+                                width: parent.width - (timeLabel.width + delayLabel.width + trackLabel.width)
+                                horizontalAlignment: Text.AlignLeft
+                                text: model.from.name
+                            }
+
+                            LabelPL {
+                                width: parent.width / 8
+                                horizontalAlignment: Text.AlignRight
+                                text: model.scheduledDeparturePlatform
+                            }
+                        }
+
+                    }
                 }
 
                 Spacer {
