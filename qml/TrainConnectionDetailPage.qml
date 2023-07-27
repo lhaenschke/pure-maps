@@ -211,6 +211,7 @@ PagePL {
                     delegate: ListItemPL {
                         width: page.width
                         contentHeight: stopColumn.height
+                        visible: !showMoreButton.isDown
 
                         property var stopData: model.modelData
 
@@ -218,48 +219,43 @@ PagePL {
                             id: stopColumn
                             width: page.width
 
-                            LabelPL {
-                                width: parent.width / 5
-                                horizontalAlignment: Text.AlignLeft
-                                text: stopData.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat)
+                            Grid {
+                                columns: 4
+                                rows: 1
+                                anchors.left: parent.left
+                                anchors.leftMargin: styler.themeHorizontalPageMargin
+                                anchors.right: parent.right
+                                anchors.rightMargin: styler.themeHorizontalPageMargin
+
+                                LabelPL {
+                                    width: parent.width / 5
+                                    horizontalAlignment: Text.AlignLeft
+                                    text: stopData.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat)
+                                }
+
+                                LabelPL {
+                                    width: parent.width / 11
+                                    horizontalAlignment: Text.AlignLeft
+                                    text: stopData.hasExpectedDepartureTime ? "+" + stopData.departureDelay : ""
+                                    color: stopData.departureDelay > 3 ? "red" : "green"
+                                }
+
+                                LabelPL {
+                                    width: parent.width - (timeLabel.width + delayLabel.width + trackLabel.width)
+                                    horizontalAlignment: Text.AlignLeft
+                                    text: stopData.from.name
+                                }
+
+                                LabelPL {
+                                    width: parent.width / 8
+                                    horizontalAlignment: Text.AlignRight
+                                    text: stopData.scheduledDeparturePlatform
+                                }
                             }
-                            
+
                         }
 
-                        // Grid {
-                        //     id: intermediateStopGrid
-                        //     columns: 4
-                        //     rows: 1
-                        //     anchors.left: parent.left
-                        //     anchors.leftMargin: styler.themeHorizontalPageMargin
-                        //     anchors.right: parent.right
-                        //     anchors.rightMargin: styler.themeHorizontalPageMargin
-
-                        //     LabelPL {
-                        //         width: parent.width / 5
-                        //         horizontalAlignment: Text.AlignLeft
-                        //         text: model.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat)
-                        //     }
-
-                        //     LabelPL {
-                        //         width: parent.width / 11
-                        //         horizontalAlignment: Text.AlignLeft
-                        //         text: model.hasExpectedDepartureTime ? "+" + model.departureDelay : ""
-                        //         color: model.departureDelay > 3 ? "red" : "green"
-                        //     }
-
-                        //     LabelPL {
-                        //         width: parent.width - (timeLabel.width + delayLabel.width + trackLabel.width)
-                        //         horizontalAlignment: Text.AlignLeft
-                        //         text: model.from.name
-                        //     }
-
-                        //     LabelPL {
-                        //         width: parent.width / 8
-                        //         horizontalAlignment: Text.AlignRight
-                        //         text: model.scheduledDeparturePlatform
-                        //     }
-                        // }
+                        
 
                     }
                 }
