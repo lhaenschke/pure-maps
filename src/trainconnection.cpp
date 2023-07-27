@@ -107,7 +107,7 @@ void TrainConnection::setStartLocation(float lat, float lon, const QString &name
 
 QString convertLocationToJsonString(const KPublicTransport::Location &location)
 {
-    return QJsonDocument(KPublicTransport::Location::toJson(location)).toJson(QJsonDocument::Compact).toStdString().c_str();
+    return QJsonDocument(KPublicTransport::Location::toJson(location)).toJson(QJsonDocument::Compact);
 }
 
 // KPublicTransport::Location convertJsonStringToLocation(const QString)
