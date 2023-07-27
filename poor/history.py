@@ -230,6 +230,6 @@ class HistoryManager:
                 "place_names": self._place_names[:1000],
                 "place_types": self._place_types[:1000],
                 "routes": self._routes[:25],
-                "kpt_backends": self._kpt_backends[:150]
+                "kpt_backends": self._kpt_backends[:150],
                 "kpt_locations": self._kpt_locations[:50]
             }, self._path)
