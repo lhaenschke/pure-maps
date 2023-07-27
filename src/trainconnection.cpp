@@ -107,10 +107,14 @@ void TrainConnection::setStartLocation(float lat, float lon, const QString &name
 
 KPublicTransport::Location TrainConnection::getCacheLocation(float lat, float lon, const QString &name)
 {
+    std::cout << "Test 1" << std::endl;
     KPublicTransport::LocationRequest req;
     req.setBackendIds(m_manager.enabledBackends());
+    std::cout << "Test 2" << std::endl;
     req.setCoordinate(lat, lon);
+    std::cout << "Test 3" << std::endl;
     req.setName(name);
+    std::cout << "Test 4" << std::endl;
 
     for (auto result: m_manager.queryLocation(req)->result()) {
         std::cout << "Test" << std::endl;
