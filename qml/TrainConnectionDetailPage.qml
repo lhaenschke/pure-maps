@@ -215,7 +215,7 @@ PagePL {
                         property var stopData: model.modelData
 
                         Column {
-                            id stopColumn
+                            id: stopColumn
                             width: page.width
 
                             LabelPL {
