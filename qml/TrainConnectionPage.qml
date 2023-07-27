@@ -198,7 +198,7 @@ PagePL {
 
         Grid {
             id: headerGrid
-            columns: 4
+            columns: 3
             rows: 1
             anchors.left: parent.left
             anchors.leftMargin: styler.themeHorizontalPageMargin
@@ -214,7 +214,7 @@ PagePL {
             }
 
             LabelPL {
-                width: parent.width - (timeHeader.width + delayHeader.width + changesHeader.width)
+                width: parent.width - (timeHeader.width + changesHeader.width)
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Trains/Buses")
             }
