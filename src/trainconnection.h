@@ -51,6 +51,7 @@ public:
     Q_INVOKABLE void setStartLocation(float lat, float lon, const QString &name);
 
     Q_INVOKABLE QString convertLocationToJsonString(const KPublicTransport::Location &location);
+    // Q_INVOKABLE KPublicTransport::Location convertJsonStringToLocation(const QString);
 
     // Q_INVOKABLE KPublicTransport::Location getCacheLocation(float lat, float lon, const QString &name);
 

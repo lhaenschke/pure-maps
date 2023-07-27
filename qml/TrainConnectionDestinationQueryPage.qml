@@ -71,7 +71,9 @@ PageListPL {
 
         onClicked: {
             if (showCache) {
-                console.log(model['latitude'], model['longitude'], model['name']);
+                console.log(model['name'], model['json_string']);
+                
+
                 const location = TrainConnection.getCacheLocation(model['latitude'], model['longitude'], model['name'])
                 console.log("Location: ", location);
                 callback(location);
