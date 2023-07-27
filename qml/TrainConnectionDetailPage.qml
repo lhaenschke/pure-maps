@@ -30,11 +30,9 @@ PagePL {
     property var journey
 
     Column {
-        id: column
         width: page.width
 
         Repeater {
-            id: journeysRepeater
             width: page.width
 
             model: journey.sections
@@ -57,7 +55,6 @@ PagePL {
             id: connectionComponent
             
             Column {
-                id: column
                 width: page.width
                 
                 Rectangle {
@@ -81,7 +78,6 @@ PagePL {
                         color: styler.themeHighlightColor
                         width: parent.width - (showMoreOneButton.width)
                         height: implicitHeight + styler.themePaddingMedium
-                        // text: connectionDict['con0']['type'] + " " + connectionDict['con0']['name'] + " -> " + connectionDict['con0']['destination']
                         text: sectionData.route.line.name + " -> " + sectionData.route.direction
                         font.pixelSize: styler.themeFontSizeLarge
                         verticalAlignment: Text.AlignVCenter
@@ -118,30 +114,36 @@ PagePL {
                 }
 
                 Grid {
-                    id: headerOneGrid
-                    columns: 3
+                    columns: 4
                     rows: 1
                     anchors.left: parent.left
                     anchors.leftMargin: styler.themeHorizontalPageMargin
                     anchors.right: parent.right
                     anchors.rightMargin: styler.themeHorizontalPageMargin
-                    
+
                     LabelPL {
-                        id: timeOneHeader
-                        width: parent.width / 7
+                        id: timeHeader
+                        width: parent.width / 5
                         horizontalAlignment: Text.AlignLeft
                         text: app.tr("Time")
                     }
-                    
+
                     LabelPL {
-                        width: parent.width - (2 * styler.themeHorizontalPageMargin + timeOneHeader.width + trackOneHeader.width)
+                        id: delayHeader
+                        width: parent.width / 11
+                        horizontalAlignment: Text.AlignLeft
+                        text: ""
+                    }
+
+                    LabelPL {
+                        width: parent.width - (timeHeader.width + delayHeader.width + trackHeader.width)
                         horizontalAlignment: Text.AlignLeft
                         text: app.tr("Station")
                     }
-                    
+
                     LabelPL {
-                        id: trackOneHeader
-                        width: parent.width / 4
+                        id: trackHeader
+                        width: parent.width / 8
                         horizontalAlignment: Text.AlignRight
                         text: app.tr("Track")
                     }
@@ -160,36 +162,70 @@ PagePL {
                     height: styler.themePaddingMedium
                 }
 
-                // Grid {
-                //     id: dpOneGrid
-                //     columns: 3
-                //     rows: 1
-                //     anchors.left: parent.left
-                //     anchors.leftMargin: styler.themeHorizontalPageMargin
-                //     anchors.right: parent.right
-                //     anchors.rightMargin: styler.themeHorizontalPageMargin
+                Grid {
+                    columns: 4
+                    rows: 1
+                    anchors.left: parent.left
+                    anchors.leftMargin: styler.themeHorizontalPageMargin
+                    anchors.right: parent.right
+                    anchors.rightMargin: styler.themeHorizontalPageMargin
+
+                    LabelPL {
+                        id: timeLabel
+                        width: parent.width / 5
+                        horizontalAlignment: Text.AlignLeft
+                        text: sectionData.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat)
+                    }
+
+                    LabelPL {
+                        id: delayLabel
+                        width: parent.width / 11
+                        horizontalAlignment: Text.AlignLeft
+                        text: sectionData.hasExpectedDepartureTime ? "+" + sectionData.departureDelay : ""
+                        color: sectionData.departureDelay > 3 ? "red" : "green"
+                    }
+
+                    LabelPL {
+                        width: parent.width - (timeLabel.width + delayLabel.width + trackLabel.width)
+                        horizontalAlignment: Text.AlignLeft
+                        text: sectionData.from.name
+                    }
+
+                    LabelPL {
+                        id: trackLabel
+                        width: parent.width / 8
+                        horizontalAlignment: Text.AlignRight
+                        text: sectionData.scheduledDeparturePlatform
+                    }
+                    // columns: 4
+                    // rows: 1
+                    // anchors.left: parent.left
+                    // anchors.leftMargin: styler.themeHorizontalPageMargin
+                    // anchors.right: parent.right
+                    // anchors.rightMargin: styler.themeHorizontalPageMargin
                     
-                //     LabelPL {
-                //         id: dpTimeOneLabel
-                //         width: page.width / 7
-                //         horizontalAlignment: Text.AlignLeft
-                //         text: connectionDict['con0']['dp_time_hh'] + ":" + connectionDict['con0']['dp_time_mm']
-                //     }
+                    // LabelPL {
+                    //     id: dpTimeOneLabel
+                    //     width: page.width / 7
+                    //     horizontalAlignment: Text.AlignLeft
+                    //     text: connectionDict['con0']['dp_time_hh'] + ":" + connectionDict['con0']['dp_time_mm']
+                    // }
                     
-                //     LabelPL {
-                //         id: dpDirectionOneLabel
-                //         width: page.width - (2 * styler.themeHorizontalPageMargin + dpTimeOneLabel.width + dpTrackOneLabel.width)
-                //         horizontalAlignment: Text.AlignLeft
-                //         text: connectionDict['con0']['start']
-                //     }
+                    // LabelPL {
+                    //     id: dpDirectionOneLabel
+                    //     width: page.width - (2 * styler.themeHorizontalPageMargin + dpTimeOneLabel.width + dpTrackOneLabel.width)
+                    //     horizontalAlignment: Text.AlignLeft
+                    //     text: connectionDict['con0']['start']
+                    // }
                     
-                //     LabelPL {
-                //         id: dpTrackOneLabel
-                //         width: page.width / 4
-                //         horizontalAlignment: Text.AlignRight
-                //         text: connectionDict['con0']['dp_track']
-                //     }
-                // } 
+                    // LabelPL {
+                    //     id: dpTrackOneLabel
+                    //     width: page.width / 4
+                    //     horizontalAlignment: Text.AlignRight
+                    //     text: connectionDict['con0']['dp_track']
+                    // }
+                }
+
                 // Spacer {
                 //     height: styler.themePaddingLarge
                 // }

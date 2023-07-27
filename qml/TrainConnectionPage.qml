@@ -221,7 +221,6 @@ PagePL {
             }
 
             LabelPL {
-                id: nameDestinationHeader
                 width: parent.width - (timeHeader.width + delayHeader.width + changesHeader.width)
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Trains/Buses")
@@ -290,7 +289,7 @@ PagePL {
                             id: firstDelayLabel
                             width: parent.width / 11
                             horizontalAlignment: Text.AlignLeft
-                            text: "+" + firstJourney.departureDelay
+                            text: firstJourney.hasExpectedDepartureTime ? "+" + firstJourney.departureDelay : ""
                             color: firstJourney.departureDelay > 3 ? "red" : "green"
                             font.strikeout: connectionIsCancelled
                         }
@@ -365,7 +364,6 @@ PagePL {
                         }
 
                         Row {
-                            id: vehicleRow
                             spacing: styler.themePaddingSmall
                             width: parent.width - (durationLabel.width + delayPlaceholderLabel.width + changesLabel.width + 16)
 
