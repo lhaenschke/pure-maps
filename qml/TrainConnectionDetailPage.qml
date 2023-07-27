@@ -25,7 +25,7 @@ import "platform"
 
 PagePL {
     id: page
-    title: app.tr("Connectiondetails")
+    title: app.tr("Connection-Details")
 
     property var journey
 
@@ -85,17 +85,17 @@ PagePL {
                     }
 
                     IconButtonPL {
-                        id: showMoreOneButton
+                        id: showMoreButton
                         iconHeight: styler.themeItemSizeSmall * 0.5
                         iconName: styler.iconDown
                         property bool isDown: true
                         onClicked: {
-                            if (showMoreOneButton.isDown) {
-                                showMoreOneButton.iconName = styler.iconUp;
+                            if (showMoreButton.isDown) {
+                                showMoreButton.iconName = styler.iconUp;
                             } else {
-                                showMoreOneButton.iconName = styler.iconDown;
+                                showMoreButton.iconName = styler.iconDown;
                             }
-                            showMoreOneButton.isDown = !showMoreOneButton.isDown
+                            showMoreButton.isDown = !showMoreButton.isDown
                         }
                     }
                 }
@@ -201,6 +201,18 @@ PagePL {
 
                 Spacer {
                     height: styler.themePaddingLarge
+                }
+
+                LabelPL {
+                    width: parent.width / 5
+                    horizontalAlignment: Text.AlignLeft
+                    text: sectionData.scheduledArrivalTime.toLocaleTimeString(Locale.ShortFormat)
+                    visible: !showMoreButton.isDown
+                }
+
+                Spacer {
+                    height: styler.themePaddingLarge
+                    visible: !showMoreButton.isDown
                 }
 
                 Grid {
