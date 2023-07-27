@@ -105,10 +105,6 @@ PageListPL {
             Component.onCompleted: page.searchField = searchField;
         }
     }
-
-    BusyIndicatorPL {
-        running: queryModel.loading
-    }
     
     KPT.LocationQueryModel {
         id: queryModel

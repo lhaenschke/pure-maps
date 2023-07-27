@@ -413,10 +413,6 @@ PagePL {
 
             }
 
-            BusyIndicatorPL {
-                running: connectionModel.loading
-            }
-
         }
 
     }

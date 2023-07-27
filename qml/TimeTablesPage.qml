@@ -288,10 +288,6 @@ PagePL {
                 }
 
             }
-
-            BusyIndicatorPL {
-                running: departureModel.loading
-            }
             
         }
 
