@@ -215,13 +215,13 @@ PagePL {
 
             LabelPL {
                 id: delayHeader
-                width: parent.width / 12
+                width: parent.width / 11
                 horizontalAlignment: Text.AlignLeft
                 text: ""
             }
 
             LabelPL {
-                width: parent.width - (timeHeader.width + delayHeader.width + changesHeader.width)
+                width: parent.width - (timeHeader.width + delayHeader.width + changesHeader.width + 16)
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Trains/Buses")
             }
