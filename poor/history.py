@@ -221,6 +221,12 @@ class HistoryManager:
             if self._kpt_backends[i] == backend_identifier:
                 del self._kpt_backends[i]
 
+    def remove_kpt_location(self, location_name):
+        """Remove kpt_location."""
+        for i in reversed(range(len(self._kpt_locations))):
+            if self._kpt_locations[i]['name'] == location_name:
+                del self._kpt_locations[i]
+
     def write(self):
         """Write list of queries to file."""
         with poor.util.silent(Exception, tb=True):
