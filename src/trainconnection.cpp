@@ -113,6 +113,7 @@ KPublicTransport::Location TrainConnection::getCacheLocation(float lat, float lo
     req.setName(name);
 
     for (auto result: m_manager.queryLocation(req)->result()) {
+        std::cout << "Test" << std::endl;
         return result;
     }
 

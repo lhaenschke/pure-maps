@@ -70,13 +70,13 @@ PageListPL {
         }
 
         onClicked: {
-            if (searchField.length > 0) {
-                py.call_sync("poor.app.history.add_kpt_location", [location.name, location.latitude, location.longitude]);
-                callback(location);
-            } else {
+            if (showCache) {
                 console.log(model['latitude'], model['longitude'], model['name']);
                 const location = TrainConnection.getCacheLocation(model['latitude'], model['longitude'], model['name'])
                 console.log("Location: ", location);
+                callback(location);
+            } else {
+                py.call_sync("poor.app.history.add_kpt_location", [location.name, location.latitude, location.longitude]);
                 callback(location);
             }
     
