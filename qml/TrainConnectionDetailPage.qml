@@ -222,6 +222,10 @@ PagePL {
                             id: stopColumn
                             width: page.width
 
+                            Spacer {
+                                height: styler.themePaddingSmall
+                            }
+
                             Grid {
                                 columns: 4
                                 rows: 1
@@ -257,11 +261,14 @@ PagePL {
                                 }
                             }
 
+                            Spacer {
+                                height: styler.themePaddingSmall
+                            }
+
                         }
 
-                        
-
                     }
+
                 }
 
                 Spacer {
@@ -326,200 +333,24 @@ PagePL {
 
         Component {
             id: transferComponent
-            LabelPL {
-                text: app.tr('Transfer: ') + sectionData.duration / 60 + " " + app.tr('minutes')
-                horizontalAlignment: Text.AlignHCenter
+            
+            Column {
+                width: page.width
+
+                LabelPL {
+                    color: styler.themeHighlightColor
+                    width: parent.width - (showMoreButton.width)
+                    height: implicitHeight + styler.themePaddingMedium
+                    text: app.tr('Transfer: ') + sectionData.duration / 60 + " " + app.tr('minutes'
+                    font.pixelSize: styler.themeFontSizeLarge
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                }
+
             }
+
         }
 
-
     }
-
-
-    //     LabelPL {
-    //         visible: hasTransfer
-    //         color: styler.themeHighlightColor
-    //         height: implicitHeight + styler.themePaddingMedium
-    //         anchors.left: parent.left
-    //         anchors.leftMargin: 8
-    //         anchors.right: parent.right
-    //         anchors.rightMargin: 8
-    //         text: hasTransfer ? getTimeDifference(connectionDict['con0']['ar_time_hh'], connectionDict['con0']['ar_time_mm'], connectionDict['con1']['dp_time_hh'], connectionDict['con1']['dp_time_mm']) + " minutes transfer" : ""
-    //         font.pixelSize: styler.themeFontSizeMedium
-    //         verticalAlignment: Text.AlignVCenter
-    //         horizontalAlignment: Text.AlignHCenter
-    //     } 
-    //     Spacer {
-    //         visible: hasTransfer
-    //         height: styler.themePaddingLarge
-    //     }
-    //     Rectangle {
-    //         visible: hasTransfer
-    //         height: 2
-    //         anchors.left: parent.left
-    //         anchors.leftMargin: 8
-    //         anchors.right: parent.right
-    //         anchors.rightMargin: 8
-    //         color: "gray"
-    //     }
-    //     LabelPL {
-    //         visible: hasTransfer
-    //         color: styler.themeHighlightColor
-    //         height: implicitHeight + styler.themePaddingMedium
-    //         anchors.left: parent.left
-    //         anchors.leftMargin: styler.themeHorizontalPageMargin
-    //         anchors.right: parent.right
-    //         anchors.rightMargin: styler.themeHorizontalPageMargin
-    //         text: hasTransfer ? connectionDict['con1']['type'] + " " + connectionDict['con1']['name'] + " -> " + connectionDict['con1']['destination'] : ""
-    //         font.pixelSize: styler.themeFontSizeLarge
-    //         verticalAlignment: Text.AlignVCenter
-    //     }
-    //     Rectangle {
-    //         visible: hasTransfer
-    //         height: 1
-    //         anchors.left: parent.left
-    //         anchors.leftMargin: styler.themeHorizontalPageMargin
-    //         anchors.right: parent.right
-    //         anchors.rightMargin: styler.themeHorizontalPageMargin
-    //         color: "gray"
-    //     }
-    //     Spacer {
-    //         visible: hasTransfer
-    //         height: styler.themePaddingMedium
-    //     }
-    //     Grid {
-    //         id: headerTwoGrid
-    //         visible: hasTransfer
-    //         columns: 3
-    //         rows: 1
-    //         anchors.left: parent.left
-    //         anchors.leftMargin: styler.themeHorizontalPageMargin
-    //         anchors.right: parent.right
-    //         anchors.rightMargin: styler.themeHorizontalPageMargin
-    //         LabelPL {
-    //             id: timeTwoHeader
-    //             width: page.width / 7
-    //             horizontalAlignment: Text.AlignLeft
-    //             text: app.tr("Time")
-    //         }
-    //         LabelPL {
-    //             id: directionTwoHeader
-    //             width: page.width - (2 * styler.themeHorizontalPageMargin + timeTwoHeader.width + trackTwoHeader.width)
-    //             horizontalAlignment: Text.AlignLeft
-    //             text: app.tr("Direction")
-    //         }
-    //         LabelPL {
-    //             id: trackTwoHeader
-    //             width: page.width / 4
-    //             horizontalAlignment: Text.AlignRight
-    //             text: app.tr("Track")
-    //         }
-    //     } 
-    //     Rectangle {
-    //         visible: hasTransfer
-    //         height: 1
-    //         anchors.left: parent.left
-    //         anchors.leftMargin: styler.themeHorizontalPageMargin
-    //         anchors.right: parent.right
-    //         anchors.rightMargin: styler.themeHorizontalPageMargin
-    //         color: "gray"
-    //     }
-    //     Spacer {
-    //         visible: hasTransfer
-    //         height: styler.themePaddingMedium
-    //     }
-    //     Grid {
-    //         id: dpTwoGrid
-    //         visible: hasTransfer
-    //         columns: 3
-    //         rows: 1
-    //         anchors.left: parent.left
-    //         anchors.leftMargin: styler.themeHorizontalPageMargin
-    //         anchors.right: parent.right
-    //         anchors.rightMargin: styler.themeHorizontalPageMargin
-    //         LabelPL {
-    //             id: dpTimeTwoLabel
-    //             width: page.width / 7
-    //             horizontalAlignment: Text.AlignLeft
-    //             text: hasTransfer ? connectionDict['con1']['dp_time_hh'] + ":" + connectionDict['con1']['dp_time_mm'] : ""
-    //         }
-    //         LabelPL {
-    //             id: dpDirectionTwoLabel
-    //             width: page.width - (2 * styler.themeHorizontalPageMargin + dpTimeTwoLabel.width + dpTrackTwoLabel.width)
-    //             horizontalAlignment: Text.AlignLeft
-    //             text: hasTransfer ? connectionDict['con1']['start'] : ""
-    //         }
-    //         LabelPL {
-    //             id: dpTrackTwoLabel
-    //             width: page.width / 4
-    //             horizontalAlignment: Text.AlignRight
-    //             text: hasTransfer ? connectionDict['con1']['dp_track'] : ""
-    //         }
-    //     } 
-    //     Spacer {
-    //         visible: hasTransfer
-    //         height: styler.themePaddingLarge
-    //     }
-    //     Grid {
-    //         id: arTwoGrid
-    //         visible: hasTransfer
-    //         columns: 3
-    //         rows: 1
-    //         anchors.left: parent.left
-    //         anchors.leftMargin: styler.themeHorizontalPageMargin
-    //         anchors.right: parent.right
-    //         anchors.rightMargin: styler.themeHorizontalPageMargin
-    //         LabelPL {
-    //             id: arTimeTwoLabel
-    //             width: page.width / 7
-    //             horizontalAlignment: Text.AlignLeft
-    //             text: hasTransfer ? connectionDict['con1']['ar_time_hh'] + ":" + connectionDict['con1']['ar_time_mm'] : ""
-    //         }
-    //         LabelPL {
-    //             id: arDirectionTwoLabel
-    //             width: page.width - (2 * styler.themeHorizontalPageMargin + arTimeTwoLabel.width + arTrackTwoLabel.width)
-    //             horizontalAlignment: Text.AlignLeft
-    //             text: hasTransfer ? connectionDict['con1']['target'] : ""
-    //         }
-    //         LabelPL {
-    //             id: arTrackTwoLabel
-    //             width: page.width / 4
-    //             horizontalAlignment: Text.AlignRight
-    //             text: hasTransfer ? connectionDict['con1']['ar_track'] : ""
-    //         }
-    //     } 
-    //     Spacer {
-    //         visible: hasTransfer
-    //         height: styler.themePaddingMedium
-    //     }
-    //     Rectangle {
-    //         visible: hasTransfer
-    //         height: 2
-    //         anchors.left: parent.left
-    //         anchors.leftMargin: 8
-    //         anchors.right: parent.right
-    //         anchors.rightMargin: 8
-    //         color: "gray"
-    //     }
-    //     Spacer {
-    //         height: styler.themePaddingMedium
-    //     }
-    //     ListItemLabel {
-    //         color: styler.themeHighlightColor
-    //         height: implicitHeight + styler.themePaddingMedium
-    //         text: app.tr('The times indicated are timetable times, not real-time')
-    //         truncMode: truncModes.none
-    //         verticalAlignment: Text.AlignTop
-    //     } 
-    // }
-
-    // function getTimeDifference(time_one_hh, time_one_mm, time_two_hh, time_two_mm) {
-    //     var diff_minutes = Math.abs(parseInt(time_one_mm) - parseInt(time_two_mm));
-    //     var hour_diff = Math.abs(parseInt(time_one_hh) - parseInt(time_two_hh));
-    //     if (hour_diff > 0) {
-    //         diff_minutes = Math.abs(diff_minutes - 60);
-    //     }
-    //     return diff_minutes;
-    // }
 
 }
