@@ -33,7 +33,7 @@ PageListPL {
     property var    callback
     property var    searchField: undefined
 
-    model: queryModel
+    model: searchField.length > 0 ? queryModel : chacheModel
 
     delegate: ListItemPL {
         id: listItem
@@ -50,7 +50,7 @@ PageListPL {
             ListItemLabel {
                 color: listItem.highlighted ? styler.themeHighlightColor : styler.themePrimaryColor
                 height: implicitHeight + styler.themePaddingMedium
-                text: location.name
+                text: searchField.length > 0 ? location.name : model['name']
                 verticalAlignment: Text.AlignVCenter
             }
 
@@ -69,7 +69,13 @@ PageListPL {
         }
 
         onClicked: {
-            callback(location);
+            if (searchField.length > 0) {
+                py.call_sync("poor.app.history.add_kpt_location", [location.name, location.latitude, location.longitude]);
+                callback(location);
+            } else {
+                callback(TrainConnection.specificLocationRequest(model['latitude'], model['longitude'], model['name']));
+            }
+    
             app.pages.pop();
 
         }
@@ -84,7 +90,7 @@ PageListPL {
             onTextChanged: {
                 var newText = searchField.text.trim().toLowerCase();
                 if (newText === lastQuery) return;
-                fillModel(newText);
+                queryModel.request = TrainConnection.createLocationRequest(newText);
                 lastQuery = newText;
             }
 
@@ -92,13 +98,23 @@ PageListPL {
         }
     }
 
-    function fillModel(query) {
-        queryModel.request = TrainConnection.createLocationRequest(query);
+    BusyIndicator {
+        running: queryModel.loading
+        anchors.centerIn: parent
     }
 
     KPT.LocationQueryModel {
         id: queryModel
         manager: Manager
+    }
+
+    ListModel {
+        id: chacheModel
+    }
+
+    onPageStatusActivating: {
+        const kpt_locations = py.evaluate("poor.app.history.kpt_location");
+        kpt_locations.forEach( function(x) { chacheModel.append(x); } );
     }
 
 }

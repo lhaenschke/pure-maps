@@ -91,7 +91,7 @@ void TrainConnection::setBackendEnable(const QString &identifier, bool enabeld)
     m_manager.setBackendEnabled(identifier, enabeld);
 }
 
-void TrainConnection::startLocationRequest(float lat, float lon, const QString &name)
+void TrainConnection::specificLocationRequest(float lat, float lon, const QString &name)
 {
     KPublicTransport::LocationRequest req;
     req.setBackendIds(m_manager.enabledBackends());
