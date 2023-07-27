@@ -27,29 +27,14 @@ PageListPL {
     id: page
     title: app.tr("Search Destination")
 
-    headerExtra: Component {
-        SearchFieldPL {
-            id: searchField
-            placeholderText: app.tr("Search")
-            property string prevText: ""
-            onTextChanged: {
-                var newText = searchField.text.trim();
-                if (newText === lastQuery) return;
-                queryModel.request = TrainConnection.createLocationRequest(newText);
-                lastQuery = newText;
-            }
-
-            Component.onCompleted: page.searchField = searchField;
-        }
-    }
-
     property string lastQuery: ""
     property string latitude: ""
     property string longitude: ""
     property var    callback
     property var    searchField: undefined
+    property bool   showCache: true
 
-    model: queryModel
+    model: showCache ? chacheModel : queryModel
 
     delegate: ListItemPL {
         id: listItem
@@ -98,6 +83,23 @@ PageListPL {
 
         }
 
+    }
+
+    headerExtra: Component {
+        SearchFieldPL {
+            id: searchField
+            placeholderText: app.tr("Search")
+            property string prevText: ""
+            onTextChanged: {
+                var newText = searchField.text.trim();
+                if (newText.length > 0) showCache = false;
+                if (newText === lastQuery) return;
+                queryModel.request = TrainConnection.createLocationRequest(newText);
+                lastQuery = newText;
+            }
+
+            Component.onCompleted: page.searchField = searchField;
+        }
     }
 
     KPT.LocationQueryModel {
