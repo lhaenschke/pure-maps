@@ -223,33 +223,36 @@ PagePL {
                                 columns: 4
                                 rows: 1
                                 anchors.left: parent.left
-                                anchors.leftMargin: styler.themeHorizontalPageMargin
+                                anchors.leftMargin: 8
                                 anchors.right: parent.right
-                                anchors.rightMargin: styler.themeHorizontalPageMargin
+                                anchors.rightMargin: 8
 
                                 LabelPL {
                                     width: parent.width / 5
                                     horizontalAlignment: Text.AlignLeft
-                                    text: stopData.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat)
+                                    text: {
+                                        console.log("StopData: ", stopData);
+                                        return stopData.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat);
+                                    }
                                 }
 
                                 LabelPL {
                                     width: parent.width / 11
                                     horizontalAlignment: Text.AlignLeft
-                                    text: stopData.hasExpectedDepartureTime ? "+" + stopData.departureDelay : ""
+                                    text: stopData.hasExpectedTime ? "+" + stopData.Delay : ""
                                     color: stopData.departureDelay > 3 ? "red" : "green"
                                 }
 
                                 LabelPL {
                                     width: parent.width - (timeLabel.width + delayLabel.width + trackLabel.width)
                                     horizontalAlignment: Text.AlignLeft
-                                    text: stopData.from.name
+                                    text: stopData.stopPoint.name
                                 }
 
                                 LabelPL {
                                     width: parent.width / 8
                                     horizontalAlignment: Text.AlignRight
-                                    text: stopData.scheduledDeparturePlatform
+                                    text: stopData.scheduledPlatform
                                 }
                             }
 
