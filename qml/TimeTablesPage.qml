@@ -289,9 +289,8 @@ PagePL {
 
             }
 
-            BusyIndicator {
+            BusyIndicatorPL {
                 running: departureModel.loading
-                anchors.centerIn: parent
             }
             
         }

@@ -98,9 +98,8 @@ PageListPL {
         }
     }
 
-    BusyIndicator {
+    BusyIndicatorPL {
         running: queryModel.loading
-        anchors.centerIn: parent
     }
     
     KPT.LocationQueryModel {
