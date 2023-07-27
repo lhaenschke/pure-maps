@@ -63,9 +63,9 @@ DialogPL {
                         text: model.name
                         onCheckedChanged: { 
                             if (checked) {
-                                py.call_sync("poor.app.history.add_kpt_backend", [model]);
+                                py.call_sync("poor.app.history.add_kpt_backend", [model.identifier]);
                             } else {
-                                py.call_sync("poor.app.history.remove_kpt_backend", [model]);
+                                py.call_sync("poor.app.history.remove_kpt_backend", [model.identifier]);
                                 TrainConnection.setBackendEnable(model.identifier, false);
                             }
                         }
@@ -85,7 +85,7 @@ DialogPL {
 
     onPageStatusActivating: {
         const kpt_backends = py.evaluate("poor.app.history.kpt_backends");
-        kpt_backends.forEach( function(x) { TrainConnection.setBackendEnable(x.identifier, true); } );
+        kpt_backends.forEach( function(x) { TrainConnection.setBackendEnable(x, true); } );
     }
 
     onAccepted: {
