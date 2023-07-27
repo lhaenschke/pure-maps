@@ -93,8 +93,8 @@ class HistoryManager:
     def add_kpt_location(self, name, latitude, longitude):
         """Add `kpt_location` to the list of kpt-locations."""
         location_dict = dict(name = name, latitude = latitude, longitude = longitude)
-        self.remove_kpt_location(location_dict)
-        self._kpt_backends.insert(0, location_dict)
+        self.remove_kpt_location(location_dict['name'])
+        self._kpt_locations.insert(0, location_dict)
 
     def clear(self):
         """Clear all history"""
