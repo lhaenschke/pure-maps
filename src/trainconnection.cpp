@@ -115,30 +115,12 @@ KPublicTransport::Location TrainConnection::convertJsonStringToLocation(const QS
     return KPublicTransport::Location::fromJson(QJsonDocument::fromJson(jsonString.toUtf8()).object());
 }
 
-// KPublicTransport::Location TrainConnection::getCacheLocation(float lat, float lon, const QString &name)
-// {
-//     std::cout << "Test 1" << std::endl;
-//     KPublicTransport::LocationRequest req;
-//     req.setBackendIds(m_manager.enabledBackends());
-//     std::cout << "Test 2" << std::endl;
-//     req.setCoordinate(lat, lon);
-//     std::cout << "Test 3" << std::endl;
-//     req.setName(name);
-//     std::cout << "Test 4" << std::endl;
-
-//     for (auto result: m_manager.queryLocation(req)->result()) {
-//         std::cout << "Test" << std::endl;
-//         return result;
-//     }
-
-// }
-
 KPublicTransport::JourneyRequest TrainConnection::createJourneyRequest()
 {
     KPublicTransport::JourneyRequest req;
     req.setFrom(m_start);
     req.setTo(m_destination);
-    req.setDownloadAssets(true);
+    req.setDownloadAssets(false);
 
     QDateTime depTime(m_departureDate, m_departureTime);
     req.setDepartureTime(depTime);
@@ -149,11 +131,8 @@ KPublicTransport::JourneyRequest TrainConnection::createJourneyRequest()
 KPublicTransport::LocationRequest TrainConnection::createLocationRequest(const QString &name)
 {
     KPublicTransport::LocationRequest req;
-    req.setBackendIds(m_manager.enabledBackends());
     req.setName(name);
     
-    // req json keys: identifier-latitude-longitude-name-type
-
     return req;
 }
 
