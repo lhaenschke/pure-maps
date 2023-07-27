@@ -197,65 +197,48 @@ PagePL {
                         horizontalAlignment: Text.AlignRight
                         text: sectionData.scheduledDeparturePlatform
                     }
-                    // columns: 4
-                    // rows: 1
-                    // anchors.left: parent.left
-                    // anchors.leftMargin: styler.themeHorizontalPageMargin
-                    // anchors.right: parent.right
-                    // anchors.rightMargin: styler.themeHorizontalPageMargin
-                    
-                    // LabelPL {
-                    //     id: dpTimeOneLabel
-                    //     width: page.width / 7
-                    //     horizontalAlignment: Text.AlignLeft
-                    //     text: connectionDict['con0']['dp_time_hh'] + ":" + connectionDict['con0']['dp_time_mm']
-                    // }
-                    
-                    // LabelPL {
-                    //     id: dpDirectionOneLabel
-                    //     width: page.width - (2 * styler.themeHorizontalPageMargin + dpTimeOneLabel.width + dpTrackOneLabel.width)
-                    //     horizontalAlignment: Text.AlignLeft
-                    //     text: connectionDict['con0']['start']
-                    // }
-                    
-                    // LabelPL {
-                    //     id: dpTrackOneLabel
-                    //     width: page.width / 4
-                    //     horizontalAlignment: Text.AlignRight
-                    //     text: connectionDict['con0']['dp_track']
-                    // }
                 }
 
-                // Spacer {
-                //     height: styler.themePaddingLarge
-                // }
-                // Grid {
-                //     id: arOneGrid
-                //     columns: 3
-                //     rows: 1
-                //     anchors.left: parent.left
-                //     anchors.leftMargin: styler.themeHorizontalPageMargin
-                //     anchors.right: parent.right
-                //     anchors.rightMargin: styler.themeHorizontalPageMargin
-                //     LabelPL {
-                //         id: arTimeOneLabel
-                //         width: page.width / 7
-                //         horizontalAlignment: Text.AlignLeft
-                //         text: connectionDict['con0']['ar_time_hh'] + ":" + connectionDict['con0']['ar_time_mm']
-                //     }
-                //     LabelPL {
-                //         id: arDirectionOneLabel
-                //         width: page.width - (2 * styler.themeHorizontalPageMargin + arTimeOneLabel.width + arTrackOneLabel.width)
-                //         horizontalAlignment: Text.AlignLeft
-                //         text: connectionDict['con0']['target']
-                //     }
-                //     LabelPL {
-                //         id: arTrackOneLabel
-                //         width: page.width / 4
-                //         horizontalAlignment: Text.AlignRight
-                //         text: connectionDict['con0']['ar_track']
-                //     }
-                // } 
+                Spacer {
+                    height: styler.themePaddingLarge
+                }
+
+                Grid {
+                    columns: 4
+                    rows: 1
+                    anchors.left: parent.left
+                    anchors.leftMargin: styler.themeHorizontalPageMargin
+                    anchors.right: parent.right
+                    anchors.rightMargin: styler.themeHorizontalPageMargin
+
+                    LabelPL {
+                        id: timeLabel
+                        width: parent.width / 5
+                        horizontalAlignment: Text.AlignLeft
+                        text: sectionData.scheduledArrivalTime.toLocaleTimeString(Locale.ShortFormat)
+                    }
+
+                    LabelPL {
+                        id: delayLabel
+                        width: parent.width / 11
+                        horizontalAlignment: Text.AlignLeft
+                        text: sectionData.hasExpectedArrivalTime ? "+" + sectionData.arrivalDelay : ""
+                        color: sectionData.arrivalDelay > 3 ? "red" : "green"
+                    }
+
+                    LabelPL {
+                        width: parent.width - (timeLabel.width + delayLabel.width + trackLabel.width)
+                        horizontalAlignment: Text.AlignLeft
+                        text: sectionData.to.name
+                    }
+
+                    LabelPL {
+                        id: trackLabel
+                        width: parent.width / 8
+                        horizontalAlignment: Text.AlignRight
+                        text: sectionData.scheduledArrivalPlatform
+                    }
+                } 
                 
                 Spacer {
                     height: styler.themePaddingMedium
