@@ -86,6 +86,7 @@ class HistoryManager:
 
     def add_kpt_backend(self, kpt_backend):
         """Add `kpt_backend` to the list of kpt-backends."""
+        print('Test: ', kpt_backend)
         self.remove_kpt_backend(kpt_backend)
         self._kpt_backends.insert(0, kpt_backend)
 
