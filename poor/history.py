@@ -84,10 +84,10 @@ class HistoryManager:
         self.remove_route(route)
         self._routes.insert(0, route)
 
-    def add_kpt_backend(self, backend_identifier):
-        """Add `kpt_backend_id` to the list of kpt backends."""
-        self.remove_kpt_backend(backend_identifier)
-        self._kpt_backends.insert(0, backend_identifier)
+    def add_kpt_backend(self, kpt_backend):
+        """Add `kpt_backend` to the list of kpt-backends."""
+        self.remove_kpt_backend(kpt_backend)
+        self._kpt_backends.insert(0, kpt_backend)
 
     def clear(self):
         """Clear all history"""
@@ -201,10 +201,10 @@ class HistoryManager:
             if rkey(self._routes[i]) == key:
                 del self._routes[i]
 
-    def remove_kpt_backend(self, backend_identifier):
+    def remove_kpt_backend(self, kpt_backend):
         """Remove kpt_backend."""
         for i in reversed(range(len(self._kpt_backends))):
-            if self._kpt_backends[i] == backend_identifier:
+            if self._kpt_backends[i] == kpt_backend:
                 del self._kpt_backends[i]
 
     def write(self):
