@@ -75,7 +75,8 @@ PageListPL {
                 callback(location);
             } else {
                 console.log(model['latitude'], model['longitude'], model['name']);
-                // callback(TrainConnection.getCacheLocation(model['latitude'], model['longitude'], model['name']));
+                const location = TrainConnection.getCacheLocation(model['latitude'], model['longitude'], model['name'])
+                callback(location);
             }
     
             app.pages.pop();
