@@ -88,6 +88,7 @@ PagePL {
                         id: showMoreButton
                         iconHeight: styler.themeItemSizeSmall * 0.5
                         iconName: styler.iconDown
+                        visible: sectionData.intermediateStops.count > 0
                         property bool isDown: true
                         onClicked: {
                             if (showMoreButton.isDown) {
@@ -230,10 +231,7 @@ PagePL {
                                 LabelPL {
                                     width: parent.width / 5
                                     horizontalAlignment: Text.AlignLeft
-                                    text: {
-                                        console.log("StopData: ", stopData);
-                                        return stopData.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat);
-                                    }
+                                    text: stopData.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat)
                                 }
 
                                 LabelPL {
