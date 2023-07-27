@@ -27,7 +27,8 @@ PagePL {
     id: page
     title: app.tr("Trainconnections")
 
-    property var poi
+    property var  poi
+    property bool loaded: false
 
     Column {
         id: column
@@ -423,10 +424,13 @@ PagePL {
     }
 
     onPageStatusActivating: {
-        const kpt_backends = py.evaluate("poor.app.history.kpt_backends");
-        kpt_backends.forEach( function(x) { TrainConnection.setBackendEnable(x, true); } );
-
-        TrainConnection.setStartLocation(poi.coordinate.latitude, poi.coordinate.longitude, poi.title);
+        if (!loaded) {
+            const kpt_backends = py.evaluate("poor.app.history.kpt_backends");
+            kpt_backends.forEach( function(x) { TrainConnection.setBackendEnable(x, true); } );
+            TrainConnection.setStartLocation(poi.coordinate.latitude, poi.coordinate.longitude, poi.title);
+            loaded = true;
+        }
+        
     }
 
     function getTimeDifference(time_one_hh, time_one_mm, time_two_hh, time_two_mm) {
