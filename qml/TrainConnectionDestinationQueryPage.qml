@@ -76,7 +76,9 @@ PageListPL {
                 console.log("Location: ", location);
                 callback(location);
             } else {
-                py.call_sync("poor.app.history.add_kpt_location", [location.name, location.latitude, location.longitude]);
+                const jsonStr = TrainConnection.convertLocationToJsonString(location);
+                console.log("Json: ", jsonStr)
+                py.call_sync("poor.app.history.add_kpt_location", [location.name, jsonStr]);
                 callback(location);
             }
     
@@ -93,7 +95,7 @@ PageListPL {
             property string prevText: ""
             onTextChanged: {
                 var newText = searchField.text.trim();
-                if (newText.length > 0) showCache = false;
+                showCache = false;
                 if (newText === lastQuery) return;
                 queryModel.request = TrainConnection.createLocationRequest(newText);
                 lastQuery = newText;

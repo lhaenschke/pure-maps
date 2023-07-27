@@ -12,6 +12,7 @@
 
 #include <QDate>
 #include <QObject>
+#include <QString>
 #include <QTime>
 #include <QVariant>
 
@@ -48,7 +49,10 @@ public:
 
     Q_INVOKABLE void setBackendEnable(const QString &identifier, bool enabeld);
     Q_INVOKABLE void setStartLocation(float lat, float lon, const QString &name);
-    Q_INVOKABLE KPublicTransport::Location getCacheLocation(float lat, float lon, const QString &name);
+
+    Q_INVOKABLE QString convertLocationToJsonString(const KPublicTransport::Location &location);
+
+    // Q_INVOKABLE KPublicTransport::Location getCacheLocation(float lat, float lon, const QString &name);
 
     Q_INVOKABLE KPublicTransport::JourneyRequest createJourneyRequest();
     Q_INVOKABLE KPublicTransport::LocationRequest createLocationRequest(const QString &name);

@@ -90,9 +90,9 @@ class HistoryManager:
         self.remove_kpt_backend(backend_identifier)
         self._kpt_backends.insert(0, backend_identifier)
 
-    def add_kpt_location(self, name, latitude, longitude):
+    def add_kpt_location(self, name, json_string):
         """Add `kpt_location` to the list of kpt-locations."""
-        location_dict = dict(name = name, latitude = latitude, longitude = longitude)
+        location_dict = dict(name = name, json_string = json_string)
         self.remove_kpt_location(location_dict['name'])
         self._kpt_locations.insert(0, location_dict)
 
