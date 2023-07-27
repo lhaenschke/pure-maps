@@ -212,14 +212,12 @@ PagePL {
                     anchors.rightMargin: styler.themeHorizontalPageMargin
 
                     LabelPL {
-                        id: timeLabel
                         width: parent.width / 5
                         horizontalAlignment: Text.AlignLeft
                         text: sectionData.scheduledArrivalTime.toLocaleTimeString(Locale.ShortFormat)
                     }
 
                     LabelPL {
-                        id: delayLabel
                         width: parent.width / 11
                         horizontalAlignment: Text.AlignLeft
                         text: sectionData.hasExpectedArrivalTime ? "+" + sectionData.arrivalDelay : ""
@@ -233,7 +231,6 @@ PagePL {
                     }
 
                     LabelPL {
-                        id: trackLabel
                         width: parent.width / 8
                         horizontalAlignment: Text.AlignRight
                         text: sectionData.scheduledArrivalPlatform
