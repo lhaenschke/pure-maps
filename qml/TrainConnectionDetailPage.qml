@@ -210,14 +210,20 @@ PagePL {
 
                     delegate: ListItemPL {
                         width: page.width
-                        // contentHeight: intermediateStopGrid.height
+                        contentHeight: stopColumn.height
 
                         property var stopData: model.modelData
 
-                        LabelPL {
-                            width: parent.width / 5
-                            horizontalAlignment: Text.AlignLeft
-                            text: stopData.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat)
+                        Column {
+                            id stopColumn
+                            width: page.width
+
+                            LabelPL {
+                                width: parent.width / 5
+                                horizontalAlignment: Text.AlignLeft
+                                text: stopData.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat)
+                            }
+                            
                         }
 
                         // Grid {
