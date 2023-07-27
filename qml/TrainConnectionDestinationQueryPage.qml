@@ -27,13 +27,36 @@ PageListPL {
     id: page
     title: app.tr("Search Destination")
 
+    headerExtra: Component {
+        SearchFieldPL {
+            id: searchField
+            placeholderText: app.tr("Search")
+            property string prevText: ""
+            onTextChanged: {
+                var newText = searchField.text.trim();
+                if (newText === lastQuery) return;
+                if (newText.length > 0) {
+                    page.model = queryModel;
+                    queryModel.request = TrainConnection.createLocationRequest(newText);
+                } else {
+                    const kpt_locations = py.evaluate("poor.app.history.kpt_locations");
+                    kpt_locations.forEach( function(x) { chacheModel.append(x); } );
+                    page.model = chacheModel;
+                }
+                
+                lastQuery = newText;
+            }
+
+            Component.onCompleted: page.searchField = searchField;
+        }
+    }
+
     property string lastQuery: ""
     property string latitude: ""
     property string longitude: ""
     property var    callback
-    property var    searchField: undefined
 
-    model: chacheModel
+    model: searchField.text.length > 0 ? queryModel : chacheModel
 
     delegate: ListItemPL {
         id: listItem
@@ -75,7 +98,6 @@ PageListPL {
                 py.call_sync("poor.app.history.add_kpt_location", [location.name, location.latitude, location.longitude]);
                 callback(location);
             } else {
-                console.log(model['latitude'], model['longitude'], model['name']);
                 callback(cachedLocation);
             }
     
@@ -93,15 +115,7 @@ PageListPL {
             onTextChanged: {
                 var newText = searchField.text.trim();
                 if (newText === lastQuery) return;
-                if (newText.length > 0) {
-                    page.model = queryModel;
-                    queryModel.request = TrainConnection.createLocationRequest(newText);
-                } else {
-                    const kpt_locations = py.evaluate("poor.app.history.kpt_locations");
-                    kpt_locations.forEach( function(x) { chacheModel.append(x); } );
-                    page.model = chacheModel;
-                }
-                
+                queryModel.request = TrainConnection.createLocationRequest(newText);
                 lastQuery = newText;
             }
 
