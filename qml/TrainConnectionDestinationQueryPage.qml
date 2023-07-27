@@ -116,7 +116,7 @@ PageListPL {
         kpt_locations.forEach( function(x) { chacheModel.append(x); } );
     }
 
-    onPageStatusActiv: {
+    onPageStatusActive: {
         if (searchField.length > 0) {
             page.model = queryModel;
         } else {
