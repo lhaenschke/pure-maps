@@ -49,7 +49,7 @@ PageListPL {
     property var    callback
     property var    searchField: undefined
 
-    model: searchField.text.length > 0 ? queryModel : chacheModel
+    model: queryModel
 
     delegate: ListItemPL {
         id: listItem
