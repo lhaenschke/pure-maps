@@ -39,6 +39,8 @@ PageListPL {
         id: listItem
         contentHeight: column.height
 
+        property var cachedLocation: TrainConnection.getCacheLocation(model['latitude'], model['longitude'], model['name'])
+
         Column {
             id: column
             width: page.width
@@ -74,7 +76,7 @@ PageListPL {
                 callback(location);
             } else {
                 console.log(model['latitude'], model['longitude'], model['name']);
-                callback(TrainConnection.getCacheLocation(model['latitude'], model['longitude'], model['name']));
+                callback(cachedLocation);
             }
     
             app.pages.pop();
