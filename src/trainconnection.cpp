@@ -145,14 +145,3 @@ KPublicTransport::StopoverRequest TrainConnection::createStopoverRequest()
 
     return req;
 }
-
-void TrainConnection::testAttribution()
-{
-    const std::vector<KPublicTransport::Attribution> attributions = m_manager.attributions();
-
-    for (auto attribution: attributions) {
-        QJsonObject jsonObject = KPublicTransport::Attribution::toJson(attribution);
-        std::cout << "Json: " << QJsonDocument(jsonObject).toJson(QJsonDocument::Compact).toStdString() << std::endl;
-    }
-
-}

@@ -36,10 +36,9 @@ DialogPL {
             color: styler.themeHighlightColor
             height: implicitHeight + styler.themePaddingMedium
             text: app.tr("Select the providers relevant for your area:")
-            truncMode: truncModes.none
-            font.pixelSize: styler.themeFontSizeLarge
+            font.pixelSize: styler.themeFontSizeMedium
             verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignLeft
+            horizontalAlignment: Text.AlignHCenter
         }
 
         Spacer {
@@ -100,10 +99,6 @@ DialogPL {
             font.pixelSize: styler.themeFontSizeLarge
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignLeft
-        }
-
-        Spacer {
-            height: styler.themePaddingLarge
         }
 
         Repeater {
@@ -175,7 +170,6 @@ DialogPL {
     onPageStatusActivating: {
         const kpt_backends = py.evaluate("poor.app.history.kpt_backends");
         kpt_backends.forEach( function(x) { TrainConnection.setBackendEnable(x, true); } );
-        TrainConnection.testAttribution();
     }
 
     onAccepted: {
