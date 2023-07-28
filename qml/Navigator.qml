@@ -196,6 +196,8 @@ Item {
     }
 
     function findRoute(locations, options, traffic) {
+        print('Mein Test')
+
         if (routing) return;
         if (!options) options = {};
         options.optimized = navigatorBase.optimized;

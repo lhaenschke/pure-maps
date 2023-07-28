@@ -6,7 +6,7 @@
   },
   "_description": "Routing based on OpenStreetMap data",
   "geocoder": "osmscout",
-  "_modes": ["car", "bicycle", "foot"],
+  "_modes": ["car", "bicycle", "foot", "transit"],
   "name": "OSM Scout",
   "offline": true,
   "profiles": ["mixed", "offline"]
