@@ -41,8 +41,16 @@ DialogPL {
             horizontalAlignment: Text.AlignHCenter
         }
 
+        Rectangle {
+            height: 1
+            width: page.width - 16
+            anchors.left: parent.left
+            anchors.leftMargin: 8
+            color: "gray"
+        }
+
         Spacer {
-            height: styler.themePaddingLarge
+            height: styler.themePaddingMedium
         }
 
         Repeater {
@@ -153,7 +161,7 @@ DialogPL {
 
                     Rectangle {
                         height: 1
-                        width: column.width
+                        width: page.width - 16
                         anchors.left: parent.left
                         anchors.leftMargin: 8
                         color: "gray"
