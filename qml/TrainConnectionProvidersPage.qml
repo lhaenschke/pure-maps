@@ -47,14 +47,13 @@ DialogPL {
         }
 
         Repeater {
-            id: repeater
             model: backendModel
             
             delegate: ListItemPL {
-                contentHeight: repeaterColumn.height
+                contentHeight: backendColumn.height
 
                 Column {
-                    id: repeaterColumn
+                    id: backendColumn
                     width: page.width
 
                     TextSwitchPL {
@@ -83,6 +82,40 @@ DialogPL {
 
         Spacer {
             height: styler.themePaddingLarge
+        }
+
+        Repeater {
+            model: Manager.attributions
+
+            delegate: ListItemPL {
+                contentHeight: attributionColumn.height
+
+                Column {
+                    id: attributionColumn
+                    width: page.width
+
+                    LabelPL {
+                        text: model.name
+                    }
+
+                    LabelPL {
+                        text: !model.hasLicense ? model.url : ""
+                        visible: !model.hasLicense
+                    }
+
+                    LabelPL {
+                        text: model.hasLicense ? model.license : ""
+                        visible: model.hasLicense
+                    }
+                    
+                    LabelPL {
+                        text: model.licenseUrl ? model.license : ""
+                        visible: model.hasLicense
+                    }
+
+                }
+            }
+
         }
 
     }
