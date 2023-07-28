@@ -867,7 +867,7 @@ PagePL {
 
             ExpandingSectionPL {
                 id: sectionPublicTransportProviders
-                title: app.tr("Public Transport Providers")
+                title: app.tr("Public Transport")
                 content.sourceComponent: Column {
                     id: publicTransortColumn
                     spacing: styler.themePaddingMedium
@@ -875,9 +875,14 @@ PagePL {
 
                     ListItemLabel {
                         color: styler.themeHighlightColor
-                        text: app.tr("You can select the providers which are used to calculate public-transport-routes.")
+                        text: app.tr("You can select the providers which are used to calculate public-transport-routes \
+                                    and see the attributions.")
                         truncMode: truncModes.none
                         wrapMode: Text.WordWrap
+                    }
+
+                    Spacer {
+                        height: styler.themePaddingMedium
                     }
 
                     ButtonPL {

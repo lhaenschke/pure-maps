@@ -37,9 +37,9 @@ DialogPL {
             height: implicitHeight + styler.themePaddingMedium
             text: app.tr("Select the providers relevant for your area:")
             truncMode: truncModes.none
-            font.pixelSize: styler.themeFontSizeMedium
+            font.pixelSize: styler.themeFontSizeLarge
             verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignHCenter
+            horizontalAlignment: Text.AlignLeft
         }
 
         Spacer {
@@ -94,12 +94,12 @@ DialogPL {
 
         ListItemLabel {
             color: styler.themeHighlightColor
-            height: implicitHeight + styler.themePaddingLarge
+            height: implicitHeight + styler.themePaddingMedium
             text: app.tr("KPublicTransport Attributions:")
             truncMode: truncModes.none
-            font.pixelSize: styler.themeFontSizeMedium
+            font.pixelSize: styler.themeFontSizeLarge
             verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignHCenter
+            horizontalAlignment: Text.AlignLeft
         }
 
         Spacer {
@@ -131,7 +131,6 @@ DialogPL {
                     ListItemLabel {
                         height: implicitHeight + styler.themePaddingMedium
                         text: 'Url: <a href="' + modelData.url + '">Attribution</a>'
-                        // text: "Url: " + modelData.url
                         visible: !modelData.hasLicense
                         verticalAlignment: Text.AlignVCenter
                         wrapMode: Text.WordWrap
@@ -166,6 +165,7 @@ DialogPL {
                     }
 
                 }
+
             }
 
         }
