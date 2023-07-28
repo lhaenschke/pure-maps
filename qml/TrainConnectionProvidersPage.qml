@@ -32,19 +32,15 @@ DialogPL {
         id: column
         width: page.width
 
-        SectionHeaderPL {
-            text: app.tr("Select Providers:")
+        ListItemLabel {
+            color: styler.themeHighlightColor
+            height: implicitHeight + styler.themePaddingMedium
+            text: app.tr("Select the providers relevant for your area:")
+            truncMode: truncModes.none
+            font.pixelSize: styler.themeFontSizeMedium
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
         }
-
-        // ListItemLabel {
-        //     color: styler.themeHighlightColor
-        //     height: implicitHeight + styler.themePaddingMedium
-        //     text: app.tr("Select the providers relevant for your area")
-        //     truncMode: truncModes.none
-        //     verticalAlignment: Text.AlignVCenter
-        //     horizontalAlignment: Text.AlignHCenter
-        //     wrapMode: Text.WordWrap
-        // }
 
         Spacer {
             height: styler.themePaddingLarge
@@ -88,8 +84,22 @@ DialogPL {
             height: styler.themePaddingLarge
         }
 
-        SectionHeaderPL {
+        Rectangle {
+            height: 2
+            width: page.width - 16
+            anchors.left: parent.left
+            anchors.leftMargin: 8
+            color: "gray"
+        }
+
+        ListItemLabel {
+            color: styler.themeHighlightColor
+            height: implicitHeight + styler.themePaddingLarge
             text: app.tr("KPublicTransport Attributions:")
+            truncMode: truncModes.none
+            font.pixelSize: styler.themeFontSizeMedium
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
         }
 
         Spacer {
@@ -112,23 +122,28 @@ DialogPL {
 
                     ListItemLabel {
                         height: implicitHeight + styler.themePaddingLarge
-                        font.pixelSize: styler.themeFontSizeLarge
+                        font.pixelSize: styler.themeFontSizeMedium
                         text: modelData.name
                         verticalAlignment: Text.AlignVCenter
+                        wrapMode: Text.WordWrap
                     }
 
                     ListItemLabel {
                         height: implicitHeight + styler.themePaddingMedium
-                        text: "Url: " + modelData.name
+                        text: 'Url: <a href="' + modelData.url + '">Attribution</a>'
+                        // text: "Url: " + modelData.url
                         visible: !modelData.hasLicense
                         verticalAlignment: Text.AlignVCenter
+                        wrapMode: Text.WordWrap
                     }
 
                     ListItemLabel {
                         height: implicitHeight + styler.themePaddingMedium
-                        text: modelData.license
+                        text: 'License-Url: <a href="' + modelData.license + '">License</a>'
+                        // text: modelData.license
                         visible: modelData.hasLicense
                         verticalAlignment: Text.AlignVCenter
+                        wrapMode: Text.WordWrap
                     }
 
                     ListItemLabel {
@@ -136,6 +151,7 @@ DialogPL {
                         text: modelData.licenseUrl
                         visible: modelData.hasLicense
                         verticalAlignment: Text.AlignVCenter
+                        wrapMode: Text.WordWrap
                     }
 
                     Spacer {
