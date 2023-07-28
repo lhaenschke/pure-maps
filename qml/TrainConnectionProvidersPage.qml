@@ -139,8 +139,7 @@ DialogPL {
 
                     ListItemLabel {
                         height: implicitHeight + styler.themePaddingMedium
-                        text: 'License-Url: <a href="' + modelData.license + '">License</a>'
-                        // text: modelData.license
+                        text: modelData.license
                         visible: modelData.hasLicense
                         verticalAlignment: Text.AlignVCenter
                         wrapMode: Text.WordWrap
@@ -148,7 +147,7 @@ DialogPL {
 
                     ListItemLabel {
                         height: implicitHeight + styler.themePaddingMedium
-                        text: modelData.licenseUrl
+                        text: 'License-Url: <a href="' + modelData.licenseUrl + '">License</a>'
                         visible: modelData.hasLicense
                         verticalAlignment: Text.AlignVCenter
                         wrapMode: Text.WordWrap
