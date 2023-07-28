@@ -152,7 +152,7 @@ void TrainConnection::testAttribution()
 
     for (auto attribution: attributions) {
         QJsonObject jsonObject = KPublicTransport::Attribution::toJson(attribution);
-        std::cout << "Json: " << QJsonDocument(jsonObject).toJson(QJsonDocument::Compact) << std::endl;
+        std::cout << "Json: " << QJsonDocument(jsonObject).toJson(QJsonDocument::Compact).toStdString() << std::endl;
     }
 
 }
