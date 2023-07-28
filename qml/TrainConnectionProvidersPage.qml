@@ -32,15 +32,19 @@ DialogPL {
         id: column
         width: page.width
 
-        ListItemLabel {
-            color: styler.themeHighlightColor
-            height: implicitHeight + styler.themePaddingMedium
-            text: app.tr("Select the providers relevant for your area")
-            truncMode: truncModes.none
-            verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignHCenter
-            wrapMode: Text.WordWrap
+        SectionHeaderPL {
+            text: app.tr("Select Providers:")
         }
+
+        // ListItemLabel {
+        //     color: styler.themeHighlightColor
+        //     height: implicitHeight + styler.themePaddingMedium
+        //     text: app.tr("Select the providers relevant for your area")
+        //     truncMode: truncModes.none
+        //     verticalAlignment: Text.AlignVCenter
+        //     horizontalAlignment: Text.AlignHCenter
+        //     wrapMode: Text.WordWrap
+        // }
 
         Spacer {
             height: styler.themePaddingLarge
@@ -84,6 +88,14 @@ DialogPL {
             height: styler.themePaddingLarge
         }
 
+        SectionHeaderPL {
+            text: app.tr("KPublicTransport Attributions:")
+        }
+
+        Spacer {
+            height: styler.themePaddingLarge
+        }
+
         Repeater {
             model: Manager.attributions
 
@@ -94,24 +106,49 @@ DialogPL {
                     id: attributionColumn
                     width: page.width
 
-                    LabelPL {
-                        text: modelData.name
+                    Spacer {
+                        height: styler.themePaddingLarge / 2
                     }
 
-                    // LabelPL {
-                    //     text: !model.hasLicense ? model.url : ""
-                    //     visible: !model.hasLicense
-                    // }
+                    ListItemLabel {
+                        height: implicitHeight + styler.themePaddingLarge
+                        font.pixelSize: styler.themeFontSizeLarge
+                        text: modelData.name
+                        verticalAlignment: Text.AlignVCenter
+                    }
 
-                    // LabelPL {
-                    //     text: model.hasLicense ? model.license : ""
-                    //     visible: model.hasLicense
-                    // }
-                    
-                    // LabelPL {
-                    //     text: model.licenseUrl ? model.license : ""
-                    //     visible: model.hasLicense
-                    // }
+                    ListItemLabel {
+                        height: implicitHeight + styler.themePaddingMedium
+                        text: "Url: " + modelData.name
+                        visible: !modelData.hasLicense
+                        verticalAlignment: Text.AlignVCenter
+                    }
+
+                    ListItemLabel {
+                        height: implicitHeight + styler.themePaddingMedium
+                        text: modelData.license
+                        visible: modelData.hasLicense
+                        verticalAlignment: Text.AlignVCenter
+                    }
+
+                    ListItemLabel {
+                        height: implicitHeight + styler.themePaddingMedium
+                        text: modelData.licenseUrl
+                        visible: modelData.hasLicense
+                        verticalAlignment: Text.AlignVCenter
+                    }
+
+                    Spacer {
+                        height: styler.themePaddingLarge / 2
+                    }
+
+                    Rectangle {
+                        height: 1
+                        width: column.width
+                        anchors.left: parent.left
+                        anchors.leftMargin: 8
+                        color: "gray"
+                    }
 
                 }
             }
