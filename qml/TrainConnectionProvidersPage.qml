@@ -95,23 +95,23 @@ DialogPL {
                     width: page.width
 
                     LabelPL {
-                        text: model.name
+                        text: modelData.name
                     }
 
-                    LabelPL {
-                        text: !model.hasLicense ? model.url : ""
-                        visible: !model.hasLicense
-                    }
+                    // LabelPL {
+                    //     text: !model.hasLicense ? model.url : ""
+                    //     visible: !model.hasLicense
+                    // }
 
-                    LabelPL {
-                        text: model.hasLicense ? model.license : ""
-                        visible: model.hasLicense
-                    }
+                    // LabelPL {
+                    //     text: model.hasLicense ? model.license : ""
+                    //     visible: model.hasLicense
+                    // }
                     
-                    LabelPL {
-                        text: model.licenseUrl ? model.license : ""
-                        visible: model.hasLicense
-                    }
+                    // LabelPL {
+                    //     text: model.licenseUrl ? model.license : ""
+                    //     visible: model.hasLicense
+                    // }
 
                 }
             }
