@@ -81,11 +81,16 @@ DialogPL {
 
         }
 
+        Spacer {
+            height: styler.themePaddingLarge
+        }
+
     }
 
     onPageStatusActivating: {
         const kpt_backends = py.evaluate("poor.app.history.kpt_backends");
         kpt_backends.forEach( function(x) { TrainConnection.setBackendEnable(x, true); } );
+        TrainConnection.testAttribution();
     }
 
     onAccepted: {

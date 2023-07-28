@@ -102,7 +102,6 @@ void TrainConnection::setStartLocation(float lat, float lon, const QString &name
         setStart(result);
         break;
     }
-
 }
 
 QString TrainConnection::convertLocationToJsonString(const KPublicTransport::Location &location)
@@ -136,14 +135,24 @@ KPublicTransport::LocationRequest TrainConnection::createLocationRequest(const Q
     return req;
 }
 
-
-
 KPublicTransport::StopoverRequest TrainConnection::createStopoverRequest()
 {
     KPublicTransport::StopoverRequest req;
     req.setStop(m_start);
+
     QDateTime depTime(m_departureDate, m_departureTime);
     req.setDateTime(depTime);
+
     return req;
 }
 
+void TrainConnection::testAttribution()
+{
+    const std::vector<KPublicTransport::Attribution> attributions = KPublicTransport::Manager::attributions();
+
+    for (auto attribution: attributions) {
+        QJsonObject jsonObject = KPublicTransport::Attribution::toJson(attribution);
+        std::cout << "Json: " << QJsonDocument(jsonObject).toJson(QJsonDocument::Compact) << std::endl;
+    }
+
+}

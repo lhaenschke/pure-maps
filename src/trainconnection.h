@@ -23,6 +23,7 @@
 #include <KPublicTransport/LocationRequest>
 #include <KPublicTransport/LocationReply>
 #include <KPublicTransport/StopoverRequest>
+#include <KPublicTransport/Attribution>
 
 class TrainConnection : public QObject
 {
@@ -56,6 +57,8 @@ public:
     Q_INVOKABLE KPublicTransport::JourneyRequest createJourneyRequest();
     Q_INVOKABLE KPublicTransport::LocationRequest createLocationRequest(const QString &name);
     Q_INVOKABLE KPublicTransport::StopoverRequest createStopoverRequest();
+
+    Q_INVOKABLE void testAttribution();
 
 Q_SIGNALS:
     void startChanged();
