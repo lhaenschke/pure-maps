@@ -27,6 +27,8 @@ import json
 import poor
 import urllib.parse
 
+from poor.guide import Guide
+
 CONF_DEFAULTS = {
     "bicycle_type": "Hybrid",
     "language": poor.util.get_default_language("en"),
@@ -186,10 +188,16 @@ def route(locations, params):
     return parse_result_valhalla(url, locations, optimized, result, mode)
 
 def route_with_public_transport(input_dict):
+    guide = Guide()
+
     start_location = input_dict['locations'][0]
     end_location = input_dict['locations'][-1]
 
-    print("Start-Lat: ", start_location['lat'], "Start-Lon: ", start_location['lon'])
+    results = guide.nearby("Bus Stops", "", (start_location['lat'], start_location['lon']), 500)
+    print("Anzahl: ", len(results))
+
+    for result in results:
+        print('Title:', result['title'])
 
 def parse_result_libosmscout(url, locations, result, mode):
     """Parse and return route from libosmscout engine."""
