@@ -167,9 +167,10 @@ def route(locations, params):
                  costing_options=costing_options,
                  directions_options=dict(language=language, units=units))
 
-    if input['costing'] == "transit":
-        route_with_public_transport(input=input)
+    # if input['costing'] == "transit":
+    #     route_with_public_transport(input=input)
 
+    print(json.dumps(input))
     input = urllib.parse.quote(json.dumps(input))
     if optimized:
         url = URL_OPT.format(**locals())
@@ -184,8 +185,8 @@ def route(locations, params):
         return parse_result_libosmscout(url, locations, result, mode)
     return parse_result_valhalla(url, locations, optimized, result, mode)
 
-def route_with_public_transport(input):
-    print('Input: ', input)
+def route_with_public_transport(json_input):
+    print(json_input)
 
 def parse_result_libosmscout(url, locations, result, mode):
     """Parse and return route from libosmscout engine."""
