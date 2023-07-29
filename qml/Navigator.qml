@@ -196,11 +196,6 @@ Item {
     }
 
     function findRoute(locations, options, traffic) {
-        print('Start find route')
-        print(locations)
-        print(options)
-        print(traffic)
-
         if (routing) return;
         if (!options) options = {};
         options.optimized = navigatorBase.optimized;
@@ -228,6 +223,10 @@ Item {
         routing = true;
         var args = [loc,
                     options];
+
+        print('Loc: ', loc)
+        print('Args: ', args)
+
         py.call("poor.app.router.route", args, function(route) {
             if (Array.isArray(route) && route.length > 0)
                 // If the router returns multiple alternative routes,
