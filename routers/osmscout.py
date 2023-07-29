@@ -193,7 +193,7 @@ def route_with_public_transport(input_dict):
     print("Anzahl: ", len(results))
 
     for result in results:
-        print("Title: ", result['title'], "")
+        print("Distance: ", result['distance'], "Address: ", result['address'])
 
 def parse_result_libosmscout(url, locations, result, mode):
     """Parse and return route from libosmscout engine."""
