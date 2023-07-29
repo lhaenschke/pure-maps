@@ -224,7 +224,7 @@ Item {
         var args = [loc,
                     options];
 
-        print('Args-type: ', args[1].type)
+        print('Args-type: ', args[1].mode)
 
         py.call("poor.app.router.route", args, function(route) {
             if (Array.isArray(route) && route.length > 0)
