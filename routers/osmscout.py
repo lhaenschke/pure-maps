@@ -186,8 +186,8 @@ def route(locations, params):
     return parse_result_valhalla(url, locations, optimized, result, mode)
 
 def route_with_public_transport(input_dict):
-    start_location = input['locations'][0]
-    end_location = input['locations'][-1]
+    start_location = input_dict['locations'][0]
+    end_location = input_dict['locations'][-1]
 
     print(json.dumps(start_location))
     print(json.dumps(end_location))
