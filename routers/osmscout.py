@@ -168,7 +168,7 @@ def route(locations, params):
                  directions_options=dict(language=language, units=units))
 
     if input['costing'] == "transit":
-        route_with_public_transport(input=input)
+        route_with_public_transport(input_dict=input)
 
     print(json.dumps(input))
     input = urllib.parse.quote(json.dumps(input))
