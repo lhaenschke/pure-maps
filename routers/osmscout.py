@@ -158,6 +158,7 @@ def route(locations, params):
     language = poor.conf.routers.osmscout.language
     units = "kilometers" if poor.conf.units == "metric" else "miles"
     ctype = poor.conf.routers.osmscout.type
+    print('Ctype: ', ctype)
     if ctype == "auto" and poor.conf.routers.osmscout.shorter: ctype = "auto_shorter"
     co = {key: poor.conf.routers.osmscout[key] for key in MODEOPTIONS[ctype]}
     costing_options = {}
