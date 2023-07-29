@@ -224,8 +224,7 @@ Item {
         var args = [loc,
                     options];
 
-        print('Loc: ', loc)
-        print('Args: ', args)
+        print('Args-save: ', args[1].save)
 
         py.call("poor.app.router.route", args, function(route) {
             if (Array.isArray(route) && route.length > 0)
