@@ -27,8 +27,6 @@ import json
 import poor
 import urllib.parse
 
-from poor.guide import Guide
-
 CONF_DEFAULTS = {
     "bicycle_type": "Hybrid",
     "language": poor.util.get_default_language("en"),
@@ -188,7 +186,7 @@ def route(locations, params):
     return parse_result_valhalla(url, locations, optimized, result, mode)
 
 def route_with_public_transport(input_dict):
-    guide = Guide()
+    guide = poor.conf.guide()
 
     start_location = input_dict['locations'][0]
     end_location = input_dict['locations'][-1]
