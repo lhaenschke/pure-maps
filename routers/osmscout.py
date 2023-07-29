@@ -189,8 +189,7 @@ def route_with_public_transport(input_dict):
     start_location = input_dict['locations'][0]
     end_location = input_dict['locations'][-1]
 
-    print(json.dumps(start_location))
-    print(json.dumps(end_location))
+    print("Start-Lat: ", start_location['lat'], "Start-Lon: ", start_location['lon'])
 
 def parse_result_libosmscout(url, locations, result, mode):
     """Parse and return route from libosmscout engine."""
