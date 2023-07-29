@@ -158,11 +158,6 @@ def route(locations, params):
     language = poor.conf.routers.osmscout.language
     units = "kilometers" if poor.conf.units == "metric" else "miles"
     ctype = poor.conf.routers.osmscout.type
-    
-    if ctype == "transit":
-        _route_with_public_transport(loc, params)
-
-    print('Ctype: ', ctype)
     if ctype == "auto" and poor.conf.routers.osmscout.shorter: ctype = "auto_shorter"
     co = {key: poor.conf.routers.osmscout[key] for key in MODEOPTIONS[ctype]}
     costing_options = {}
@@ -173,6 +168,8 @@ def route(locations, params):
                  directions_options=dict(language=language, units=units))
 
     input = urllib.parse.quote(json.dumps(input))
+
+    print('Input: ', input)
     if optimized:
         url = URL_OPT.format(**locals())
     else:
