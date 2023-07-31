@@ -116,7 +116,6 @@ class Guide:
         `near` to search places for. `params` can be used to specify
         a dictionary of guide-specific parameters.
         """
-        print(near)
         params = params or {}
         try:
             x, y, results = self._provider.nearby(query_type, query_name, near, radius, params)
