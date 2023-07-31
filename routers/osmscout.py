@@ -189,6 +189,8 @@ def route_with_public_transport(input_dict):
     start_location = input_dict['locations'][0]
     end_location = input_dict['locations'][-1]
 
+    print(end_location['name'])
+
     results = poor.app.guide.nearby("Bus Stops", "", [start_location['lon'], start_location['lat']], 500)
     print("Anzahl: ", len(results))
 
