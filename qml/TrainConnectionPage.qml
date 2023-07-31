@@ -25,7 +25,7 @@ import "platform"
 
 PagePL {
     id: page
-    title: app.tr("Trainconnections")
+    title: app.tr("Train Connections")
 
     property var  poi
     property bool loaded: false
