@@ -190,7 +190,7 @@ def route_with_public_transport(input_dict):
     end_location = input_dict['locations'][-1]
 
     results = []
-    for x in poor.app.guide.nearby("Bus Stops", "", [start_location['lon'], start_location['lat']], 5000)[:3]:
+    for x in poor.app.guide.nearby("Bus Stops", "", [start_location['lon'], start_location['lat']], 5000)[:5]:
         results.append(x)
 
     for x in poor.app.guide.nearby("Railway Stops", "", [start_location['lon'], start_location['lat']], 5000)[:3]:
@@ -202,7 +202,7 @@ def route_with_public_transport(input_dict):
     print("Anzahl: ", len(results))
 
     for result in results:
-        print("Address: ", result['address'].encode(encoding = 'UTF-8', errors = 'backslashreplace'), ", Distance: ", result['distance'])
+        print("Address: ", result['address'].encode(encoding = 'UTF-8', errors = 'backslashreplace'), ", Distance: ", poor.util.calculate_distance(start_location['x'], start_location['y'], result['x'], result['y']))
 
 def parse_result_libosmscout(url, locations, result, mode):
     """Parse and return route from libosmscout engine."""
