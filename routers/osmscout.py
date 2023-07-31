@@ -202,7 +202,7 @@ def route_with_public_transport(input_dict):
     print("Anzahl: ", len(results))
 
     for result in results:
-        print("Address: ", result['address'].encode(encoding = 'UTF-8', errors = 'backslashreplace'), ", Distance: ", poor.util.calculate_distance(start_location['x'], start_location['y'], result['x'], result['y']))
+        print("Address: ", result['address'].encode(encoding = 'UTF-8', errors = 'backslashreplace'), ", Distance: ", poor.util.calculate_distance(start_location['lat'], start_location['lon'], result['x'], result['y']))
 
 def parse_result_libosmscout(url, locations, result, mode):
     """Parse and return route from libosmscout engine."""
