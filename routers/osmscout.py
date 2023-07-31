@@ -201,7 +201,7 @@ def route_with_public_transport(input_dict):
 
     print("Anzahl: ", len(results))
 
-    result = sorted(results, key=lambda x: poor.util.calculate_distance(start_location['lat'], start_location['lon'], x['y'], x['x']))
+    results = sorted(results, key=lambda x: poor.util.calculate_distance(start_location['lat'], start_location['lon'], x['y'], x['x']))
 
     for result in results:
         print("Address: ", result['address'].encode(encoding = 'UTF-8', errors = 'backslashreplace'), ", Distance: ", poor.util.calculate_distance(start_location['lat'], start_location['lon'], result['y'], result['x']))
