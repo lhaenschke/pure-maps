@@ -190,9 +190,15 @@ def route_with_public_transport(input_dict):
     end_location = input_dict['locations'][-1]
 
     results = []
-    (results.append(x) for x in poor.app.guide.nearby("Bus Stops", "", [start_location['lon'], start_location['lat']], 500)[:3])
-    (results.append(x) for x in poor.app.guide.nearby("Railway Stops", "", [start_location['lon'], start_location['lat']], 500)[:3])
-    (results.append(x) for x in poor.app.guide.nearby("Railway Platforms", "", [start_location['lon'], start_location['lat']], 500)[:3])
+    for x in poor.app.guide.nearby("Bus Stops", "", [start_location['lon'], start_location['lat']], 500)[:3]:
+        print("Address: ", x['address'].encode(encoding = 'UTF-8', errors = 'backslashreplace'), ", Distance: ", x['distance'])
+
+    for x in poor.app.guide.nearby("Railway Stops", "", [start_location['lon'], start_location['lat']], 500)[:3]:
+        print("Address: ", x['address'].encode(encoding = 'UTF-8', errors = 'backslashreplace'), ", Distance: ", x['distance'])
+        
+    for x in poor.app.guide.nearby("Railway Platforms", "", [start_location['lon'], start_location['lat']], 500)[:3]:
+        print("Address: ", x['address'].encode(encoding = 'UTF-8', errors = 'backslashreplace'), ", Distance: ", x['distance'])
+
     print("Anzahl: ", len(results))
 
     for result in results:
