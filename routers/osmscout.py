@@ -198,6 +198,9 @@ def route_with_public_transport(input_dict):
     for result in end_results:
         print("Address: ", result['address'].encode(encoding = 'UTF-8', errors = 'backslashreplace'), ", Distance: ", result['distance'])
 
+    
+
+
 def get_nearby_stops(location):
     results = []
     for x in poor.app.guide.nearby("Bus Stops", "", [location['lon'], location['lat']], 5000)[:5]:

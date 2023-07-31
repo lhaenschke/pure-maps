@@ -224,6 +224,8 @@ Item {
         var args = [loc,
                     options];
 
+        console.log("Transport-Mode: ", transportMode)
+
         py.call("poor.app.router.route", args, function(route) {
             if (Array.isArray(route) && route.length > 0)
                 // If the router returns multiple alternative routes,
