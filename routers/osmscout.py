@@ -192,11 +192,11 @@ def route_with_public_transport(input_dict):
     start_results = get_nearby_stops(start_location)
     end_results = get_nearby_stops(end_location)
 
-    for result in start_results:
-        print("Address: ", result['address'].encode(encoding = 'UTF-8', errors = 'backslashreplace'), ", Distance: ", result['distance'])
+    # for result in start_results:
+    #     print("Address: ", result['address'].encode(encoding = 'UTF-8', errors = 'backslashreplace'), ", Distance: ", result['distance'])
 
-    for result in end_results:
-        print("Address: ", result['address'].encode(encoding = 'UTF-8', errors = 'backslashreplace'), ", Distance: ", result['distance'])
+    # for result in end_results:
+    #     print("Address: ", result['address'].encode(encoding = 'UTF-8', errors = 'backslashreplace'), ", Distance: ", result['distance'])
 
     
 
