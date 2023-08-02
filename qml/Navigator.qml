@@ -224,7 +224,9 @@ Item {
         var args = [loc,
                     options];
 
-        console.log("Transport-Mode: ", app.conf.get("routers." + provider + ".type"))
+        var key = app.conf.get("routers." + osmscout + ".type");
+        console.log('Key: ', key);
+        console.log('Provider: ', provider);
 
         py.call("poor.app.router.route", args, function(route) {
             if (Array.isArray(route) && route.length > 0)
