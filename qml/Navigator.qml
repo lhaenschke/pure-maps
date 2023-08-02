@@ -232,7 +232,7 @@ Item {
                 const to_location   = args[0][-1]
 
                 console.log('From -> X:', from_location['x'], " Y: ", from_location['y']);
-                console.log('From -> X:', to_location['x'], " Y: ", to_location['y']);
+                console.log('To -> X:', to_location['x'], " Y: ", to_location['y']);
 
             }
         }
