@@ -226,8 +226,14 @@ Item {
 
         if (app.conf.get("profile") == "offline") {
             if (app.conf.get("routers.osmscout.type") == "transit") {
-                console.log('Es ist eine Transit-Verbindung');
-                console.log('Args-String: ', JSON.stringify(args))
+                console.log('Args-String: ', JSON.stringify(args));
+
+                const from_location = args[0][0]
+                const to_location   = args[0][-1]
+
+                console.log('From -> X:', from_location['x'], " Y: ", from_location['y']);
+                console.log('From -> X:', to_location['x'], " Y: ", to_location['y']);
+
             }
         }
 
