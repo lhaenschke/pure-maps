@@ -224,7 +224,7 @@ Item {
         var args = [loc,
                     options];
 
-        var key = app.conf.get("routers." + osmscout + ".type");
+        var key = app.conf.get("routers.osmscout.type");
         console.log('Key: ', key);
         console.log('Provider: ', provider);
 
