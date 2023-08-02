@@ -224,10 +224,9 @@ Item {
         var args = [loc,
                     options];
 
-        var key = app.conf.get("routers.osmscout.type");
-        console.log('Key: ', key);
-        // console.log('Provider: ', app.conf.get(app.conf.get("profiles") + "." app.conf.get("profile") + ".type"));
-        console.log('Router: ', app.conf.get("profile.router"));
+        if (app.conf.get("profile") == "offline") {
+            var key = app.conf.get("routers.osmscout.type");
+        }
 
         py.call("poor.app.router.route", args, function(route) {
             if (Array.isArray(route) && route.length > 0)
