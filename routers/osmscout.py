@@ -27,8 +27,6 @@ import json
 import poor
 import urllib.parse
 
-import org.puremaps
-
 CONF_DEFAULTS = {
     "bicycle_type": "Hybrid",
     "language": poor.util.get_default_language("en"),
