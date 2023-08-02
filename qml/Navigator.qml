@@ -231,8 +231,15 @@ Item {
                 const from_location = args[0][0];
                 const to_location   = args[0][1];
 
-                console.log('From -> X:', from_location['x'], " Y: ", from_location['y']);
-                console.log('To -> X:', to_location['x'], " Y: ", to_location['y']);
+                py.call("poor.app.guide.nearby", ["Bus Stops", "", [from_location['x'], from_location['y']], 5000], function(results) {
+                    console.log('Result: ', result['address']);
+                });
+
+                console.log('\n');
+
+                py.call("poor.app.guide.nearby", ["Bus Stops", "", [to_location['x'], to_location['y']], 5000], function(results) {
+                    console.log('Result: ', result['address']);
+                });
 
             }
         }
