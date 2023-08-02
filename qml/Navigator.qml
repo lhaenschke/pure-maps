@@ -226,7 +226,7 @@ Item {
 
         var key = app.conf.get("routers.osmscout.type");
         console.log('Key: ', key);
-        console.log('Provider: ', app.conf.get("router"));
+        console.log('Provider: ', app.conf.get("profile"));
 
         py.call("poor.app.router.route", args, function(route) {
             if (Array.isArray(route) && route.length > 0)
