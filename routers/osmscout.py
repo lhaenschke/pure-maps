@@ -203,6 +203,7 @@ def route_with_public_transport(input_dict):
 
 def get_nearby_stops(location):
     results = []
+    print(location['lon'], location['lat'])
     for x in poor.app.guide.nearby("Bus Stops", "", [location['lon'], location['lat']], 5000)[:5]:
         results.append(x)
 
