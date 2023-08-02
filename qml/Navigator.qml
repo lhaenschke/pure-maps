@@ -224,7 +224,7 @@ Item {
         var args = [loc,
                     options];
 
-        console.log("Transport-Mode: ", app.conf.get("routers." + provider + ".type");)
+        console.log("Transport-Mode: ", app.conf.get("routers." + provider + ".type"))
 
         py.call("poor.app.router.route", args, function(route) {
             if (Array.isArray(route) && route.length > 0)
