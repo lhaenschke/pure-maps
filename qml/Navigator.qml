@@ -227,6 +227,7 @@ Item {
         if (app.conf.get("profile") == "offline") {
             if (app.conf.get("routers.osmscout.type") == "transit") {
                 console.log('Es ist eine Transit-Verbindung');
+                console.log('Args-String: ', JSON.stringify(args))
             }
         }
 
