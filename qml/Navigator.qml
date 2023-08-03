@@ -231,7 +231,7 @@ Item {
                 const from_stops = navigator.getNearbyStopsFromLocation(args[0][0]);
                 const to_stops   = navigator.getNearbyStopsFromLocation(args[0][1]);
 
-                from_stops.forEach( function(x) { console.log('From-Adresse: ', x['address']) } );
+                from_stops.forEach( function(x) { console.log('Json: ', JSON.stringify(x)) } );
 
             }
         }
