@@ -361,7 +361,7 @@ Item {
     function getNearbyStopsFromLocation(location) {
         var arr = [];
         py.call("poor.app.guide.nearby", ["Bus Stops", "", [location['x'], location['y']], 5000], function(results) {
-            // results = results.slice(5);
+            results = results.slice(5);
             results.forEach(r => {
                 console.log(JSON.stringify(r));
                 // arr.push(r);
@@ -369,7 +369,7 @@ Item {
         });
 
         py.call("poor.app.guide.nearby", ["Railway Platforms", "", [location['x'], location['y']], 5000], function(results) {
-            // results = results.slice(3);
+            results = results.slice(3);
             results.forEach(r => {
                 console.log(JSON.stringify(r));
                 // arr.push(r);
@@ -379,7 +379,7 @@ Item {
         arr.forEach( function(x) { console.log("Test2") });
 
         py.call("poor.app.guide.nearby", ["Railway Stations", "", [location['x'], location['y']], 5000], function(results) {
-            // results = results.slice(3);
+            results = results.slice(3);
             results.forEach(r => {
                 console.log(JSON.stringify(r));
                 // arr.push(r);
