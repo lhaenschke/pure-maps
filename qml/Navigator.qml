@@ -360,24 +360,24 @@ Item {
     }
 
     function getNearbyStopsFromLocation(location) {
-        console.log('Location-Lat: ', location['x'], ' Location-Lon: ', location['y']);
+        console.log('Location-Lat: ', location['y'], ' Location-Lon: ', location['x']);
         
         var results_arr = []
         py.call("poor.app.guide.nearby", ["Bus Stops", "", [location['x'], location['y']], 5000], function(results) {
             results = results.slice(5);
             // results.forEach( function(result) { results_arr.append(result) });
-            results.forEach(r => { console.log('r-Lat: ', r['x'], ' r-Lon: ', r['y']); })
-            results.forEach( function(result) { console.log('Platform-Result: ', result['address'], ' Distance: ', calculateDistance(result['x'], result['y'], location['x'], location['y'])) });
+            results.forEach(r => { console.log('r-Lat: ', r['y'], ' r-Lon: ', r['x']); })
+            results.forEach( function(result) { console.log('Platform-Result: ', result['address'], ' Distance: ', calculateDistance(result['y'], result['x'], location['y'], location['x'])) });
         });
 
         py.call("poor.app.guide.nearby", ["Railway Platforms", "", [location['x'], location['y']], 5000], function(results) {
             results = results.slice(3);
-            results.forEach( function(result) { console.log('Platform-Result: ', result['address'], ' Distance: ', calculateDistance(result['x'], result['y'], location['x'], location['y'])) });
+            results.forEach( function(result) { console.log('Platform-Result: ', result['address'], ' Distance: ', calculateDistance(result['y'], result['x'], location['y'], location['x'])) });
         });
 
         py.call("poor.app.guide.nearby", ["Railway Stations", "", [location['x'], location['y']], 5000], function(results) {
             results = results.slice(3);
-            results.forEach( function(result) { console.log('Platform-Result: ', result['address'], ' Distance: ', calculateDistance(result['x'], result['y'], location['x'], location['y'])) });
+            results.forEach( function(result) { console.log('Platform-Result: ', result['address'], ' Distance: ', calculateDistance(result['y'], result['x'], location['y'], location['x'])) });
         });
 
         // results_arr = results_arr.sort(function(a, b) {
