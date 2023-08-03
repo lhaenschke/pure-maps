@@ -365,15 +365,21 @@ Item {
             results.forEach( function(result) { results_arr.push(result) });
         });
 
+        results_arr.forEach( function(x) { console.log("Test1") });
+
         py.call("poor.app.guide.nearby", ["Railway Platforms", "", [location['x'], location['y']], 5000], function(results) {
             results = results.slice(3);
             results.forEach( function(result) { results_arr.push(result) });
         });
 
+        results_arr.forEach( function(x) { console.log("Test2") });
+
         py.call("poor.app.guide.nearby", ["Railway Stations", "", [location['x'], location['y']], 5000], function(results) {
             results = results.slice(3);
             results.forEach( function(result) { results_arr.push(result) });
         });
+
+        results_arr.forEach( function(x) { console.log("Test3") });
 
         results_arr = results_arr.sort(function(a, b) {
             const keyA = calculate_distance(a['y'], a['x'], location['y'], location['x']);
@@ -384,7 +390,7 @@ Item {
             return 0;
         });
 
-        results_arr.forEach( function(x) { console.log("Test") });
+        results_arr.forEach( function(x) { console.log("Test4") });
 
         return results_arr;
 
