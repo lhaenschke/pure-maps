@@ -231,8 +231,7 @@ Item {
                 const from_stops = navigator.getNearbyStopsFromLocation(args[0][0]);
                 const to_stops   = navigator.getNearbyStopsFromLocation(args[0][1]);
 
-                // from_stops.forEach( function(x) { console.log("Test11") });
-                // from_stops.forEach( function(x) { console.log('Test11: ', x['address']) } );
+                from_stops.forEach( function(x) { console.log('From-Adresse: ', x['address']) } );
 
             }
         }
@@ -361,38 +360,23 @@ Item {
     function getNearbyStopsFromLocation(location) {
         var arr = [];
         
-        var results = py.call_sync("poor.app.guide.nearby", ["Bus Stops", "", [location['x'], location['y']], 5000]);
+        var results = py.call_sync("poor.app.guide.nearby", ["Bus Stops", "", [location['x'], location['y']], 1000]);
         arr.push(...results.slice(0, 5));
-        // results.forEach(r => {
-        //     // console.log(JSON.stringify(r));
-        //     arr.push(r);
-        // });
-
-        var results = py.call_sync("poor.app.guide.nearby", ["Railway Platforms", "", [location['x'], location['y']], 5000]);
+        
+        var results = py.call_sync("poor.app.guide.nearby", ["Railway Platforms", "", [location['x'], location['y']], 1000]);
         arr.push(...results.slice(0, 3));
-        // results.forEach(r => {
-        //     // console.log(JSON.stringify(r));
-        //     arr.push(r);
-        // });
-
-        var results = py.call_sync("poor.app.guide.nearby", ["Railway Stations", "", [location['x'], location['y']], 5000]);
+        
+        var results = py.call_sync("poor.app.guide.nearby", ["Railway Stations", "", [location['x'], location['y']], 1000]);
         arr.push(...results.slice(0, 3));
-        // results.forEach(r => {
-        //     // console.log(JSON.stringify(r));
-        //     arr.push(r);
-        // });
 
-        var count = 0;
-        arr.forEach(x => { console.log("Count: ", count++); });
+        arr.sort(function(a, b) {
+            const keyA = calculate_distance(a['y'], a['x'], location['y'], location['x']);
+            const keyB = calculate_distance(b['y'], b['x'], location['y'], location['x']);
 
-        // results_arr = results_arr.sort(function(a, b) {
-        //     const keyA = calculate_distance(a['y'], a['x'], location['y'], location['x']);
-        //     const keyB = calculate_distance(b['y'], b['x'], location['y'], location['x']);
-
-        //     if (keyA < keyB) return -1;
-        //     if (keyA > keyB) return 1;
-        //     return 0;
-        // });
+            if (keyA < keyB) return -1;
+            if (keyA > keyB) return 1;
+            return 0;
+        });
 
         return arr;
 
@@ -407,8 +391,8 @@ Item {
         const Δλ = (lon2-lon1) * Math.PI/180;
 
         const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
-                Math.cos(φ1) * Math.cos(φ2) *
-                Math.sin(Δλ/2) * Math.sin(Δλ/2);
+                  Math.cos(φ1)   * Math.cos(φ2)   *
+                  Math.sin(Δλ/2) * Math.sin(Δλ/2);
         const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 
         return R * c; // in metres
