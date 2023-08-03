@@ -231,15 +231,9 @@ Item {
                 const from_location = args[0][0];
                 const to_location   = args[0][1];
 
-                py.call("poor.app.guide.nearby", ["Bus Stops", "", [from_location['x'], from_location['y']], 5000], function(results) {
-                    console.log('Result: ', result['address']);
-                });
-
+                navigator.getNearbyStopsFromLocation(from_location);
                 console.log('\n');
-
-                py.call("poor.app.guide.nearby", ["Bus Stops", "", [to_location['x'], to_location['y']], 5000], function(results) {
-                    console.log('Result: ', result['address']);
-                });
+                navigator.getNearbyStopsFromLocation(to_location);
 
             }
         }
@@ -363,6 +357,24 @@ Item {
         navigatorBase.setRoute(route);
         provider = route.provider;
         saveRoute(route);
+    }
+
+    function getNearbyStopsFromLocation(location) {
+        var results_arr = []
+        py.call("poor.app.guide.nearby", ["Bus Stops", "", [location['x'], location['y']], 5000], function(results) {
+            results.forEach( function(result) {console.log('Bus-Result: ', result['address'])} );
+        });
+
+        py.call("poor.app.guide.nearby", ["Railway Platforms", "", [location['x'], location['y']], 5000], function(results) {
+            results.forEach( function(result) {console.log('Platform-Result: ', result['address'])} );
+        });
+
+        py.call("poor.app.guide.nearby", ["Railway Stations", "", [location['x'], location['y']], 5000], function(results) {
+            results.forEach( function(result) {console.log('Station-Result: ', result['address'])} );
+        });
+
+        return results_arr
+
     }
 
 }
