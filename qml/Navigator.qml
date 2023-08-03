@@ -359,47 +359,47 @@ Item {
     }
 
     function getNearbyStopsFromLocation(location) {
-        var results_arr = []
+        var arr = [];
         py.call("poor.app.guide.nearby", ["Bus Stops", "", [location['x'], location['y']], 5000], function(results) {
-            results = results.slice(5);
-            results.forEach( function(result) {
+            const newResults = results.slice(5);
+            newResults.forEach(r => {
                 console.log('Test1');
-                results_arr.push(result);
+                arr.push(r);
             });
         });
 
         py.call("poor.app.guide.nearby", ["Railway Platforms", "", [location['x'], location['y']], 5000], function(results) {
-            results = results.slice(3);
-            results.forEach( function(result) {
+            const newResults = results.slice(3);
+            newResults.forEach(r => {
                 console.log('Test1');
-                results_arr.push(result);
+                arr.push(r);
             });
         });
 
-        results_arr.forEach( function(x) { console.log("Test2") });
+        arr.forEach( function(x) { console.log("Test2") });
 
         py.call("poor.app.guide.nearby", ["Railway Stations", "", [location['x'], location['y']], 5000], function(results) {
-            results = results.slice(3);
-            results.forEach( function(result) {
+            const newResults = results.slice(3);
+            newResults.forEach(r => {
                 console.log('Test1');
-                results_arr.push(result);
+                arr.push(r);
             });
         });
 
-        results_arr.forEach( function(x) { console.log("Test3") });
+        arr.forEach(x => { console.log("Test4"); });
 
-        results_arr = results_arr.sort(function(a, b) {
-            const keyA = calculate_distance(a['y'], a['x'], location['y'], location['x']);
-            const keyB = calculate_distance(b['y'], b['x'], location['y'], location['x']);
+        // results_arr = results_arr.sort(function(a, b) {
+        //     const keyA = calculate_distance(a['y'], a['x'], location['y'], location['x']);
+        //     const keyB = calculate_distance(b['y'], b['x'], location['y'], location['x']);
 
-            if (keyA < keyB) return -1;
-            if (keyA > keyB) return 1;
-            return 0;
-        });
+        //     if (keyA < keyB) return -1;
+        //     if (keyA > keyB) return 1;
+        //     return 0;
+        // });
 
-        results_arr.forEach( function(x) { console.log("Test4") });
+        arr.forEach(x => { console.log("Test4") });
 
-        return results_arr;
+        return arr;
 
     }
 
