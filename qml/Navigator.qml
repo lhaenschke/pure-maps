@@ -368,6 +368,8 @@ Item {
             });
         });
 
+        console.log('\n\n');
+
         py.call("poor.app.guide.nearby", ["Railway Platforms", "", [location['x'], location['y']], 5000], function(results) {
             results = results.slice(3);
             results.forEach(r => {
@@ -376,7 +378,7 @@ Item {
             });
         });
 
-        arr.forEach( function(x) { console.log("Test2") });
+        console.log('\n\n');
 
         py.call("poor.app.guide.nearby", ["Railway Stations", "", [location['x'], location['y']], 5000], function(results) {
             results = results.slice(3);
@@ -385,6 +387,8 @@ Item {
                 // arr.push(r);
             });
         });
+
+        console.log('\n\n');
 
         arr.forEach(x => { console.log("Test4"); });
 
