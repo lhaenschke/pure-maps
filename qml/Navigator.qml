@@ -360,36 +360,30 @@ Item {
     }
 
     function getNearbyStopsFromLocation(location) {
-        console.log('Location-Lat: ', location['y'], ' Location-Lon: ', location['x']);
-        
         var results_arr = []
         py.call("poor.app.guide.nearby", ["Bus Stops", "", [location['x'], location['y']], 5000], function(results) {
             results = results.slice(5);
-            // results.forEach( function(result) { results_arr.append(result) });
-            results.forEach(r => { console.log('r-Lat: ', r['y'], ' r-Lon: ', r['x']); })
-            results.forEach( function(result) { console.log('Platform-Result: ', result['address'], ' Distance: ', calculateDistance(result['y'], result['x'], location['y'], location['x'])) });
+            results.forEach( function(result) { console.log('Platform-Result: ', result['address'], ' Distance: ', calculateDistance(result['y'], result['x'], location['y'], location['x']), ' Meters') });
         });
 
         py.call("poor.app.guide.nearby", ["Railway Platforms", "", [location['x'], location['y']], 5000], function(results) {
             results = results.slice(3);
-            results.forEach( function(result) { console.log('Platform-Result: ', result['address'], ' Distance: ', calculateDistance(result['y'], result['x'], location['y'], location['x'])) });
+            results.forEach( function(result) { console.log('Platform-Result: ', result['address'], ' Distance: ', calculateDistance(result['y'], result['x'], location['y'], location['x']), ' Meters') });
         });
 
         py.call("poor.app.guide.nearby", ["Railway Stations", "", [location['x'], location['y']], 5000], function(results) {
             results = results.slice(3);
-            results.forEach( function(result) { console.log('Platform-Result: ', result['address'], ' Distance: ', calculateDistance(result['y'], result['x'], location['y'], location['x'])) });
+            results.forEach( function(result) { console.log('Platform-Result: ', result['address'], ' Distance: ', calculateDistance(result['y'], result['x'], location['y'], location['x']), ' Meters') });
         });
 
-        // results_arr = results_arr.sort(function(a, b) {
-        //     var keyA = new Date(a.updated_at),
-        //         keyB = new Date(b.updated_at);
-        //     // Compare the 2 dates
-        //     if (keyA < keyB) return -1;
-        //     if (keyA > keyB) return 1;
-        //     return 0;
-        // });
+        results_arr = results_arr.sort(function(a, b) {
+            const keyA = calculate_distance(a['y'], a['x'], location['y'], location['x']);
+            const keyB = calculate_distance(b['y'], b['x'], location['y'], location['x']);
 
-        // return sorted(results, key=lambda x: poor.util.calculate_distance(location['lat'], location['lon'], x['y'], x['x']))
+            if (keyA < keyB) return -1;
+            if (keyA > keyB) return 1;
+            return 0;
+        });
 
         return results_arr
 
@@ -410,11 +404,6 @@ Item {
 
         return R * c; // in metres
 
-
-
-        // const dx = x2 - x1;
-        // const dy = y2 - y1;
-        // return Math.sqrt(x * x + y * y);
     }
 
 }
