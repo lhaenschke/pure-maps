@@ -370,8 +370,8 @@ Item {
         arr.push(...results.slice(0, 3));
 
         arr.sort(function(a, b) {
-            const keyA = calculate_distance(a['y'], a['x'], location['y'], location['x']);
-            const keyB = calculate_distance(b['y'], b['x'], location['y'], location['x']);
+            const keyA = calculateDistance(a['y'], a['x'], location['y'], location['x']);
+            const keyB = calculateDistance(b['y'], b['x'], location['y'], location['x']);
 
             if (keyA < keyB) return -1;
             if (keyA > keyB) return 1;
