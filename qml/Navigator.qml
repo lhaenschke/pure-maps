@@ -231,7 +231,8 @@ Item {
                 const from_stops = navigator.getNearbyStopsFromLocation(args[0][0]);
                 const to_stops   = navigator.getNearbyStopsFromLocation(args[0][1]);
 
-                from_stops.forEach( function(x) { console.log('Test: ', x['address']) } );
+                from_stops.forEach( function(x) { console.log("Test11") });
+                from_stops.forEach( function(x) { console.log('Test11: ', x['address']) } );
 
             }
         }
@@ -382,6 +383,8 @@ Item {
             if (keyA > keyB) return 1;
             return 0;
         });
+
+        results_arr.forEach( function(x) { console.log("Test") });
 
         return results_arr;
 
