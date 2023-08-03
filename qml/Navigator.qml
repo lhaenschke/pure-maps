@@ -361,17 +361,17 @@ Item {
         var results_arr = []
         py.call("poor.app.guide.nearby", ["Bus Stops", "", [location['x'], location['y']], 5000], function(results) {
             results = results.slice(5);
-            results.forEach( function(result) { results_arr.append(result) });
+            results.forEach( function(result) { results_arr.push(result) });
         });
 
         py.call("poor.app.guide.nearby", ["Railway Platforms", "", [location['x'], location['y']], 5000], function(results) {
             results = results.slice(3);
-            results.forEach( function(result) { results_arr.append(result) });
+            results.forEach( function(result) { results_arr.push(result) });
         });
 
         py.call("poor.app.guide.nearby", ["Railway Stations", "", [location['x'], location['y']], 5000], function(results) {
             results = results.slice(3);
-            results.forEach( function(result) { results_arr.append(result) });
+            results.forEach( function(result) { results_arr.push(result) });
         });
 
         results_arr = results_arr.sort(function(a, b) {
