@@ -139,7 +139,6 @@ PageListPL {
         // Load nearby results from the Python backend.
         page.model.clear();
         searchCounter += 1;
-
         py.call("poor.app.guide.nearby", [queryType, queryName,
                                           near, radius, params], function(results) {
             if (results && results.error && results.message) {

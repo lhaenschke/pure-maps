@@ -364,23 +364,38 @@ Item {
         py.call("poor.app.guide.nearby", ["Bus Stops", "", [location['x'], location['y']], 5000], function(results) {
             results = results.slice(5);
             // results.forEach( function(result) { results_arr.append(result) });
-            results.forEach( function(result) { console.log('Platform-Result: ', result['address']) });
+            results.forEach( function(result) { console.log('Platform-Result: ', result['address'], ' Distance: ', calculateDistance(result['x'], result['y'], location['x'], location['y'])) });
         });
 
         py.call("poor.app.guide.nearby", ["Railway Platforms", "", [location['x'], location['y']], 5000], function(results) {
             results = results.slice(3);
-            results.forEach( function(result) {console.log('Platform-Result: ', result['address'])} );
+            results.forEach( function(result) { console.log('Platform-Result: ', result['address'], ' Distance: ', calculateDistance(result['x'], result['y'], location['x'], location['y'])) });
         });
 
         py.call("poor.app.guide.nearby", ["Railway Stations", "", [location['x'], location['y']], 5000], function(results) {
             results = results.slice(3);
-            results.forEach( function(result) {console.log('Station-Result: ', result['address'])} );
+            results.forEach( function(result) { console.log('Platform-Result: ', result['address'], ' Distance: ', calculateDistance(result['x'], result['y'], location['x'], location['y'])) });
         });
+
+        // results_arr = results_arr.sort(function(a, b) {
+        //     var keyA = new Date(a.updated_at),
+        //         keyB = new Date(b.updated_at);
+        //     // Compare the 2 dates
+        //     if (keyA < keyB) return -1;
+        //     if (keyA > keyB) return 1;
+        //     return 0;
+        // });
 
         // return sorted(results, key=lambda x: poor.util.calculate_distance(location['lat'], location['lon'], x['y'], x['x']))
 
         return results_arr
 
+    }
+
+    function calculateDistance(x1, y1, x2, y2) {
+        const dx = x2 - x1;
+        const dy = y2 - y1;
+        return Math.sqrt(x * x + y * y);
     }
 
 }
