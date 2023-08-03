@@ -360,10 +360,13 @@ Item {
     }
 
     function getNearbyStopsFromLocation(location) {
+        console.log('Location-Lat: ', location['x'], ' Location-Lon: ', location['y']);
+        
         var results_arr = []
         py.call("poor.app.guide.nearby", ["Bus Stops", "", [location['x'], location['y']], 5000], function(results) {
             results = results.slice(5);
             // results.forEach( function(result) { results_arr.append(result) });
+            results.forEach(r => { console.log('r-Lat: ', r['x'], ' r-Lon: ', r['y']); })
             results.forEach( function(result) { console.log('Platform-Result: ', result['address'], ' Distance: ', calculateDistance(result['x'], result['y'], location['x'], location['y'])) });
         });
 
@@ -392,10 +395,26 @@ Item {
 
     }
 
-    function calculateDistance(x1, y1, x2, y2) {
-        const dx = x2 - x1;
-        const dy = y2 - y1;
-        return Math.sqrt(x * x + y * y);
+    function calculateDistance(lat1, lon1, lat2, lon2) {
+        // Haversine formula (http://www.movable-type.co.uk/scripts/latlong.html)
+        const R = 6371e3; // metres
+        const φ1 = lat1 * Math.PI/180; // φ, λ in radians
+        const φ2 = lat2 * Math.PI/180;
+        const Δφ = (lat2-lat1) * Math.PI/180;
+        const Δλ = (lon2-lon1) * Math.PI/180;
+
+        const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+                Math.cos(φ1) * Math.cos(φ2) *
+                Math.sin(Δλ/2) * Math.sin(Δλ/2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+        return R * c; // in metres
+
+
+
+        // const dx = x2 - x1;
+        // const dy = y2 - y1;
+        // return Math.sqrt(x * x + y * y);
     }
 
 }
