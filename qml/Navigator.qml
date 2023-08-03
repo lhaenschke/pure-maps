@@ -229,10 +229,9 @@ Item {
                 console.log('Args-String: ', JSON.stringify(args));
 
                 const from_stops = navigator.getNearbyStopsFromLocation(args[0][0]);
-                const unique_from_stops = from_stops.map((obj) => {return obj}).filter((item, index, arr) => {return arr.indexOf(item) == index});
                 const to_stops   = navigator.getNearbyStopsFromLocation(args[0][1]);
 
-                unique_from_stops.forEach( function(x) { console.log('From-Json: ', JSON.stringify(x)) } );
+                from_stops.forEach( function(x) { console.log('From-Json: ', JSON.stringify(x)); console.log('Title: ', x.title) } );
                 console.log('\n\n');
                 to_stops.forEach( function(x) { console.log('To-Json: ', JSON.stringify(x)) } );
 
