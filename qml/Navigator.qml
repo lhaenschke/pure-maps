@@ -361,29 +361,32 @@ Item {
     function getNearbyStopsFromLocation(location) {
         var arr = [];
         py.call("poor.app.guide.nearby", ["Bus Stops", "", [location['x'], location['y']], 5000], function(results) {
-            const newResults = results.slice(5);
-            newResults.forEach(r => {
-                console.log('Test1');
-                arr.push(r);
-            });
+            results = results.slice(5);
+            arr.push(...results);
+            // results.forEach(r => {
+            //     console.log('Test1');
+            //     arr.push(r);
+            // });
         });
 
         py.call("poor.app.guide.nearby", ["Railway Platforms", "", [location['x'], location['y']], 5000], function(results) {
-            const newResults = results.slice(3);
-            newResults.forEach(r => {
-                console.log('Test1');
-                arr.push(r);
-            });
+            results = results.slice(3);
+            arr.push(...results);
+            // results.forEach(r => {
+            //     console.log('Test2');
+            //     arr.push(r);
+            // });
         });
 
         arr.forEach( function(x) { console.log("Test2") });
 
         py.call("poor.app.guide.nearby", ["Railway Stations", "", [location['x'], location['y']], 5000], function(results) {
-            const newResults = results.slice(3);
-            newResults.forEach(r => {
-                console.log('Test1');
-                arr.push(r);
-            });
+            results = results.slice(3);
+            arr.push(...results);
+            // results.forEach(r => {
+            //     console.log('Test3');
+            //     arr.push(r);
+            // });
         });
 
         arr.forEach(x => { console.log("Test4"); });
@@ -397,7 +400,7 @@ Item {
         //     return 0;
         // });
 
-        arr.forEach(x => { console.log("Test4") });
+        arr.forEach(x => { console.log("Test5"); });
 
         return arr;
 
