@@ -363,16 +363,16 @@ Item {
         py.call("poor.app.guide.nearby", ["Bus Stops", "", [location['x'], location['y']], 5000], function(results) {
             // results = results.slice(5);
             results.forEach(r => {
-                console.log('Test1');
-                arr.push(r);
+                console.log(JSON.stringify(r));
+                // arr.push(r);
             });
         });
 
         py.call("poor.app.guide.nearby", ["Railway Platforms", "", [location['x'], location['y']], 5000], function(results) {
             // results = results.slice(3);
             results.forEach(r => {
-                console.log('Test2');
-                arr.push(r);
+                console.log(JSON.stringify(r));
+                // arr.push(r);
             });
         });
 
@@ -381,8 +381,8 @@ Item {
         py.call("poor.app.guide.nearby", ["Railway Stations", "", [location['x'], location['y']], 5000], function(results) {
             // results = results.slice(3);
             results.forEach(r => {
-                console.log('Test3');
-                arr.push(r);
+                console.log(JSON.stringify(r));
+                // arr.push(r);
             });
         });
 
@@ -396,8 +396,6 @@ Item {
         //     if (keyA > keyB) return 1;
         //     return 0;
         // });
-
-        arr.forEach(x => { console.log("Test5"); });
 
         return arr;
 
