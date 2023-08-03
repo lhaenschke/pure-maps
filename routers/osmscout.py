@@ -167,10 +167,6 @@ def route(locations, params):
                  costing_options=costing_options,
                  directions_options=dict(language=language, units=units))
 
-    if input['costing'] == "transit":
-        route_with_public_transport(input_dict=input)
-
-    print(json.dumps(input))
     input = urllib.parse.quote(json.dumps(input))
     if optimized:
         url = URL_OPT.format(**locals())
@@ -184,36 +180,6 @@ def route(locations, params):
     if result.get("API version", "") == "libosmscout V1":
         return parse_result_libosmscout(url, locations, result, mode)
     return parse_result_valhalla(url, locations, optimized, result, mode)
-
-def route_with_public_transport(input_dict):
-    start_location = input_dict['locations'][0]
-    end_location = input_dict['locations'][-1]
-
-    start_results = get_nearby_stops(start_location)
-    end_results = get_nearby_stops(end_location)
-
-    # for result in start_results:
-    #     print("Address: ", result['address'].encode(encoding = 'UTF-8', errors = 'backslashreplace'), ", Distance: ", result['distance'])
-
-    # for result in end_results:
-    #     print("Address: ", result['address'].encode(encoding = 'UTF-8', errors = 'backslashreplace'), ", Distance: ", result['distance'])
-
-
-
-
-def get_nearby_stops(location):
-    results = []
-    print('Lon: ', location['lon'], 'Lat: ', location['lat'])
-    for x in poor.app.guide.nearby("Bus Stops", "", [location['lon'], location['lat']], 5000)[:5]:
-        results.append(x)
-
-    for x in poor.app.guide.nearby("Railway Platforms", "", [location['lon'], location['lat']], 5000)[:3]:
-        results.append(x)
-
-    for x in poor.app.guide.nearby("Railway Stations", "", [location['lon'], location['lat']], 5000)[:3]:
-        results.append(x)
-
-    return sorted(results, key=lambda x: poor.util.calculate_distance(location['lat'], location['lon'], x['y'], x['x']))
 
 def parse_result_libosmscout(url, locations, result, mode):
     """Parse and return route from libosmscout engine."""

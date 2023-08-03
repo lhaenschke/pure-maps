@@ -362,16 +362,22 @@ Item {
     function getNearbyStopsFromLocation(location) {
         var results_arr = []
         py.call("poor.app.guide.nearby", ["Bus Stops", "", [location['x'], location['y']], 5000], function(results) {
-            results.forEach( function(result) {console.log('Bus-Result: ', result['address'])} );
+            results = results.slice(5);
+            // results.forEach( function(result) { results_arr.append(result) });
+            results.forEach( function(result) { console.log('Platform-Result: ', result['address']) });
         });
 
         py.call("poor.app.guide.nearby", ["Railway Platforms", "", [location['x'], location['y']], 5000], function(results) {
+            results = results.slice(3);
             results.forEach( function(result) {console.log('Platform-Result: ', result['address'])} );
         });
 
         py.call("poor.app.guide.nearby", ["Railway Stations", "", [location['x'], location['y']], 5000], function(results) {
+            results = results.slice(3);
             results.forEach( function(result) {console.log('Station-Result: ', result['address'])} );
         });
+
+        // return sorted(results, key=lambda x: poor.util.calculate_distance(location['lat'], location['lon'], x['y'], x['x']))
 
         return results_arr
 
