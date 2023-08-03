@@ -229,9 +229,10 @@ Item {
                 console.log('Args-String: ', JSON.stringify(args));
 
                 const from_stops = navigator.getNearbyStopsFromLocation(args[0][0]);
+                const arrayUniqueByKey = [...new Map(from_stops.map(item => [item['title'], item])).values()];
                 const to_stops   = navigator.getNearbyStopsFromLocation(args[0][1]);
 
-                from_stops.forEach( function(x) { console.log('From-Json: ', JSON.stringify(x)); console.log('Title: ', x.title) } );
+                arrayUniqueByKey.forEach( function(x) { console.log('From-Json: ', JSON.stringify(x)); console.log('Title: ', x.title) } );
                 console.log('\n\n');
                 to_stops.forEach( function(x) { console.log('To-Json: ', JSON.stringify(x)) } );
 
