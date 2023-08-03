@@ -228,12 +228,10 @@ Item {
             if (app.conf.get("routers.osmscout.type") == "transit") {
                 console.log('Args-String: ', JSON.stringify(args));
 
-                const from_location = args[0][0];
-                const to_location   = args[0][1];
+                const from_stops = navigator.getNearbyStopsFromLocation(args[0][0]);
+                const to_stops   = navigator.getNearbyStopsFromLocation(args[0][1]);
 
-                navigator.getNearbyStopsFromLocation(from_location);
-                console.log('\n');
-                navigator.getNearbyStopsFromLocation(to_location);
+                from_stops.forEach( function(x) { console.log('Test: ', x['address']) } );
 
             }
         }
@@ -363,17 +361,17 @@ Item {
         var results_arr = []
         py.call("poor.app.guide.nearby", ["Bus Stops", "", [location['x'], location['y']], 5000], function(results) {
             results = results.slice(5);
-            results.forEach( function(result) { console.log('Platform-Result: ', result['address'], ' Distance: ', calculateDistance(result['y'], result['x'], location['y'], location['x']), ' Meters') });
+            results.forEach( function(result) { results_arr.append(result) });
         });
 
         py.call("poor.app.guide.nearby", ["Railway Platforms", "", [location['x'], location['y']], 5000], function(results) {
             results = results.slice(3);
-            results.forEach( function(result) { console.log('Platform-Result: ', result['address'], ' Distance: ', calculateDistance(result['y'], result['x'], location['y'], location['x']), ' Meters') });
+            results.forEach( function(result) { results_arr.append(result) });
         });
 
         py.call("poor.app.guide.nearby", ["Railway Stations", "", [location['x'], location['y']], 5000], function(results) {
             results = results.slice(3);
-            results.forEach( function(result) { console.log('Platform-Result: ', result['address'], ' Distance: ', calculateDistance(result['y'], result['x'], location['y'], location['x']), ' Meters') });
+            results.forEach( function(result) { results_arr.append(result) });
         });
 
         results_arr = results_arr.sort(function(a, b) {
@@ -385,7 +383,7 @@ Item {
             return 0;
         });
 
-        return results_arr
+        return results_arr;
 
     }
 
