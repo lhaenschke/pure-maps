@@ -228,8 +228,10 @@ Item {
             if (app.conf.get("routers.osmscout.type") == "transit") {
                 console.log('Args-String: ', JSON.stringify(args));
 
-                const from_stops = [...new Set(navigator.getNearbyStopsFromLocation(args[0][0]).map(x => x['title']))];
-                const to_stops   = [...new Set(navigator.getNearbyStopsFromLocation(args[0][1]).map(x => x['title']))];
+                // const from_stops = navigator.getNearbyStopsFromLocation(args[0][0]);
+                const from_stops = [...new Map(navigator.getNearbyStopsFromLocation(args[0][0]).map(item => [item['title'], item])).values()];
+                // const to_stops   = navigator.getNearbyStopsFromLocation(args[0][1]);
+                const to_stops = [...new Map(navigator.getNearbyStopsFromLocation(args[0][1]).map(item => [item['title'], item])).values()];
 
                 from_stops.forEach( function(x) { console.log('Json: ', JSON.stringify(x)) } );
                 to_stops.forEach( function(x) { console.log('Json: ', JSON.stringify(x)) } );
