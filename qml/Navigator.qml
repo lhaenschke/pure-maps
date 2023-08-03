@@ -231,8 +231,8 @@ Item {
                 const from_stops = navigator.getNearbyStopsFromLocation(args[0][0]);
                 const to_stops   = navigator.getNearbyStopsFromLocation(args[0][1]);
 
-                from_stops.forEach( function(x) { console.log("Test11") });
-                from_stops.forEach( function(x) { console.log('Test11: ', x['address']) } );
+                // from_stops.forEach( function(x) { console.log("Test11") });
+                // from_stops.forEach( function(x) { console.log('Test11: ', x['address']) } );
 
             }
         }
@@ -364,31 +364,26 @@ Item {
         var results = py.call_sync("poor.app.guide.nearby", ["Bus Stops", "", [location['x'], location['y']], 5000]);
         results = results.slice(5);
         results.forEach(r => {
-            console.log(JSON.stringify(r));
+            // console.log(JSON.stringify(r));
             arr.push(r);
         });
-
-        console.log('\n\n');
 
         var results = py.call_sync("poor.app.guide.nearby", ["Railway Platforms", "", [location['x'], location['y']], 5000]);
         results = results.slice(3);
         results.forEach(r => {
-            console.log(JSON.stringify(r));
+            // console.log(JSON.stringify(r));
             arr.push(r);
         });
-
-        console.log('\n\n');
 
         var results = py.call_sync("poor.app.guide.nearby", ["Railway Stations", "", [location['x'], location['y']], 5000]);
         results = results.slice(3);
         results.forEach(r => {
-            console.log(JSON.stringify(r));
+            // console.log(JSON.stringify(r));
             arr.push(r);
         });
 
-        console.log('\n\n');
-
-        arr.forEach(x => { console.log("Test4"); });
+        var count = 0;
+        arr.forEach(x => { console.log("Count: ", count++); });
 
         // results_arr = results_arr.sort(function(a, b) {
         //     const keyA = calculate_distance(a['y'], a['x'], location['y'], location['x']);
