@@ -240,14 +240,11 @@ Item {
 
                 navigator.getNearbyStopsFromLocation(args[0][0]).forEach(x => {
                     console.log('POI: ', x['title']);
-                    const kptLocation = TrainConnection.getLocationFromCoorAndName(x['y'], x['x'], x['name']);
+                    const kptLocation = TrainConnection.getLocationFromCoorAndName(x['y'], x['x'], x['title']);
                     console.log('Location: ', kptLocation.name, "\n");
                 });
 
                 const toStopsPOIs   = navigator.getNearbyStopsFromLocation(args[0][1]);
-                toStopsPOIs.forEach(x => {
-                    console.log('POI-String: ', JSON.stringify(x));
-                });
 
             }
         }
