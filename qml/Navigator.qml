@@ -239,12 +239,22 @@ Item {
                 var toStopsKPTs   = [];
 
                 navigator.getNearbyStopsFromLocation(args[0][0]).forEach(x => {
-                    console.log('POI: ', x['title']);
-                    const kptLocation = TrainConnection.getLocationFromCoorAndName(x['y'], x['x'], x['title']);
-                    console.log('Location: ', kptLocation.name, "\n");
+                    fromStopsKPTs.push(TrainConnection.getLocationFromCoorAndName(x['y'], x['x'], x['title']));
                 });
 
-                const toStopsPOIs   = navigator.getNearbyStopsFromLocation(args[0][1]);
+                navigator.getNearbyStopsFromLocation(args[0][1]).forEach(x => {
+                    toStopsKPTs.push(TrainConnection.getLocationFromCoorAndName(x['y'], x['x'], x['title']));
+                });
+
+                fromStopsKPTs.forEach(x => {
+                    console.log("From: ", x.name);
+                });
+
+                console.log('\n');
+
+                toStopsKPTs.forEach(x => {
+                    console.log("To: ", x.name);
+                });
 
             }
         }
