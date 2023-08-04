@@ -101,8 +101,6 @@ void TrainConnection::setStartLocation(float lat, float lon, const QString &name
     req.setCoordinate(lat, lon);
     req.setName(name);
 
-    std::cout << "Lat: " << lat << ", Lon: " << lon << std::endl;
-
     for (auto result: m_manager.queryLocation(req)->result()) {
         setStart(result);
         break;
@@ -121,6 +119,8 @@ KPublicTransport::Location TrainConnection::convertJsonStringToLocation(const QS
 
 KPublicTransport::Location TrainConnection::getLocationFromCoorAndName(float lat, float lon, const QString &name)
 {
+    std::cout << "Lat: " << lat << ", Lon: " << lon << std::endl;
+    
     KPublicTransport::LocationRequest req;
     req.setBackendIds(m_manager.enabledBackends());
     req.setCoordinate(lat, lon);
