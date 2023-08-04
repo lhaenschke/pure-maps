@@ -249,13 +249,13 @@ Item {
                 });
 
                 fromStops.forEach(x => {
-                    console.log("From (Json): ", Json.stringify(x));
+                    console.log("From (Json): ", JSON.stringify(x));
                 });
 
                 console.log('\n');
 
                 toStops.forEach(x => {
-                    console.log("To (Json): ", Json.stringify(x));
+                    console.log("To (Json): ", JSON.stringify(x));
                 });
 
             }
