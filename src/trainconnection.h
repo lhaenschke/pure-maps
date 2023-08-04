@@ -21,6 +21,7 @@
 #include <KPublicTransport/Backend>
 #include <KPublicTransport/Attribution>
 #include <KPublicTransport/JourneyRequest>
+#include <KPublicTransport/JourneyReply>
 #include <KPublicTransport/Journey>
 #include <KPublicTransport/LocationRequest>
 #include <KPublicTransport/LocationReply>
