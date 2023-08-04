@@ -152,11 +152,11 @@ QVector<KPublicTransport::JourneyRequest> TrainConnection::createJourneyRequest(
     QDateTime depTime(QDate::currentDate(), QTime::currentTime());
     req.setDepartureTime(depTime);
 
-    std::vector<KPublicTransport::JourneyRequest> journeys;
+    QVector<KPublicTransport::JourneyRequest> journeys;
 
     for (auto result: m_manager.queryJourney(req)->result()) {
         if (journeys.size() < 3) {
-            journeys.push_back(result);
+            journeys.append(result);
         } else {
             break;   
         }
