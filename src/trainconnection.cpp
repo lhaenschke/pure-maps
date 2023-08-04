@@ -12,8 +12,6 @@
 #include <QQmlApplicationEngine>
 #include <QDateTime>
 #include <QDebug>
-#include <QString>
-#include <QVector>
 #include <QDesktopServices>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -131,7 +129,7 @@ KPublicTransport::Location TrainConnection::getLocationFromCoorAndName(float lat
     return m_defaultLocation;
 }
 
-QVector<KPublicTransport::Journey> TrainConnection::getJourneyBetweenLocations(const KPublicTransport::Location &fromLocation, const KPublicTransport::Location &toLocation)
+QVariant TrainConnection::getJourneyBetweenLocations(const KPublicTransport::Location &fromLocation, const KPublicTransport::Location &toLocation)
 {
     KPublicTransport::JourneyRequest req;
     req.setFrom(fromLocation);
@@ -151,7 +149,7 @@ QVector<KPublicTransport::Journey> TrainConnection::getJourneyBetweenLocations(c
         }
     }
 
-    return journeys;
+    return QVariant::fromValue(journeys);
 }
 
 KPublicTransport::JourneyRequest TrainConnection::createJourneyRequest()
