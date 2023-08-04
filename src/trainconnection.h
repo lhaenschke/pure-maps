@@ -12,18 +12,20 @@
 
 #include <QDate>
 #include <QObject>
+#include <QVector>
 #include <QString>
 #include <QTime>
 #include <QVariant>
 
-#include <KPublicTransport/JourneyRequest>
-#include <KPublicTransport/Location>
 #include <KPublicTransport/Manager>
 #include <KPublicTransport/Backend>
+#include <KPublicTransport/Attribution>
+#include <KPublicTransport/JourneyRequest>
+#include <KPublicTransport/Journey>
 #include <KPublicTransport/LocationRequest>
 #include <KPublicTransport/LocationReply>
+#include <KPublicTransport/Location>
 #include <KPublicTransport/StopoverRequest>
-#include <KPublicTransport/Attribution>
 
 class TrainConnection : public QObject
 {
@@ -55,6 +57,7 @@ public:
     Q_INVOKABLE KPublicTransport::Location convertJsonStringToLocation(const QString &jsonString);
 
     Q_INVOKABLE KPublicTransport::Location getLocationFromCoorAndName(float lat, float lon, const QString &name);
+    Q_INVOKABLE QVector<KPublicTransport::JourneyRequest> getJourneyBetweenLocations(const KPublicTransport::Location &fromLocation, const KPublicTransport::Location &toLocation);
 
     Q_INVOKABLE KPublicTransport::JourneyRequest createJourneyRequest();
     Q_INVOKABLE KPublicTransport::LocationRequest createLocationRequest(const QString &name);

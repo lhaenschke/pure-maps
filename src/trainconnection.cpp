@@ -13,6 +13,7 @@
 #include <QDateTime>
 #include <QDebug>
 #include <QString>
+#include <QVector>
 #include <QDesktopServices>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -130,17 +131,38 @@ KPublicTransport::Location TrainConnection::getLocationFromCoorAndName(float lat
     return m_defaultLocation;
 }
 
-KPublicTransport::JourneyRequest TrainConnection::createJourneyRequest()
+KPublicTransport::Journey TrainConnection::getJourneyBetweenLocations(const KPublicTransport::Location &fromLocation, const KPublicTransport::Location &toLocation)
+{
+    KPublicTransport::JourneyRequest req;
+    req.setFrom(fromLocation);
+    req.setTo(toLocation);
+    req.setDownloadAssets(false);
+
+    QDateTime depTime(m_departureDate, m_departureTime);
+    req.setDepartureTime(depTime);
+}
+
+QVector<KPublicTransport::JourneyRequest> TrainConnection::createJourneyRequest()
 {
     KPublicTransport::JourneyRequest req;
     req.setFrom(m_start);
     req.setTo(m_destination);
     req.setDownloadAssets(false);
 
-    QDateTime depTime(m_departureDate, m_departureTime);
+    QDateTime depTime(QDate::currentDate(), QTime::currentTime());
     req.setDepartureTime(depTime);
 
-    return req;
+    std::vector<KPublicTransport::JourneyRequest> journeys;
+
+    for (auto result: m_manager.queryJourney(req)->result()) {
+        if (journeys.size() < 3) {
+            journeys.push_back(result);
+        } else {
+            break;   
+        }
+    }
+
+    return journeys;
 }
 
 KPublicTransport::LocationRequest TrainConnection::createLocationRequest(const QString &name)
