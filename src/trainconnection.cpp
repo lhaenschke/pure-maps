@@ -32,6 +32,9 @@ TrainConnection::TrainConnection(QObject *parent)
     m_departureDate = QDate::currentDate();
     m_departureTime = QTime::currentTime();
     
+    // QString jsonString = "";
+    // m_defaultLocation = KPublicTransport::Location::fromJson(QJsonDocument::fromJson(jsonString.toUtf8()).object())
+
     m_manager.setAllowInsecureBackends(false);
     m_manager.setBackendsEnabledByDefault(false);
     
@@ -124,7 +127,7 @@ KPublicTransport::Location TrainConnection::getLocationFromCoorAndName(float lat
     for (auto result: m_manager.queryLocation(req)->result()) {
         return result;
     }
-    return NULL;
+    return m_defaultLocation;
 }
 
 KPublicTransport::JourneyRequest TrainConnection::createJourneyRequest()

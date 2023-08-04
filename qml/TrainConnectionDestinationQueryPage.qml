@@ -73,6 +73,7 @@ PageListPL {
             if (showCache) {
                 callback(TrainConnection.convertJsonStringToLocation(model['json_string']));
             } else {
+                console.log('Json-String: ', TrainConnection.convertLocationToJsonString(location));
                 py.call_sync("poor.app.history.add_kpt_location", [location.name, TrainConnection.convertLocationToJsonString(location)]);
                 callback(location);
             }

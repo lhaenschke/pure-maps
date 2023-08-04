@@ -69,6 +69,7 @@ Q_SIGNALS:
 private:
     KPublicTransport::Location m_start;
     KPublicTransport::Location m_destination;
+    KPublicTransport::Location m_defaultLocation
     KPublicTransport::Manager m_manager;
     QDate m_departureDate;
     QTime m_departureTime;
