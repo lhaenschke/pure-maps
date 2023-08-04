@@ -235,27 +235,27 @@ Item {
                     loadedKPTBackends = true;
                 }
 
-                var fromStopsKPTs = [];
-                var toStopsKPTs   = [];
+                var fromStops = [];
+                var toStops   = [];
 
                 navigator.getNearbyStopsFromLocation(args[0][0]).forEach(x => {
                     const kptLocation = TrainConnection.getLocationFromCoorAndName(x['y'], x['x'], x['title']);
-                    if (kptLocation.name != "Default") fromStopsKPTs.push(kptLocation);
+                    if (kptLocation.name != "Default") fromStops.push({"PoiLocation": x, "KptLocation": kptLocation});
                 });
 
                 navigator.getNearbyStopsFromLocation(args[0][1]).forEach(x => {
                     const kptLocation = TrainConnection.getLocationFromCoorAndName(x['y'], x['x'], x['title']);
-                    if (kptLocation.name != "Default") toStopsKPTs.push(kptLocation);
+                    if (kptLocation.name != "Default") toStops.push({"PoiLocation": x, "KptLocation": kptLocation});
                 });
 
-                fromStopsKPTs.forEach(x => {
-                    console.log("From: ", x.name);
+                fromStops.forEach(x => {
+                    console.log("From (Json): ", Json.stringify(x));
                 });
 
                 console.log('\n');
 
-                toStopsKPTs.forEach(x => {
-                    console.log("To: ", x.name);
+                toStops.forEach(x => {
+                    console.log("To (Json): ", Json.stringify(x));
                 });
 
             }
