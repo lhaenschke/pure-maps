@@ -67,6 +67,7 @@ Item {
     property alias  totalTime: navigatorBase.totalTime
     property alias  totalTimeInTraffic: navigatorBase.totalTimeInTraffic
     property alias  transportMode: navigatorBase.mode
+    property bool   loadedKPTBackends: false
 
     NavigatorBase {
         id: navigatorBase
@@ -227,6 +228,12 @@ Item {
         if (app.conf.get("profile") == "offline") {
             if (app.conf.get("routers.osmscout.type") == "transit") {
                 // console.log('Args-String: ', JSON.stringify(args));
+
+                if (!loadedKPTBackends) {
+                    const kpt_backends = py.evaluate("poor.app.history.kpt_backends");
+                    kpt_backends.forEach( function(x) { TrainConnection.setBackendEnable(x, true); } );
+                    loadedKPTBackends = true;
+                }
 
                 var fromStopsKPTs = [];
                 var toStopsKPTs   = [];

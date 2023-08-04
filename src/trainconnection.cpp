@@ -119,7 +119,7 @@ KPublicTransport::Location TrainConnection::convertJsonStringToLocation(const QS
 
 KPublicTransport::Location TrainConnection::getLocationFromCoorAndName(float lat, float lon, const QString &name)
 {
-    std::cout << "Lat: " << lat << ", Lon: " << lon << std::endl;
+    std::cout << "Name: " << name << ", Lat: " << lat << ", Lon: " << lon << std::endl;
     
     KPublicTransport::LocationRequest req;
     req.setBackendIds(m_manager.enabledBackends());
