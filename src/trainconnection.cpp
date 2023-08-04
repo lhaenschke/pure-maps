@@ -32,7 +32,7 @@ TrainConnection::TrainConnection(QObject *parent)
     m_departureDate = QDate::currentDate();
     m_departureTime = QTime::currentTime();
     
-    QString defaultJsonString = "{\"identifier\":{\"db\":\"8000085\",\"de_nw_vrr\":\"20018235\",\"ibnr\":\"8000085\",\"ifopt\":\"de:05111:18235\"},\"latitude\":51.21984100341797,\"longitude\":6.793758392333984,\"name\":\"Düsseldorf, Hbf\",\"type\":\"Stop\"}";
+    QString defaultJsonString = "{\"identifier\":{\"db\":\"0000000\",\"de_nw_vrr\":\"00000000\",\"ibnr\":\"000000\",\"ifopt\":\"de:00000:00000\"},\"latitude\":0.0,\"longitude\":0.0,\"name\":\"Default\",\"type\":\"Stop\"}";
     m_defaultLocation = convertJsonStringToLocation(defaultJsonString);
 
     m_manager.setAllowInsecureBackends(false);
@@ -119,8 +119,6 @@ KPublicTransport::Location TrainConnection::convertJsonStringToLocation(const QS
 
 KPublicTransport::Location TrainConnection::getLocationFromCoorAndName(float lat, float lon, const QString &name)
 {
-    std::cout << "Name: " << name.toStdString() << ", Lat: " << lat << ", Lon: " << lon << std::endl;
-    
     KPublicTransport::LocationRequest req;
     req.setBackendIds(m_manager.enabledBackends());
     req.setCoordinate(lat, lon);

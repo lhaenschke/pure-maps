@@ -239,11 +239,13 @@ Item {
                 var toStopsKPTs   = [];
 
                 navigator.getNearbyStopsFromLocation(args[0][0]).forEach(x => {
-                    fromStopsKPTs.push(TrainConnection.getLocationFromCoorAndName(x['y'], x['x'], x['title']));
+                    const kptLocation = TrainConnection.getLocationFromCoorAndName(x['y'], x['x'], x['title']);
+                    if (kptLocation.name != "Default") fromStopsKPTs.push(kptLocation);
                 });
 
                 navigator.getNearbyStopsFromLocation(args[0][1]).forEach(x => {
-                    toStopsKPTs.push(TrainConnection.getLocationFromCoorAndName(x['y'], x['x'], x['title']));
+                    const kptLocation = TrainConnection.getLocationFromCoorAndName(x['y'], x['x'], x['title']);
+                    if (kptLocation.name != "Default") toStopsKPTs.push(kptLocation);
                 });
 
                 fromStopsKPTs.forEach(x => {
