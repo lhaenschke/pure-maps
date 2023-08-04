@@ -32,8 +32,8 @@ TrainConnection::TrainConnection(QObject *parent)
     m_departureDate = QDate::currentDate();
     m_departureTime = QTime::currentTime();
     
-    // QString jsonString = "";
-    // m_defaultLocation = KPublicTransport::Location::fromJson(QJsonDocument::fromJson(jsonString.toUtf8()).object())
+    QString defaultJsonString = "{\"identifier\":{\"db\":\"8000085\",\"de_nw_vrr\":\"20018235\",\"ibnr\":\"8000085\",\"ifopt\":\"de:05111:18235\"},\"latitude\":51.21984100341797,\"longitude\":6.793758392333984,\"name\":\"Düsseldorf, Hbf\",\"type\":\"Stop\"}";
+    m_defaultLocation = convertJsonStringToLocation(defaultJsonString);
 
     m_manager.setAllowInsecureBackends(false);
     m_manager.setBackendsEnabledByDefault(false);
