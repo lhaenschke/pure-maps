@@ -248,15 +248,25 @@ Item {
                     if (kptLocation.name != "Default") toStops.push({"PoiLocation": x, "KptLocation": kptLocation});
                 });
 
-                fromStops.forEach(x => {
-                    console.log("From (Json): ", JSON.stringify(x));
+                fromStops.forEach(from => {
+                    toStops.forEach(to => {
+                        const journeys = TrainConnection.getJourneyBetweenLocations(from.KptLocation, to.KptLocation);
+                        journeys.forEach(x => {
+                            console.log("Journey: ", JSON.stringify(x));
+                        });
+                        console.log("\n\n");
+                    });
                 });
 
-                console.log('\n');
+                // fromStops.forEach(x => {
+                //     console.log("From (Json): ", JSON.stringify(x));
+                // });
 
-                toStops.forEach(x => {
-                    console.log("To (Json): ", JSON.stringify(x));
-                });
+                // console.log('\n');
+
+                // toStops.forEach(x => {
+                //     console.log("To (Json): ", JSON.stringify(x));
+                // });
 
             }
         }
