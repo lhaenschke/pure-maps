@@ -226,14 +226,17 @@ Item {
 
         if (app.conf.get("profile") == "offline") {
             if (app.conf.get("routers.osmscout.type") == "transit") {
-                console.log('Args-String: ', JSON.stringify(args));
+                // console.log('Args-String: ', JSON.stringify(args));
 
-                const from_stops = navigator.getNearbyStopsFromLocation(args[0][0]);
-                const to_stops   = navigator.getNearbyStopsFromLocation(args[0][1]);
+                var fromStopsKPTs = [];
+                var toStopsKPTs   = [];
 
-                from_stops.forEach( function(x) { console.log('From-Json: ', JSON.stringify(x)) } );
-                console.log('\n\n');
-                to_stops.forEach( function(x) { console.log('To-Json: ', JSON.stringify(x)) } );
+                navigator.getNearbyStopsFromLocation(args[0][0]).forEach(x => {
+                    const kptLocation = TrainConnection.getLocationFromCoorAndName(x['y'], x['x'], x['name']);
+                    console.log('Location: ', kptLocation.name);
+                });
+
+                // const toStopsPOIs   = navigator.getNearbyStopsFromLocation(args[0][1]);
 
             }
         }
