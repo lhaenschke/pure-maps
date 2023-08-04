@@ -101,6 +101,8 @@ void TrainConnection::setStartLocation(float lat, float lon, const QString &name
     req.setCoordinate(lat, lon);
     req.setName(name);
 
+    std::cout << "Lat: " << lat << ", Lon: " << lon << std::endl;
+
     for (auto result: m_manager.queryLocation(req)->result()) {
         setStart(result);
         break;

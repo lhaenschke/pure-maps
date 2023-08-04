@@ -232,6 +232,7 @@ Item {
                 var toStopsKPTs   = [];
 
                 navigator.getNearbyStopsFromLocation(args[0][0]).forEach(x => {
+                    console.log('POI: ', x['title']);
                     const kptLocation = TrainConnection.getLocationFromCoorAndName(x['y'], x['x'], x['name']);
                     console.log('Location: ', kptLocation.name);
                 });
