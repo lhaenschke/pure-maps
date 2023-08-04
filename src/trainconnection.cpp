@@ -131,7 +131,7 @@ KPublicTransport::Location TrainConnection::getLocationFromCoorAndName(float lat
     return m_defaultLocation;
 }
 
-KPublicTransport::Journey TrainConnection::getJourneyBetweenLocations(const KPublicTransport::Location &fromLocation, const KPublicTransport::Location &toLocation)
+QVector<KPublicTransport::JourneyRequest> TrainConnection::getJourneyBetweenLocations(const KPublicTransport::Location &fromLocation, const KPublicTransport::Location &toLocation)
 {
     KPublicTransport::JourneyRequest req;
     req.setFrom(fromLocation);
@@ -139,17 +139,6 @@ KPublicTransport::Journey TrainConnection::getJourneyBetweenLocations(const KPub
     req.setDownloadAssets(false);
 
     QDateTime depTime(m_departureDate, m_departureTime);
-    req.setDepartureTime(depTime);
-}
-
-QVector<KPublicTransport::JourneyRequest> TrainConnection::createJourneyRequest()
-{
-    KPublicTransport::JourneyRequest req;
-    req.setFrom(m_start);
-    req.setTo(m_destination);
-    req.setDownloadAssets(false);
-
-    QDateTime depTime(QDate::currentDate(), QTime::currentTime());
     req.setDepartureTime(depTime);
 
     QVector<KPublicTransport::JourneyRequest> journeys;
@@ -163,6 +152,19 @@ QVector<KPublicTransport::JourneyRequest> TrainConnection::createJourneyRequest(
     }
 
     return journeys;
+}
+
+KPublicTransport::JourneyRequest TrainConnection::createJourneyRequest()
+{
+    KPublicTransport::JourneyRequest req;
+    req.setFrom(m_start);
+    req.setTo(m_destination);
+    req.setDownloadAssets(false);
+
+    QDateTime depTime(QDate::currentDate(), QTime::currentTime());
+    req.setDepartureTime(depTime);
+
+    return req;
 }
 
 KPublicTransport::LocationRequest TrainConnection::createLocationRequest(const QString &name)
