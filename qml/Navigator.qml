@@ -241,10 +241,13 @@ Item {
                 navigator.getNearbyStopsFromLocation(args[0][0]).forEach(x => {
                     console.log('POI: ', x['title']);
                     const kptLocation = TrainConnection.getLocationFromCoorAndName(x['y'], x['x'], x['name']);
-                    console.log('Location: ', kptLocation.name);
+                    console.log('Location: ', kptLocation.name, "\n");
                 });
 
-                // const toStopsPOIs   = navigator.getNearbyStopsFromLocation(args[0][1]);
+                const toStopsPOIs   = navigator.getNearbyStopsFromLocation(args[0][1]);
+                toStopsPOIs.forEach(x => {
+                    console.log('POI-String: ', JSON.stringify(x));
+                });
 
             }
         }
