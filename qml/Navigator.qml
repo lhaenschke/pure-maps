@@ -250,15 +250,17 @@ Item {
                     if (JSON.parse(kptLocationJsonString).name != "Default") toStops.push({"PoiLocation": x, "KptLocationJson": kptLocationJsonString});
                 });
 
-                fromStops.forEach(from => {
-                    toStops.forEach(to => {
-                        var journeys = TrainConnection.getJourneyBetweenLocations(from.KptLocationJson, to.KptLocationJson);
-                        journeys.forEach(x => {
-                            console.log("Journey: ", JSON.stringify(x));
-                        });
-                        // console.log("\n\n");
-                    });
-                });
+                var journeys = TrainConnection.getJourneyBetweenLocations(fromStops[0].KptLocationJson, toStops[0].KptLocationJson);
+
+                // fromStops.forEach(from => {
+                //     toStops.forEach(to => {
+                //         var journeys = TrainConnection.getJourneyBetweenLocations(from.KptLocationJson, to.KptLocationJson);
+                //         journeys.forEach(x => {
+                //             console.log("Journey: ", JSON.stringify(x));
+                //         });
+                //         // console.log("\n\n");
+                //     });
+                // });
 
             }
         }
