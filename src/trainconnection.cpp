@@ -138,7 +138,7 @@ QVariant TrainConnection::getJourneyBetweenLocations(const KPublicTransport::Loc
     req.setBackendIds(m_manager.enabledBackends());
     req.setFrom(m_start);
     req.setTo(m_destination);
-    req.setDownloadAssets(false);
+    // req.setDownloadAssets(false);
 
     QDateTime depTime(m_departureDate, m_departureTime);
     req.setDepartureTime(depTime);
