@@ -134,10 +134,8 @@ QVariant TrainConnection::getJourneyBetweenLocations(const KPublicTransport::Loc
     std::cout << "Name-From: " << fromLocation.name().toStdString() << std::endl;
     std::cout << "Name-To: " << toLocation.name().toStdString() << std::endl;
 
-    KPublicTransport::JourneyRequest req;
+    KPublicTransport::JourneyRequest req = KPublicTransport::JourneyRequest(fromLocation, toLocation);
     req.setBackendIds(m_manager.enabledBackends());
-    req.setFrom(fromLocation);
-    req.setTo(toLocation);
 
     QDateTime depTime(m_departureDate, m_departureTime);
     req.setDepartureTime(depTime);
