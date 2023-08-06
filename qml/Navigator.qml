@@ -240,6 +240,7 @@ Item {
 
                 navigator.getNearbyStopsFromLocation(args[0][0]).forEach(x => {
                     const kptLocation = TrainConnection.getLocationFromCoorAndName(x['y'], x['x'], x['title']);
+                    console.log("Json-QML: ", JSON.stringify(kptLocation));
                     if (kptLocation.name != "Default") fromStops.push({"PoiLocation": x, "KptLocation": kptLocation});
                 });
 

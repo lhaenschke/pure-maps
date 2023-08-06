@@ -124,6 +124,7 @@ KPublicTransport::Location TrainConnection::getLocationFromCoorAndName(float lat
     req.setName(name);
 
     for (auto result: m_manager.queryLocation(req)->result()) {
+        std::cout << "Location-Json: " << QJsonDocument(KPublicTransport::Location::toJson(location)).toJson(QJsonDocument::Compact).toStdString() << std::endl;
         return result;
     }
     return m_defaultLocation;
