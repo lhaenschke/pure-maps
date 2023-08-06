@@ -128,8 +128,11 @@ QString TrainConnection::getJsonLocationFromCoorAndName(float lat, float lon, co
 
 QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocationJson, const QString &toLocationJson)
 {
-    KPublicTransport::JourneyRequest req = KPublicTransport::JourneyRequest(&convertJsonStringToLocation(fromLocationJson), 
-                                                                            &convertJsonStringToLocation(toLocationJson));
+    // KPublicTransport::JourneyRequest req = KPublicTransport::JourneyRequest(convertJsonStringToLocation(fromLocationJson), 
+                                                                            // convertJsonStringToLocation(toLocationJson));
+
+    KPublicTransport::JourneyRequest req = KPublicTransport::JourneyRequest(m_start, m_destination); 
+
     req.setBackendIds(m_manager.enabledBackends());
 
     QDateTime depTime(QDate::currentDate(), QTime::currentTime());
