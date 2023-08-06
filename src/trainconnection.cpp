@@ -133,14 +133,16 @@ QVariant TrainConnection::getJourneyBetweenLocations(const KPublicTransport::Loc
 {
     KPublicTransport::JourneyRequest req;
     req.setBackendIds(m_manager.enabledBackends());
-    req.setFrom(m_start);
-    req.setTo(m_destination);
+    req.setFrom(fromLocation);
+    req.setTo(toLocation);
     req.setDownloadAssets(false);
 
     QDateTime depTime(QDate::currentDate(), QTime::currentTime());
     req.setDepartureTime(depTime);
 
     QVector<KPublicTransport::Journey> journeys;
+
+    std::cout << "1" << std::endl;
 
     for (auto result: m_manager.queryJourney(req)->result()) {
         std::cout << "Test: " << result.duration() << std::endl;
@@ -150,6 +152,8 @@ QVariant TrainConnection::getJourneyBetweenLocations(const KPublicTransport::Loc
             break;   
         }
     }
+
+    std::cout << "2" << std::endl;
 
     return QVariant::fromValue(journeys);
 }
