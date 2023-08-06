@@ -131,10 +131,10 @@ KPublicTransport::Location TrainConnection::getLocationFromCoorAndName(float lat
 
 QVariant TrainConnection::getJourneyBetweenLocations(const KPublicTransport::Location &fromLocation, const KPublicTransport::Location &toLocation)
 {
-    KPublicTransport::JourneyRequest req;
+    KPublicTransport::JourneyRequest req = KPublicTransport::JourneyRequest(fromLocation, toLocation);
     req.setBackendIds(m_manager.enabledBackends());
-    req.setFrom(fromLocation);
-    req.setTo(toLocation);
+    // req.setFrom(fromLocation);
+    // req.setTo(toLocation);
     req.setDownloadAssets(false);
 
     QDateTime depTime(QDate::currentDate(), QTime::currentTime());
