@@ -254,8 +254,8 @@ Item {
 
                 fromStops.forEach(from => {
                     toStops.forEach(to => {
-                        console.log("From-Name: ", from.KptLocation.name);
-                        console.log("To-Name: ", to.KptLocation.name);
+                        console.log("From-Name: ", from.KptLocation.streetAddress);
+                        console.log("To-Name: ", to.KptLocation.streetAddress);
                         // var journeys = TrainConnection.getJourneyBetweenLocations(from.KptLocation, to.KptLocation);
                         // journeys.forEach(x => {
                         //     console.log("Journey: ", JSON.stringify(x));
