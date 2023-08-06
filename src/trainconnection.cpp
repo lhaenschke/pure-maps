@@ -142,8 +142,12 @@ QVariant TrainConnection::getJourneyBetweenLocations(const KPublicTransport::Loc
 
     QVector<KPublicTransport::Journey> journeys;
 
-    KPublicTransport::JourneyReply *reply = m_manager.queryJourney(req);
-    const std::vector<KPublicTransport::Journey> &test = reply->result();
+    // KPublicTransport::JourneyReply *reply = m_manager.queryJourney(req);
+    // const std::vector<KPublicTransport::Journey> &test = reply->result();
+
+    KPublicTransport::JourneyQueryModel jqm;
+    jqm.setRequest(req);
+    const std::vector<KPublicTransport::Journey> &test = jqm.journeys();
 
     std::cout << "Anzahl Journeys: " << test.size() << std::endl;
 
