@@ -121,7 +121,6 @@ QString TrainConnection::getJsonLocationFromCoorAndName(float lat, float lon, co
     req.setName(name);
 
     for (auto result: m_manager.queryLocation(req)->result()) {
-        std::cout << "Location-Json: " << convertLocationToJsonString(result).toStdString() << std::endl;
         return convertLocationToJsonString(result);
     }
     return QString("{\"name\":\"Default\"}");
@@ -129,8 +128,8 @@ QString TrainConnection::getJsonLocationFromCoorAndName(float lat, float lon, co
 
 QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocationJson, const QString &toLocationJson)
 {
-    KPublicTransport::JourneyRequest req = KPublicTransport::JourneyRequest(convertJsonStringToLocation(fromLocationJson), 
-                                                                            convertJsonStringToLocation(toLocationJson));
+    KPublicTransport::JourneyRequest req = KPublicTransport::JourneyRequest(&convertJsonStringToLocation(fromLocationJson), 
+                                                                            &convertJsonStringToLocation(toLocationJson));
     req.setBackendIds(m_manager.enabledBackends());
 
     QDateTime depTime(QDate::currentDate(), QTime::currentTime());
