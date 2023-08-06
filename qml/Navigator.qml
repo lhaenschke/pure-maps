@@ -244,6 +244,8 @@ Item {
                     if (kptLocation.name != "Default") fromStops.push({"PoiLocation": x, "KptLocation": kptLocation});
                 });
 
+                console.log("");
+
                 navigator.getNearbyStopsFromLocation(args[0][1]).forEach(x => {
                     const kptLocation = TrainConnection.getLocationFromCoorAndName(x['y'], x['x'], x['title']);
                     console.log("KptLocation-Name: ", kptLocation.name);
@@ -252,7 +254,9 @@ Item {
 
                 fromStops.forEach(from => {
                     toStops.forEach(to => {
-                        var journeys = TrainConnection.getJourneyBetweenLocations(from.KptLocation, to.KptLocation);
+                        console.log("From-Name: ", from.KptLocation.name);
+                        console.log("To-Name: ", to.KptLocation.name);
+                        // var journeys = TrainConnection.getJourneyBetweenLocations(from.KptLocation, to.KptLocation);
                         // journeys.forEach(x => {
                         //     console.log("Journey: ", JSON.stringify(x));
                         // });
