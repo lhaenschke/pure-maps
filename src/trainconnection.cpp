@@ -121,7 +121,7 @@ QString TrainConnection::getJsonLocationFromCoorAndName(float lat, float lon, co
     req.setName(name);
 
     for (auto result: m_manager.queryLocation(req)->result()) {
-        std::cout << "Location-Json: " << QJsonDocument(KPublicTransport::Location::toJson(result)).toJson(QJsonDocument::Compact).toStdString() << std::endl;
+        // std::cout << "Location-Json: " << QJsonDocument(KPublicTransport::Location::toJson(result)).toJson(QJsonDocument::Compact).toStdString() << std::endl;
         // return convertLocationToJsonString(result);
         return QString("{\"name\":\"Default\"}");
     }
