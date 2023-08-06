@@ -124,7 +124,7 @@ KPublicTransport::Location TrainConnection::getLocationFromCoorAndName(float lat
     req.setName(name);
 
     for (auto result: m_manager.queryLocation(req)->result()) {
-        std::cout << "Location-Json: " << QJsonDocument(KPublicTransport::Location::toJson(location)).toJson(QJsonDocument::Compact).toStdString() << std::endl;
+        std::cout << "Location-Json: " << QJsonDocument(KPublicTransport::Location::toJson(result)).toJson(QJsonDocument::Compact).toStdString() << std::endl;
         return result;
     }
     return m_defaultLocation;
@@ -137,7 +137,7 @@ QVariant TrainConnection::getJourneyBetweenLocations(const KPublicTransport::Loc
     req.setFrom(fromLocation);
     req.setTo(toLocation);
 
-    QDateTime depTime(m_departureDate, m_departureTime);
+    QDateTime depTime(QDate::currentDate(), QTime::currentTime());
     req.setDepartureTime(depTime);
 
     QVector<KPublicTransport::Journey> journeys;
