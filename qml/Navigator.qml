@@ -239,19 +239,22 @@ Item {
                 var toStops   = [];
 
                 navigator.getNearbyStopsFromLocation(args[0][0]).forEach(x => {
-                    const kptLocation = TrainConnection.getLocationFromCoorAndName(x['y'], x['x'], x['title']);
-                    console.log("Json-QML: ", JSON.stringify(kptLocation));
-                    if (kptLocation.name != "Default") fromStops.push({"PoiLocation": x, "KptLocation": kptLocation});
+                    const kptLocationJsonString = TrainConnection.getJsonLocationFromCoorAndName(x['y'], x['x'], x['title']);
+                    console.log("Json-QML: ", kptLocationJsonString);
+                    if (JSON.parse(kptLocationJsonString).name != "Default") {
+                        fromStops.push({"PoiLocation": x, "KptLocationJson": kptLocationJsonString});
+                        console.log("Test1");
+                    }
                 });
 
                 console.log("");
 
                 navigator.getNearbyStopsFromLocation(args[0][1]).forEach(x => {
-                    const kptLocation = TrainConnection.getLocationFromCoorAndName(x['y'], x['x'], x['title']);
-                    if (kptLocation.name != "Default") toStops.push({"PoiLocation": x, "KptLocation": kptLocation});
+                    const kptLocationJsonString = TrainConnection.getJsonLocationFromCoorAndName(x['y'], x['x'], x['title']);
+                    if (JSON.parse(kptLocationJsonString).name != "Default") toStops.push({"PoiLocation": x, "KptLocationJson": kptLocationJsonString});
                 });
 
-                var journeys = TrainConnection.getJourneyBetweenLocations(fromStops[0].KptLocation, fromStops[0].KptLocation);
+                var journeys = TrainConnection.getJourneyBetweenLocations(fromStops[0].KptLocationJson, fromStops[0].KptLocationJson);
 
                 // fromStops.forEach(from => {
                 //     toStops.forEach(to => {

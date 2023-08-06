@@ -10,17 +10,16 @@
 #ifndef TRAINCONNECTION_H
 #define TRAINCONNECTION_H
 
-#include <QDate>
 #include <QObject>
-#include <QVariant>
-#include <QString>
+#include <QDate>
 #include <QTime>
+#include <QString>
+#include <QVariant>
 
 #include <KPublicTransport/Manager>
 #include <KPublicTransport/Backend>
 #include <KPublicTransport/Attribution>
 #include <KPublicTransport/JourneyRequest>
-#include <KPublicTransport/JourneyQueryModel>
 #include <KPublicTransport/JourneyReply>
 #include <KPublicTransport/Journey>
 #include <KPublicTransport/LocationRequest>
@@ -57,8 +56,8 @@ public:
     Q_INVOKABLE QString convertLocationToJsonString(const KPublicTransport::Location &location);
     Q_INVOKABLE KPublicTransport::Location convertJsonStringToLocation(const QString &jsonString);
 
-    Q_INVOKABLE KPublicTransport::Location getLocationFromCoorAndName(float lat, float lon, const QString &name);
-    Q_INVOKABLE QVariant getJourneyBetweenLocations(const KPublicTransport::Location &fromLocation, const KPublicTransport::Location &toLocation);
+    Q_INVOKABLE Qstring getJsonLocationFromCoorAndName(float lat, float lon, const QString &name);
+    Q_INVOKABLE QVariant getJourneyBetweenLocations(const QString &fromLocationJson, const QString &toLocationJson);
 
     Q_INVOKABLE KPublicTransport::JourneyRequest createJourneyRequest();
     Q_INVOKABLE KPublicTransport::LocationRequest createLocationRequest(const QString &name);
@@ -73,7 +72,6 @@ Q_SIGNALS:
 private:
     KPublicTransport::Location m_start;
     KPublicTransport::Location m_destination;
-    KPublicTransport::Location m_defaultLocation;
     KPublicTransport::Manager m_manager;
     QDate m_departureDate;
     QTime m_departureTime;

@@ -31,9 +31,6 @@ TrainConnection::TrainConnection(QObject *parent)
     m_departureDate = QDate::currentDate();
     m_departureTime = QTime::currentTime();
     
-    QString defaultJsonString = "{\"identifier\":{\"db\":\"0000000\",\"de_nw_vrr\":\"00000000\",\"ibnr\":\"000000\",\"ifopt\":\"de:00000:00000\"},\"latitude\":0.0,\"longitude\":0.0,\"name\":\"Default\",\"type\":\"Stop\"}";
-    m_defaultLocation = convertJsonStringToLocation(defaultJsonString);
-
     m_manager.setAllowInsecureBackends(false);
     m_manager.setBackendsEnabledByDefault(false);
     
@@ -116,7 +113,7 @@ KPublicTransport::Location TrainConnection::convertJsonStringToLocation(const QS
     return KPublicTransport::Location::fromJson(QJsonDocument::fromJson(jsonString.toUtf8()).object());
 }
 
-KPublicTransport::Location TrainConnection::getLocationFromCoorAndName(float lat, float lon, const QString &name)
+QString TrainConnection::getJsonLocationFromCoorAndName(float lat, float lon, const QString &name)
 {
     KPublicTransport::LocationRequest req;
     req.setBackendIds(m_manager.enabledBackends());
@@ -125,17 +122,17 @@ KPublicTransport::Location TrainConnection::getLocationFromCoorAndName(float lat
 
     for (auto result: m_manager.queryLocation(req)->result()) {
         std::cout << "Location-Json: " << QJsonDocument(KPublicTransport::Location::toJson(result)).toJson(QJsonDocument::Compact).toStdString() << std::endl;
-        return result;
+        return convertLocationToJsonString(result);
     }
-    return m_defaultLocation;
+    return "{\"name\":\"Default\"}";
 }
 
-QVariant TrainConnection::getJourneyBetweenLocations(const KPublicTransport::Location &fromLocation, const KPublicTransport::Location &toLocation)
+QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocationJson, const QString &toLocationJson)
 {
     KPublicTransport::JourneyRequest req;
     req.setBackendIds(m_manager.enabledBackends());
-    req.setFrom(fromLocation);
-    req.setTo(toLocation);
+    req.setFrom(convertJsonStringToLocation(fromLocationJson));
+    req.setTo(convertJsonStringToLocation(toLocationJson));
 
     QDateTime depTime(QDate::currentDate(), QTime::currentTime());
     req.setDepartureTime(depTime);
