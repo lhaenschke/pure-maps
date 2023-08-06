@@ -152,6 +152,8 @@ QVariant TrainConnection::getJourneyBetweenLocations(const KPublicTransport::Loc
         }
     }
 
+    std::cout << "Hello" << std::endl;
+
     return QVariant::fromValue(journeys);
 }
 
