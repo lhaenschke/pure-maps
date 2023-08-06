@@ -136,16 +136,16 @@ QVariant TrainConnection::getJourneyBetweenLocations(const KPublicTransport::Loc
 
     KPublicTransport::JourneyRequest req;
     req.setBackendIds(m_manager.enabledBackends());
-    req.setFrom(m_start);
-    req.setTo(m_destination);
-    // req.setDownloadAssets(false);
+    req.setFrom(fromLocation);
+    req.setTo(toLocation);
 
     QDateTime depTime(m_departureDate, m_departureTime);
     req.setDepartureTime(depTime);
 
     QVector<KPublicTransport::Journey> journeys;
 
-    const std::vector<KPublicTransport::Journey> &test = m_manager.queryJourney(req)->result();
+    KPublicTransport::JourneyReply *reply = m_manager.queryJourney(req);
+    const std::vector<KPublicTransport::Journey> &test = reply->result();
 
     std::cout << "Anzahl Journeys: " << test.size() << std::endl;
 
@@ -166,7 +166,6 @@ KPublicTransport::JourneyRequest TrainConnection::createJourneyRequest()
     KPublicTransport::JourneyRequest req;
     req.setFrom(m_start);
     req.setTo(m_destination);
-    req.setDownloadAssets(false);
 
     QDateTime depTime(m_departureDate, m_departureTime);
     req.setDepartureTime(depTime);
