@@ -132,6 +132,7 @@ KPublicTransport::Location TrainConnection::getLocationFromCoorAndName(float lat
 QVariant TrainConnection::getJourneyBetweenLocations(const KPublicTransport::Location &fromLocation, const KPublicTransport::Location &toLocation)
 {
     KPublicTransport::JourneyRequest req;
+    req.setBackendIds(m_manager.enabledBackends());
     req.setFrom(fromLocation);
     req.setTo(toLocation);
     req.setDownloadAssets(false);
@@ -141,7 +142,7 @@ QVariant TrainConnection::getJourneyBetweenLocations(const KPublicTransport::Loc
 
     QVector<KPublicTransport::Journey> journeys;
 
-    std::cout << "Test" << std::endl;
+    std::cout << "Hier Klappts" << std::endl;
 
     for (auto result: m_manager.queryJourney(req)->result()) {
         std::cout << "Test: " << result.duration() << std::endl;
