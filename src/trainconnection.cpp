@@ -136,11 +136,11 @@ QVariant TrainConnection::getJourneyBetweenLocations(const KPublicTransport::Loc
 
     KPublicTransport::JourneyRequest req;
     req.setBackendIds(m_manager.enabledBackends());
-    req.setFrom(fromLocation);
-    req.setTo(toLocation);
+    req.setFrom(m_start);
+    req.setTo(m_destination);
     req.setDownloadAssets(false);
 
-    QDateTime depTime(QDate::currentDate(), QTime::currentTime());
+    QDateTime depTime(m_departureDate, m_departureTime);
     req.setDepartureTime(depTime);
 
     QVector<KPublicTransport::Journey> journeys;
