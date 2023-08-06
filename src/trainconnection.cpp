@@ -129,8 +129,8 @@ QString TrainConnection::getJsonLocationFromCoorAndName(float lat, float lon, co
 
 QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocationJson, const QString &toLocationJson)
 {
-    std::cout << "Json: " << fromLocationJson << std::endl;
-    std::cout << "Json: " << toLocationJson << std::endl;
+    std::cout << "Json: " << fromLocationJson.toStdString() << std::endl;
+    std::cout << "Json: " << toLocationJson.toStdString() << std::endl;
     
     KPublicTransport::JourneyRequest req;
     req.setBackendIds(m_manager.enabledBackends());
