@@ -238,14 +238,14 @@ Item {
                 var fromStops = [];
                 var toStops   = [];
 
-                navigator.getNearbyStopsFromLocation(args[0][0]).forEach(x => {
-                    const kptLocationJsonString = TrainConnection.getJsonLocationFromCoorAndName(x['y'], x['x'], x['title']);
-                    console.log("Json-QML: ", kptLocationJsonString);
-                    if (JSON.parse(kptLocationJsonString).name != "Default") {
-                        fromStops.push({"PoiLocation": x, "KptLocationJson": kptLocationJsonString});
-                        console.log("Test1");
-                    }
-                });
+                // navigator.getNearbyStopsFromLocation(args[0][0]).forEach(x => {
+                //     const kptLocationJsonString = TrainConnection.getJsonLocationFromCoorAndName(x['y'], x['x'], x['title']);
+                //     console.log("Json-QML: ", kptLocationJsonString);
+                //     if (JSON.parse(kptLocationJsonString).name != "Default") {
+                //         fromStops.push({"PoiLocation": x, "KptLocationJson": kptLocationJsonString});
+                //         console.log("Test1");
+                //     }
+                // });
 
                 // console.log("");
 
