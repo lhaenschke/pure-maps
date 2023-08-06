@@ -402,13 +402,13 @@ Item {
         var arr = [];
         
         var results = py.call_sync("poor.app.guide.nearby", ["Bus Stops", "", [location['x'], location['y']], 1000]);
-        arr.push(...results.slice(0, 5));
+        arr.push(...results);
         
         var results = py.call_sync("poor.app.guide.nearby", ["Railway Platforms", "", [location['x'], location['y']], 1000]);
-        arr.push(...results.slice(0, 3));
+        arr.push(...results);
         
         var results = py.call_sync("poor.app.guide.nearby", ["Railway Stations", "", [location['x'], location['y']], 1000]);
-        arr.push(...results.slice(0, 3));
+        arr.push(...results);
 
         arr.sort(function(a, b) {
             const keyA = calculateDistance(a['y'], a['x'], location['y'], location['x']);
@@ -419,7 +419,7 @@ Item {
             return 0;
         });
 
-        return arr;
+        return arr.slice(0, 3);
 
     }
 
