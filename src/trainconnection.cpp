@@ -121,40 +121,39 @@ QString TrainConnection::getJsonLocationFromCoorAndName(float lat, float lon, co
     req.setName(name);
 
     for (auto result: m_manager.queryLocation(req)->result()) {
-        // std::cout << "Location-Json: " << QJsonDocument(KPublicTransport::Location::toJson(result)).toJson(QJsonDocument::Compact).toStdString() << std::endl;
-        // return convertLocationToJsonString(result);
-        return QString("{\"name\":\"Default\"}");
+        std::cout << "Location-Json: " << QJsonDocument(KPublicTransport::Location::toJson(result)).toJson(QJsonDocument::Compact).toStdString() << std::endl;
+        return convertLocationToJsonString(result);
     }
     return QString("{\"name\":\"Default\"}");
 }
 
-// QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocationJson, const QString &toLocationJson)
-// {
-//     KPublicTransport::JourneyRequest req;
-//     req.setBackendIds(m_manager.enabledBackends());
-//     req.setFrom(convertJsonStringToLocation(fromLocationJson));
-//     req.setTo(convertJsonStringToLocation(toLocationJson));
+QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocationJson, const QString &toLocationJson)
+{
+    KPublicTransport::JourneyRequest req;
+    req.setBackendIds(m_manager.enabledBackends());
+    req.setFrom(convertJsonStringToLocation(fromLocationJson));
+    req.setTo(convertJsonStringToLocation(toLocationJson));
 
-//     QDateTime depTime(QDate::currentDate(), QTime::currentTime());
-//     req.setDepartureTime(depTime);
+    QDateTime depTime(QDate::currentDate(), QTime::currentTime());
+    req.setDepartureTime(depTime);
 
-//     QVector<KPublicTransport::Journey> journeys;
+    QVector<KPublicTransport::Journey> journeys;
 
-//     std::cout << "Hello" << std::endl;
+    std::cout << "Hello" << std::endl;
 
-//     for (auto result: m_manager.queryJourney(req)->result()) {
-//         std::cout << "Test: " << result.duration() << std::endl;
-//         if (journeys.size() < 3) {
-//             journeys.append(result);
-//         } else {
-//             break;   
-//         }
-//     }
+    for (auto result: m_manager.queryJourney(req)->result()) {
+        std::cout << "Test: " << result.duration() << std::endl;
+        if (journeys.size() < 3) {
+            journeys.append(result);
+        } else {
+            break;   
+        }
+    }
 
-//     std::cout << "Hello" << std::endl;
+    std::cout << "Hello" << std::endl;
 
-//     return QVariant::fromValue(journeys);
-// }
+    return QVariant::fromValue(journeys);
+}
 
 KPublicTransport::JourneyRequest TrainConnection::createJourneyRequest()
 {

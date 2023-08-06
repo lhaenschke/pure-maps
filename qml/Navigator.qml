@@ -238,33 +238,31 @@ Item {
                 var fromStops = [];
                 var toStops   = [];
 
-                // navigator.getNearbyStopsFromLocation(args[0][0]).forEach(x => {
-                //     const kptLocationJsonString = TrainConnection.getJsonLocationFromCoorAndName(x['y'], x['x'], x['title']);
-                //     console.log("Json-QML: ", kptLocationJsonString);
-                //     if (JSON.parse(kptLocationJsonString).name != "Default") {
-                //         fromStops.push({"PoiLocation": x, "KptLocationJson": kptLocationJsonString});
-                //         console.log("Test1");
-                //     }
-                // });
+                navigator.getNearbyStopsFromLocation(args[0][0]).forEach(x => {
+                    const kptLocationJsonString = TrainConnection.getJsonLocationFromCoorAndName(x['y'], x['x'], x['title']);
+                    console.log("Json-QML: ", kptLocationJsonString);
+                    if (JSON.parse(kptLocationJsonString).name != "Default") {
+                        fromStops.push({"PoiLocation": x, "KptLocationJson": kptLocationJsonString});
+                        console.log("Test1");
+                    }
+                });
 
-                // console.log("");
+                console.log("");
 
-                // navigator.getNearbyStopsFromLocation(args[0][1]).forEach(x => {
-                //     const kptLocationJsonString = TrainConnection.getJsonLocationFromCoorAndName(x['y'], x['x'], x['title']);
-                //     if (JSON.parse(kptLocationJsonString).name != "Default") toStops.push({"PoiLocation": x, "KptLocationJson": kptLocationJsonString});
-                // });
+                navigator.getNearbyStopsFromLocation(args[0][1]).forEach(x => {
+                    const kptLocationJsonString = TrainConnection.getJsonLocationFromCoorAndName(x['y'], x['x'], x['title']);
+                    if (JSON.parse(kptLocationJsonString).name != "Default") toStops.push({"PoiLocation": x, "KptLocationJson": kptLocationJsonString});
+                });
 
-                // var journeys = TrainConnection.getJourneyBetweenLocations(fromStops[0].KptLocationJson, fromStops[0].KptLocationJson);
-
-                // fromStops.forEach(from => {
-                //     toStops.forEach(to => {
-                //         var journeys = TrainConnection.getJourneyBetweenLocations(from.KptLocation, to.KptLocation);
-                //         journeys.forEach(x => {
-                //             console.log("Journey: ", JSON.stringify(x));
-                //         });
-                //         // console.log("\n\n");
-                //     });
-                // });
+                fromStops.forEach(from => {
+                    toStops.forEach(to => {
+                        var journeys = TrainConnection.getJourneyBetweenLocations(from.KptLocationJson, to.KptLocationJson);
+                        journeys.forEach(x => {
+                            console.log("Journey: ", JSON.stringify(x));
+                        });
+                        // console.log("\n\n");
+                    });
+                });
 
                 // fromStops.forEach(x => {
                 //     console.log("From (Json): ", JSON.stringify(x));
