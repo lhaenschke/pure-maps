@@ -247,14 +247,14 @@ Item {
                     }
                 });
 
-                console.log("");
+                // console.log("");
 
-                navigator.getNearbyStopsFromLocation(args[0][1]).forEach(x => {
-                    const kptLocationJsonString = TrainConnection.getJsonLocationFromCoorAndName(x['y'], x['x'], x['title']);
-                    if (JSON.parse(kptLocationJsonString).name != "Default") toStops.push({"PoiLocation": x, "KptLocationJson": kptLocationJsonString});
-                });
+                // navigator.getNearbyStopsFromLocation(args[0][1]).forEach(x => {
+                //     const kptLocationJsonString = TrainConnection.getJsonLocationFromCoorAndName(x['y'], x['x'], x['title']);
+                //     if (JSON.parse(kptLocationJsonString).name != "Default") toStops.push({"PoiLocation": x, "KptLocationJson": kptLocationJsonString});
+                // });
 
-                var journeys = TrainConnection.getJourneyBetweenLocations(fromStops[0].KptLocationJson, fromStops[0].KptLocationJson);
+                // var journeys = TrainConnection.getJourneyBetweenLocations(fromStops[0].KptLocationJson, fromStops[0].KptLocationJson);
 
                 // fromStops.forEach(from => {
                 //     toStops.forEach(to => {
