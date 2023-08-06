@@ -241,10 +241,7 @@ Item {
                 navigator.getNearbyStopsFromLocation(args[0][0]).forEach(x => {
                     const kptLocationJsonString = TrainConnection.getJsonLocationFromCoorAndName(x['y'], x['x'], x['title']);
                     console.log("Json-QML: ", kptLocationJsonString);
-                    if (JSON.parse(kptLocationJsonString).name != "Default") {
-                        fromStops.push({"PoiLocation": x, "KptLocationJson": kptLocationJsonString});
-                        console.log("Test1");
-                    }
+                    if (JSON.parse(kptLocationJsonString).name != "Default") fromStops.push({"PoiLocation": x, "KptLocationJson": kptLocationJsonString});
                 });
 
                 console.log("");
@@ -263,16 +260,6 @@ Item {
                         // console.log("\n\n");
                     });
                 });
-
-                // fromStops.forEach(x => {
-                //     console.log("From (Json): ", JSON.stringify(x));
-                // });
-
-                // console.log('\n');
-
-                // toStops.forEach(x => {
-                //     console.log("To (Json): ", JSON.stringify(x));
-                // });
 
             }
         }
