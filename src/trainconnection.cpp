@@ -141,10 +141,12 @@ QVariant TrainConnection::getJourneyBetweenLocations(const KPublicTransport::Loc
 
     QVector<KPublicTransport::Journey> journeys;
 
+    std::cout << "Test" << std::endl;
+
     for (auto result: m_manager.queryJourney(req)->result()) {
+        std::cout << "Test: " << result.duration() << std::endl;
         if (journeys.size() < 3) {
             journeys.append(result);
-            std::cout << "Test: " << result.duration() << std::endl;
         } else {
             break;   
         }
