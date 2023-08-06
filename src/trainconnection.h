@@ -12,7 +12,7 @@
 
 #include <QDate>
 #include <QObject>
-#include <QVector>
+#include <QVariant>
 #include <QString>
 #include <QTime>
 
@@ -57,7 +57,7 @@ public:
     Q_INVOKABLE KPublicTransport::Location convertJsonStringToLocation(const QString &jsonString);
 
     Q_INVOKABLE KPublicTransport::Location getLocationFromCoorAndName(float lat, float lon, const QString &name);
-    Q_INVOKABLE QVector<KPublicTransport::Journey> getJourneyBetweenLocations(const KPublicTransport::Location &fromLocation, const KPublicTransport::Location &toLocation);
+    Q_INVOKABLE QVariant getJourneyBetweenLocations(const KPublicTransport::Location &fromLocation, const KPublicTransport::Location &toLocation);
 
     Q_INVOKABLE KPublicTransport::JourneyRequest createJourneyRequest();
     Q_INVOKABLE KPublicTransport::LocationRequest createLocationRequest(const QString &name);

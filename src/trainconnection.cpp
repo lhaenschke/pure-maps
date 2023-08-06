@@ -129,7 +129,7 @@ KPublicTransport::Location TrainConnection::getLocationFromCoorAndName(float lat
     return m_defaultLocation;
 }
 
-QVector<KPublicTransport::Journey> TrainConnection::getJourneyBetweenLocations(const KPublicTransport::Location &fromLocation, const KPublicTransport::Location &toLocation)
+QVariant TrainConnection::getJourneyBetweenLocations(const KPublicTransport::Location &fromLocation, const KPublicTransport::Location &toLocation)
 {
     KPublicTransport::JourneyRequest req;
     req.setFrom(fromLocation);
@@ -144,12 +144,13 @@ QVector<KPublicTransport::Journey> TrainConnection::getJourneyBetweenLocations(c
     for (auto result: m_manager.queryJourney(req)->result()) {
         if (journeys.size() < 3) {
             journeys.append(result);
+            std::cout << "Test: " << result.duration << std::endl;
         } else {
             break;   
         }
     }
 
-    return journeys;
+    return QVariant::fromValue(journeys);
 }
 
 KPublicTransport::JourneyRequest TrainConnection::createJourneyRequest()

@@ -250,11 +250,11 @@ Item {
 
                 fromStops.forEach(from => {
                     toStops.forEach(to => {
-                        const journeys = TrainConnection.getJourneyBetweenLocations(from.KptLocation, to.KptLocation);
-                        journeys.forEach(x => {
-                            console.log("Journey: ", JSON.stringify(x));
-                        });
-                        console.log("\n\n");
+                        var journeys = TrainConnection.getJourneyBetweenLocations(from.KptLocation, to.KptLocation);
+                        // journeys.forEach(x => {
+                        //     console.log("Journey: ", JSON.stringify(x));
+                        // });
+                        // console.log("\n\n");
                     });
                 });
 
