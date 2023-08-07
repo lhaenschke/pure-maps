@@ -20,6 +20,7 @@
 #include <KPublicTransport/Backend>
 #include <KPublicTransport/Attribution>
 #include <KPublicTransport/JourneyRequest>
+#include <KPublicTransport/JourneyQueryModel>
 #include <KPublicTransport/JourneyReply>
 #include <KPublicTransport/Journey>
 #include <KPublicTransport/LocationRequest>
