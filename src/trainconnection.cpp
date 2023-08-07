@@ -134,6 +134,7 @@ KPublicTransport::Location getLocationFromCoorAndName(float lat, float lon, cons
     req.setName(name);
 
     for (auto result: m_manager.queryLocation(req)->result()) {
+        std::cout << "Location: " << convertLocationToJsonString(result).toStdString() << std::endl;
         return result;
     }
     return convertJsonStringToLocation(QString("{\"name\":\"Default\"}"));
