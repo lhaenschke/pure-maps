@@ -155,7 +155,7 @@ QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocation
 
     KPublicTransport::JourneyQueryModel queryModel;
     queryModel.setRequest(req);
-    queryModel.setManager(m_manager);
+    queryModel.setManager(*m_manager);
 
     std::cout << "IdLoading: " << queryModel.isLoading() << std::endl;
 
