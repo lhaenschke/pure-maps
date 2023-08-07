@@ -23,9 +23,6 @@
 #include <iostream>
 #include <vector>
 
-#include <chrono>
-#include <thread>
-
 TrainConnection::TrainConnection(QObject *parent)
     : QObject(parent)
     , m_start()
@@ -153,11 +150,10 @@ QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocation
 
     // return QVariant::fromValue(journeys);
 
-    KPublicTransport::JourneyQueryModel queryModel;
-    // queryModel.setManager(&m_manager);
-    queryModel.setRequest(req);
+    m_queryModel.setManager(&m_manager);
+    m_queryModel.setRequest(req);
     
-    std::cout << "IdLoading: " << queryModel.isLoading() << std::endl;
+    std::cout << "IdLoading: " << m_queryModel.isLoading() << std::endl;
 
     // for (auto result: queryModel.journeys()) {
     //     std::cout << "Test" << std::endl;
