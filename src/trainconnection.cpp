@@ -139,14 +139,19 @@ QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocation
     QDateTime depTime(QDate::currentDate(), QTime::currentTime());
     req.setDepartureTime(depTime);
 
-    KPublicTransport::JourneyReply *reply = m_manager.queryJourney(req);
-    std::vector<KPublicTransport::Journey> &&test = reply->takeResult();
-
     QVector<KPublicTransport::Journey> journeys;
 
-    std::cout << "Anzahl: " << test.size() << std::endl;
+    while (1) {
+        const std::vector<KPublicTransport::Journey> testVector = m_manager.queryJourney(req)->result();
+        
+        if (testVector.size()) > 0 {
+            std::cout << "Anzahl: " << testVector.size() << std::endl;
+            break;
+        }
 
-    for (auto result: test) {
+    }
+
+    for (auto result: m_manager.queryJourney(req)->result()) {
         std::cout << "Test: " << result.duration() << std::endl;
         if (journeys.size() < 3) {
             journeys.append(result);
