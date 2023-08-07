@@ -132,30 +132,39 @@ QString TrainConnection::getJsonLocationFromCoorAndName(float lat, float lon, co
     return QString("{\"name\":\"Default\"}");
 }
 
-QString TrainConnection::getJourneyBetweenLocations(const QString &fromLocationJson, const QString &toLocationJson)
+QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocationJson, const QString &toLocationJson)
 {
-
-    std::cout << fromLocationJson.toStdString() << std::endl;
 
     KPublicTransport::JourneyRequest req;
     req.setBackendIds(m_manager.enabledBackends());
-    req.setFrom(convertJsonStringToLocation(fromLocationJson));
-    req.setTo(convertJsonStringToLocation(toLocationJson));
+    // req.setFrom(convertJsonStringToLocation(fromLocationJson));
+    // req.setTo(convertJsonStringToLocation(toLocationJson));
 
-    QDateTime depTime(QDate::currentDate(), QTime::currentTime());
+    std::cout << "Start: " << convertLocationToJsonString(m_start).toStdString() << std::endl;
+    std::cout << "Desti: " << convertLocationToJsonString(m_destination).toStdString() << std::endl;
+
+    req.setFrom(m_start);
+    req.setTo(m_destination);
+
+    QDateTime depTime(m_departureDate, m_departureTime);
     req.setDepartureTime(depTime);
+
+    // QDateTime depTime(QDate::currentDate(), QTime::currentTime());
+    // req.setDepartureTime(depTime);
 
     QVector<KPublicTransport::Journey> journeys;
 
     for (auto result: m_manager.queryJourney(req)->result()) {
-        if (journeys.size() < 3) {
-            journeys.append(result);
-        } else {
-            return QString("Ja")
-        }
+        std::cout << "Gefunden" << std::endl;
+        
+        // if (journeys.size() < 3) {
+        //     journeys.append(result);
+        // } else {
+        //     break;
+        // }
     }
 
-    return QString("Nein");
+    return QVariant::fromValue(journeys);
 }
 
 KPublicTransport::JourneyRequest TrainConnection::createJourneyRequest()
