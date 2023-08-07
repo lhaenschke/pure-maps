@@ -172,15 +172,16 @@ KPublicTransport::Location TrainConnection::getLocationFromCoorAndName(float lat
 
 QVariant TrainConnection::getJourneyBetweenLocations(float lat1, float lon1, const QString &name1, float lat2, float lon2, const QString &name2)
 {
-    KPublicTransport::JourneyRequest req = KPublicTransport::JourneyRequest(getLocationFromCoorAndName(lat1, lon1, name1), getLocationFromCoorAndName(lat2, lon2, name2));
+    KPublicTransport::JourneyRequest req;
     req.setBackendIds(m_manager.enabledBackends());
+    req.setFrom(getLocationFromCoorAndName(lat1, lon1, name1));
+    req.setTo(getLocationFromCoorAndName(lat2, lon2, name2));
 
-    QDateTime depTime(QDate::currentDate(), QTime::currentTime());
+    // QDateTime depTime(QDate::currentDate(), QTime::currentTime());
+    QDateTime depTime(m_departureDate, m_departureTime);
     req.setDepartureTime(depTime);
 
-    for (auto id: req.backendIds()) {
-        std::cout << "Id: " << id.toStdString() << std::endl;
-    }
+    std::cout << "IsValid: " << req.isValid() << std::endl;
 
     KPublicTransport::JourneyReply *reply = m_manager.queryJourney(req);
     std::cout << "Error: " << reply->errorString().toStdString() << std::endl;
