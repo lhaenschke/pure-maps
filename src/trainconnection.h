@@ -74,7 +74,6 @@ private:
     KPublicTransport::Location m_start;
     KPublicTransport::Location m_destination;
     KPublicTransport::Manager m_manager;
-    KPublicTransport::JourneyQueryModel m_queryModel;
     QDate m_departureDate;
     QTime m_departureTime;
 };
