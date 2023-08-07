@@ -159,9 +159,9 @@ QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocation
     
     std::cout << "IdLoading: " << queryModel.isLoading() << std::endl;
 
-    for (auto result: queryModel.journeys()) {
-        std::cout << "Test" << std::endl;
-    }
+    // for (auto result: queryModel.journeys()) {
+    //     std::cout << "Test" << std::endl;
+    // }
 
 }
 
