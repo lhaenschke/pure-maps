@@ -23,6 +23,9 @@
 #include <iostream>
 #include <vector>
 
+#include <chrono>
+#include <thread>
+
 TrainConnection::TrainConnection(QObject *parent)
     : QObject(parent)
     , m_start()
@@ -137,12 +140,10 @@ QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocation
     req.setDepartureTime(depTime);
 
     KPublicTransport::JourneyReply *reply = m_manager.queryJourney(req);
+    const std::vector<KPublicTransport::Journey> &test = reply->result();
     
-    
-    std::vector<KPublicTransport::Journey> &&test = reply.takeResult();
-    
-    
-    // const std::vector<KPublicTransport::Journey> &test = reply->result();
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+
     std::cout << "Anzahl: " << test.size() << std::endl;
 
     QVector<KPublicTransport::Journey> journeys;
