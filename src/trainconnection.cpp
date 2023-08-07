@@ -123,7 +123,10 @@ QString TrainConnection::getJsonLocationFromCoorAndName(float lat, float lon, co
     req.setCoordinate(lat, lon);
     req.setName(name);
 
+    std::cout << "Test1" << std::endl;
+
     for (auto result: m_manager.queryLocation(req)->result()) {
+        std::cout << "Test2" << std::endl;
         return convertLocationToJsonString(result);
     }
     return QString("{\"name\":\"Default\"}");
@@ -141,8 +144,10 @@ QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocation
 
     QVector<KPublicTransport::Journey> journeys;
 
+    std::cout << "Test1" << std::endl;
+
     for (auto result: m_manager.queryJourney(req)->result()) {
-        std::cout << "Test: " << result.duration() << std::endl;
+        std::cout << "Test2" << std::endl;
         if (journeys.size() < 3) {
             journeys.append(result);
         } else {
