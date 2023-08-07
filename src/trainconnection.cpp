@@ -183,7 +183,7 @@ QVariant TrainConnection::getJourneyBetweenLocations(float lat1, float lon1, con
     }
 
     KPublicTransport::JourneyReply *reply = m_manager.queryJourney(req);
-    std::cout << "Error: " << replay->errorString().toStdString() << std::endl;
+    std::cout << "Error: " << reply->errorString().toStdString() << std::endl;
     const std::vector<KPublicTransport::Journey> &test = reply->result();
     std::cout << "Anzahl: " << test.size() << std::endl;
 
