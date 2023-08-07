@@ -144,7 +144,7 @@ QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocation
     while (1) {
         const std::vector<KPublicTransport::Journey> testVector = m_manager.queryJourney(req)->result();
         
-        if (testVector.size()) > 0 {
+        if (testVector.size() > 0) {
             std::cout << "Anzahl: " << testVector.size() << std::endl;
             break;
         }
