@@ -132,8 +132,11 @@ QString TrainConnection::getJsonLocationFromCoorAndName(float lat, float lon, co
     return QString("{\"name\":\"Default\"}");
 }
 
-QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocationJson, const QString &toLocationJson)
+QString TrainConnection::getJourneyBetweenLocations(const QString &fromLocationJson, const QString &toLocationJson)
 {
+
+    std::cout << fromLocationJson.toStdString() << std::endl;
+
     KPublicTransport::JourneyRequest req;
     req.setBackendIds(m_manager.enabledBackends());
     req.setFrom(convertJsonStringToLocation(fromLocationJson));
@@ -144,18 +147,15 @@ QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocation
 
     QVector<KPublicTransport::Journey> journeys;
 
-    std::cout << "Test1" << std::endl;
-
     for (auto result: m_manager.queryJourney(req)->result()) {
-        std::cout << "Test2" << std::endl;
         if (journeys.size() < 3) {
             journeys.append(result);
         } else {
-            break;   
+            return QString("Ja")
         }
     }
 
-    return QVariant::fromValue(journeys);
+    return QString("Nein");
 }
 
 KPublicTransport::JourneyRequest TrainConnection::createJourneyRequest()
