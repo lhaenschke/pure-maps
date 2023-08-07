@@ -250,7 +250,7 @@ Item {
                     if (JSON.parse(kptLocationJsonString).name != "Default") toStops.push({"PoiLocation": x, "KptLocationJson": kptLocationJsonString});
                 });
 
-                var journeys = TrainConnection.getJourneyBetweenLocations(fromStops[0].PoiLocation.y, fromStops[0].PoiLocation.x, fromStops[0].PoiLocation.title, toStops[0].PoiLocation.y, toStops[0].PoiLocation.x, toStops[0].PoiLocation.title);
+                var journeys = TrainConnection.getJourneyBetweenLocations(fromStops[0].KptLocationJson, toStops[0].KptLocationJson);
 
                 // fromStops.forEach(from => {
                 //     toStops.forEach(to => {
