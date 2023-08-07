@@ -147,7 +147,7 @@ QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocation
 
     std::this_thread::sleep_for(std::chrono::milliseconds(5000));
     
-    const std::vector<KPublicTransport::Journey> &tes2 = reply->result();
+    const std::vector<KPublicTransport::Journey> &test2 = reply->result();
 
     std::cout << "Anzahl (1): " << test.size() << std::endl;
     std::cout << "Anzahl (2): " << test2.size() << std::endl;
