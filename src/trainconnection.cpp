@@ -158,7 +158,7 @@ QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocation
     queryModel.setManager(&m_manager);
     queryModel.setRequest(req);
 
-    KPublicTransport::JourneyReply *reply = m_manager.queryJourney(req);
+    // KPublicTransport::JourneyReply *reply = m_manager.queryJourney(req);
 
     std::cout << "Next: " << queryModel.canQueryNext() << std::endl;
     std::cout << "Prev: " << queryModel.canQueryPrevious() << std::endl;
@@ -170,9 +170,9 @@ QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocation
         std::cout << "Test" << std::endl;
     }
 
-    for (auto result: reply->result()) {
-        std::cout << "Gefunden" << std::endl;
-    }
+    // for (auto result: reply->result()) {
+    //     std::cout << "Gefunden" << std::endl;
+    // }
 
     QVector<KPublicTransport::Journey> journeys;
     return QVariant::fromValue(journeys);
