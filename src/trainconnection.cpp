@@ -140,14 +140,18 @@ auto f()
 
 QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocationJson, const QString &toLocationJson)
 {
-    KPublicTransport::JourneyRequest req = KPublicTransport::JourneyRequest(m_start, m_destination);
+    KPublicTransport::JourneyRequest req;
     req.setBackendIds(m_manager.enabledBackends());
+    req.setFrom(m_start);
+    req.setTo(m_destination);
     // req.setFrom(convertJsonStringToLocation(fromLocationJson));
     // req.setTo(convertJsonStringToLocation(toLocationJson));
 
     QDateTime depTime(QDate::currentDate(), QTime::currentTime());
     req.setDepartureTime(depTime);
 
+    std::cout << "Start: " << convertLocationToJsonString(m_start) << std::endl;
+    std::cout << "Desti: " << convertLocationToJsonString(m_destination) << std::endl;
     std::cout << "Req is Valid: " << req.isValid() << std::endl;
 
     KPublicTransport::JourneyReply *reply = m_manager.queryJourney(req);
@@ -169,8 +173,8 @@ QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocation
     return QVariant::fromValue(journeys);
 
     // KPublicTransport::JourneyRequest req = KPublicTransport::JourneyRequest(m_start, m_destination);
-    // // req.setFrom(m_start);
-    // // req.setTo(m_destination);
+    // req.setFrom(m_start);
+    // req.setTo(m_destination);
 
     // QDateTime depTime(m_departureDate, m_departureTime);
     // req.setDepartureTime(depTime);
