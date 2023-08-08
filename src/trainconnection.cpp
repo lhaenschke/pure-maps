@@ -131,6 +131,13 @@ QString TrainConnection::getJsonLocationFromCoorAndName(float lat, float lon, co
     return QString("{\"name\":\"Default\"}");
 }
 
+auto f()
+{ 
+    std::cout << "Task started ...\n";
+    sleep_for(seconds(10));
+    std::cout << " Task done!\n";
+}
+
 QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocationJson, const QString &toLocationJson)
 {
     // KPublicTransport::JourneyRequest req;
@@ -183,12 +190,7 @@ QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocation
     return QVariant::fromValue(journeys);
 }
 
-auto TrainConnection::f()
-{ 
-    std::cout << "Task started ...\n";
-    sleep_for(seconds(10));
-    std::cout << " Task done!\n";
-}
+
 
 KPublicTransport::JourneyRequest TrainConnection::createJourneyRequest()
 {
