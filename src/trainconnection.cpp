@@ -150,8 +150,8 @@ QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocation
     QDateTime depTime(QDate::currentDate(), QTime::currentTime());
     req.setDepartureTime(depTime);
 
-    std::cout << "Start: " << convertLocationToJsonString(m_start) << std::endl;
-    std::cout << "Desti: " << convertLocationToJsonString(m_destination) << std::endl;
+    std::cout << "Start: " << convertLocationToJsonString(m_start).toStdString() << std::endl;
+    std::cout << "Desti: " << convertLocationToJsonString(m_destination).toStdString() << std::endl;
     std::cout << "Req is Valid: " << req.isValid() << std::endl;
 
     KPublicTransport::JourneyReply *reply = m_manager.queryJourney(req);
