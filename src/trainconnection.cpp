@@ -169,12 +169,11 @@ QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocation
     QDateTime depTime(m_departureDate, m_departureTime);
     req.setDepartureTime(depTime);
 
-    std::thread t(f);
-
     KPublicTransport::JourneyQueryModel queryModel;
     queryModel.setManager(&m_manager);
     queryModel.setRequest(req);
     
+    std::thread t(f);
     t.join();
 
     std::cout << "Next: " << queryModel.canQueryNext() << std::endl;
