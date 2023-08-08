@@ -156,8 +156,8 @@ QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocation
 
     KPublicTransport::JourneyReply *reply = m_manager.queryJourney(req);
 
-    std::thread t(f);
-    t.join();
+    // std::thread t(f);
+    // t.join();
 
     for (auto result: reply->result()) {
         std::cout << "Gefunden" << std::endl;
