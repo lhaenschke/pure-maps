@@ -183,7 +183,7 @@ QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocation
     return QVariant::fromValue(journeys);
 }
 
-auto f()
+auto TrainConnection::f()
 { 
     std::cout << "Task started ...\n";
     sleep_for(seconds(10));
