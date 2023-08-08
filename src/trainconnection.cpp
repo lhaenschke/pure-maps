@@ -134,7 +134,7 @@ QString TrainConnection::getJsonLocationFromCoorAndName(float lat, float lon, co
 auto f()
 { 
     std::cout << "        Task started ...\n";
-    sleep_for(seconds(15));
+    sleep_for(seconds(30));
     std::cout << "        Task done!\n";
 }
 
@@ -147,7 +147,8 @@ QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocation
     // req.setFrom(convertJsonStringToLocation(fromLocationJson));
     // req.setTo(convertJsonStringToLocation(toLocationJson));
 
-    QDateTime depTime(QDate::currentDate(), QTime::currentTime());
+    // QDateTime depTime(QDate::currentDate(), QTime::currentTime());
+    QDateTime depTime(m_departureDate, m_departureTime);
     req.setDepartureTime(depTime);
 
     std::cout << "Start: " << convertLocationToJsonString(m_start).toStdString() << std::endl;
@@ -160,8 +161,10 @@ QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocation
     std::cout << "Test1" << std::endl;
     t.join();
     std::cout << "Test2" << std::endl;
+    const std::vector<KPublicTransport::Journey> &test = reply->result();
+    std::cout << "Anzahl: " << test.size() << std::endl;
 
-    for (auto result: reply->result()) {
+    for (auto result: test) {
         std::cout << "Gefunden" << std::endl;
     }
 
