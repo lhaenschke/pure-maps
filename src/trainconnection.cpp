@@ -164,12 +164,12 @@ QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocation
     std::cout << "Next: " << queryModel.canQueryNext() << std::endl;
     std::cout << "Prev: " << queryModel.canQueryPrevious() << std::endl;
 
-    // for (auto result: queryModel.journeys()) {
-    //     std::cout << "Test" << std::endl;
-    // }
-
     std::cout << "IdLoading: " << queryModel.isLoading() << std::endl;
     std::cout << "Error: " << queryModel.errorMessage().toStdString() << std::endl;
+
+    for (auto result: queryModel.journeys()) {
+        std::cout << "Test" << std::endl;
+    }
 
     return QVariant::fromValue(journeys);
 }
