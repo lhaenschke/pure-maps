@@ -148,7 +148,7 @@ QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocation
     QDateTime depTime(QDate::currentDate(), QTime::currentTime());
     req.setDepartureTime(depTime);
 
-    std::cout << "Req is Valid: " << queryModel.isValid() << std::endl;
+    std::cout << "Req is Valid: " << req.isValid() << std::endl;
 
     KPublicTransport::JourneyReply *reply = m_manager.queryJourney(req);
 
