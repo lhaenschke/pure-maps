@@ -243,8 +243,6 @@ Item {
                     if (JSON.parse(kptLocationJsonString).name != "Default") fromStops.push({"PoiLocation": x, "KptLocationJson": kptLocationJsonString});
                 });
 
-                console.log("");
-
                 navigator.getNearbyStopsFromLocation(args[0][1]).forEach(x => {
                     const kptLocationJsonString = TrainConnection.getJsonLocationFromCoorAndName(x['y'], x['x'], x['title']);
                     if (JSON.parse(kptLocationJsonString).name != "Default") toStops.push({"PoiLocation": x, "KptLocationJson": kptLocationJsonString});

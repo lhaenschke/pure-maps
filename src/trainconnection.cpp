@@ -128,13 +128,13 @@ QString TrainConnection::getJsonLocationFromCoorAndName(float lat, float lon, co
 
 QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocationJson, const QString &toLocationJson)
 {
-    KPublicTransport::JourneyRequest req;
-    req.setBackendIds(m_manager.enabledBackends());
-    req.setFrom(convertJsonStringToLocation(fromLocationJson));
-    req.setTo(convertJsonStringToLocation(toLocationJson));
+    // KPublicTransport::JourneyRequest req;
+    // req.setBackendIds(m_manager.enabledBackends());
+    // req.setFrom(convertJsonStringToLocation(fromLocationJson));
+    // req.setTo(convertJsonStringToLocation(toLocationJson));
 
-    QDateTime depTime(QDate::currentDate(), QTime::currentTime());
-    req.setDepartureTime(depTime);
+    // QDateTime depTime(QDate::currentDate(), QTime::currentTime());
+    // req.setDepartureTime(depTime);
 
     QVector<KPublicTransport::Journey> journeys;
 
@@ -149,6 +149,13 @@ QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocation
     // }
 
     // return QVariant::fromValue(journeys);
+
+    KPublicTransport::JourneyRequest req;
+    req.setFrom(m_start);
+    req.setTo(m_destination);
+
+    QDateTime depTime(m_departureDate, m_departureTime);
+    req.setDepartureTime(depTime);
 
     KPublicTransport::JourneyQueryModel queryModel;
     queryModel.setManager(&m_manager);
