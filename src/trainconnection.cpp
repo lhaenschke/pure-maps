@@ -23,6 +23,11 @@
 #include <iostream>
 #include <vector>
 
+#include<iostream> // for std::cout
+#include<thread> // for std::thread
+using std::this_thread::sleep_for; 
+using std::chrono::seconds;
+
 TrainConnection::TrainConnection(QObject *parent)
     : QObject(parent)
     , m_start()
@@ -157,10 +162,14 @@ QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocation
     QDateTime depTime(m_departureDate, m_departureTime);
     req.setDepartureTime(depTime);
 
+    std::thread t(f);
+
     KPublicTransport::JourneyQueryModel queryModel;
     queryModel.setManager(&m_manager);
     queryModel.setRequest(req);
     
+    t.join();
+
     std::cout << "Next: " << queryModel.canQueryNext() << std::endl;
     std::cout << "Prev: " << queryModel.canQueryPrevious() << std::endl;
 
@@ -172,6 +181,13 @@ QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocation
     }
 
     return QVariant::fromValue(journeys);
+}
+
+auto f()
+{ 
+    std::cout << "Task started ...\n";
+    sleep_for(seconds(10));
+    std::cout << " Task done!\n";
 }
 
 KPublicTransport::JourneyRequest TrainConnection::createJourneyRequest()
