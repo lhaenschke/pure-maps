@@ -140,30 +140,40 @@ auto f()
 
 QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocationJson, const QString &toLocationJson)
 {
-    KPublicTransport::JourneyRequest req;
-    req.setBackendIds(m_manager.enabledBackends());
-    req.setFrom(m_start);
-    req.setTo(m_destination);
-    // req.setFrom(convertJsonStringToLocation(fromLocationJson));
-    // req.setTo(convertJsonStringToLocation(toLocationJson));
+    // KPublicTransport::JourneyRequest req;
+    // req.setBackendIds(m_manager.enabledBackends());
+    // req.setFrom(m_start);
+    // req.setTo(m_destination);
+    // // req.setFrom(convertJsonStringToLocation(fromLocationJson));
+    // // req.setTo(convertJsonStringToLocation(toLocationJson));
 
-    // QDateTime depTime(QDate::currentDate(), QTime::currentTime());
-    QDateTime depTime(m_departureDate, m_departureTime);
-    req.setDepartureTime(depTime);
+    // // QDateTime depTime(QDate::currentDate(), QTime::currentTime());
+    // QDateTime depTime(m_departureDate, m_departureTime);
+    // req.setDepartureTime(depTime);
 
-    std::cout << "Start: " << convertLocationToJsonString(m_start).toStdString() << std::endl;
-    std::cout << "Desti: " << convertLocationToJsonString(m_destination).toStdString() << std::endl;
-    std::cout << "Req is Valid: " << req.isValid() << std::endl;
-    KPublicTransport::JourneyReply *reply = m_manager.queryJourney(req);
+    // std::cout << "Start: " << convertLocationToJsonString(m_start).toStdString() << std::endl;
+    // std::cout << "Desti: " << convertLocationToJsonString(m_destination).toStdString() << std::endl;
+    // std::cout << "Req is Valid: " << req.isValid() << std::endl;
+    // KPublicTransport::JourneyReply *reply = m_manager.queryJourney(req);
 
-    std::thread t(f);
-    std::cout << "Test1" << std::endl;
-    t.join();
-    std::cout << "Test2" << std::endl;
-    const std::vector<KPublicTransport::Journey> &test = reply->result();
-    std::cout << "Anzahl: " << test.size() << std::endl;
+    // std::thread t(f);
+    // std::cout << "Test1" << std::endl;
+    // t.join();
+    // std::cout << "Test2" << std::endl;
+    // const std::vector<KPublicTransport::Journey> &test = reply->result();
+    // std::cout << "Anzahl: " << test.size() << std::endl;
 
-    for (auto result: test) {
+    // for (auto result: test) {
+    //     std::cout << "Gefunden" << std::endl;
+    // }
+
+    KPublicTransport::StopoverRequest req;
+    req.setStop(convertJsonStringToLocation(fromLocationJson));
+
+    QDateTime depTime(QDate::currentDate(), QTime::currentTime());
+    req.setDateTime(depTime);
+
+    for (auto result: m_manager.queryStopover(req)->result()) {
         std::cout << "Gefunden" << std::endl;
     }
 
