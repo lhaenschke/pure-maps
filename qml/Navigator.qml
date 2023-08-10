@@ -251,6 +251,8 @@ Item {
                 });
 
                 var journeys = TrainConnection.getJourneyBetweenLocations(fromStops[0].KptLocationJson, toStops[0].KptLocationJson);
+                console.log('First try');
+                var journeys = TrainConnection.getJourneyBetweenLocations(fromStops[0].KptLocationJson, toStops[0].KptLocationJson);
 
                 // fromStops.forEach(from => {
                 //     toStops.forEach(to => {
