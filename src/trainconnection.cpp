@@ -173,9 +173,8 @@ QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocation
     req.setName("Velbert-Langenberg");
 
     for (auto result: m_manager.queryLocation(req)->result()) {
-        return convertLocationToJsonString(result);
+        std::cout << "Gefunden: " << std::endl;
     }
-    return QString("{\"name\":\"Default\"}");
 
     QVector<KPublicTransport::Journey> journeys;
     return QVariant::fromValue(journeys);

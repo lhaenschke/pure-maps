@@ -27,8 +27,6 @@
 #include <KPublicTransport/LocationReply>
 #include <KPublicTransport/Location>
 #include <KPublicTransport/StopoverRequest>
-#include <KPublicTransport/StopoverReply>
-#include <KPublicTransport/Stopover>
 
 class TrainConnection : public QObject
 {
