@@ -231,11 +231,11 @@ Item {
 
                 if (!loadedKPTBackends) {
                     const kpt_backends = py.evaluate("poor.app.history.kpt_backends");
-                    kpt_backends.forEach( function(x) { TrainConnection.setBackendEnable(x, true); } );
+                    kpt_backends.forEach(x => { TrainConnection.setBackendEnable(x, true); });
                     loadedKPTBackends = true;
                 }
 
-                TrainConnection.getJsonLocationFromCoorAndName(args[0][0]['x'], args[0][0]['y']);
+                TrainConnection.getJsonLocationFromCoorAndName(args[0][0]['y'], args[0][0]['x']);
 
                 // var fromStops = [];
                 // var toStops   = [];
