@@ -235,24 +235,26 @@ Item {
                     loadedKPTBackends = true;
                 }
 
-                var fromStops = [];
-                var toStops   = [];
+                TrainConnection.getJsonLocationFromCoorAndName(args[0][0]['x'], args[0][0]['y']);
 
-                navigator.getNearbyStopsFromLocation(args[0][0]).forEach(x => {
-                    const kptLocationJsonString = TrainConnection.getJsonLocationFromCoorAndName(x['y'], x['x'], x['title']);
-                    console.log("From: ", kptLocationJsonString);
-                    if (JSON.parse(kptLocationJsonString).name != "Default") fromStops.push({"PoiLocation": x, "KptLocationJson": kptLocationJsonString});
-                });
+                // var fromStops = [];
+                // var toStops   = [];
 
-                navigator.getNearbyStopsFromLocation(args[0][1]).forEach(x => {
-                    const kptLocationJsonString = TrainConnection.getJsonLocationFromCoorAndName(x['y'], x['x'], x['title']);
-                    console.log("To: ", kptLocationJsonString);
-                    if (JSON.parse(kptLocationJsonString).name != "Default") toStops.push({"PoiLocation": x, "KptLocationJson": kptLocationJsonString});
-                });
+                // navigator.getNearbyStopsFromLocation(args[0][0]).forEach(x => {
+                //     const kptLocationJsonString = TrainConnection.getJsonLocationFromCoorAndName(x['y'], x['x'], x['title']);
+                //     console.log("From: ", kptLocationJsonString);
+                //     if (JSON.parse(kptLocationJsonString).name != "Default") fromStops.push({"PoiLocation": x, "KptLocationJson": kptLocationJsonString});
+                // });
 
-                var journeys = TrainConnection.getJourneyBetweenLocations(fromStops[0].KptLocationJson, toStops[0].KptLocationJson);
-                console.log('First try');
-                var journeys = TrainConnection.getJourneyBetweenLocations(fromStops[0].KptLocationJson, toStops[0].KptLocationJson);
+                // navigator.getNearbyStopsFromLocation(args[0][1]).forEach(x => {
+                //     const kptLocationJsonString = TrainConnection.getJsonLocationFromCoorAndName(x['y'], x['x'], x['title']);
+                //     console.log("To: ", kptLocationJsonString);
+                //     if (JSON.parse(kptLocationJsonString).name != "Default") toStops.push({"PoiLocation": x, "KptLocationJson": kptLocationJsonString});
+                // });
+
+                // var journeys = TrainConnection.getJourneyBetweenLocations(fromStops[0].KptLocationJson, toStops[0].KptLocationJson);
+                // console.log('First try');
+                // var journeys = TrainConnection.getJourneyBetweenLocations(fromStops[0].KptLocationJson, toStops[0].KptLocationJson);
 
                 // fromStops.forEach(from => {
                 //     toStops.forEach(to => {

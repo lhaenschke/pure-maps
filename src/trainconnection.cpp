@@ -118,15 +118,34 @@ KPublicTransport::Location TrainConnection::convertJsonStringToLocation(const QS
     return KPublicTransport::Location::fromJson(QJsonDocument::fromJson(jsonString.toUtf8()).object());
 }
 
-QString TrainConnection::getJsonLocationFromCoorAndName(float lat, float lon, const QString &name)
+// QString TrainConnection::getJsonLocationFromCoorAndName(float lat, float lon, const QString &name)
+// {
+//     KPublicTransport::LocationRequest req;
+//     req.setBackendIds(m_manager.enabledBackends());
+//     req.setCoordinate(lat, lon);
+//     req.setName(name);
+
+//     for (auto result: m_manager.queryLocation(req)->result()) {
+//         return convertLocationToJsonString(result);
+//     }
+//     return QString("{\"name\":\"Default\"}");
+// }
+
+QString TrainConnection::getJsonLocationFromCoorAndName(float lat, float lon)
 {
     KPublicTransport::LocationRequest req;
     req.setBackendIds(m_manager.enabledBackends());
     req.setCoordinate(lat, lon);
-    req.setName(name);
+
+    std::cout << "Lat: " << lat << ", Lon: " << lon << std::endl;
+
+    for (auto id: req.backendIds()) {
+        std::cout << "Id: " << id.toStdString() << std::endl;
+    }
 
     for (auto result: m_manager.queryLocation(req)->result()) {
-        return convertLocationToJsonString(result);
+        std::cout << result.name().toStdString() << std::endl;
+        // return convertLocationToJsonString(result);
     }
     return QString("{\"name\":\"Default\"}");
 }
@@ -142,13 +161,18 @@ QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocation
 {
     KPublicTransport::JourneyRequest req;
     req.setBackendIds(m_manager.enabledBackends());
+
+    for (auto id: req.backendIds()) {
+        std::cout << "Id: " << id.toStdString() << std::endl;
+    }
+
     // req.setFrom(m_start);
     // req.setTo(m_destination);
     req.setFrom(convertJsonStringToLocation(fromLocationJson));
     req.setTo(convertJsonStringToLocation(toLocationJson));
 
-    QDateTime depTime(QDate::currentDate(), QTime::currentTime());
-    // QDateTime depTime(m_departureDate, m_departureTime);
+    // QDateTime depTime(QDate::currentDate(), QTime::currentTime());
+    QDateTime depTime(m_departureDate, m_departureTime);
     req.setDepartureTime(depTime);
 
     std::cout << "Start: " << fromLocationJson.toStdString() << std::endl;
