@@ -167,16 +167,15 @@ QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocation
     //     std::cout << "Gefunden" << std::endl;
     // }
 
-    KPublicTransport::StopoverRequest req;
+    KPublicTransport::LocationRequest req;
     req.setBackendIds(m_manager.enabledBackends());
-    req.setStop(convertJsonStringToLocation(fromLocationJson));
+    req.setCoordinate(51.3549, 7.12235);
+    req.setName("Velbert-Langenberg");
 
-    QDateTime depTime(QDate::currentDate(), QTime::currentTime());
-    req.setDateTime(depTime);
-
-    for (auto result: m_manager.queryStopover(req)->result()) {
-        std::cout << "Gefunden" << std::endl;
+    for (auto result: m_manager.queryLocation(req)->result()) {
+        return convertLocationToJsonString(result);
     }
+    return QString("{\"name\":\"Default\"}");
 
     QVector<KPublicTransport::Journey> journeys;
     return QVariant::fromValue(journeys);
