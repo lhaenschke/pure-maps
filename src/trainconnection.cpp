@@ -168,6 +168,7 @@ QVariant TrainConnection::getJourneyBetweenLocations(const QString &fromLocation
     // }
 
     KPublicTransport::StopoverRequest req;
+    req.setBackendIds(m_manager.enabledBackends());
     req.setStop(convertJsonStringToLocation(fromLocationJson));
 
     QDateTime depTime(QDate::currentDate(), QTime::currentTime());
