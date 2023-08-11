@@ -60,7 +60,7 @@ public:
     Q_INVOKABLE KPublicTransport::Location convertJsonStringToLocation(const QString &jsonString);
 
     // Q_INVOKABLE QString getJsonLocationFromCoorAndName(float lat, float lon, const QString &name);
-    std::vector<KPublicTransport::Location> TrainConnection::getLocationJsonFromCoorAndName(float lat, float lon);
+    std::vector<KPublicTransport::Location> getLocationJsonFromCoorAndName(float lat, float lon);
     Q_INVOKABLE QVariant getJourneyBetweenLocations(float lon1, float lat1, float lon2, float lat2);
 
     Q_INVOKABLE KPublicTransport::JourneyRequest createJourneyRequest();
