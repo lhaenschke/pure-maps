@@ -130,7 +130,7 @@ KPublicTransport::Location TrainConnection::convertJsonStringToLocation(const QS
 //     return QString("{\"name\":\"Default\"}");
 // }
 
-QString getLocationJsonFromCoorAndName(float lat, float lon)
+QString TrainConnection::getLocationJsonFromCoorAndName(float lat, float lon)
 {
     KPublicTransport::LocationRequest req;
     req.setBackendIds(m_manager.enabledBackends());
