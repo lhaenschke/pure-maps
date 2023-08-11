@@ -129,7 +129,7 @@ QString TrainConnection::getJsonLocationFromCoorAndName(float lat, float lon, co
     return QString("{\"name\":\"Default\"}");
 }
 
-QVariant TrainConnection::getJourneyBetweenLocations(const QString &locationFromString, const QString &locationToString);
+QVariant TrainConnection::getJourneyBetweenLocations(const QString &locationFromString, const QString &locationToString)
 {
     KPublicTransport::JourneyRequest req;
     req.setBackendIds(m_manager.enabledBackends());
