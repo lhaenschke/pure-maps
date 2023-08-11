@@ -21,7 +21,6 @@
 #include <QUrl>
 
 #include <iostream>
-#include <vector>
 
 #include<thread> // for std::thread
 using std::this_thread::sleep_for; 
@@ -130,16 +129,23 @@ KPublicTransport::Location TrainConnection::convertJsonStringToLocation(const QS
 //     return QString("{\"name\":\"Default\"}");
 // }
 
-QString TrainConnection::getLocationJsonFromCoorAndName(float lat, float lon)
+std::vector<KPublicTransport::Location> TrainConnection::getLocationJsonFromCoorAndName(float lat, float lon)
 {
     KPublicTransport::LocationRequest req;
     req.setBackendIds(m_manager.enabledBackends());
     req.setCoordinate(lat, lon);
 
+    std::vector<QString> locations;
+
     for (auto result: m_manager.queryLocation(req)->result()) {
-        return convertLocationToJsonString(result);
+        locations.push_back(result);
+        
+        if (locations.size() >= 3) {
+            break
+        }
+
     }
-    return QString("{\"name\":\"Default\"}");
+    return locations;
 }
 
 // auto f()
@@ -217,30 +223,32 @@ QVariant TrainConnection::getJourneyBetweenLocations(float lon1, float lat1, flo
 {
     QVector<KPublicTransport::Journey> journeys;
 
-    // Location 1
-    KPublicTransport::Location location1 = convertJsonStringToLocation(QString("{\"name\":\"Default\"}"));
-    for (int i = 0; (location1.name().toStdString().compare("Default") == 0) && i < 5; i++) {
-        std::cout << "Loc1  i: " << i << std::endl;
-        location1 = convertJsonStringToLocation(getLocationJsonFromCoorAndName(lat1, lon1));
+    // Possible Locations 1
+    std::vector<KPublicTransport::Location> locations1;
+    for (int i = 0; locations1.size() == 0 && i < 10; i++) {
+        locations1 = getLocationJsonFromCoorAndName(lat1, lon1);
     }
 
-    std::cout << "Location1-Json: " << convertLocationToJsonString(location1).toStdString() << std::endl;
+    for (auto loc: locations1) {
+        std::cout << "Location1-Json: " << convertLocationToJsonString(loc).toStdString() << std::endl;
+    }
 
-    if (location1.name().toStdString().compare("Default") == 0) {
+    if (locations1.size() == 0) {
         // Early return -> No Location was found
         return QVariant::fromValue(journeys);    
     }
 
-    // Location 2
-    KPublicTransport::Location location2 = convertJsonStringToLocation(QString("{\"name\":\"Default\"}"));
-    for (int i = 0; (location2.name().toStdString().compare("Default") == 0) && i < 5; i++) {
-        std::cout << "Loc2  i: " << i << std::endl;
-        location2 = convertJsonStringToLocation(getLocationJsonFromCoorAndName(lat2, lon2));
+    // Possible Locations 2
+    std::vector<KPublicTransport::Location> locations2;
+    for (int i = 0; locations2.size() == 0 && i < 10; i++) {
+        locations2 = getLocationJsonFromCoorAndName(lat2, lon2);
     }
 
-    std::cout << "Location2-Json: " << convertLocationToJsonString(location2).toStdString() << std::endl;
+    for (auto loc: locations2) {
+        std::cout << "Location2-Json: " << convertLocationToJsonString(loc).toStdString() << std::endl;
+    }
 
-    if (location2.name().toStdString().compare("Default") == 0) {
+    if (locations2.size() == 0) {
         // Early return -> No Location was found
         return QVariant::fromValue(journeys);    
     }
