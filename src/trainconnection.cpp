@@ -226,7 +226,7 @@ QVariant TrainConnection::getJourneyBetweenLocations(float lon1, float lat1, flo
     // Possible Locations 1
     std::vector<KPublicTransport::Location> locations1;
     for (int i = 0; locations1.size() == 0 && i < 10; i++) {
-        locations1 = getLocationJsonFromCoorAndName(lat1, lon1);
+        locations1 = getLocationsFromCoorAndName(lat1, lon1);
     }
 
     std::cout << "Location1 Count: " << locations1.size() << std::endl;
@@ -239,7 +239,7 @@ QVariant TrainConnection::getJourneyBetweenLocations(float lon1, float lat1, flo
     // Possible Locations 2
     std::vector<KPublicTransport::Location> locations2;
     for (int i = 0; locations2.size() == 0 && i < 10; i++) {
-        locations2 = getLocationJsonFromCoorAndName(lat2, lon2);
+        locations2 = getLocationsFromCoorAndName(lat2, lon2);
     }
 
     std::cout << "Location2 Count: " << locations2.size() << std::endl;
