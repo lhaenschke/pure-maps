@@ -129,7 +129,7 @@ KPublicTransport::Location TrainConnection::convertJsonStringToLocation(const QS
 //     return QString("{\"name\":\"Default\"}");
 // }
 
-std::vector<KPublicTransport::Location> TrainConnection::getLocationJsonFromCoorAndName(float lat, float lon)
+std::vector<KPublicTransport::Location> TrainConnection::getLocationsFromCoorAndName(float lat, float lon)
 {
     KPublicTransport::LocationRequest req;
     req.setBackendIds(m_manager.enabledBackends());
@@ -260,7 +260,7 @@ QVariant TrainConnection::getJourneyBetweenLocations(float lon1, float lat1, flo
     // queryModel.setManager(&m_manager);
     // queryModel.setRequest(req);
 
-    auto reply = m_manager.queryJourney(req);
+    KPublicTransport::JourneyReply *reply = m_manager.queryJourney(req);
     QObject::connect(reply, &KPublicTransport::JourneyReply::finished, this, [reply, this] {
         // Q_D(JourneyQueryModel);
         // if (reply->error() == KPublicTransport::JourneyReply::NoError) {
@@ -272,9 +272,12 @@ QVariant TrainConnection::getJourneyBetweenLocations(float lon1, float lat1, flo
         // std::cout << "Finished" << std::endl;
 
         for (auto result: reply->result()) {
-            std::cout << "Duration: " << result.duration() << std::endl;
+            std::cout << "Json: " << QJsonDocument(KPublicTransport::Journey::toJson(result)).toJson(QJsonDocument::Compact).toStdString() << std::endl;
         }
 
+    });
+    QObject::connect(reply, &KPublicTransport::JourneyReply::updated, this, [reply, this]() {
+        std::cout << "Update" << std:.endl;    
     });
 
 
