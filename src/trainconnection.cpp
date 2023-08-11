@@ -256,7 +256,7 @@ QVariant TrainConnection::getJourneyBetweenLocations(float lon1, float lat1, flo
     req.setTo(locations2[0]);
     req.setDepartureTime(depTime);
 
-    auto reply = m_manager->queryJourney(req);
+    auto reply = m_manager.queryJourney(req);
     QObject::connect(reply, &KPublicTransport::JourneyReply::finished, this, [reply, this] {
         // Q_D(JourneyQueryModel);
         // if (reply->error() == KPublicTransport::JourneyReply::NoError) {
