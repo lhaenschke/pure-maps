@@ -261,6 +261,7 @@ QVariant TrainConnection::getJourneyBetweenLocations(float lon1, float lat1, flo
     for (int i = 0; test.size() == 0 && i < 10; i++) {
         std::cout << "Journey i: " << i << std::endl;
         test = m_manager.queryJourney(req)->result();
+        sleep_for(seconds(5));
     }
 
     for (auto j: test) {
