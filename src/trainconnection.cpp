@@ -221,6 +221,7 @@ std::vector<KPublicTransport::Location> TrainConnection::getLocationJsonFromCoor
 QVariant TrainConnection::getJourneyBetweenLocations(float lon1, float lat1, float lon2, float lat2)
 {
     QVector<KPublicTransport::Journey> journeys;
+    QDateTime depTime(QDate::currentDate(), QTime::currentTime());
 
     // Possible Locations 1
     std::vector<KPublicTransport::Location> locations1;
@@ -228,9 +229,7 @@ QVariant TrainConnection::getJourneyBetweenLocations(float lon1, float lat1, flo
         locations1 = getLocationJsonFromCoorAndName(lat1, lon1);
     }
 
-    for (auto loc: locations1) {
-        std::cout << "Location1-Json: " << convertLocationToJsonString(loc).toStdString() << std::endl;
-    }
+    std::cout << "Location1 Count: " << locations1.size() << std::endl;
 
     if (locations1.size() == 0) {
         // Early return -> No Location was found
@@ -243,18 +242,31 @@ QVariant TrainConnection::getJourneyBetweenLocations(float lon1, float lat1, flo
         locations2 = getLocationJsonFromCoorAndName(lat2, lon2);
     }
 
-    for (auto loc: locations2) {
-        std::cout << "Location2-Json: " << convertLocationToJsonString(loc).toStdString() << std::endl;
-    }
+    std::cout << "Location2 Count: " << locations2.size() << std::endl;
 
     if (locations2.size() == 0) {
         // Early return -> No Location was found
         return QVariant::fromValue(journeys);    
     }
 
-    
+    // Search for Journeys
 
+    KPublicTransport::JourneyRequest req;
+    req.setBackendIds(m_manager.enabledBackends());
+    req.setFrom(locations1[0]);
+    req.setTo(locations2[0]);
+    req.setDepartureTime(depTime);
     
+    std::vector<KPublicTransport::Journey> journeys;
+    for (int i = 0; journeys.size() == 0 && i < 10; i++) {
+        std::cout << "Journey i: " << i << std::endl;
+        journeys = m_manager.queryJourney(req)->result();
+    }
+
+    for (auto j: journeys) {
+        std::cout << "Test" << std::endl;
+    }
+
     return QVariant::fromValue(journeys);
 }
 
