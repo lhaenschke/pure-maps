@@ -235,7 +235,7 @@ Item {
                     loadedKPTBackends = true;
                 }
 
-                TrainConnection.getJsonLocationFromCoorAndName(args[0][0]['y'], args[0][0]['x']);
+                TrainConnection.getJourneyBetweenLocations(args[0][0]['x'], args[0][0]['y'], args[0][1]['x'], args[0][1]['y']);
 
                 // var fromStops = [];
                 // var toStops   = [];
