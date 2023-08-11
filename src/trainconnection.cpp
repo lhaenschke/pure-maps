@@ -219,7 +219,8 @@ QVariant TrainConnection::getJourneyBetweenLocations(float lon1, float lat1, flo
 
     // Location 1
     KPublicTransport::Location location1 = convertJsonStringToLocation(QString("{\"name\":\"Default\"}"));
-    for (int i = 0; (location1.name().toStdString().compare("Default") == 0) && i < 3; i++) {
+    for (int i = 0; (location1.name().toStdString().compare("Default") == 0) && i < 5; i++) {
+        std::cout << "Loc1  i: " << i << std::endl;
         location1 = convertJsonStringToLocation(getLocationJsonFromCoorAndName(lat1, lon1));
     }
 
@@ -232,7 +233,8 @@ QVariant TrainConnection::getJourneyBetweenLocations(float lon1, float lat1, flo
 
     // Location 2
     KPublicTransport::Location location2 = convertJsonStringToLocation(QString("{\"name\":\"Default\"}"));
-    for (int i = 0; (location2.name().toStdString().compare("Default") == 0) && i < 3; i++) {
+    for (int i = 0; (location2.name().toStdString().compare("Default") == 0) && i < 5; i++) {
+        std::cout << "Loc2  i: " << i << std::endl;
         location2 = convertJsonStringToLocation(getLocationJsonFromCoorAndName(lat2, lon2));
     }
 
