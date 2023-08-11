@@ -277,7 +277,7 @@ QVariant TrainConnection::getJourneyBetweenLocations(float lon1, float lat1, flo
 
     });
     QObject::connect(reply, &KPublicTransport::JourneyReply::updated, this, [reply, this]() {
-        std::cout << "Update" << std:.endl;    
+        std::cout << "Update" << std::endl;    
     });
 
 
