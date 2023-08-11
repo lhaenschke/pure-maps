@@ -196,9 +196,9 @@ std::vector<KPublicTransport::Location> TrainConnection::getLocationJsonFromCoor
 
 //     // std::cout << "IsValid: " << queryModel.isValid() << std::endl;
 
-//     // KPublicTransport::JourneyQueryModel queryModel;
-//     // queryModel.setManager(&m_manager);
-//     // queryModel.setRequest(req);
+//    // KPublicTransport::JourneyQueryModel queryModel;
+//    // queryModel.setManager(&m_manager);
+//    // queryModel.setRequest(req);
     
 //     // std::thread t(f);
 //     // std::cout << "Test1" << std::endl;
@@ -256,6 +256,10 @@ QVariant TrainConnection::getJourneyBetweenLocations(float lon1, float lat1, flo
     req.setTo(locations2[0]);
     req.setDepartureTime(depTime);
 
+    // KPublicTransport::JourneyQueryModel queryModel;
+    // queryModel.setManager(&m_manager);
+    // queryModel.setRequest(req);
+
     auto reply = m_manager.queryJourney(req);
     QObject::connect(reply, &KPublicTransport::JourneyReply::finished, this, [reply, this] {
         // Q_D(JourneyQueryModel);
@@ -265,7 +269,12 @@ QVariant TrainConnection::getJourneyBetweenLocations(float lon1, float lat1, flo
         //     d->m_nextRequest = {};
         // }
         // Q_EMIT canQueryPrevNextChanged();
-        std::cout << "Finished" << std::endl;
+        // std::cout << "Finished" << std::endl;
+
+        for (auto result: reply->result()) {
+            std::cout << "Duration: " << result.duration() << std::endl;
+        }
+
     });
 
 
