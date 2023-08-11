@@ -250,23 +250,37 @@ QVariant TrainConnection::getJourneyBetweenLocations(float lon1, float lat1, flo
     }
 
     // Search for Journeys
-
     KPublicTransport::JourneyRequest req;
     req.setBackendIds(m_manager.enabledBackends());
     req.setFrom(locations1[0]);
     req.setTo(locations2[0]);
     req.setDepartureTime(depTime);
-    
-    std::vector<KPublicTransport::Journey> test;
-    for (int i = 0; test.size() == 0 && i < 10; i++) {
-        std::cout << "Journey i: " << i << std::endl;
-        test = m_manager.queryJourney(req)->result();
-        sleep_for(seconds(5));
-    }
 
-    for (auto j: test) {
-        std::cout << "Test" << std::endl;
-    }
+    auto reply = m_manager->queryJourney(req);
+    QObject::connect(reply, &KPublicTransport::JourneyReply::finished, this, [reply, this] {
+        // Q_D(JourneyQueryModel);
+        // if (reply->error() == KPublicTransport::JourneyReply::NoError) {
+        //     d->m_nextRequest = reply->nextRequest();
+        // } else {
+        //     d->m_nextRequest = {};
+        // }
+        // Q_EMIT canQueryPrevNextChanged();
+        std::cout << "Finished" << std::endl;
+    });
+
+
+    
+    
+    // std::vector<KPublicTransport::Journey> test;
+    // for (int i = 0; test.size() == 0 && i < 10; i++) {
+    //     std::cout << "Journey i: " << i << std::endl;
+    //     test = m_manager.queryJourney(req)->result();
+    //     sleep_for(seconds(5));
+    // }
+
+    // for (auto j: test) {
+    //     std::cout << "Test" << std::endl;
+    // }
 
     return QVariant::fromValue(journeys);
 }
