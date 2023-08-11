@@ -23,7 +23,6 @@
 #include <iostream>
 #include <vector>
 
-#include<iostream> // for std::cout
 #include<thread> // for std::thread
 using std::this_thread::sleep_for; 
 using std::chrono::seconds;
@@ -224,7 +223,7 @@ QVariant TrainConnection::getJourneyBetweenLocations(float lon1, float lat1, flo
         location1 = convertJsonStringToLocation(getLocationJsonFromCoorAndName(lat1, lon1));
     }
 
-    std::cout << "Location1-Json: " << convertLocationToJsonString(location1) << std::endl;
+    std::cout << "Location1-Json: " << convertLocationToJsonString(location1).toStdString() << std::endl;
 
     if (location1.name().toStdString().compare("Default") == 0) {
         // Early return -> No Location was found
@@ -237,7 +236,7 @@ QVariant TrainConnection::getJourneyBetweenLocations(float lon1, float lat1, flo
         location2 = convertJsonStringToLocation(getLocationJsonFromCoorAndName(lat2, lon2));
     }
 
-    std::cout << "Location2-Json: " << convertLocationToJsonString(location2) << std::endl;
+    std::cout << "Location2-Json: " << convertLocationToJsonString(location2).toStdString() << std::endl;
 
     if (location2.name().toStdString().compare("Default") == 0) {
         // Early return -> No Location was found
