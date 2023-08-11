@@ -22,9 +22,9 @@
 #include <KPublicTransport/Backend>
 #include <KPublicTransport/Attribution>
 #include <KPublicTransport/JourneyRequest>
-#include <KPublicTransport/JourneyQueryModel>
 #include <KPublicTransport/JourneyReply>
 #include <KPublicTransport/Journey>
+#include <KPublicTransport/RentalVehicle>
 #include <KPublicTransport/LocationRequest>
 #include <KPublicTransport/LocationReply>
 #include <KPublicTransport/Location>
@@ -59,9 +59,8 @@ public:
     Q_INVOKABLE QString convertLocationToJsonString(const KPublicTransport::Location &location);
     Q_INVOKABLE KPublicTransport::Location convertJsonStringToLocation(const QString &jsonString);
 
-    // Q_INVOKABLE QString getJsonLocationFromCoorAndName(float lat, float lon, const QString &name);
-    std::vector<KPublicTransport::Location> getLocationsFromCoorAndName(float lat, float lon);
-    Q_INVOKABLE QVariant getJourneyBetweenLocations(float lon1, float lat1, float lon2, float lat2);
+    Q_INVOKABLE QString getJsonLocationFromCoorAndName(float lat, float lon, const QString &name);
+    Q_INVOKABLE QVariant getJourneyBetweenLocations(const QString &locationFromString, const QString &locationToString);
 
     Q_INVOKABLE KPublicTransport::JourneyRequest createJourneyRequest();
     Q_INVOKABLE KPublicTransport::LocationRequest createLocationRequest(const QString &name);
