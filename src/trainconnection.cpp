@@ -135,14 +135,13 @@ std::vector<KPublicTransport::Location> TrainConnection::getLocationJsonFromCoor
     req.setBackendIds(m_manager.enabledBackends());
     req.setCoordinate(lat, lon);
 
-    std::vector<QString> locations;
+    std::vector<KPublicTransport::Location> locations;
 
     for (auto result: m_manager.queryLocation(req)->result()) {
         locations.push_back(result);
         
-        if (locations.size() >= 3) {
-            break
-        }
+        if (locations.size() >= 3)
+            break;
 
     }
     return locations;
