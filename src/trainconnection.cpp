@@ -257,13 +257,13 @@ QVariant TrainConnection::getJourneyBetweenLocations(float lon1, float lat1, flo
     req.setTo(locations2[0]);
     req.setDepartureTime(depTime);
     
-    std::vector<KPublicTransport::Journey> journeys;
-    for (int i = 0; journeys.size() == 0 && i < 10; i++) {
+    std::vector<KPublicTransport::Journey> test;
+    for (int i = 0; test.size() == 0 && i < 10; i++) {
         std::cout << "Journey i: " << i << std::endl;
-        journeys = m_manager.queryJourney(req)->result();
+        test = m_manager.queryJourney(req)->result();
     }
 
-    for (auto j: journeys) {
+    for (auto j: test) {
         std::cout << "Test" << std::endl;
     }
 
