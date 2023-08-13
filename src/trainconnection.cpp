@@ -21,7 +21,6 @@
 #include <QUrl>
 
 #include <vector>
-#include <thread>
 using std::this_thread::sleep_for; 
 using std::chrono::seconds;
 #include <iostream>
@@ -148,7 +147,7 @@ void TrainConnection::getJsonJourneyBetweenLocations(const QString &locationFrom
     QVector<KPublicTransport::Journey> journeys;
 
     std::thread backgroundThread(sleepInBackground);
-    m_threadMap.insert({index, backgroundThread})
+    m_threadMap.insert({index, backgroundThread});
 
     KPublicTransport::JourneyReply *reply = m_manager.queryJourney(req);
     QObject::connect(reply, &KPublicTransport::JourneyReply::finished, this, [reply, this] {

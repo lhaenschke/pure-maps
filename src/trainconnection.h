@@ -18,6 +18,7 @@
 #include <QVector>
 
 #include <unordered_map>
+#include <thread>
 
 #include <KPublicTransport/Manager>
 #include <KPublicTransport/Backend>
