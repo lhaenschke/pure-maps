@@ -258,9 +258,11 @@ Item {
                     console.log("To: ", JSON.stringify(x));
                 });
 
+                var journeys = TrainConnection.loadJourneys(fromStops[0].KptLocationJson, toStops[0].KptLocationJson);
+
                 fromStops.forEach(from => {
                     toStops.forEach(to => {
-                        var journeys = TrainConnection.getJourneyBetweenLocations(from.KptLocationJson, to.KptLocationJson);
+                        // var journeys = TrainConnection.loadJourneys(from.KptLocationJson, to.KptLocationJson);
                         // journeys.forEach(x => {
                         //     console.log("Journey: ", JSON.stringify(x));
                         // });
