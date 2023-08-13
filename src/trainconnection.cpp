@@ -147,7 +147,7 @@ void TrainConnection::getJsonJourneyBetweenLocations(const QString &locationFrom
     QVector<KPublicTransport::Journey> journeys;
 
     std::thread backgroundThread(sleepInBackground);
-    m_threadMap.insert({index, backgroundThread});
+    m_threadMap[index] = std::move(backgroundThread);
 
     KPublicTransport::JourneyReply *reply = m_manager.queryJourney(req);
     QObject::connect(reply, &KPublicTransport::JourneyReply::finished, this, [reply, index, this] {
