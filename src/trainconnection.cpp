@@ -156,7 +156,7 @@ void TrainConnection::getJsonJourneyBetweenLocations(const QString &locationFrom
             std::cout << "Gefunden" << std::endl;
         }
 
-        backgroundThread.terminate();
+        backgroundThread.request_stop();
 
     });
 
