@@ -137,7 +137,7 @@ void sleepInBackground()
     std::cout << "Finished Background Sleep" << std::endl;
 }
 
-void TrainConnection::getJsonJourneyBetweenLocations(const QString &locationFromString, const QString &locationToString, const QDateTime depTime, int index)
+void TrainConnection::getJsonJourneyBetweenLocations(const QString &locationFromString, const QString &locationToString, const QDateTime depTime, const int index)
 {
     KPublicTransport::JourneyRequest req;
     req.setBackendIds(m_manager.enabledBackends());
@@ -148,15 +148,20 @@ void TrainConnection::getJsonJourneyBetweenLocations(const QString &locationFrom
     QVector<KPublicTransport::Journey> journeys;
 
     std::thread backgroundThread(sleepInBackground);
+    m_threadMap.insert({index, backgroundThread})
 
     KPublicTransport::JourneyReply *reply = m_manager.queryJourney(req);
-    QObject::connect(reply, &KPublicTransport::JourneyReply::finished, this, [reply, backgroundThread, this] {
+    QObject::connect(reply, &KPublicTransport::JourneyReply::finished, this, [reply, this] {
         
         for (auto result: reply->result()) {
             std::cout << "Gefunden" << std::endl;
         }
 
-        backgroundThread.request_stop();
+        for (auto& p: m_threadMap) {
+            if (p.first == index) {
+                p.second.request_stop();
+            }
+        }
 
     });
 

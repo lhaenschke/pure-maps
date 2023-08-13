@@ -17,6 +17,8 @@
 #include <QVariant>
 #include <QVector>
 
+#include <unordered_map>
+
 #include <KPublicTransport/Manager>
 #include <KPublicTransport/Backend>
 #include <KPublicTransport/Attribution>
@@ -76,6 +78,7 @@ private:
     KPublicTransport::Location m_destination;
     KPublicTransport::Manager m_manager;
     QVector<QVector<KPublicTransport::Journey>> m_journeys;
+    std::unordered_map<int, std::thread> m_threadMap;
     QDate m_departureDate;
     QTime m_departureTime;
 };
