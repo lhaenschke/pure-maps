@@ -20,11 +20,11 @@
 #include <QStandardPaths>
 #include <QUrl>
 
-#include <iostream>
-
-#include<thread> // for std::thread
+#include <vector>
+#include <thread>
 using std::this_thread::sleep_for; 
 using std::chrono::seconds;
+#include <iostream>
 
 TrainConnection::TrainConnection(QObject *parent)
     : QObject(parent)
@@ -106,6 +106,7 @@ void TrainConnection::setStartLocation(float lat, float lon, const QString &name
     }
 }
 
+
 QString TrainConnection::convertLocationToJsonString(const KPublicTransport::Location &location)
 {
     return QJsonDocument(KPublicTransport::Location::toJson(location)).toJson(QJsonDocument::Compact);
@@ -129,23 +130,51 @@ QString TrainConnection::getJsonLocationFromCoorAndName(float lat, float lon, co
     return QString("{\"name\":\"Default\"}");
 }
 
-QVariant TrainConnection::getJourneyBetweenLocations(const QString &locationFromString, const QString &locationToString)
+void sleepInBackground()
+{
+    std::cout << "Start Background Sleep" << std::endl;
+    sleep_for(seconds(20));
+    std::cout << "Finished Background Sleep" << std::endl;
+}
+
+void TrainConnection::getJsonJourneyBetweenLocations(const QString &locationFromString, const QString &locationToString, const QDateTime depTime, int index)
 {
     KPublicTransport::JourneyRequest req;
     req.setBackendIds(m_manager.enabledBackends());
     req.setFrom(convertJsonStringToLocation(locationFromString));
     req.setTo(convertJsonStringToLocation(locationToString));
-    
-    QDateTime depTime(QDate::currentDate(), QTime::currentTime());
     req.setDepartureTime(depTime);
+
+    QVector<KPublicTransport::Journey> journeys;
+
+    std::thread backgroundThread(sleepInBackground);
 
     KPublicTransport::JourneyReply *reply = m_manager.queryJourney(req);
     QObject::connect(reply, &KPublicTransport::JourneyReply::finished, this, [reply, this] {
+        
         for (auto result: reply->result()) {
-            std::cout << "Json: " << QJsonDocument(KPublicTransport::Journey::toJson(result)).toJson(QJsonDocument::Compact).toStdString() << std::endl;
+            std::cout << "Gefunden" << std::endl;
         }
 
+        backgroundThread.terminate();
+
     });
+
+    backgroundThread.join();
+    
+    std::cout << "Jawollja" << std::endl;
+
+    m_journeys[index] = journeys;
+}
+
+QVariant loadJourneys(const QString &locationFromStrings, const QString &locationToStrings)
+{
+    m_journeys = QVector<QVector<KPublicTransport::Journey>>(9);
+    QDateTime depTime(QDate::currentDate(), QTime::currentTime());
+
+    std::thread t1(getJsonJourneyBetweenLocations, locationFromStrings, locationToStrings, depTime, 0);
+
+    t1.join();
 
     QVector<KPublicTransport::Journey> journeys;
     return QVariant::fromValue(journeys);

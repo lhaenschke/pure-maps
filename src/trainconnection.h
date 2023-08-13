@@ -15,8 +15,7 @@
 #include <QTime>
 #include <QString>
 #include <QVariant>
-
-#include <vector>
+#include <QVector>
 
 #include <KPublicTransport/Manager>
 #include <KPublicTransport/Backend>
@@ -24,7 +23,6 @@
 #include <KPublicTransport/JourneyRequest>
 #include <KPublicTransport/JourneyReply>
 #include <KPublicTransport/Journey>
-#include <KPublicTransport/RentalVehicle>
 #include <KPublicTransport/LocationRequest>
 #include <KPublicTransport/LocationReply>
 #include <KPublicTransport/Location>
@@ -60,7 +58,8 @@ public:
     Q_INVOKABLE KPublicTransport::Location convertJsonStringToLocation(const QString &jsonString);
 
     Q_INVOKABLE QString getJsonLocationFromCoorAndName(float lat, float lon, const QString &name);
-    Q_INVOKABLE QVariant getJourneyBetweenLocations(const QString &locationFromString, const QString &locationToString);
+    void getJsonJourneyBetweenLocations(const QString &locationFromString, const QString &locationToString, const QDateTime depTime, int index);
+    Q_INVOKABLE QVariant loadJourneys(const QString &locationFromStrings, const QString &locationToStrings);
 
     Q_INVOKABLE KPublicTransport::JourneyRequest createJourneyRequest();
     Q_INVOKABLE KPublicTransport::LocationRequest createLocationRequest(const QString &name);
@@ -76,6 +75,7 @@ private:
     KPublicTransport::Location m_start;
     KPublicTransport::Location m_destination;
     KPublicTransport::Manager m_manager;
+    QVector<QVector<KPublicTransport::Journey>> m_journeys;
     QDate m_departureDate;
     QTime m_departureTime;
 };
