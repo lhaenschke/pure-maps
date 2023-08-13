@@ -132,7 +132,7 @@ QString TrainConnection::getJsonLocationFromCoorAndName(float lat, float lon, co
 void sleepInBackground()
 {
     std::cout << "Start Background Sleep" << std::endl;
-    sleep_for(seconds(40));
+    sleep_for(seconds(10));
     std::cout << "Finished Background Sleep" << std::endl;
 }
 
@@ -144,6 +144,8 @@ void TrainConnection::getJsonJourneyBetweenLocations(const QString &locationFrom
     req.setTo(convertJsonStringToLocation(locationToString));
     req.setDepartureTime(depTime);
 
+    std::thread backgroundThread(sleepInBackground);
+    
     KPublicTransport::JourneyReply *reply = m_manager.queryJourney(req);
     QObject::connect(reply, &KPublicTransport::JourneyReply::finished, this, [reply, index, this] {
         QVector<KPublicTransport::Journey> journeys;
@@ -158,6 +160,8 @@ void TrainConnection::getJsonJourneyBetweenLocations(const QString &locationFrom
 
         m_journeys[index] = journeys;
     });
+
+    backgroundThread.join();
 }
 
 QVariant TrainConnection::loadJourneys(const QString &locationFromStrings, const QString &locationToStrings)
@@ -166,9 +170,6 @@ QVariant TrainConnection::loadJourneys(const QString &locationFromStrings, const
     QDateTime depTime(QDate::currentDate(), QTime::currentTime());
 
     getJsonJourneyBetweenLocations(locationFromStrings, locationToStrings, depTime, 0);
-
-    std::thread backgroundThread(sleepInBackground);
-    backgroundThread.join();
 
     std::cout << "Anzahl index 0: " << m_journeys[0].size() << std::endl;
 
