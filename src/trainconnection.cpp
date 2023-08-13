@@ -21,8 +21,7 @@
 #include <QUrl>
 
 #include <vector>
-using std::this_thread::sleep_for; 
-using std::chrono::seconds;
+#include <chrono>
 #include <iostream>
 
 TrainConnection::TrainConnection(QObject *parent)
@@ -158,14 +157,16 @@ QVariant TrainConnection::loadJourneys(const QString &locationFromStrings, const
     m_journeys = QVector<QVector<KPublicTransport::Journey>>(9);
     QDateTime depTime(QDate::currentDate(), QTime::currentTime());
 
-    const clock_t begin_time = clock();
+    auto startTime = std::chrono::high_resolution_clock::now();
 
     getJsonJourneyBetweenLocations(locationFromStrings, locationToStrings, depTime, 0);
     getJsonJourneyBetweenLocations(locationToStrings, locationFromStrings, depTime, 1);
 
-    while ((float( clock () - begin_time ) / CLOCKS_PER_SEC) <= 8 && m_journeys[0].size() == 0) {
-        std::cout << "Time: " << float( clock () - begin_time ) / CLOCKS_PER_SEC << ", Anzahl: " << m_journeys[0].size() << std::endl;
+    while (std::chrono::duration<double, std::milli>(std::chrono::high_resolution_clock::now() - startTime).count() <= 10000 && m_journeys[0].size() == 0) {
+        // std::cout << "Time: " << float( clock () - begin_time ) / CLOCKS_PER_SEC << ", Anzahl: " << m_journeys[0].size() << std::endl;
     }
+
+    std::cout << "Vergange Zeit " << std::chrono::duration<double, std::milli>(std::chrono::high_resolution_clock::now() - startTime).count() << std::endl;
 
     QVector<KPublicTransport::Journey> journeys;
     return QVariant::fromValue(journeys);
