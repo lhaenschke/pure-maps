@@ -165,11 +165,11 @@ QVariant TrainConnection::loadJourneys(const QString &locationFromStrings, const
     m_journeys = QVector<QVector<KPublicTransport::Journey>>(9);
     QDateTime depTime(QDate::currentDate(), QTime::currentTime());
 
-    std::thread backgroundThread(sleepInBackground);
+    // std::thread backgroundThread(sleepInBackground);
 
     getJsonJourneyBetweenLocations(locationFromStrings, locationToStrings, depTime, 0);
 
-    backgroundThread.join();
+    // backgroundThread.join();
 
     std::cout << "Anzahl index 0: " << m_journeys[0].size() << std::endl;
 
