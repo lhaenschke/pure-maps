@@ -235,8 +235,6 @@ Item {
                     loadedKPTBackends = true;
                 }
 
-                // TrainConnection.getJourneyBetweenLocations(args[0][0]['x'], args[0][0]['y'], args[0][1]['x'], args[0][1]['y']);
-
                 var fromStops = [];
                 var toStops   = [];
 
@@ -253,7 +251,7 @@ Item {
                 var counter = 0;
                 fromStops.forEach(from => {
                     toStops.forEach(to => {
-                        TrainConnection.loadJourney(from.KptLocationJson, to.KptLocationJson, counter++;);
+                        TrainConnection.loadJourney(from.KptLocationJson, to.KptLocationJson, counter++);
                     });
                 });
 
@@ -298,7 +296,7 @@ Item {
             });
 
         }
-        
+
     }
 
     function loadRoute() {
@@ -413,7 +411,6 @@ Item {
         });
 
         return arr.slice(0, 3);
-
     }
 
     function calculateDistance(lat1, lon1, lat2, lon2) {
@@ -430,7 +427,6 @@ Item {
         const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 
         return R * c; // in metres
-
     }
 
 }
