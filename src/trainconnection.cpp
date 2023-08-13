@@ -129,13 +129,6 @@ QString TrainConnection::getJsonLocationFromCoorAndName(float lat, float lon, co
     return QString("{\"name\":\"Default\"}");
 }
 
-void sleepInBackground()
-{
-    std::cout << "Start Background Sleep" << std::endl;
-    sleep_for(seconds(10));
-    std::cout << "Finished Background Sleep" << std::endl;
-}
-
 void TrainConnection::getJsonJourneyBetweenLocations(const QString &locationFromString, const QString &locationToString, const QDateTime depTime, const int index)
 {
     KPublicTransport::JourneyRequest req;
@@ -149,7 +142,7 @@ void TrainConnection::getJsonJourneyBetweenLocations(const QString &locationFrom
         QVector<KPublicTransport::Journey> journeys;
 
         for (auto result: reply->result()) {
-            std::cout << "Gefunden" << std::endl;
+            std::cout << "Index " << index << " hat gefunden" << std::endl;
             journeys.append(result);
             if (journeys.size() >= 3) {
                 break;
@@ -158,9 +151,6 @@ void TrainConnection::getJsonJourneyBetweenLocations(const QString &locationFrom
 
         m_journeys[index] = journeys;
     });
-
-    std::thread backgroundThread(sleepInBackground);
-    backgroundThread.join();
 }
 
 QVariant TrainConnection::loadJourneys(const QString &locationFromStrings, const QString &locationToStrings)
@@ -168,9 +158,14 @@ QVariant TrainConnection::loadJourneys(const QString &locationFromStrings, const
     m_journeys = QVector<QVector<KPublicTransport::Journey>>(9);
     QDateTime depTime(QDate::currentDate(), QTime::currentTime());
 
-    getJsonJourneyBetweenLocations(locationFromStrings, locationToStrings, depTime, 0);
+    const clock_t begin_time = clock();
 
-    std::cout << "Anzahl index 0: " << m_journeys[0].size() << std::endl;
+    getJsonJourneyBetweenLocations(locationFromStrings, locationToStrings, depTime, 0);
+    getJsonJourneyBetweenLocations(locationToStrings, locationFromStrings, depTime, 1);
+
+    while ((float( clock () - begin_time ) / CLOCKS_PER_SEC) <= 8 && m_journeys[0].size() == 0) {
+        std::cout << "Time: " << float( clock () - begin_time ) / CLOCKS_PER_SEC << ", Anzahl: " << m_journeys[0].size() << std::endl;
+    }
 
     QVector<KPublicTransport::Journey> journeys;
     return QVariant::fromValue(journeys);
