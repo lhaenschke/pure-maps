@@ -250,13 +250,13 @@ Item {
                     if (JSON.parse(kptLocationJsonString).name != "Default") toStops.push({"PoiLocation": x, "KptLocationJson": kptLocationJsonString});
                 });
 
-                fromStops.forEach(x => {
-                    console.log("From: ", JSON.stringify(x));
-                });
+                // fromStops.forEach(x => {
+                //     console.log("From: ", JSON.stringify(x));
+                // });
 
-                toStops.forEach(x => {
-                    console.log("To: ", JSON.stringify(x));
-                });
+                // toStops.forEach(x => {
+                //     console.log("To: ", JSON.stringify(x));
+                // });
 
                 var journeys = TrainConnection.loadJourneys(fromStops[0].KptLocationJson, toStops[0].KptLocationJson);
 

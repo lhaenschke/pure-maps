@@ -144,32 +144,20 @@ void TrainConnection::getJsonJourneyBetweenLocations(const QString &locationFrom
     req.setTo(convertJsonStringToLocation(locationToString));
     req.setDepartureTime(depTime);
 
-    QVector<KPublicTransport::Journey> journeys;
-
-    std::thread backgroundThread(sleepInBackground);
-    m_threadMap[index] = std::move(backgroundThread);
-
     KPublicTransport::JourneyReply *reply = m_manager.queryJourney(req);
     QObject::connect(reply, &KPublicTransport::JourneyReply::finished, this, [reply, index, this] {
-        
+        QVector<KPublicTransport::Journey> journeys;
+
         for (auto result: reply->result()) {
             std::cout << "Gefunden" << std::endl;
-        }
-
-        for (auto& p: m_threadMap) {
-            if (p.first == index) {
-                std::cout << "Test :)" << std::endl;
-                // p.second.request_stop();
+            journeys.append(result);
+            if (journeys.size() >= 3) {
+                break;
             }
         }
 
+        m_journeys[index] = journeys;
     });
-
-    backgroundThread.join();
-    
-    std::cout << "Jawollja" << std::endl;
-
-    m_journeys[index] = journeys;
 }
 
 QVariant TrainConnection::loadJourneys(const QString &locationFromStrings, const QString &locationToStrings)
@@ -177,9 +165,13 @@ QVariant TrainConnection::loadJourneys(const QString &locationFromStrings, const
     m_journeys = QVector<QVector<KPublicTransport::Journey>>(9);
     QDateTime depTime(QDate::currentDate(), QTime::currentTime());
 
-    std::thread t1(&TrainConnection::getJsonJourneyBetweenLocations, this, locationFromStrings, locationToStrings, depTime, 0);
+    std::thread backgroundThread(sleepInBackground);
 
-    t1.join();
+    getJsonJourneyBetweenLocations(locationFromStrings, locationToStrings, depTime, 0);
+
+    backgroundThread.join();
+
+    std::cout << "Anzahl index 0: " << m_journeys[0].size() << std::endl;
 
     QVector<KPublicTransport::Journey> journeys;
     return QVariant::fromValue(journeys);
