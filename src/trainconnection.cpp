@@ -32,9 +32,11 @@ TrainConnection::TrainConnection(QObject *parent)
     m_departureDate = QDate::currentDate();
     m_departureTime = QTime::currentTime();
     
+    m_journeys = QVector<QVector<KPublicTransport::Journey>>(9);
+
     m_manager.setAllowInsecureBackends(false);
     m_manager.setBackendsEnabledByDefault(false);
-    
+
     qmlRegisterSingletonInstance<KPublicTransport::Manager>("org.puremaps", 1, 0, "Manager", &m_manager);
 }
 
@@ -128,14 +130,15 @@ QString TrainConnection::getJsonLocationFromCoorAndName(float lat, float lon, co
     return QString("{\"name\":\"Default\"}");
 }
 
-void TrainConnection::getJsonJourneyBetweenLocations(const QString &locationFromString, const QString &locationToString, const QDateTime depTime, const int index)
+void loadJourney(const QString &locationFromString, const QString &locationToString, const int index)
 {
     KPublicTransport::JourneyRequest req;
     req.setBackendIds(m_manager.enabledBackends());
     req.setFrom(convertJsonStringToLocation(locationFromString));
     req.setTo(convertJsonStringToLocation(locationToString));
+    QDateTime depTime(QDate::currentDate(), QTime::currentTime());
     req.setDepartureTime(depTime);
-
+    
     KPublicTransport::JourneyReply *reply = m_manager.queryJourney(req);
     QObject::connect(reply, &KPublicTransport::JourneyReply::finished, this, [reply, index, this] {
         QVector<KPublicTransport::Journey> journeys;
@@ -150,26 +153,12 @@ void TrainConnection::getJsonJourneyBetweenLocations(const QString &locationFrom
 
         m_journeys[index] = journeys;
     });
-}
 
-QVariant TrainConnection::loadJourneys(const QString &locationFromStrings, const QString &locationToStrings)
-{
-    m_journeys = QVector<QVector<KPublicTransport::Journey>>(9);
-    QDateTime depTime(QDate::currentDate(), QTime::currentTime());
-
-    auto startTime = std::chrono::high_resolution_clock::now();
-
-    getJsonJourneyBetweenLocations(locationFromStrings, locationToStrings, depTime, 0);
-    getJsonJourneyBetweenLocations(locationToStrings, locationFromStrings, depTime, 1);
-
-    while (std::chrono::duration<double, std::milli>(std::chrono::high_resolution_clock::now() - startTime).count() <= 10000 && m_journeys[0].size() == 0) {
-        // std::cout << "Time: " << float( clock () - begin_time ) / CLOCKS_PER_SEC << ", Anzahl: " << m_journeys[0].size() << std::endl;
-    }
-
-    std::cout << "Vergange Zeit " << std::chrono::duration<double, std::milli>(std::chrono::high_resolution_clock::now() - startTime).count() << std::endl;
-
-    QVector<KPublicTransport::Journey> journeys;
-    return QVariant::fromValue(journeys);
+    // auto startTime = std::chrono::high_resolution_clock::now();
+    // while (std::chrono::duration<double, std::milli>(std::chrono::high_resolution_clock::now() - startTime).count() <= 10000 && m_journeys[0].size() == 0) {
+    //     // std::cout << "Time: " << std::chrono::duration<double, std::milli>(std::chrono::high_resolution_clock::now() - startTime).count() << ", Anzahl: " << m_journeys[0].size() << std::endl;
+    // }
+    // std::cout << "Vergange Zeit " << std::chrono::duration<double, std::milli>(std::chrono::high_resolution_clock::now() - startTime).count() << std::endl;
 }
 
 
