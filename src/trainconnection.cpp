@@ -177,7 +177,7 @@ QVariant TrainConnection::loadJourneys(const QString &locationFromStrings, const
     m_journeys = QVector<QVector<KPublicTransport::Journey>>(9);
     QDateTime depTime(QDate::currentDate(), QTime::currentTime());
 
-    std::thread t1(TrainConnection::getJsonJourneyBetweenLocations, locationFromStrings, locationToStrings, depTime, 0);
+    std::thread t1(&TrainConnection::getJsonJourneyBetweenLocations, this, locationFromStrings, locationToStrings, depTime, 0);
 
     t1.join();
 
