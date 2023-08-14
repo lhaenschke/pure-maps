@@ -143,10 +143,6 @@ void TrainConnection::loadJourney(const QString &locationFromString, const QStri
     req.setFrom(convertJsonStringToLocation(locationFromString));
     req.setTo(convertJsonStringToLocation(locationToString));
     QDateTime depTime = QDateTime::currentDateTime();
-
-    std::cout << "Current Time: " << depTime.toString(QString("dd.MM.yyyy hh:mm:ss")).toStdString() << std::endl;
-
-    // QDateTime depTime(QDate::currentDate(), QTime::currentTime());
     req.setDepartureTime(depTime);
     
     KPublicTransport::JourneyReply *reply = m_manager.queryJourney(req);
@@ -165,6 +161,9 @@ void TrainConnection::loadJourney(const QString &locationFromString, const QStri
                     earlyJourney = results.at(i);
                 }
             }
+
+            std::cout << index << ": " << "Arrival Time: " << earlyArrivalTime.toString(QString("dd.MM.yyyy hh:mm:ss")).toStdString() << std::endl;
+
         }
 
         // int counter = 0;
