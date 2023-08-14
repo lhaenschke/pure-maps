@@ -151,7 +151,7 @@ void TrainConnection::loadJourney(const QString &locationFromString, const QStri
         QVector<KPublicTransport::Journey> journeys;
 
         for (auto result: reply->result()) {
-            // std::cout << "Index " << index << " hat gefunden" << std::endl;
+            std::cout << "Index " << index << " hat gefunden" << std::endl;
             journeys.append(result);
             if (journeys.size() >= 3) {
                 break;
