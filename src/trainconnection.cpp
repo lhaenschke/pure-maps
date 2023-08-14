@@ -169,10 +169,15 @@ void TrainConnection::loadJourney(const QString &locationFromString, const QStri
     });
 }
 
-QMap<int, KPublicTransport::Journey> TrainConnection::getJourneys()
+int TrainConnection::getDuration(const int index)
 {
-    return m_journeys;
+    if (m_journeys.contains(index)) {
+        return m_journeys.value(index).duration();
+    }
+
+    return std::numeric_limits<int>::max();
 }
+
 
 KPublicTransport::JourneyRequest TrainConnection::createJourneyRequest()
 {
