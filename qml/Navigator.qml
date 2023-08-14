@@ -251,14 +251,13 @@ Item {
                 var counter = 0;
                 fromStops.forEach(from => {
                     toStops.forEach(to => {
-                        console.log("From: ", JSON.parse(from.KptLocationJson).name, " To: ", JSON.parse(to.KptLocationJson).name, " Counter: ", counter);
                         TrainConnection.loadJourney(from.KptLocationJson, to.KptLocationJson, counter++);
                     });
                 });
 
                 timer.setTimeout(function () {
                     for (var i = 0; i < 9; i++) {
-                        console.log("Index: ", i, " Duration: ", TrainConnection.getArrivalTime(i));
+                        console.log("Index: ", i, " Arrivaltime: ", TrainConnection.getArrivalTime(i));
                     }
                 }, 10000);
 
