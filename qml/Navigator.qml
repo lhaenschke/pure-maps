@@ -257,9 +257,9 @@ Item {
 
                 timer.setTimeout(function () {
                     for (var i = 0; i < 9; i++) {
-                        console.log('Index: ', i, " Duration: ", TrainConnection.getDuration(i));
+                        console.log('Index: ', i, " Duration: ", TrainConnection.getDuration(i) / 60, 'min');
                     }
-                }, 7000);
+                }, 10000);
 
                 // fromStops.forEach(x => {
                 //     console.log("From: ", JSON.stringify(x));
