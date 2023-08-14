@@ -251,13 +251,14 @@ Item {
                 var counter = 0;
                 fromStops.forEach(from => {
                     toStops.forEach(to => {
+                        console.log("From: ", from.PoiLocation.title, " To: ", to.PoiLocation.title, " Counter: ", counter);
                         TrainConnection.loadJourney(from.KptLocationJson, to.KptLocationJson, counter++);
                     });
                 });
 
                 timer.setTimeout(function () {
                     for (var i = 0; i < 9; i++) {
-                        console.log('Index: ', i, " Duration: ", TrainConnection.getDuration(i) / 60, 'min');
+                        console.log("Index: ", i, " Duration: ", TrainConnection.getDuration(i) / 60, "min");
                     }
                 }, 10000);
 
