@@ -63,7 +63,7 @@ public:
 
     Q_INVOKABLE QString getJsonLocationFromCoorAndName(float lat, float lon, const QString &name);
     Q_INVOKABLE void loadJourney(const QString &locationFromString, const QString &locationToString, const int index);
-    Q_INVOKABLE QVector<QStringList>> getJourneys();
+    Q_INVOKABLE QVector<QStringList> getJourneys();
 
     Q_INVOKABLE KPublicTransport::JourneyRequest createJourneyRequest();
     Q_INVOKABLE KPublicTransport::LocationRequest createLocationRequest(const QString &name);
