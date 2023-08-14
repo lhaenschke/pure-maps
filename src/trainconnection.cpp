@@ -117,6 +117,16 @@ KPublicTransport::Location TrainConnection::convertJsonStringToLocation(const QS
     return KPublicTransport::Location::fromJson(QJsonDocument::fromJson(jsonString.toUtf8()).object());
 }
 
+QString TrainConnection::convertJourneyToJsonString(const KPublicTransport::Journey &journey)
+{
+    return QJsonDocument(KPublicTransport::Journey::toJson(journey)).toJson(QJsonDocument::Compact);
+}
+
+KPublicTransport::Journey TrainConnection::convertJsonStringToJourney(const QString &jsonString)
+{
+    return KPublicTransport::Journey::fromJson(QJsonDocument::fromJson(jsonString.toUtf8()).object());
+}
+
 QString TrainConnection::getJsonLocationFromCoorAndName(float lat, float lon, const QString &name)
 {
     KPublicTransport::LocationRequest req;
@@ -141,11 +151,11 @@ void TrainConnection::loadJourney(const QString &locationFromString, const QStri
     
     KPublicTransport::JourneyReply *reply = m_manager.queryJourney(req);
     QObject::connect(reply, &KPublicTransport::JourneyReply::finished, this, [reply, index, this] {
-        QVector<KPublicTransport::Journey> journeys;
+        QStringList journeys;
 
         for (auto result: reply->result()) {
             std::cout << "Index " << index << " hat gefunden" << std::endl;
-            journeys.append(result);
+            journeys.append(convertJourneyToJsonString(result));
             if (journeys.size() >= 3) {
                 break;
             }
@@ -153,14 +163,12 @@ void TrainConnection::loadJourney(const QString &locationFromString, const QStri
 
         m_journeys[index] = journeys;
     });
-
-    // auto startTime = std::chrono::high_resolution_clock::now();
-    // while (std::chrono::duration<double, std::milli>(std::chrono::high_resolution_clock::now() - startTime).count() <= 10000 && m_journeys[0].size() == 0) {
-    //     // std::cout << "Time: " << std::chrono::duration<double, std::milli>(std::chrono::high_resolution_clock::now() - startTime).count() << ", Anzahl: " << m_journeys[0].size() << std::endl;
-    // }
-    // std::cout << "Vergange Zeit " << std::chrono::duration<double, std::milli>(std::chrono::high_resolution_clock::now() - startTime).count() << std::endl;
 }
 
+QVector<QStringList>> TrainConnection::getJourneys()
+{
+    return m_journeys;
+}
 
 KPublicTransport::JourneyRequest TrainConnection::createJourneyRequest()
 {
