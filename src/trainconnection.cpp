@@ -151,26 +151,36 @@ void TrainConnection::loadJourney(const QString &locationFromString, const QStri
         QDateTime earlyArrivalTime(QDate::currentDate(), QTime::currentTime());
         earlyArrivalTime = earlyArrivalTime.addYears(10);
 
-        std::cout << "Testdate: " << earlyArrivalTime.toString(QString("dd.MM.yyyy")).toStdString() << std::endl;
-
-        int counter = 0;
-
-        for (auto result: reply->result()) {
-            // std::cout << "Index " << index << " hat gefunden" << std::endl;
-            
-            if (result.hasExpectedArrivalTime() && result.expectedArrivalTime() < earlyArrivalTime) {
+        const std::vector<KPublicTransport::Journey> results = reply->result();
+        for (int i = 0; i < results.size() && i < 5; i++) {
+            std::cout << "Index " << index << " hat gefunden" << std::endl;
+            if (results.get(i).hasExpectedArrivalTime() && results.get(i).expectedArrivalTime() < earlyArrivalTime) {
                 earlyJourney = result;
             } else {
                 if (result.scheduledArrivalTime() < earlyArrivalTime) {
                     earlyJourney = result;
                 }
             }
-
-            if (++counter >= 5) {
-                break;
-            }
-
         }
+
+        // int counter = 0;
+
+        // for (auto result: reply->result()) {
+        //     // std::cout << "Index " << index << " hat gefunden" << std::endl;
+            
+        //     if (result.hasExpectedArrivalTime() && result.expectedArrivalTime() < earlyArrivalTime) {
+        //         earlyJourney = result;
+        //     } else {
+        //         if (result.scheduledArrivalTime() < earlyArrivalTime) {
+        //             earlyJourney = result;
+        //         }
+        //     }
+
+        //     if (++counter >= 5) {
+        //         break;
+        //     }
+
+        // }
 
         m_journeys.insert(index, earlyJourney);
     });
