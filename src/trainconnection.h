@@ -79,7 +79,7 @@ private:
     KPublicTransport::Location m_start;
     KPublicTransport::Location m_destination;
     KPublicTransport::Manager m_manager;
-    QVector<QStringList> m_journeys;
+    QVector<QStringList> *m_journeys;
     QDate m_departureDate;
     QTime m_departureTime;
 };

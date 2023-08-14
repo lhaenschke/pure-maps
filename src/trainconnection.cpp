@@ -32,7 +32,7 @@ TrainConnection::TrainConnection(QObject *parent)
     m_departureTime = QTime::currentTime();
 
     m_journeys = new QVector<QStringList>();
-    m_journeys.reserve(9);
+    m_journeys->reserve(9);
 
     m_manager.setAllowInsecureBackends(false);
     m_manager.setBackendsEnabledByDefault(false);
