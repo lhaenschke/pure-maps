@@ -161,7 +161,7 @@ void TrainConnection::loadJourney(const QString &locationFromString, const QStri
             }
         }
 
-        m_journeys[index] = journeys;
+        m_journeys->insert(index, journeys);
     });
 }
 
