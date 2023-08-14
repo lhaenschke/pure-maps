@@ -153,7 +153,7 @@ void TrainConnection::loadJourney(const QString &locationFromString, const QStri
         int counter = 0;
 
         for (auto result: reply->result()) {
-            std::cout << "Index " << index << " hat gefunden" << std::endl;
+            // std::cout << "Index " << index << " hat gefunden" << std::endl;
             
             if (result.duration() < shortestJourneyDuration) {
                 shortestJourney = result;
