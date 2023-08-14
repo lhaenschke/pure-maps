@@ -251,7 +251,7 @@ Item {
                 var counter = 0;
                 fromStops.forEach(from => {
                     toStops.forEach(to => {
-                        console.log("From: ", from.PoiLocation.title, " To: ", to.PoiLocation.title, " Counter: ", counter);
+                        console.log("From: ", JSON.parse(from.KptLocationJson).name, " To: ", JSON.parse(to.KptLocationJson).name, " Counter: ", counter);
                         TrainConnection.loadJourney(from.KptLocationJson, to.KptLocationJson, counter++);
                     });
                 });
