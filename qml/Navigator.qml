@@ -257,7 +257,7 @@ Item {
 
                 timer.setTimeout(function () {
                     console.log('Execution after 7 Seconds');
-                    var journeys = TrainConnection.getDurations();
+                    var journeys = TrainConnection.getJourneys();
                 }, 7000);
 
                 // fromStops.forEach(x => {

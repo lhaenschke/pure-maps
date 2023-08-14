@@ -20,7 +20,7 @@
 #include <QUrl>
 
 #include <vector>
-#include <chrono>
+#include <limits>
 #include <iostream>
 
 TrainConnection::TrainConnection(QObject *parent)
@@ -148,29 +148,28 @@ void TrainConnection::loadJourney(const QString &locationFromString, const QStri
     
     KPublicTransport::JourneyReply *reply = m_manager.queryJourney(req);
     QObject::connect(reply, &KPublicTransport::JourneyReply::finished, this, [reply, index, this] {
-        QVector<KPublicTransport::Journey> journeys;
-        QVector<int> durations;
+        KPublicTransport::Journey shortestJourney;
+        int shortestJourneyDuration = std::numeric_limits<int>::max();
+        int counter = 0;
 
         for (auto result: reply->result()) {
             std::cout << "Index " << index << " hat gefunden" << std::endl;
-            journeys.append(result);
-            durations.append(result.duration());
-            if (journeys.size() >= 3) {
+            
+            if (result.duration() < shortestJourneyDuration) {
+                shortestJourney = result;
+            }
+
+            if (++counter >= 5) {
                 break;
             }
+
         }
 
-        m_journeys.insert(index, journeys);
-        m_durations.insert(index, durations);
+        m_journeys.insert(index, shortestJourney);
     });
 }
 
-QMap<int, QVector<int>> TrainConnection::getDurations()
-{
-    return m_durations;
-}
-
-QMap<int, QVector<KPublicTransport::Journey>> TrainConnection::getJourneys()
+QMap<int, KPublicTransport::Journey> TrainConnection::getJourneys()
 {
     return m_journeys;
 }
