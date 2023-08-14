@@ -176,13 +176,20 @@ void TrainConnection::loadJourney(const QString &locationFromString, const QStri
     });
 }
 
-int TrainConnection::getDuration(const int index)
+QDateTime TrainConnection::getArrivalTime(const int index)
 {
     if (m_journeys.contains(index)) {
-        return m_journeys.value(index).duration();
+        if (m_journeys.value(index).hasExpectedArrivalTime()) {
+            return m_journeys.value(index).expectedArrivalTime();
+        } else {
+            return m_journeys.value(index).scheduledArrivalTime();
+        }
     }
 
-    return -1;
+    QDateTime defaultDate(QDate::currentDate(), QTime::currentTime());
+    defaultDate = defaultDate.addYears(10);
+
+    return defaultDate;
 }
 
 

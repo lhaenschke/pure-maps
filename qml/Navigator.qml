@@ -258,7 +258,7 @@ Item {
 
                 timer.setTimeout(function () {
                     for (var i = 0; i < 9; i++) {
-                        console.log("Index: ", i, " Duration: ", TrainConnection.getDuration(i) / 60, "min");
+                        console.log("Index: ", i, " Duration: ", TrainConnection.getArrivalTime(i));
                     }
                 }, 10000);
 
