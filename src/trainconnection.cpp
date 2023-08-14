@@ -16,7 +16,6 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonValue>
-#include <QStringList>
 #include <QStandardPaths>
 #include <QUrl>
 
@@ -165,7 +164,7 @@ void TrainConnection::loadJourney(const QString &locationFromString, const QStri
     });
 }
 
-QVector<QStringList>> TrainConnection::getJourneys()
+QVector<QStringList> TrainConnection::getJourneys()
 {
     return m_journeys;
 }

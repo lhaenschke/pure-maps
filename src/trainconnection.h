@@ -16,6 +16,7 @@
 #include <QString>
 #include <QVariant>
 #include <QVector>
+#include <QStringList>
 
 #include <KPublicTransport/Manager>
 #include <KPublicTransport/Backend>
