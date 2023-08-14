@@ -151,8 +151,10 @@ void TrainConnection::loadJourney(const QString &locationFromString, const QStri
         QStringList journeys;
 
         for (auto result: reply->result()) {
-            std::cout << "Index " << index << " hat gefunden" << std::endl;
-            journeys.append(convertJourneyToJsonString(result));
+            // std::cout << "Index " << index << " hat gefunden" << std::endl;
+            QString rs = convertJourneyToJsonString(result);
+            std::cout << rs.toStdString() << std::endl << std::endl;
+            journeys.append(rs);
             if (journeys.size() >= 3) {
                 break;
             }
