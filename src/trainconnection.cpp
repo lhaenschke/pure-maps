@@ -155,9 +155,11 @@ void TrainConnection::loadJourney(const QString &locationFromString, const QStri
         for (int i = 0; i < results.size() && i < 5; i++) {
             // std::cout << "Index " << index << " hat gefunden" << std::endl;
             if (results.at(i).hasExpectedArrivalTime() && results.at(i).expectedArrivalTime().date() <= earlyArrivalTime.date() && results.at(i).expectedArrivalTime().time() <= earlyArrivalTime.time()) {
+                earlyArrivalTime = results.at(i).expectedArrivalTime();
                 earlyJourney = results.at(i);
             } else {
                 if (results.at(i).scheduledArrivalTime().date() <= earlyArrivalTime.date() && results.at(i).scheduledArrivalTime().time() <= earlyArrivalTime.time()) {
+                    earlyArrivalTime = results.at(i).scheduledArrivalTime();
                     earlyJourney = results.at(i);
                 }
             }
