@@ -256,9 +256,9 @@ Item {
                 });
 
                 timer.setTimeout(function () {
-                    console.log('Execution after 5 Seconds');
+                    console.log('Execution after 7 Seconds');
                     var journeys = TrainConnection.getJourneys();
-                }, 5000);
+                }, 7000);
 
                 // fromStops.forEach(x => {
                 //     console.log("From: ", JSON.stringify(x));
