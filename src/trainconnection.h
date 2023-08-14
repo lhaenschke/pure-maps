@@ -24,7 +24,7 @@
 #include <KPublicTransport/JourneyRequest>
 #include <KPublicTransport/JourneyReply>
 #include <KPublicTransport/Journey>
-#include <KPublicTransport/JourneySection>
+#include <KPublicTransport/RentalVehicle>
 #include <KPublicTransport/LocationRequest>
 #include <KPublicTransport/LocationReply>
 #include <KPublicTransport/Location>
