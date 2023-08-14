@@ -31,9 +31,6 @@ TrainConnection::TrainConnection(QObject *parent)
     m_departureDate = QDate::currentDate();
     m_departureTime = QTime::currentTime();
 
-    m_journeys = new QVector<QStringList>();
-    m_journeys->reserve(9);
-
     m_manager.setAllowInsecureBackends(false);
     m_manager.setBackendsEnabledByDefault(false);
 
@@ -161,14 +158,14 @@ void TrainConnection::loadJourney(const QString &locationFromString, const QStri
             }
         }
 
-        m_journeys->insert(index, journeys);
+        m_journeys.insert(index, journeys);
     });
 }
 
-// QVector<QStringList> TrainConnection::getJourneys()
-// {
-//     return m_journeys;
-// }
+QMap<int, QStringList> TrainConnection::getJourneys()
+{
+    return m_journeys;
+}
 
 KPublicTransport::JourneyRequest TrainConnection::createJourneyRequest()
 {
