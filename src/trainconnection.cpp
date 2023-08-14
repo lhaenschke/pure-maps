@@ -164,10 +164,10 @@ void TrainConnection::loadJourney(const QString &locationFromString, const QStri
     });
 }
 
-QVector<QStringList> TrainConnection::getJourneys()
-{
-    return m_journeys;
-}
+// QVector<QStringList> TrainConnection::getJourneys()
+// {
+//     return m_journeys;
+// }
 
 KPublicTransport::JourneyRequest TrainConnection::createJourneyRequest()
 {
