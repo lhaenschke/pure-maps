@@ -16,7 +16,7 @@
 #include <QString>
 #include <QVariant>
 #include <QMap>
-#include <QStringList>
+#include <QVector>
 
 #include <KPublicTransport/Manager>
 #include <KPublicTransport/Backend>
@@ -64,7 +64,7 @@ public:
 
     Q_INVOKABLE QString getJsonLocationFromCoorAndName(float lat, float lon, const QString &name);
     Q_INVOKABLE void loadJourney(const QString &locationFromString, const QString &locationToString, const int index);
-    Q_INVOKABLE QMap<int, QStringList> getJourneys();
+    Q_INVOKABLE QMap<int, QVector<KPublicTransport::Journey>> getJourneys();
 
     Q_INVOKABLE KPublicTransport::JourneyRequest createJourneyRequest();
     Q_INVOKABLE KPublicTransport::LocationRequest createLocationRequest(const QString &name);
@@ -80,11 +80,9 @@ private:
     KPublicTransport::Location m_start;
     KPublicTransport::Location m_destination;
     KPublicTransport::Manager m_manager;
-    QMap<int, QStringList> m_journeys;
+    QMap<int, QVector<KPublicTransport::Journey>> m_journeys;
     QDate m_departureDate;
     QTime m_departureTime;
 };
-
-Q_DECLARE_METATYPE( KPublicTransport::RentalVehicle* )
 
 #endif // TRAINCONNECTION_H
