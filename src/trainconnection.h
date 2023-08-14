@@ -63,6 +63,7 @@ public:
 
     Q_INVOKABLE QString getJsonLocationFromCoorAndName(float lat, float lon, const QString &name);
     Q_INVOKABLE void loadJourney(const QString &locationFromString, const QString &locationToString, const int index);
+    Q_INVOKABLE QMap<int, QVector<int>> getDurations();
     Q_INVOKABLE QMap<int, QVector<KPublicTransport::Journey>> getJourneys();
 
     Q_INVOKABLE KPublicTransport::JourneyRequest createJourneyRequest();
@@ -80,10 +81,9 @@ private:
     KPublicTransport::Location m_destination;
     KPublicTransport::Manager m_manager;
     QMap<int, QVector<KPublicTransport::Journey>> m_journeys;
+    QMap<int, QVector<int>> m_durations;
     QDate m_departureDate;
     QTime m_departureTime;
 };
-
-Q_DECLARE_METATYPE(QMap<int, QVector<KPublicTransport::Journey>>);
 
 #endif // TRAINCONNECTION_H

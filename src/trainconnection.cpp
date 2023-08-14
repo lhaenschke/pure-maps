@@ -149,17 +149,25 @@ void TrainConnection::loadJourney(const QString &locationFromString, const QStri
     KPublicTransport::JourneyReply *reply = m_manager.queryJourney(req);
     QObject::connect(reply, &KPublicTransport::JourneyReply::finished, this, [reply, index, this] {
         QVector<KPublicTransport::Journey> journeys;
+        QVector<int> durations;
 
         for (auto result: reply->result()) {
             std::cout << "Index " << index << " hat gefunden" << std::endl;
             journeys.append(result);
+            durations.append(result.duration());
             if (journeys.size() >= 3) {
                 break;
             }
         }
 
         m_journeys.insert(index, journeys);
+        m_durations.insert(index, durations);
     });
+}
+
+QMap<int, QVector<int>> TrainConnection::getDurations()
+{
+    return m_durations;
 }
 
 QMap<int, QVector<KPublicTransport::Journey>> TrainConnection::getJourneys()
