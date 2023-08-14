@@ -85,4 +85,6 @@ private:
     QTime m_departureTime;
 };
 
+Q_DECLARE_METATYPE( KPublicTransport::RentalVehicle* )
+
 #endif // TRAINCONNECTION_H
