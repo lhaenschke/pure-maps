@@ -142,7 +142,11 @@ void TrainConnection::loadJourney(const QString &locationFromString, const QStri
     req.setBackendIds(m_manager.enabledBackends());
     req.setFrom(convertJsonStringToLocation(locationFromString));
     req.setTo(convertJsonStringToLocation(locationToString));
-    QDateTime depTime(QDate::currentDate(), QTime::currentTime());
+    QDateTime depTime = QDateTime::currentDateTime();
+
+    std::cout << "Current Time: " << depTime.toString(QString("dd.MM.yyyy hh:mm:ss")).toStdString() << std::endl;
+
+    // QDateTime depTime(QDate::currentDate(), QTime::currentTime());
     req.setDepartureTime(depTime);
     
     KPublicTransport::JourneyReply *reply = m_manager.queryJourney(req);
@@ -153,7 +157,7 @@ void TrainConnection::loadJourney(const QString &locationFromString, const QStri
 
         const std::vector<KPublicTransport::Journey> results = reply->result();
         for (int i = 0; i < results.size() && i < 5; i++) {
-            std::cout << "Index " << index << " hat gefunden" << std::endl;
+            // std::cout << "Index " << index << " hat gefunden" << std::endl;
             if (results.at(i).hasExpectedArrivalTime() && results.at(i).expectedArrivalTime().date() <= earlyArrivalTime.date() && results.at(i).expectedArrivalTime().time() <= earlyArrivalTime.time()) {
                 earlyJourney = results.at(i);
             } else {
