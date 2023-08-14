@@ -255,7 +255,7 @@ Item {
                     });
                 });
 
-                setTimeout(function () {
+                timer.setTimeout(function () {
                     console.log('Execution after 5 Seconds');
                 }, 5000);
 
