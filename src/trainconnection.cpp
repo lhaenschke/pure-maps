@@ -172,7 +172,7 @@ void TrainConnection::loadJourney(const QString &locationFromString, const QStri
 
         }
 
-        m_journeys.insert(index, shortestJourney);
+        m_journeys.insert(index, earlyJourney);
     });
 }
 
