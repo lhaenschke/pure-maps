@@ -86,4 +86,6 @@ private:
     QTime m_departureTime;
 };
 
+Q_DECLARE_METATYPE(QMap<int, QVector<int>>);
+
 #endif // TRAINCONNECTION_H
