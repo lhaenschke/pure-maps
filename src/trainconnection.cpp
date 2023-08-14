@@ -30,8 +30,9 @@ TrainConnection::TrainConnection(QObject *parent)
 {
     m_departureDate = QDate::currentDate();
     m_departureTime = QTime::currentTime();
-    
-    m_journeys = QVector<QVector<KPublicTransport::Journey>>(9);
+
+    m_journeys = new QVector<QStringList>;
+    m_journeys.reserve(9);
 
     m_manager.setAllowInsecureBackends(false);
     m_manager.setBackendsEnabledByDefault(false);
