@@ -154,10 +154,10 @@ void TrainConnection::loadJourney(const QString &locationFromString, const QStri
         const std::vector<KPublicTransport::Journey> results = reply->result();
         for (int i = 0; i < results.size() && i < 5; i++) {
             std::cout << "Index " << index << " hat gefunden" << std::endl;
-            if (results.at(i).hasExpectedArrivalTime() && results.at(i).expectedArrivalTime() < earlyArrivalTime) {
+            if (results.at(i).hasExpectedArrivalTime() && results.at(i).expectedArrivalTime().date() <= earlyArrivalTime.date() && results.at(i).expectedArrivalTime().time() <= earlyArrivalTime.time()) {
                 earlyJourney = results.at(i);
             } else {
-                if (results.at(i).scheduledArrivalTime() < earlyArrivalTime) {
+                if (results.at(i).scheduledArrivalTime().date() <= earlyArrivalTime.date() && results.at(i).scheduledArrivalTime().time() <= earlyArrivalTime.time()) {
                     earlyJourney = results.at(i);
                 }
             }
