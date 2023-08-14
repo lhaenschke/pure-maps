@@ -10,7 +10,6 @@
 #include "trainconnection.h"
 
 #include <QQmlApplicationEngine>
-#include <QDateTime>
 #include <QDebug>
 #include <QDesktopServices>
 #include <QJsonDocument>
@@ -148,15 +147,23 @@ void TrainConnection::loadJourney(const QString &locationFromString, const QStri
     
     KPublicTransport::JourneyReply *reply = m_manager.queryJourney(req);
     QObject::connect(reply, &KPublicTransport::JourneyReply::finished, this, [reply, index, this] {
-        KPublicTransport::Journey shortestJourney;
-        int shortestJourneyDuration = std::numeric_limits<int>::max();
+        KPublicTransport::Journey earlyJourney;
+        QDateTime earlyArrivalTime(QDate::currentDate(), QTime::currentTime());
+        earlyArrivalTime = earlyArrivalTime.addYears(10);
+
+        std::cout << "Testdate: " << earlyArrivalTime.toString(QString("dd.MM.yyyy")).toStdString() << std::endl;
+
         int counter = 0;
 
         for (auto result: reply->result()) {
             // std::cout << "Index " << index << " hat gefunden" << std::endl;
             
-            if (result.duration() < shortestJourneyDuration) {
-                shortestJourney = result;
+            if (result.hasExpectedArrivalTime() && result.expectedArrivalTime() < earlyArrivalTime) {
+                earlyJourney = result;
+            } else {
+                if (result.scheduledArrivalTime() < earlyArrivalTime) {
+                    earlyJourney = result;
+                }
             }
 
             if (++counter >= 5) {

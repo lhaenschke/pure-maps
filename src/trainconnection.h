@@ -13,6 +13,7 @@
 #include <QObject>
 #include <QDate>
 #include <QTime>
+#include <QDateTime>
 #include <QString>
 #include <QVariant>
 #include <QMap>
@@ -63,7 +64,7 @@ public:
 
     Q_INVOKABLE QString getJsonLocationFromCoorAndName(float lat, float lon, const QString &name);
     Q_INVOKABLE void loadJourney(const QString &locationFromString, const QString &locationToString, const int index);
-    Q_INVOKABLE int getDuration(const int index);
+    Q_INVOKABLE QDateTime getArrivalTime(const int index);
 
     Q_INVOKABLE KPublicTransport::JourneyRequest createJourneyRequest();
     Q_INVOKABLE KPublicTransport::LocationRequest createLocationRequest(const QString &name);
