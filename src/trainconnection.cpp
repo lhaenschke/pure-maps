@@ -175,7 +175,7 @@ int TrainConnection::getDuration(const int index)
         return m_journeys.value(index).duration();
     }
 
-    return std::numeric_limits<int>::max();
+    return -1;
 }
 
 
