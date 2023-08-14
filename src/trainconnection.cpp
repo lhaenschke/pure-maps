@@ -148,46 +148,18 @@ void TrainConnection::loadJourney(const QString &locationFromString, const QStri
     KPublicTransport::JourneyReply *reply = m_manager.queryJourney(req);
     QObject::connect(reply, &KPublicTransport::JourneyReply::finished, this, [reply, index, this] {
         KPublicTransport::Journey earlyJourney;
-        QDateTime earlyArrivalTime(QDate::currentDate(), QTime::currentTime());
+        QDateTime earlyArrivalTime = QDateTime::currentDateTime();
         earlyArrivalTime = earlyArrivalTime.addYears(10);
 
         const std::vector<KPublicTransport::Journey> results = reply->result();
         for (int i = 0; i < results.size() && i < 15; i++) {
             // std::cout << "Index " << index << " hat gefunden" << std::endl;
-            // if (results.at(i).hasExpectedArrivalTime() && results.at(i).expectedArrivalTime().date() <= earlyArrivalTime.date() && results.at(i).expectedArrivalTime().time() <= earlyArrivalTime.time()) {
-            //     earlyArrivalTime = results.at(i).expectedArrivalTime();
-            //     earlyJourney = results.at(i);
-            // } else {
-                
-            // }
-
             if (results.at(i).scheduledArrivalTime() < earlyArrivalTime) {
                     earlyArrivalTime = results.at(i).scheduledArrivalTime();
                     earlyJourney = results.at(i);
-                }
-
-            std::cout << index << ": " << "Arrival Time: " << earlyArrivalTime.toString(QString("dd.MM.yyyy hh:mm:ss")).toStdString() << std::endl;
+            }
 
         }
-
-        // int counter = 0;
-
-        // for (auto result: reply->result()) {
-        //     // std::cout << "Index " << index << " hat gefunden" << std::endl;
-            
-        //     if (result.hasExpectedArrivalTime() && result.expectedArrivalTime() < earlyArrivalTime) {
-        //         earlyJourney = result;
-        //     } else {
-        //         if (result.scheduledArrivalTime() < earlyArrivalTime) {
-        //             earlyJourney = result;
-        //         }
-        //     }
-
-        //     if (++counter >= 5) {
-        //         break;
-        //     }
-
-        // }
 
         m_journeys.insert(index, earlyJourney);
     });
