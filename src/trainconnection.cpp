@@ -155,15 +155,38 @@ void TrainConnection::loadJourney(const QString &locationFromString, const QStri
         const std::vector<KPublicTransport::Journey> results = reply->result();
         for (int i = 0; i < results.size() && i < 15; i++) {
             // std::cout << "Index " << index << " hat gefunden" << std::endl;
-            if (results.at(i).scheduledArrivalTime() < earlyArrivalTime) {
-                earlyArrivalTime = results.at(i).scheduledArrivalTime();
-                earlyJourney = results.at(i);
+            if (results.at(i).hasExpectedArrivalTime()) {
+                if (results.at(i).expectedArrivalTime() < earlyArrivalTime) {
+                    earlyArrivalTime = results.at(i).expectedArrivalTime();
+                    earlyJourney = results.at(i);
+                }
+            } else {
+                if (results.at(i).scheduledArrivalTime() < earlyArrivalTime) {
+                    earlyArrivalTime = results.at(i).scheduledArrivalTime();
+                    earlyJourney = results.at(i);
+                }
             }
-
+            
         }
 
         m_journeys.insert(index, earlyJourney);
     });
+}
+
+QDateTime TrainConnection::getDepartureTime(const int index)
+{
+    if (m_journeys.contains(index)) {
+        if (m_journeys.value(index).hasExpectedDepartureTime()) {
+            return m_journeys.value(index).expectedDepartureTime();
+        } else {
+            return m_journeys.value(index).scheduledDepartureTime();
+        }
+    }
+
+    QDateTime defaultDate(QDate::currentDate(), QTime::currentTime());
+    defaultDate = defaultDate.addYears(10);
+
+    return defaultDate;
 }
 
 QDateTime TrainConnection::getArrivalTime(const int index)

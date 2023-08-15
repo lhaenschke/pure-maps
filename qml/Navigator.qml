@@ -256,9 +256,18 @@ Item {
                 });
 
                 timer.setTimeout(function () {
-                    for (var i = 0; i < 9; i++) {
-                        console.log("Index: ", i, " Arrivaltime: ", TrainConnection.getArrivalTime(i));
-                    }
+                    var journeys = [];
+                    var counter = 0;
+                    fromStops.forEach(from => {
+                        toStops.forEach(to => {
+                            journeys.push({"From": from, "To": to, "DepTime": TrainConnection.getDepartureTime(counter), "ArrTime": TrainConnection.getArrivalTime(counter++)});
+                        });
+                    });
+
+                    journeys.forEach(x => {
+                        console.log("Json: ", JSON.stringify(x));
+                    })
+
                 }, 7000);
 
             }
