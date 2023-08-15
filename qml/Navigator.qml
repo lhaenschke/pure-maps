@@ -264,6 +264,15 @@ Item {
                         });
                     });
 
+                    journeys.sort(function(a, b) {
+                        const keyA = a.ArrTime;
+                        const keyB = b.ArrTime;
+
+                        if (keyA < keyB) return -1;
+                        if (keyA > keyB) return 1;
+                        return 0;
+                    });
+
                     journeys.forEach(x => {
                         console.log("Json: ", JSON.stringify(x));
                     })
