@@ -170,26 +170,26 @@ QDateTime TrainConnection::getDepartureTime(const int index)
 {
     if (m_journeys.contains(index)) {
         std::cout << index << " Dep: " << m_journeys.value(index).scheduledDepartureTime().toString("dd.MM.yyyy-hh:mm:ss").toStdString() << std::endl;
-        return m_journeys.value(index).scheduledDepartureTime();
+        return m_journeys.value(index).scheduledDepartureTime().toLocalTime();
     }
 
     QDateTime defaultDate = QDateTime::currentDateTime();
     defaultDate = defaultDate.addYears(10);
 
-    return defaultDate;
+    return defaultDate.toLocalTime();
 }
 
 QDateTime TrainConnection::getArrivalTime(const int index)
 {
     if (m_journeys.contains(index)) {
         std::cout << index << " Dep: " << m_journeys.value(index).scheduledArrivalTime().toString("dd.MM.yyyy-hh:mm:ss").toStdString() << std::endl;
-        return m_journeys.value(index).scheduledArrivalTime();
+        return m_journeys.value(index).scheduledArrivalTime().toLocalTime();
     }
 
     QDateTime defaultDate = QDateTime::currentDateTime();
     defaultDate = defaultDate.addYears(10);
 
-    return defaultDate;
+    return defaultDate.toLocalTime();
 }
 
 
