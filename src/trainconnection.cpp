@@ -147,7 +147,7 @@ void TrainConnection::loadJourney(const QString &locationFromString, const QStri
     req.setDepartureTime(depTime);
     
     KPublicTransport::JourneyReply *reply = m_manager.queryJourney(req);
-    QObject::connect(reply, &KPublicTransport::JourneyReply::finished, this, [reply, index, this] {
+    QObject::connect(reply, &KPublicTransport::JourneyReply::finished, this, [reply, index, depTime, this] {
         KPublicTransport::Journey earlyJourney;
         QDateTime earlyArrivalTime = QDateTime::currentDateTime();
         earlyArrivalTime = earlyArrivalTime.addYears(10);
