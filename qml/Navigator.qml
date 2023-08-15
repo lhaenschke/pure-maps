@@ -259,17 +259,10 @@ Item {
                     for (var i = 0; i < 9; i++) {
                         console.log("Index: ", i, " Arrivaltime: ", TrainConnection.getArrivalTime(i));
                     }
-                }, 10000);
-
-                // fromStops.forEach(x => {
-                //     console.log("From: ", JSON.stringify(x));
-                // });
-
-                // toStops.forEach(x => {
-                //     console.log("To: ", JSON.stringify(x));
-                // });
+                }, 7000);
 
             }
+
         } else {
             py.call("poor.app.router.route", args, function(route) {
                 if (Array.isArray(route) && route.length > 0)

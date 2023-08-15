@@ -143,6 +143,7 @@ void TrainConnection::loadJourney(const QString &locationFromString, const QStri
     req.setFrom(convertJsonStringToLocation(locationFromString));
     req.setTo(convertJsonStringToLocation(locationToString));
     QDateTime depTime = QDateTime::currentDateTime();
+    // depTime.addMinutes(10); // Maybe
     req.setDepartureTime(depTime);
     
     KPublicTransport::JourneyReply *reply = m_manager.queryJourney(req);
