@@ -169,10 +169,11 @@ void TrainConnection::loadJourney(const QString &locationFromString, const QStri
 QDateTime TrainConnection::getDepartureTime(const int index)
 {
     if (m_journeys.contains(index)) {
+        std::cout << index << " Dep: " << m_journeys.value(index).scheduledDepartureTime().toString("dd.MM.yyyy-hh:mm:ss").toStdString() << std::endl;
         return m_journeys.value(index).scheduledDepartureTime();
     }
 
-    QDateTime defaultDate(QDate::currentDate(), QTime::currentTime());
+    QDateTime defaultDate = QDateTime::currentDateTime();
     defaultDate = defaultDate.addYears(10);
 
     return defaultDate;
@@ -181,10 +182,11 @@ QDateTime TrainConnection::getDepartureTime(const int index)
 QDateTime TrainConnection::getArrivalTime(const int index)
 {
     if (m_journeys.contains(index)) {
+        std::cout << index << " Dep: " << m_journeys.value(index).scheduledArrivalTime().toString("dd.MM.yyyy-hh:mm:ss").toStdString() << std::endl;
         return m_journeys.value(index).scheduledArrivalTime();
     }
 
-    QDateTime defaultDate(QDate::currentDate(), QTime::currentTime());
+    QDateTime defaultDate = QDateTime::currentDateTime();
     defaultDate = defaultDate.addYears(10);
 
     return defaultDate;
