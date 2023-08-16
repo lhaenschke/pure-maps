@@ -310,6 +310,27 @@ Item {
                     console.log('Origin Route: ', JSON.stringify(routeOrigin), "\n");
                     console.log('Destin Route: ', JSON.stringify(routeDestination), "\n");
 
+                    const route = {
+                        "language": routeOrigin.language,
+                        "location_indexes": [
+                            routeOrigin.location_indexes[0] + routeDestination.location_indexes[0],
+                            routeOrigin.location_indexes[routeOrigin.location_indexes.length - 1] + routeDestination.location_indexes[routeDestination.location_indexes.length - 1]
+                        ],
+                        "locations": [
+                            routeOrigin.locations[0],
+                            routeDestination.locations[routeDestination.locations.length -1]
+                        ],
+                        "maneuvers": routeOrigin.maneuvers.concat(routeDestination.maneuvers),
+                        "mode": routeOrigin.mode,
+                        "optimized": routeOrigin.optimized,
+                        "provider": routeOrigin.provider,
+                        "x": routeOrigin.x.concat(routeDestination.x),
+                        "y": routeOrigin.y.concat(routeDestination.y)
+
+                    };
+
+                    console.log('Final Route: ', JSON.stringify(route), "\n");
+
                     // if (Array.isArray(routeOrigin) && route.length > 0)
                     //     // If the router returns multiple alternative routes,
                     //     // always route using the first one.
