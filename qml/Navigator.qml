@@ -319,7 +319,7 @@ Item {
                                 console.log("Fahrt");
                                 publicTransportManeuvers.push({
                                     "duration": 0,
-                                    "icon": "transport-transit",
+                                    "icon": "continue",
                                     "narrative": app.tr("Move to track %1").arg(x.scheduledDeparturePlatform),
                                     "sign": {},
                                     "travel_type": "foot",
@@ -330,7 +330,7 @@ Item {
                                 });
                                 publicTransportManeuvers.push({
                                     "duration": x.duration,
-                                    "icon": "transport-transit",
+                                    "icon": "arrive",
                                     "narrative": app.tr("Get on public transport %1 -> %2").arg(x.route.line.name).arg(x.route.direction),
                                     "sign": {},
                                     "travel_type": "transit",
@@ -342,7 +342,7 @@ Item {
                                 publicTransportX.push(x.from.longitude); publicTransportY.push(x.from.latitude);
                                 publicTransportManeuvers.push({
                                     "duration": 0,
-                                    "icon": "transport-transit",
+                                    "icon": "depart",
                                     "narrative": app.tr("Get off public transport at %1").arg(x.to.name),
                                     "sign": {},
                                     "travel_type": "foot",
@@ -359,7 +359,7 @@ Item {
                                 console.log("Transfer");
                                 publicTransportManeuvers.push({
                                     "duration": x.duration,
-                                    "icon": "transport-transit",
+                                    "icon": "continue",
                                     "narrative": app.tr("Transfer between public transport"),
                                     "sign": {},
                                     "travel_type": "foot",
