@@ -344,6 +344,7 @@ Item {
 
         } else {
             py.call("poor.app.router.route", args, function(route) {
+                console.log('Foot Route: ', JSON.stringify(route), "\n");
                 if (Array.isArray(route) && route.length > 0)
                     // If the router returns multiple alternative routes,
                     // always route using the first one.
