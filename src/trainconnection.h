@@ -88,6 +88,4 @@ private:
     QTime m_departureTime;
 };
 
-Q_DECLARE_METATYPE(KPublicTransport::Journey);
-
 #endif // TRAINCONNECTION_H
