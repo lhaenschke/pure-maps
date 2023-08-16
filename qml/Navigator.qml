@@ -287,7 +287,6 @@ Item {
                     const argsOrigin = [[origin, {
                         "arrived": 0,
                         "destination": 1,
-                        "final": 1, 
                         "text": selectedJourney.Journey.sections[0].departure.stopPoint.name, 
                         "x": selectedJourney.Journey.sections[0].departure.stopPoint.longitude, 
                         "y": selectedJourney.Journey.sections[0].departure.stopPoint.latitude
@@ -296,7 +295,6 @@ Item {
                     const argsDestination = [[{
                         "arrived": 0,
                         "destination": 0,
-                        "final": 0, 
                         "text": selectedJourney.Journey.sections[selectedJourney.Journey.sections.length - 1].arrival.stopPoint.name, 
                         "x": selectedJourney.Journey.sections[selectedJourney.Journey.sections.length - 1].arrival.stopPoint.longitude, 
                         "y": selectedJourney.Journey.sections[selectedJourney.Journey.sections.length - 1].arrival.stopPoint.latitude
