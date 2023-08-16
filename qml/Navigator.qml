@@ -227,8 +227,8 @@ Item {
 
         if (app.conf.get("profile") == "offline") {
             if (app.conf.get("routers.osmscout.type") == "transit") {
-                // console.log('Args-String: ', JSON.stringify(args));
-
+                
+                // Enable KPT-Backends
                 if (!loadedKPTBackends) {
                     const kpt_backends = py.evaluate("poor.app.history.kpt_backends");
                     kpt_backends.forEach(x => { TrainConnection.setBackendEnable(x, true); });
@@ -273,9 +273,12 @@ Item {
                         return 0;
                     });
 
-                    journeys.forEach(x => {
-                        console.log("Json: ", JSON.stringify(x));
-                    })
+                    if (journeys.length > 0) {
+                        const selectedJourney = journeys[0];
+                        console.log("Json: ", JSON.stringify(selectedJourney));
+
+                        console.log('Args-String: ', JSON.stringify(args));
+                    }
 
                 }, 7000);
 
