@@ -227,64 +227,67 @@ Item {
 
         console.log('Args-String: ', JSON.stringify(args));
 
-        if (app.conf.get("profile") == "offline") {
-            if (app.conf.get("routers.osmscout.type") == "transit") {
-                
-                // Enable KPT-Backends
-                if (!loadedKPTBackends) {
-                    const kpt_backends = py.evaluate("poor.app.history.kpt_backends");
-                    kpt_backends.forEach(x => { TrainConnection.setBackendEnable(x, true); });
-                    loadedKPTBackends = true;
-                }
+        if (app.conf.get("profile") == "offline" && app.conf.get("routers.osmscout.type") == "transit") {
+            
+            const origin      = args[0][0];
+            const destination = args[0][1];
 
-                var fromStops = [];
-                var toStops   = [];
+            // Enable KPT-Backends
+            if (!loadedKPTBackends) {
+                const kpt_backends = py.evaluate("poor.app.history.kpt_backends");
+                kpt_backends.forEach(x => { TrainConnection.setBackendEnable(x, true); });
+                loadedKPTBackends = true;
+            }
 
-                navigator.getNearbyStopsFromLocation(args[0][0]).forEach(x => {
-                    const kptLocationJsonString = TrainConnection.getJsonLocationFromCoorAndName(x['y'], x['x'], x['title']);
-                    if (JSON.parse(kptLocationJsonString).name != "Default") fromStops.push({"PoiLocation": x, "KptLocationJson": kptLocationJsonString});
+            var fromStops = [];
+            var toStops   = [];
+
+            navigator.getNearbyStopsFromLocation(origin).forEach(x => {
+                const kptLocationJsonString = TrainConnection.getJsonLocationFromCoorAndName(x['y'], x['x'], x['title']);
+                if (JSON.parse(kptLocationJsonString).name != "Default") fromStops.push({"PoiLocation": x, "KptLocationJson": kptLocationJsonString});
+            });
+
+            navigator.getNearbyStopsFromLocation(destination).forEach(x => {
+                const kptLocationJsonString = TrainConnection.getJsonLocationFromCoorAndName(x['y'], x['x'], x['title']);
+                if (JSON.parse(kptLocationJsonString).name != "Default") toStops.push({"PoiLocation": x, "KptLocationJson": kptLocationJsonString});
+            });
+
+            var counter = 0;
+            fromStops.forEach(from => {
+                toStops.forEach(to => {
+                    TrainConnection.loadJourney(from.KptLocationJson, to.KptLocationJson, counter++);
                 });
+            });
 
-                navigator.getNearbyStopsFromLocation(args[0][1]).forEach(x => {
-                    const kptLocationJsonString = TrainConnection.getJsonLocationFromCoorAndName(x['y'], x['x'], x['title']);
-                    if (JSON.parse(kptLocationJsonString).name != "Default") toStops.push({"PoiLocation": x, "KptLocationJson": kptLocationJsonString});
-                });
-
+            timer.setTimeout(function () {
+                var journeys = [];
                 var counter = 0;
                 fromStops.forEach(from => {
                     toStops.forEach(to => {
-                        TrainConnection.loadJourney(from.KptLocationJson, to.KptLocationJson, counter++);
+                        journeys.push({"From": from, "To": to, "DepTime": TrainConnection.getDepartureTime(counter), "ArrTime": TrainConnection.getArrivalTime(counter++)});
                     });
                 });
 
-                timer.setTimeout(function () {
-                    var journeys = [];
-                    var counter = 0;
-                    fromStops.forEach(from => {
-                        toStops.forEach(to => {
-                            journeys.push({"From": from, "To": to, "DepTime": TrainConnection.getDepartureTime(counter), "ArrTime": TrainConnection.getArrivalTime(counter++)});
-                        });
-                    });
+                journeys.sort(function(a, b) {
+                    const keyA = a.ArrTime;
+                    const keyB = b.ArrTime;
 
-                    journeys.sort(function(a, b) {
-                        const keyA = a.ArrTime;
-                        const keyB = b.ArrTime;
+                    if (keyA < keyB) return -1;
+                    if (keyA > keyB) return 1;
+                    return 0;
+                });
 
-                        if (keyA < keyB) return -1;
-                        if (keyA > keyB) return 1;
-                        return 0;
-                    });
+                if (journeys.length > 0) {
+                    const selectedJourney = journeys[0];
+                    console.log("Json: ", JSON.stringify(selectedJourney));
 
-                    if (journeys.length > 0) {
-                        const selectedJourney = journeys[0];
-                        console.log("Json: ", JSON.stringify(selectedJourney));
+                    console.log('Args-String: ', JSON.stringify(args));
 
-                        console.log('Args-String: ', JSON.stringify(args));
-                    }
+                    // const argsOrigin = [[origin, {"arrived": 0, "destination": 1, "final": 1, "text": JSON.parse(selectedJourney.from.KptLocationJson).name, "x": 7.125860214233398,"y": 51.354801177978516}], options];
 
-                }, 7000);
+                }
 
-            }
+            }, 7000);
 
         } else {
             py.call("poor.app.router.route", args, function(route) {
