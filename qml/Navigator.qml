@@ -281,10 +281,29 @@ Item {
                 if (journeys.length > 0) {
                     const selectedJourney = journeys[0];
                     selectedJourney.Journey = TrainConnection.getJourney(selectedJourney.Index);
-                    console.log("Json: ", JSON.stringify(selectedJourney), "\n");
-                    console.log('Args-String: ', JSON.stringify(args), "\n");
+                    // console.log("Json: ", JSON.stringify(selectedJourney), "\n");
+                    console.log('Given Args-String: ', JSON.stringify(args), "\n");
 
-                    // const argsOrigin = [[origin, {"arrived": 0, "destination": 1, "final": 1, "text": "Test", "x": 7.125860214233398,"y": 51.354801177978516}], options];
+                    const argsOrigin = [[origin, {
+                        "arrived": 0,
+                        "destination": 1,
+                        "final": 1, 
+                        "text": selectedJourney.Journey.sections[0].departure.stopPoint.name, 
+                        "x": selectedJourney.Journey.sections[0].departure.stopPoint.longitude, 
+                        "y": selectedJourney.Journey.sections[0].departure.stopPoint.latitude
+                    }], options];
+
+                    const argsDestination = [[{
+                        "arrived": 0,
+                        "destination": 1,
+                        "final": 1, 
+                        "text": selectedJourney.Journey.sections[selectedJourney.Journey.sections.length - 1].arrival.stopPoint.name, 
+                        "x": selectedJourney.Journey.sections[selectedJourney.Journey.sections.length - 1].arrival.stopPoint.longitude, 
+                        "y": selectedJourney.Journey.sections[selectedJourney.Journey.sections.length - 1].arrival.stopPoint.latitude
+                    }, destination], options];
+
+                    console.log('Origin Args-String: ', JSON.stringify(argsOrigin), "\n");
+                    console.log('Destin Args-String: ', JSON.stringify(argsDestination), "\n");
 
                 }
 
