@@ -312,7 +312,7 @@ Item {
                         app.notification.flash(app.tr("Routing failed: %1").arg(routeOrigin.message), notifyId);
                         if (options.voicePrompt) navigatorBase.prompt("std:routing failed");
                         rerouteConsecutiveErrors++;
-                    } else if (routeOrigin && routrouteOrigine.x && routeOrigin.x.length > 0) {
+                    } else if (routeOrigin && routeOrigin.x && routeOrigin.x.length > 0) {
                         app.notification.flash(navigatorBase.running ?
                                                 (traffic ? app.tr("Traffic and route updated") : app.tr("New route found")) :
                                                 app.tr("Route found"), notifyId);
