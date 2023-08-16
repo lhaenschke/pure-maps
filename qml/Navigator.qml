@@ -306,7 +306,7 @@ Item {
                         "y": selectedJourney.Journey.sections[selectedJourney.Journey.sections.length - 1].arrival.stopPoint.latitude
                     }, destination], options];
 
-                    var publicTransportManeuvers = [];
+                    var publicTransportManeuvers = []; var publicTransportX = []; var publicTransportY = []
                     selectedJourney.Journey.sections.forEach(x => {
                         switch (x.mode) {
                             case 0:
@@ -317,11 +317,58 @@ Item {
                                 break;
                             case 1:
                                 console.log("Fahrt");
+                                publicTransportManeuvers.push({
+                                    "duration": 0,
+                                    "icon": "transport-transit",
+                                    "narrative": app.tr("Move to track %1").arg(x.scheduledDeparturePlatform),
+                                    "sign": {},
+                                    "travel_type": "foot",
+                                    "verbal_post": "",
+                                    "verbal_pre": app.tr("Move to track %1").arg(x.scheduledDeparturePlatform),
+                                    "x": x.from.longitude,
+                                    "y": x.from.latitude
+                                });
+                                publicTransportManeuvers.push({
+                                    "duration": x.duration,
+                                    "icon": "transport-transit",
+                                    "narrative": app.tr("Get on public transport %1 -> %2").arg(x.route.line.name, x.route.direction),
+                                    "sign": {},
+                                    "travel_type": "transit",
+                                    "verbal_post": "",
+                                    "verbal_pre": app.tr("Get on public transport %1 -> %2").arg(x.route.line.name, x.route.direction),
+                                    "x": x.from.longitude,
+                                    "y": x.from.latitude
+                                });
+                                publicTransportX.push(x.from.longitude); publicTransportY.push(x.from.latitude);
+                                publicTransportManeuvers.push({
+                                    "duration": 0,
+                                    "icon": "transport-transit",
+                                    "narrative": app.tr("Get off public transport at %1").arg(x.to.name),
+                                    "sign": {},
+                                    "travel_type": "foot",
+                                    "verbal_post": "",
+                                    "verbal_pre": app.tr("Get off public transport at %1").arg(x.to.name),
+                                    "x": x.to.longitude,
+                                    "y": x.to.latitude
+                                });
+                                publicTransportX.push(x.to.longitude); publicTransportY.push(x.to.latitude);
                                 break;
                             case 2:
                             case 4:
                             case 8:
                                 console.log("Transfer");
+                                publicTransportManeuvers.push({
+                                    "duration": x.duration,
+                                    "icon": "transport-transit",
+                                    "narrative": app.tr("Transfer between public transport"),
+                                    "sign": {},
+                                    "travel_type": "foot",
+                                    "verbal_post": "",
+                                    "verbal_pre": "",
+                                    "x": x.to.longitude,
+                                    "y": x.to.latitude
+                                });
+                                publicTransportX.push(x.to.longitude); publicTransportY.push(x.to.latitude);
                                 break;
                             default:
                                 app.notification.flash(app.tr("Routing failed: Unknown journey error"), notifyId);
@@ -348,18 +395,18 @@ Item {
                         "language": routeOrigin.language,
                         "location_indexes": [
                             routeOrigin.location_indexes[0] + routeDestination.location_indexes[0],
-                            routeOrigin.location_indexes[routeOrigin.location_indexes.length - 1] + routeDestination.location_indexes[routeDestination.location_indexes.length - 1]
+                            routeOrigin.location_indexes[routeOrigin.location_indexes.length - 1] + routeDestination.location_indexes[routeDestination.location_indexes.length - 1] + publicTransportX.length
                         ],
                         "locations": [
                             routeOrigin.locations[0],
                             routeDestination.locations[routeDestination.locations.length -1]
                         ],
-                        "maneuvers": routeOrigin.maneuvers.concat(routeDestination.maneuvers),
+                        "maneuvers": routeOrigin.maneuvers.concat(publicTransportManeuvers, routeDestination.maneuvers),
                         "mode": routeOrigin.mode,
                         "optimized": routeOrigin.optimized,
                         "provider": routeOrigin.provider,
-                        "x": routeOrigin.x.concat(routeDestination.x),
-                        "y": routeOrigin.y.concat(routeDestination.y)
+                        "x": routeOrigin.x.concat(publicTransportX, routeDestination.x),
+                        "y": routeOrigin.y.concat(publicTransportY, routeDestination.y)
 
                     };
 
