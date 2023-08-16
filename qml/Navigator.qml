@@ -305,8 +305,14 @@ Item {
 
                     app.conf.set("routers.osmscout.type", "pedestrian");
 
-                    const routeOrigin      = py.call_sync("poor.app.router.route", argsOrigin);
-                    const routeDestination = py.call_sync("poor.app.router.route", argsDestination);
+                    var routeOrigin = py.call_sync("poor.app.router.route", argsOrigin);
+                    if (Array.isArray(routeOrigin) && routeOrigin.length > 0)
+                        routeOrigin = routeOrigin[0];
+    
+                    var routeDestination = py.call_sync("poor.app.router.route", argsDestination);
+                    if (Array.isArray(routeDestination) && routeDestination.length > 0)
+                        routeDestination = routeDestination[0];
+
                     console.log('Origin Route: ', JSON.stringify(routeOrigin), "\n");
                     console.log('Destin Route: ', JSON.stringify(routeDestination), "\n");
 
@@ -330,34 +336,30 @@ Item {
                     };
 
                     console.log('Final Route: ', JSON.stringify(route), "\n");
-
-                    // if (Array.isArray(routeOrigin) && route.length > 0)
-                    //     // If the router returns multiple alternative routes,
-                    //     // always route using the first one.
-                    //     routeOrigin = routeOrigin[0];
-                    // if (routeOrigin && routeOrigin.error && routeOrigin.message) {
-                    //     app.notification.flash(app.tr("Routing failed: %1").arg(routeOrigin.message), notifyId);
-                    //     if (options.voicePrompt) navigatorBase.prompt("std:routing failed");
-                    //     rerouteConsecutiveErrors++;
-                    // } else if (routeOrigin && routeOrigin.x && routeOrigin.x.length > 0) {
-                    //     app.notification.flash(navigatorBase.running ?
-                    //                             (traffic ? app.tr("Traffic and route updated") : app.tr("New route found")) :
-                    //                             app.tr("Route found"), notifyId);
-                    //     if (options.voicePrompt) navigatorBase.prompt(traffic ? "std:traffic updated" :
-                    //                                                             "std:new route found");
-                    //     setRoute(routeOrigin);
-                    //     rerouteConsecutiveErrors = 0;
-                    //     if (options.fitToView) map.fitViewToRoute();
-                    //     if (options.save) {
-                    //         saveDestination();
-                    //         saveLocations();
-                    //     }
-                    // } else {
-                    //     app.notification.flash(app.tr("Routing failed"), notifyId);
-                    //     if (options.voicePrompt) navigatorBase.prompt("std:routing failed");
-                    //     rerouteConsecutiveErrors++;
-                    // }
-                    // routing = false;
+                    
+                    if (route && route.error && route.message) {
+                        app.notification.flash(app.tr("Routing failed: %1").arg(route.message), notifyId);
+                        if (options.voicePrompt) navigatorBase.prompt("std:routing failed");
+                        rerouteConsecutiveErrors++;
+                    } else if (route && route.x && route.x.length > 0) {
+                        app.notification.flash(navigatorBase.running ?
+                                                (traffic ? app.tr("Traffic and route updated") : app.tr("New route found")) :
+                                                app.tr("Route found"), notifyId);
+                        if (options.voicePrompt) navigatorBase.prompt(traffic ? "std:traffic updated" :
+                                                                                "std:new route found");
+                        setRoute(route);
+                        rerouteConsecutiveErrors = 0;
+                        if (options.fitToView) map.fitViewToRoute();
+                        if (options.save) {
+                            saveDestination();
+                            saveLocations();
+                        }
+                    } else {
+                        app.notification.flash(app.tr("Routing failed"), notifyId);
+                        if (options.voicePrompt) navigatorBase.prompt("std:routing failed");
+                        rerouteConsecutiveErrors++;
+                    }
+                    routing = false;
 
                     app.conf.set("routers.osmscout.type", "transit");
 
