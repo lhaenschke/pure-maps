@@ -176,6 +176,7 @@ def route(locations, params):
         return copy.deepcopy(cache[url])
     result = poor.http.get_json(url)
     result = poor.AttrDict(result)
+    print("Result: ", result, "\n")
     mode = MODE.get(ctype,"car")
     if result.get("API version", "") == "libosmscout V1":
         return parse_result_libosmscout(url, locations, result, mode)
