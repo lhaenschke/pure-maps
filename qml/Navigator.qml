@@ -226,8 +226,6 @@ Item {
         var args = [loc,
                     options];
 
-        console.log('Args-String: ', JSON.stringify(args));
-
         if (app.conf.get("profile") == "offline" && app.conf.get("routers.osmscout.type") == "transit") {
             
             const origin      = args[0][0];
@@ -282,7 +280,7 @@ Item {
                     const selectedJourney = journeys[0];
                     selectedJourney.Journey = TrainConnection.getJourney(selectedJourney.Index);
                     // console.log("Json: ", JSON.stringify(selectedJourney), "\n");
-                    console.log('Given Args-String: ', JSON.stringify(args), "\n");
+                    // console.log('Given Args-String: ', JSON.stringify(args), "\n");
 
                     const argsOrigin = [[origin, {
                         "arrived": 0,
@@ -300,9 +298,10 @@ Item {
                         "y": selectedJourney.Journey.sections[selectedJourney.Journey.sections.length - 1].arrival.stopPoint.latitude
                     }, destination], options];
 
-                    // console.log('Origin Args-String: ', JSON.stringify(argsOrigin), "\n");
-                    // console.log('Destin Args-String: ', JSON.stringify(argsDestination), "\n");
-
+                    selectedJourney.Journey.sections.forEach(x => {
+                        console.log("Section: ", JSON.stringify(x), "\n");
+                    });
+                    
                     app.conf.set("routers.osmscout.type", "pedestrian");
 
                     var routeOrigin = py.call_sync("poor.app.router.route", argsOrigin);
@@ -313,8 +312,8 @@ Item {
                     if (Array.isArray(routeDestination) && routeDestination.length > 0)
                         routeDestination = routeDestination[0];
 
-                    console.log('Origin Route: ', JSON.stringify(routeOrigin), "\n");
-                    console.log('Destin Route: ', JSON.stringify(routeDestination), "\n");
+                    // console.log('Origin Route: ', JSON.stringify(routeOrigin), "\n");
+                    // console.log('Destin Route: ', JSON.stringify(routeDestination), "\n");
 
                     const route = {
                         "language": routeOrigin.language,
@@ -335,7 +334,7 @@ Item {
 
                     };
 
-                    console.log('Final Route: ', JSON.stringify(route), "\n");
+                    // console.log('Final Route: ', JSON.stringify(route), "\n");
                     
                     if (route && route.error && route.message) {
                         app.notification.flash(app.tr("Routing failed: %1").arg(route.message), notifyId);
@@ -362,6 +361,11 @@ Item {
                     routing = false;
 
                     app.conf.set("routers.osmscout.type", "transit");
+
+                } else {
+                    app.notification.flash(app.tr("Routing failed: No Journey was found"), notifyId);
+                    if (options.voicePrompt) navigatorBase.prompt("std:routing failed");
+                    rerouteConsecutiveErrors++;
 
                 }
 
