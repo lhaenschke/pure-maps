@@ -166,6 +166,16 @@ void TrainConnection::loadJourney(const QString &locationFromString, const QStri
     });
 }
 
+bool TrainConnection::loadingFinished()
+{
+    for (int i = 0; i < 9; i++) {
+        if (!m_journeys.contains(i)) {
+            return false;
+        }
+    }
+    return true;
+}
+
 QDateTime TrainConnection::getDepartureTime(const int index)
 {
     if (m_journeys.contains(index)) {
