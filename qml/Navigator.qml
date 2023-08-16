@@ -264,7 +264,7 @@ Item {
                 var counter = 0;
                 fromStops.forEach(from => {
                     toStops.forEach(to => {
-                        journeys.push({"From": from, "To": to, "DepTime": TrainConnection.getDepartureTime(counter), "ArrTime": TrainConnection.getArrivalTime(counter++)});
+                        journeys.push({"From": from, "To": to, "DepTime": TrainConnection.getDepartureTime(counter), "ArrTime": TrainConnection.getArrivalTime(counter), "Index": counter++});
                     });
                 });
 
@@ -279,11 +279,11 @@ Item {
 
                 if (journeys.length > 0) {
                     const selectedJourney = journeys[0];
-                    console.log("Json: ", JSON.stringify(selectedJourney));
+                    selectedJourney.Journey = TrainConnection.getJourney(selectedJourney.Index);
+                    console.log("Json: ", JSON.stringify(selectedJourney), "\n");
+                    console.log('Args-String: ', JSON.stringify(args), "\n");
 
-                    console.log('Args-String: ', JSON.stringify(args));
-
-                    // const argsOrigin = [[origin, {"arrived": 0, "destination": 1, "final": 1, "text": JSON.parse(selectedJourney.from.KptLocationJson).name, "x": 7.125860214233398,"y": 51.354801177978516}], options];
+                    // const argsOrigin = [[origin, {"arrived": 0, "destination": 1, "final": 1, "text": "Test", "x": 7.125860214233398,"y": 51.354801177978516}], options];
 
                 }
 

@@ -190,6 +190,11 @@ QDateTime TrainConnection::getArrivalTime(const int index)
     return defaultDate;
 }
 
+KPublicTransport::Journey TrainConnection::getJourney(const int index)
+{
+    return m_journeys.value(index);
+}
+
 
 KPublicTransport::JourneyRequest TrainConnection::createJourneyRequest()
 {
