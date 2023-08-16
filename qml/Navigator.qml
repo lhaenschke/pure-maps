@@ -316,7 +316,6 @@ Item {
                                 routing = false;
                                 break;
                             case 1:
-                                console.log("Fahrt");
                                 publicTransportManeuvers.push({
                                     "duration": 0,
                                     "icon": "continue",
@@ -356,7 +355,6 @@ Item {
                             case 2:
                             case 4:
                             case 8:
-                                console.log("Transfer");
                                 publicTransportManeuvers.push({
                                     "duration": x.duration,
                                     "icon": "continue",
