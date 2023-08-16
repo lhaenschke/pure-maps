@@ -331,7 +331,6 @@ Item {
                         rerouteConsecutiveErrors++;
                     }
                     routing = false;
-            });
 
                 }
 
