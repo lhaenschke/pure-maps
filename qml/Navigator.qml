@@ -303,7 +303,7 @@ Item {
                     console.log('Origin Args-String: ', JSON.stringify(argsOrigin), "\n");
                     console.log('Destin Args-String: ', JSON.stringify(argsDestination), "\n");
 
-                    app.conf.set("routers.osmscout.type", "pedestrian")
+                    app.conf.set("routers.osmscout.type", "pedestrian");
 
                     var routeOrigin = py.call_sync("poor.app.router.route", argsOrigin);
                     console.log('Origin Route: ', JSON.stringify(routeOrigin), "\n");
@@ -335,6 +335,8 @@ Item {
                         rerouteConsecutiveErrors++;
                     }
                     routing = false;
+
+                    app.conf.set("routers.osmscout.type", "transit");
 
                 }
 
