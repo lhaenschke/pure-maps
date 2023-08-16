@@ -331,11 +331,11 @@ Item {
                                 publicTransportManeuvers.push({
                                     "duration": x.duration,
                                     "icon": "transport-transit",
-                                    "narrative": app.tr("Get on public transport %1 -> %2").arg(x.route.line.name, x.route.direction),
+                                    "narrative": app.tr("Get on public transport %1 -> %2").arg(x.route.line.name).arg(x.route.direction),
                                     "sign": {},
                                     "travel_type": "transit",
                                     "verbal_post": "",
-                                    "verbal_pre": app.tr("Get on public transport %1 -> %2").arg(x.route.line.name, x.route.direction),
+                                    "verbal_pre": app.tr("Get on public transport %1 -> %2").arg(x.route.line.name).arg(x.route.direction),
                                     "x": x.from.longitude,
                                     "y": x.from.latitude
                                 });
