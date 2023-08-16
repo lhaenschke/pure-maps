@@ -260,97 +260,87 @@ Item {
                 });
             });
 
-            var c = 0;
-            timer.setRepeater(function () {
-                if (c == 9) {
-                    console.log("C: ", c++);
-                    timer.stop();
+            timer.setTimeout(function () {
+                var journeys = [];
+                var counter = 0;
+                fromStops.forEach(from => {
+                    toStops.forEach(to => {
+                        journeys.push({"From": from, "To": to, "DepTime": TrainConnection.getDepartureTime(counter), "ArrTime": TrainConnection.getArrivalTime(counter), "Index": counter++});
+                    });
+                });
+
+                journeys.sort(function(a, b) {
+                    const keyA = a.ArrTime;
+                    const keyB = b.ArrTime;
+
+                    if (keyA < keyB) return -1;
+                    if (keyA > keyB) return 1;
+                    return 0;
+                });
+
+                if (journeys.length > 0) {
+                    const selectedJourney = journeys[0];
+                    selectedJourney.Journey = TrainConnection.getJourney(selectedJourney.Index);
+                    // console.log("Json: ", JSON.stringify(selectedJourney), "\n");
+                    console.log('Given Args-String: ', JSON.stringify(args), "\n");
+
+                    const argsOrigin = [[origin, {
+                        "arrived": 0,
+                        "destination": 1,
+                        "text": selectedJourney.Journey.sections[0].departure.stopPoint.name, 
+                        "x": selectedJourney.Journey.sections[0].departure.stopPoint.longitude, 
+                        "y": selectedJourney.Journey.sections[0].departure.stopPoint.latitude
+                    }], options];
+
+                    const argsDestination = [[{
+                        "arrived": 0,
+                        "destination": 0,
+                        "text": selectedJourney.Journey.sections[selectedJourney.Journey.sections.length - 1].arrival.stopPoint.name, 
+                        "x": selectedJourney.Journey.sections[selectedJourney.Journey.sections.length - 1].arrival.stopPoint.longitude, 
+                        "y": selectedJourney.Journey.sections[selectedJourney.Journey.sections.length - 1].arrival.stopPoint.latitude
+                    }, destination], options];
+
+                    console.log('Origin Args-String: ', JSON.stringify(argsOrigin), "\n");
+                    console.log('Destin Args-String: ', JSON.stringify(argsDestination), "\n");
+
+                    app.conf.set("routers.osmscout.type", "pedestrian");
+
+                    var routeOrigin = py.call_sync("poor.app.router.route", argsOrigin);
+                    console.log('Origin Route: ', JSON.stringify(routeOrigin), "\n");
+
+                    if (Array.isArray(routeOrigin) && route.length > 0)
+                        // If the router returns multiple alternative routes,
+                        // always route using the first one.
+                        routeOrigin = routeOrigin[0];
+                    if (routeOrigin && routeOrigin.error && routeOrigin.message) {
+                        app.notification.flash(app.tr("Routing failed: %1").arg(routeOrigin.message), notifyId);
+                        if (options.voicePrompt) navigatorBase.prompt("std:routing failed");
+                        rerouteConsecutiveErrors++;
+                    } else if (routeOrigin && routeOrigin.x && routeOrigin.x.length > 0) {
+                        app.notification.flash(navigatorBase.running ?
+                                                (traffic ? app.tr("Traffic and route updated") : app.tr("New route found")) :
+                                                app.tr("Route found"), notifyId);
+                        if (options.voicePrompt) navigatorBase.prompt(traffic ? "std:traffic updated" :
+                                                                                "std:new route found");
+                        setRoute(routeOrigin);
+                        rerouteConsecutiveErrors = 0;
+                        if (options.fitToView) map.fitViewToRoute();
+                        if (options.save) {
+                            saveDestination();
+                            saveLocations();
+                        }
+                    } else {
+                        app.notification.flash(app.tr("Routing failed"), notifyId);
+                        if (options.voicePrompt) navigatorBase.prompt("std:routing failed");
+                        rerouteConsecutiveErrors++;
+                    }
+                    routing = false;
+
+                    app.conf.set("routers.osmscout.type", "transit");
+
                 }
-            }, 1000);
 
-            console.log("Test");
-
-            // timer.setTimeout(function () {
-            //     var journeys = [];
-            //     var counter = 0;
-            //     fromStops.forEach(from => {
-            //         toStops.forEach(to => {
-            //             journeys.push({"From": from, "To": to, "DepTime": TrainConnection.getDepartureTime(counter), "ArrTime": TrainConnection.getArrivalTime(counter), "Index": counter++});
-            //         });
-            //     });
-
-            //     journeys.sort(function(a, b) {
-            //         const keyA = a.ArrTime;
-            //         const keyB = b.ArrTime;
-
-            //         if (keyA < keyB) return -1;
-            //         if (keyA > keyB) return 1;
-            //         return 0;
-            //     });
-
-            //     if (journeys.length > 0) {
-            //         const selectedJourney = journeys[0];
-            //         selectedJourney.Journey = TrainConnection.getJourney(selectedJourney.Index);
-            //         // console.log("Json: ", JSON.stringify(selectedJourney), "\n");
-            //         console.log('Given Args-String: ', JSON.stringify(args), "\n");
-
-            //         const argsOrigin = [[origin, {
-            //             "arrived": 0,
-            //             "destination": 1,
-            //             "text": selectedJourney.Journey.sections[0].departure.stopPoint.name, 
-            //             "x": selectedJourney.Journey.sections[0].departure.stopPoint.longitude, 
-            //             "y": selectedJourney.Journey.sections[0].departure.stopPoint.latitude
-            //         }], options];
-
-            //         const argsDestination = [[{
-            //             "arrived": 0,
-            //             "destination": 0,
-            //             "text": selectedJourney.Journey.sections[selectedJourney.Journey.sections.length - 1].arrival.stopPoint.name, 
-            //             "x": selectedJourney.Journey.sections[selectedJourney.Journey.sections.length - 1].arrival.stopPoint.longitude, 
-            //             "y": selectedJourney.Journey.sections[selectedJourney.Journey.sections.length - 1].arrival.stopPoint.latitude
-            //         }, destination], options];
-
-            //         console.log('Origin Args-String: ', JSON.stringify(argsOrigin), "\n");
-            //         console.log('Destin Args-String: ', JSON.stringify(argsDestination), "\n");
-
-            //         app.conf.set("routers.osmscout.type", "pedestrian");
-
-            //         var routeOrigin = py.call_sync("poor.app.router.route", argsOrigin);
-            //         console.log('Origin Route: ', JSON.stringify(routeOrigin), "\n");
-
-            //         if (Array.isArray(routeOrigin) && route.length > 0)
-            //             // If the router returns multiple alternative routes,
-            //             // always route using the first one.
-            //             routeOrigin = routeOrigin[0];
-            //         if (routeOrigin && routeOrigin.error && routeOrigin.message) {
-            //             app.notification.flash(app.tr("Routing failed: %1").arg(routeOrigin.message), notifyId);
-            //             if (options.voicePrompt) navigatorBase.prompt("std:routing failed");
-            //             rerouteConsecutiveErrors++;
-            //         } else if (routeOrigin && routeOrigin.x && routeOrigin.x.length > 0) {
-            //             app.notification.flash(navigatorBase.running ?
-            //                                     (traffic ? app.tr("Traffic and route updated") : app.tr("New route found")) :
-            //                                     app.tr("Route found"), notifyId);
-            //             if (options.voicePrompt) navigatorBase.prompt(traffic ? "std:traffic updated" :
-            //                                                                     "std:new route found");
-            //             setRoute(routeOrigin);
-            //             rerouteConsecutiveErrors = 0;
-            //             if (options.fitToView) map.fitViewToRoute();
-            //             if (options.save) {
-            //                 saveDestination();
-            //                 saveLocations();
-            //             }
-            //         } else {
-            //             app.notification.flash(app.tr("Routing failed"), notifyId);
-            //             if (options.voicePrompt) navigatorBase.prompt("std:routing failed");
-            //             rerouteConsecutiveErrors++;
-            //         }
-            //         routing = false;
-
-            //         app.conf.set("routers.osmscout.type", "transit");
-
-            //     }
-
-            // }, 7000);
+            }, 7000);
 
         } else {
             py.call("poor.app.router.route", args, function(route) {
@@ -519,9 +509,9 @@ Item {
 
     Timer {
         id: timer
-        function setRepeater(cb, delayTime) {
+        function setTimeout(cb, delayTime) {
             timer.interval = delayTime;
-            timer.repeat = true;
+            timer.repeat = false;
             timer.triggered.connect(cb);
             timer.triggered.connect(function release () {
                 timer.triggered.disconnect(cb); // This is important
