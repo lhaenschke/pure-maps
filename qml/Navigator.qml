@@ -225,6 +225,8 @@ Item {
         var args = [loc,
                     options];
 
+        console.log('Args-String: ', JSON.stringify(args));
+
         if (app.conf.get("profile") == "offline") {
             if (app.conf.get("routers.osmscout.type") == "transit") {
                 
