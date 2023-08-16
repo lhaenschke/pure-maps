@@ -242,12 +242,20 @@ Item {
             var toStops   = [];
 
             navigator.getNearbyStopsFromLocation(origin).forEach(x => {
-                const kptLocationJsonString = TrainConnection.getJsonLocationFromCoorAndName(x['y'], x['x'], x['title']);
+                var kptLocationJsonString = TrainConnection.getJsonLocationFromCoorAndName(x['y'], x['x'], x['title']);
+                var counter = 0;
+                while (JSON.parse(kptLocationJsonString).name == "Default" && counter++ < 3) {
+                    kptLocationJsonString = TrainConnection.getJsonLocationFromCoorAndName(x['y'], x['x'], x['title']);
+                }
                 if (JSON.parse(kptLocationJsonString).name != "Default") fromStops.push({"PoiLocation": x, "KptLocationJson": kptLocationJsonString});
             });
 
             navigator.getNearbyStopsFromLocation(destination).forEach(x => {
-                const kptLocationJsonString = TrainConnection.getJsonLocationFromCoorAndName(x['y'], x['x'], x['title']);
+                var kptLocationJsonString = TrainConnection.getJsonLocationFromCoorAndName(x['y'], x['x'], x['title']);
+                var counter = 0;
+                while (JSON.parse(kptLocationJsonString).name == "Default" && counter++ < 3) {
+                    kptLocationJsonString = TrainConnection.getJsonLocationFromCoorAndName(x['y'], x['x'], x['title']);
+                }
                 if (JSON.parse(kptLocationJsonString).name != "Default") toStops.push({"PoiLocation": x, "KptLocationJson": kptLocationJsonString});
             });
 
@@ -298,8 +306,29 @@ Item {
                         "y": selectedJourney.Journey.sections[selectedJourney.Journey.sections.length - 1].arrival.stopPoint.latitude
                     }, destination], options];
 
+                    var publicTransportManeuvers = [];
                     selectedJourney.Journey.sections.forEach(x => {
-                        console.log("Section: ", JSON.stringify(x), "\n");
+                        switch (x.mode) {
+                            case 0:
+                                app.notification.flash(app.tr("Routing failed: Journey error"), notifyId);
+                                if (options.voicePrompt) navigatorBase.prompt("std:routing failed");
+                                rerouteConsecutiveErrors++;
+                                routing = false;
+                                break;
+                            case 1:
+                                console.log("Fahrt");
+                                break;
+                            case 2:
+                            case 4:
+                            case 8:
+                                console.log("Transfer");
+                                break;
+                            default:
+                                app.notification.flash(app.tr("Routing failed: Unknown journey error"), notifyId);
+                                if (options.voicePrompt) navigatorBase.prompt("std:routing failed");
+                                rerouteConsecutiveErrors++;
+                                routing = false;
+                        }    
                     });
                     
                     app.conf.set("routers.osmscout.type", "pedestrian");
@@ -363,10 +392,10 @@ Item {
                     app.conf.set("routers.osmscout.type", "transit");
 
                 } else {
-                    app.notification.flash(app.tr("Routing failed: No Journey was found"), notifyId);
+                    app.notification.flash(app.tr("Routing failed: No journey was found"), notifyId);
                     if (options.voicePrompt) navigatorBase.prompt("std:routing failed");
                     rerouteConsecutiveErrors++;
-
+                    routing = false;
                 }
 
             }, 7000);
