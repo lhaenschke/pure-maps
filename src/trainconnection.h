@@ -63,7 +63,7 @@ public:
     // Q_INVOKABLE KPublicTransport::Journey convertJsonStringToJourney(const QString &jsonString);
 
     Q_INVOKABLE void loadLocationFromCoorAndName(float lat, float lon, const QString &name, const int index);
-    Q_INVOKABLE bool loadingLocationIsFinished()
+    Q_INVOKABLE bool loadingLocationIsFinished();
     Q_INVOKABLE KPublicTransport::Location getLocation(const int index);
 
     Q_INVOKABLE void loadJourney(const KPublicTransport::Location &locationFrom, const KPublicTransport::Location &locationTo, const int index);
