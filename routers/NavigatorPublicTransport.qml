@@ -65,7 +65,7 @@ Item {
                 repeater.stop();
                 console.log("Stop");
             }
-        }, 1000);
+        }, 500);
 
         var rcounter2 = 0;
         repeater.setRepeater(function () {
