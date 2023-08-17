@@ -30,9 +30,6 @@ Item {
         const origin      = args[0][0];
         const destination = args[0][1];
 
-        console.log("Origin: ", JSON.stringify(origin));
-        console.log("Destin: ", JSON.stringify(destination));
-
         // Enable KPT-Backends
         if (!loadedKPTBackends) {
             const kpt_backends = py.evaluate("poor.app.history.kpt_backends");
@@ -54,13 +51,14 @@ Item {
             toStops.push({"PoiLocation": x});
         });
 
+        console.log("from: ", JSON.stringify(fromStops));
+        console.log("To: ", JSON.stringify(toStops));
+
         var lcounter = 0;
         locationRepeater.setRepeater(function () {
-            console.log("LCounter: ", lcounter);
             if (TrainConnection.loadingLocationIsFinished() || lcounter++ >= 3) {
                 // Location is Loaded
                 locationRepeater.stop();
-                console.log("Stop");
 
                 for (var i = 0; i < fromStops.length; i++) {
                     fromStops[i].KptLocation = TrainConnection.getLocation(i);
