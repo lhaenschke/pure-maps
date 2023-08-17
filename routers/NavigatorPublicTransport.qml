@@ -52,10 +52,10 @@ Item {
             // if (JSON.parse(kptLocationJsonString).name != "Default") toStops.push({"PoiLocation": x, "KptLocationJson": kptLocationJsonString});
         });
 
-        var counter = 0;
+        var rcounter = 0;
         locationRepeater.setRepeater(function () {
-            console.log("Location repeater: ", counter);
-            if (TrainConnection.loadingLocationIsFinished() && counter++ <= 3) {
+            console.log("Location repeater: ", rcounter);
+            if (TrainConnection.loadingLocationIsFinished() && rcounter++ <= 3) {
                 // Location is Loaded
                 locationRepeater.stop();
 
@@ -281,22 +281,22 @@ Item {
     }
 
     Timer {
-        id: journeyRepeater
-        function setRepeater(cb, delayTime) {
-            journeyRepeater.interval = delayTime;
-            journeyRepeater.repeat = true;
-            journeyRepeater.triggered.connect(cb);
-            journeyRepeater.start();
-        }
-    }
-
-    Timer {
         id: locationRepeater
         function setRepeater(cb, delayTime) {
             locationRepeater.interval = delayTime;
             locationRepeater.repeat = true;
             locationRepeater.triggered.connect(cb);
             locationRepeater.start();
+        }
+    }
+
+    Timer {
+        id: journeyRepeater
+        function setRepeater(cb, delayTime) {
+            journeyRepeater.interval = delayTime;
+            journeyRepeater.repeat = true;
+            journeyRepeater.triggered.connect(cb);
+            journeyRepeater.start();
         }
     }
 
