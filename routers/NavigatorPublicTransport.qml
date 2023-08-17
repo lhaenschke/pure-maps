@@ -63,8 +63,9 @@ Item {
             console.log("Repeater: ", rcounter++);
             if (rcounter == 4) {
                 repeater.stop();
+                console.log("Stop");
             }
-        }, 1000);
+        }, 200);
 
         timer.setTimeout(function () {
             var journeys = [];
