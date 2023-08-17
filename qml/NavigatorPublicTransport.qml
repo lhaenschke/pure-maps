@@ -26,7 +26,7 @@ Item {
 
     property bool loadedKPTBackends: false
 
-    function findPublicTransportRoute(args) {
+    function findPublicTransportRoute(args, callback) {
         const origin      = args[0][0];
         const destination = args[0][1];
 
@@ -56,6 +56,15 @@ Item {
                 TrainConnection.loadJourney(from.KptLocationJson, to.KptLocationJson, counter++);
             });
         });
+
+
+        var rcounter = 0;
+        repeater.setRepeater(function () {
+            console.log("Repeater: ", rcounter++);
+            if (rcounter == 4) (
+                repeater.stop();
+            )
+        }, 1000);
 
         timer.setTimeout(function () {
             var journeys = [];
@@ -101,7 +110,7 @@ Item {
                 selectedJourney.Journey.sections.forEach(x => {
                     switch (x.mode) {
                         case 0:
-                            return {"error": "Journey error", "message": "Journey error"};
+                            callback({"error": "Journey error", "message": "Journey error"});
                         case 1:
                             publicTransportManeuvers.push({
                                 "duration": 0,
@@ -156,7 +165,7 @@ Item {
                             publicTransportX.push(x.to.longitude); publicTransportY.push(x.to.latitude);
                             break;
                         default:
-                            return {"error": "Unkown journey error", "message": "Unkown journey error"};
+                            callback({"error": "Unkown journey error", "message": "Unkown journey error"});
                     }    
                 });
                 
@@ -196,10 +205,10 @@ Item {
                 
                 app.conf.set("routers.osmscout.type", "transit");
 
-                return route;
+                callback(route);
 
             } else {
-                return {"error": "No journey was found. Please try again.", "message": "No journey was found. Please try again."};
+                callback({"error": "No journey was found. Please try again.", "message": "No journey was found. Please try again."});
             }
 
         }, 9000);
@@ -251,6 +260,20 @@ Item {
         function setTimeout(cb, delayTime) {
             timer.interval = delayTime;
             timer.repeat = false;
+            timer.triggered.connect(cb);
+            timer.triggered.connect(function release () {
+                timer.triggered.disconnect(cb);
+                timer.triggered.disconnect(release);
+            });
+            timer.start();
+        }
+    }
+
+    Timer {
+        id: repeater
+        function setRepeater(cb, delayTime) {
+            timer.interval = delayTime;
+            timer.repeat = true;
             timer.triggered.connect(cb);
             timer.triggered.connect(function release () {
                 timer.triggered.disconnect(cb);
