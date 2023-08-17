@@ -113,16 +113,6 @@ KPublicTransport::Location TrainConnection::convertJsonStringToLocation(const QS
     return KPublicTransport::Location::fromJson(QJsonDocument::fromJson(jsonString.toUtf8()).object());
 }
 
-// QString TrainConnection::convertJourneyToJsonString(const KPublicTransport::Journey &journey)
-// {
-//     return QJsonDocument(KPublicTransport::Journey::toJson(journey)).toJson(QJsonDocument::Compact);
-// }
-
-// KPublicTransport::Journey TrainConnection::convertJsonStringToJourney(const QString &jsonString)
-// {
-//     return KPublicTransport::Journey::fromJson(QJsonDocument::fromJson(jsonString.toUtf8()).object());
-// }
-
 void TrainConnection::loadLocationFromCoorAndName(float lat, float lon, const QString &name, const int index)
 {
     KPublicTransport::LocationRequest req;
@@ -152,8 +142,6 @@ KPublicTransport::Location TrainConnection::getLocation(const int index)
 
 void TrainConnection::loadJourney(const KPublicTransport::Location &locationFrom, const KPublicTransport::Location &locationTo, const int index)
 {
-    std::cout << "Test " << index << std::endl;
-    
     KPublicTransport::JourneyRequest req;
     req.setBackendIds(m_manager.enabledBackends());
     req.setFrom(locationFrom);
@@ -164,7 +152,7 @@ void TrainConnection::loadJourney(const KPublicTransport::Location &locationFrom
     
     KPublicTransport::JourneyReply *reply = m_manager.queryJourney(req);
     QObject::connect(reply, &KPublicTransport::JourneyReply::finished, this, [reply, index, depTime, this] {
-        std::cout << "Index " << index << " hat gefunden" << std::endl;
+        // std::cout << "Index " << index << " hat gefunden" << std::endl;
         KPublicTransport::Journey earlyJourney;
         QDateTime earlyArrivalTime = QDateTime::currentDateTime();
         earlyArrivalTime = earlyArrivalTime.addYears(10);

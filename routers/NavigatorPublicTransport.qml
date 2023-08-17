@@ -76,7 +76,6 @@ Item {
                 
                 var jcounter = 0;
                 journeyRepeater.setRepeater(function () {
-                    console.log("JCounter: ", jcounter);
                     if (TrainConnection.loadingJourneyIsFinished() || jcounter++ >= 10) {
                         journeyRepeater.stop();
                         var journeys = [];
