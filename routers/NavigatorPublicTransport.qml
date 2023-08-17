@@ -40,8 +40,8 @@ Item {
         var fromStops = [];
         var toStops   = [];
 
-        console.log("Origin: ", origin, "\n");
-        console.log("Destination: ", destination, "\n");
+        console.log("Origin: ", JSON.stringify(origin), "\n");
+        console.log("Destination: ", JSON.stringify(destination), "\n");
 
         var counter = 0;
         getNearbyStopsFromLocation(origin).forEach(x => {
