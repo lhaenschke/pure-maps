@@ -54,7 +54,7 @@ Item {
         var lcounter = 0;
         locationRepeater.setRepeater(function () {
             console.log("LCounter: ", lcounter);
-            if (TrainConnection.loadingLocationIsFinished() || lcounter >= 3) {
+            if (TrainConnection.loadingLocationIsFinished() || lcounter++ >= 3) {
                 // Location is Loaded
                 locationRepeater.stop();
                 console.log("Stop");
@@ -77,7 +77,7 @@ Item {
                 var jcounter = 0;
                 journeyRepeater.setRepeater(function () {
                     console.log("JCounter: ", lcounter);
-                    if (TrainConnection.loadingJourneyIsFinished() || jcounter >= 10) {
+                    if (TrainConnection.loadingJourneyIsFinished() || jcounter++ >= 10) {
                         journeyRepeater.stop();
                         var journeys = [];
                         var counter = 0;
