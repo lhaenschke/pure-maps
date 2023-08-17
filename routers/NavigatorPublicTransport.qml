@@ -48,7 +48,7 @@ Item {
 
         getNearbyStopsFromLocation(destination).forEach(x => {
             TrainConnection.loadLocationFromCoorAndName(x['y'], x['x'], x['title'], counter++);
-            // if (JSON.parse(kptLocationJsonString).name != "Default") toStops.push({"PoiLocation": x, "KptLocationJson": kptLocationJsonString});
+            toStops.push({"PoiLocation": x});
         });
 
         var lcounter = 0;
@@ -60,17 +60,17 @@ Item {
                 console.log("Stop");
 
                 for (var i = 0; i < fromStops.length; i++) {
-                    fromStops[i].KptLocationJson = TrainConnection.getLocation(i);
+                    fromStops[i].KptLocation = TrainConnection.getLocation(i);
                 }
 
                 for (var i = 0; i < toStops.length; i++) {
-                    toStops[i].KptLocationJson = TrainConnection.getLocation(i + fromStops.length);
+                    toStops[i].KptLocation = TrainConnection.getLocation(i + fromStops.length);
                 }
 
                 var counter = 0;
                 fromStops.forEach(from => {
                     toStops.forEach(to => {
-                        TrainConnection.loadJourney(from.KptLocationJson, to.KptLocationJson, counter++);
+                        TrainConnection.loadJourney(from.KptLocation, to.KptLocation, counter++);
                     });
                 });
                 

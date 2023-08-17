@@ -131,7 +131,7 @@ void TrainConnection::loadLocationFromCoorAndName(float lat, float lon, const QS
     req.setName(name);
 
     for (auto result: m_manager.queryLocation(req)->result()) {
-        m_locations.insert(index, convertLocationToJsonString(result));
+        m_locations.insert(index, result);
     }
 }
 
@@ -145,19 +145,19 @@ bool TrainConnection::loadingLocationIsFinished()
     return true;
 }
 
-QString TrainConnection::getLocation(const int index)
+KPublicTransport::Location TrainConnection::getLocation(const int index)
 {
     return m_locations.value(index);
 }
 
-void TrainConnection::loadJourney(const QString &locationFromString, const QString &locationToString, const int index)
+void TrainConnection::loadJourney(const KPublicTransport::Location &locationFrom, const KPublicTransport::Location &locationTo, const int index)
 {
     std::cout << "Test " << index << std::endl;
     
     KPublicTransport::JourneyRequest req;
     req.setBackendIds(m_manager.enabledBackends());
-    req.setFrom(convertJsonStringToLocation(locationFromString));
-    req.setTo(convertJsonStringToLocation(locationToString));
+    req.setFrom(locationFrom);
+    req.setTo(locationTo);
     QDateTime depTime = QDateTime::currentDateTime();
     depTime = depTime.addSecs(15 * 60);
     req.setDepartureTime(depTime);
