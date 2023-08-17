@@ -121,7 +121,6 @@ Item {
                             selectedJourney.Journey.sections.forEach(x => {
                                 switch (x.mode) {
                                     case 0:
-                                        TrainConnection.clear();
                                         callback({"error": "Journey error", "message": "Journey error"});
                                         return;
                                     case 1:
@@ -178,7 +177,6 @@ Item {
                                         publicTransportX.push(x.to.longitude); publicTransportY.push(x.to.latitude);
                                         break;
                                     default:
-                                        TrainConnection.clear();
                                         callback({"error": "Unkown journey error", "message": "Unkown journey error"});
                                         return;
                                 }    
@@ -220,11 +218,9 @@ Item {
                             
                             app.conf.set("routers.osmscout.type", "transit");
 
-                            TrainConnection.clear();
                             callback(route);
 
                         } else {
-                            TrainConnection.clear();
                             callback({"error": "No journey was found. Please try again.", "message": "No journey was found. Please try again."});
                         }
                     }
