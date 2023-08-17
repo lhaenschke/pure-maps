@@ -147,7 +147,7 @@ bool TrainConnection::loadingLocationIsFinished()
 
 KPublicTransport::Location TrainConnection::getLocation(const int index)
 {
-    return m_journeys.value(index);
+    return m_locations.value(index);
 }
 
 void TrainConnection::loadJourney(const KPublicTransport::Location &locationFrom, const KPublicTransport::Location &locationTo, const int index)
