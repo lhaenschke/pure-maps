@@ -75,7 +75,7 @@ Item {
                 });
                 
                 var jcounter = 0;
-                journeyRepeater.setTimeout(function () {
+                journeyRepeater.setRepeater(function () {
                     console.log("JCounter: ", lcounter);
                     if (TrainConnection.loadingJourneyIsFinished() || jcounter >= 10) {
                         journeyRepeater.stop();
@@ -225,7 +225,7 @@ Item {
                             callback({"error": "No journey was found. Please try again.", "message": "No journey was found. Please try again."});
                         }
                     }
-                    
+
                 }, 1000);
             }
 
