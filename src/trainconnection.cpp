@@ -168,7 +168,7 @@ void TrainConnection::loadJourney(const QString &locationFromString, const QStri
 bool TrainConnection::loadingIsFinished()
 {
     for (int i = 0; i < 9; i++) {
-        if (!m_journeys.contains(index)) {
+        if (!m_journeys.contains(i)) {
             return false;
         }
     }

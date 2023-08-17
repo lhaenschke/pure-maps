@@ -41,20 +41,12 @@ Item {
         var toStops   = [];
 
         getNearbyStopsFromLocation(origin).forEach(x => {
-            var kptLocationJsonString = TrainConnection.getJsonLocationFromCoorAndName(x['y'], x['x'], x['title']);
-            var counter = 0;
-            while (JSON.parse(kptLocationJsonString).name == "Default" && counter++ < 3) {
-                kptLocationJsonString = TrainConnection.getJsonLocationFromCoorAndName(x['y'], x['x'], x['title']);
-            }
+            const kptLocationJsonString = TrainConnection.getJsonLocationFromCoorAndName(x['y'], x['x'], x['title']);
             if (JSON.parse(kptLocationJsonString).name != "Default") fromStops.push({"PoiLocation": x, "KptLocationJson": kptLocationJsonString});
         });
 
         getNearbyStopsFromLocation(destination).forEach(x => {
-            var kptLocationJsonString = TrainConnection.getJsonLocationFromCoorAndName(x['y'], x['x'], x['title']);
-            var counter = 0;
-            while (JSON.parse(kptLocationJsonString).name == "Default" && counter++ < 3) {
-                kptLocationJsonString = TrainConnection.getJsonLocationFromCoorAndName(x['y'], x['x'], x['title']);
-            }
+            const kptLocationJsonString = TrainConnection.getJsonLocationFromCoorAndName(x['y'], x['x'], x['title']);
             if (JSON.parse(kptLocationJsonString).name != "Default") toStops.push({"PoiLocation": x, "KptLocationJson": kptLocationJsonString});
         });
 
@@ -213,7 +205,7 @@ Item {
                     return route;
 
                 } else {
-                    return {"error": "No journey was found", "message": "No journey was found"};
+                    return {"error": "No journey was found. Please try again.", "message": "No journey was found. Please try again."};
                 }
 
             }
