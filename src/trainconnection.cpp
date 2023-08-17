@@ -209,6 +209,12 @@ KPublicTransport::Journey TrainConnection::getJourney(const int index)
     return m_journeys.value(index);
 }
 
+void TrainConnection::clear()
+{
+    m_locations.clear();
+    m_journeys.clear();
+}
+
 
 KPublicTransport::JourneyRequest TrainConnection::createJourneyRequest()
 {

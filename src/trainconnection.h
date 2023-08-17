@@ -72,6 +72,7 @@ public:
     Q_INVOKABLE QDateTime getDepartureTime(const int index);
     Q_INVOKABLE QDateTime getArrivalTime(const int index);
     
+    Q_INVOKABLE void clear();
 
     Q_INVOKABLE KPublicTransport::JourneyRequest createJourneyRequest();
     Q_INVOKABLE KPublicTransport::LocationRequest createLocationRequest(const QString &name);
