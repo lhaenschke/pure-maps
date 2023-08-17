@@ -273,14 +273,18 @@ Item {
     Timer {
         id: repeater
         function setRepeater(cb, delayTime) {
-            timer.interval = delayTime;
-            timer.repeat = true;
-            timer.triggered.connect(cb);
-            // timer.triggered.connect(function release () {
-            //     timer.triggered.disconnect(cb);
-            //     timer.triggered.disconnect(release);
-            // });
-            timer.start();
+            repeater.interval = delayTime;
+            repeater.repeat = true;
+            repeater.triggered.connect(cb);
+            callback = cb;
+            repeater.triggered.connect(function release () {
+                repeater.triggered.disconnect(cb);
+                repeater.triggered.disconnect(release);
+            });
+            repeater.start();
+        }
+        function stopRepeater() {
+            repeater.stop();
         }
     }
 
