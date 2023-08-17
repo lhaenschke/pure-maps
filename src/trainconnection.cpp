@@ -152,6 +152,8 @@ KPublicTransport::Location TrainConnection::getLocation(const int index)
 
 void TrainConnection::loadJourney(const KPublicTransport::Location &locationFrom, const KPublicTransport::Location &locationTo, const int index)
 {
+    std::cout << "Test " << index << std::endl;
+    
     KPublicTransport::JourneyRequest req;
     req.setBackendIds(m_manager.enabledBackends());
     req.setFrom(locationFrom);
