@@ -40,9 +40,6 @@ Item {
         var fromStops = [];
         var toStops = [];
 
-        // console.log("Origin: ", JSON.stringify(origin), "\n");
-        // console.log("Destination: ", JSON.stringify(destination), "\n");
-
         var counter = 0;
         getNearbyStopsFromLocation(origin).forEach(x => {
             TrainConnection.loadLocationFromCoorAndName(x['y'], x['x'], x['title'], counter++);
@@ -57,13 +54,9 @@ Item {
         var lcounter = 0;
         locationRepeater.setRepeater(function () {
             if (TrainConnection.loadingLocationIsFinished() || lcounter++ >= 3) {
-                // Location is Loaded
-
-                // console.log("From: ", JSON.stringify(fromStops), "\n");
-                // console.log("To:   ", JSON.stringify(toStops), "\n");
-
                 locationRepeater.stopRepeater();
-                console.log("Stop Location");
+                
+                // Location is Loaded
 
                 for (var i = 0; i < fromStops.length; i++) {
                     fromStops[i].KptLocation = TrainConnection.getLocation(i);
@@ -83,8 +76,8 @@ Item {
                 var jcounter = 0;
                 journeyRepeater.setRepeater(function () {
                     if (TrainConnection.loadingJourneyIsFinished() || jcounter++ >= 10) {
-                        console.log("Stop Journey");
                         journeyRepeater.stopRepeater();
+
                         var journeys = [];
                         var counter = 0;
                         fromStops.forEach(from => {
@@ -104,11 +97,8 @@ Item {
 
                         if (journeys.length > 0) {
                             const selectedJourney = journeys[0];
-                            // console.log("Json: ", JSON.stringify(selectedJourney), "\n");
                             selectedJourney.Journey = TrainConnection.getJourney(selectedJourney.Index);
                             
-                            // console.log('Given Args-String: ', JSON.stringify(args), "\n");
-
                             const argsOrigin = [[origin, {
                                 "arrived": 0,
                                 "destination": 1,
@@ -200,9 +190,6 @@ Item {
                             if (Array.isArray(routeDestination) && routeDestination.length > 0)
                                 routeDestination = routeDestination[0];
 
-                            // console.log('Origin Route: ', JSON.stringify(routeOrigin), "\n");
-                            // console.log('Destin Route: ', JSON.stringify(routeDestination), "\n");
-
                             const route = {
                                 "language": routeOrigin.language,
                                 "location_indexes": [
@@ -222,8 +209,6 @@ Item {
 
                             };
 
-                            // console.log('Final Route: ', JSON.stringify(route), "\n");
-                            
                             app.conf.set("routers.osmscout.type", "transit");
 
                             callback(route);
@@ -233,11 +218,7 @@ Item {
                         }
                     }
 
-                    // journeyRepeater.destroy();
-
                 }, 1000);
-
-                // locationRepeater.destroy();
 
             }
 
