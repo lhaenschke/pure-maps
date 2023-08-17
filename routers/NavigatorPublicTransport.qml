@@ -45,11 +45,13 @@ Item {
 
         var counter = 0;
         getNearbyStopsFromLocation(origin).forEach(x => {
+            console.log("From: ", JSON.stringify(x), "\n");
             TrainConnection.loadLocationFromCoorAndName(x['y'], x['x'], x['title'], counter++);
             fromStops.push({"PoiLocation": x});
         });
 
         getNearbyStopsFromLocation(destination).forEach(x => {
+            console.log("To: ", JSON.stringify(x), "\n");
             TrainConnection.loadLocationFromCoorAndName(x['y'], x['x'], x['title'], counter++);
             toStops.push({"PoiLocation": x});
         });
