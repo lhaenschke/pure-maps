@@ -211,6 +211,7 @@ KPublicTransport::Journey TrainConnection::getJourney(const int index)
 
 void TrainConnection::clear()
 {
+    std::cout << "Clear called" << std::endl;
     m_locations.clear();
     m_journeys.clear();
 }
