@@ -60,17 +60,17 @@ Item {
                 console.log("Stop");
 
                 for (var i = 0; i < fromStops.length; i++) {
-                    fromStops[i].KptLocation = TrainConnection.getLocation(i);
+                    fromStops[i].KptLocationJson = TrainConnection.getLocation(i);
                 }
 
                 for (var i = 0; i < toStops.length; i++) {
-                    toStops[i].KptLocation = TrainConnection.getLocation(i + fromStops.length);
+                    toStops[i].KptLocationJson = TrainConnection.getLocation(i + fromStops.length);
                 }
 
                 var counter = 0;
                 fromStops.forEach(from => {
                     toStops.forEach(to => {
-                        TrainConnection.loadJourney(from.KptLocation, to.KptLocation, counter++);
+                        TrainConnection.loadJourney(from.KptLocationJson, to.KptLocationJson, counter++);
                     });
                 });
                 
