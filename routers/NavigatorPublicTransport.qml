@@ -40,8 +40,8 @@ Item {
         var fromStops = [];
         var toStops = [];
 
-        console.log("Origin: ", JSON.stringify(origin), "\n");
-        console.log("Destination: ", JSON.stringify(destination), "\n");
+        // console.log("Origin: ", JSON.stringify(origin), "\n");
+        // console.log("Destination: ", JSON.stringify(destination), "\n");
 
         var counter = 0;
         getNearbyStopsFromLocation(origin).forEach(x => {
@@ -59,8 +59,8 @@ Item {
             if (TrainConnection.loadingLocationIsFinished() || lcounter++ >= 3) {
                 // Location is Loaded
 
-                console.log("From: ", JSON.stringify(fromStops), "\n");
-                console.log("To:   ", JSON.stringify(toStops), "\n");
+                // console.log("From: ", JSON.stringify(fromStops), "\n");
+                // console.log("To:   ", JSON.stringify(toStops), "\n");
 
                 locationRepeater.stopRepeater();
                 console.log("Stop Location");
