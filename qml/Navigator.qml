@@ -225,6 +225,8 @@ Item {
         var args = [loc,
                     options];
 
+        console.log("Id:", py.evaluate("poor.app.router.id"));
+
         if (app.conf.get("profile") == "offline" && app.conf.get("routers.osmscout.type") == "transit") {
             navigatorPublicTransport.findPublicTransportRoute(args, function(route) {
                 if (route && route.error && route.message) {
