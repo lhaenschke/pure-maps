@@ -62,7 +62,7 @@ Item {
                 console.log("From: ", JSON.stringify(fromStops), "\n");
                 console.log("To:   ", JSON.stringify(toStops), "\n");
 
-                locationRepeater.stop();
+                locationRepeater.stopRepeater();
                 console.log("Stop Location");
 
                 for (var i = 0; i < fromStops.length; i++) {
@@ -84,7 +84,7 @@ Item {
                 journeyRepeater.setRepeater(function () {
                     if (TrainConnection.loadingJourneyIsFinished() || jcounter++ >= 10) {
                         console.log("Stop Journey");
-                        journeyRepeater.stop();
+                        journeyRepeater.stopRepeater();
                         var journeys = [];
                         var counter = 0;
                         fromStops.forEach(from => {
@@ -233,11 +233,11 @@ Item {
                         }
                     }
 
-                    journeyRepeater.destroy();
+                    // journeyRepeater.destroy();
 
                 }, 1000);
 
-                locationRepeater.destroy();
+                // locationRepeater.destroy();
 
             }
 
@@ -287,22 +287,33 @@ Item {
 
     Timer {
         id: locationRepeater
+        property var callback: 0
         function setRepeater(cb, delayTime) {
             locationRepeater.interval = delayTime;
             locationRepeater.repeat = true;
-            locationRepeater.triggered.connect(cb);
+            callback = cb;
+            locationRepeater.triggered.connect(callback);
             locationRepeater.start();
         }
-        
+        function stopRepeater() {
+            locationRepeater.triggered.disconnect(callback);
+            locationRepeater.stop();
+        }
     }
 
     Timer {
         id: journeyRepeater
+        property var callback: 0
         function setRepeater(cb, delayTime) {
             journeyRepeater.interval = delayTime;
             journeyRepeater.repeat = true;
-            journeyRepeater.triggered.connect(cb);
+            callback = cb;
+            journeyRepeater.triggered.connect(callback);
             journeyRepeater.start();
+        }
+        function stopRepeater() {
+            journeyRepeater.triggered.disconnect(callback);
+            journeyRepeater.stop();
         }
     }
 
