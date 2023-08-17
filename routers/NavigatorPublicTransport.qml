@@ -224,8 +224,10 @@ Item {
                         } else {
                             callback({"error": "No journey was found. Please try again.", "message": "No journey was found. Please try again."});
                         }
+                    }
                     
                 }, 1000);
+            }
 
         }, 1000);
 
