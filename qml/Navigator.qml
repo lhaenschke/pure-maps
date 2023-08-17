@@ -225,9 +225,7 @@ Item {
         var args = [loc,
                     options];
 
-        console.log("Id:", py.evaluate("poor.app.router.id"));
-
-        if (app.conf.get("profile") == "offline" && app.conf.get("routers.osmscout.type") == "transit") {
+        if (app.conf.get("routers." + py.evaluate("poor.app.router.id") + ".type") == "transit") {
             navigatorPublicTransport.findPublicTransportRoute(args, function(route) {
                 if (route && route.error && route.message) {
                     app.notification.flash(app.tr("Routing failed: %1").arg(route.message), notifyId);
