@@ -51,9 +51,6 @@ Item {
             toStops.push({"PoiLocation": x});
         });
 
-        console.log("from: ", JSON.stringify(fromStops));
-        console.log("To: ", JSON.stringify(toStops));
-
         var lcounter = 0;
         locationRepeater.setRepeater(function () {
             if (TrainConnection.loadingLocationIsFinished() || lcounter++ >= 3) {
@@ -67,6 +64,9 @@ Item {
                 for (var i = 0; i < toStops.length; i++) {
                     toStops[i].KptLocation = TrainConnection.getLocation(i + fromStops.length);
                 }
+
+                console.log("from: ", JSON.stringify(fromStops));
+                console.log("To: ", JSON.stringify(toStops));
 
                 var counter = 0;
                 fromStops.forEach(from => {
