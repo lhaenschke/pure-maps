@@ -57,160 +57,152 @@ Item {
             });
         });
 
-        var counter = 0;
         timer.setTimeout(function () {
-            console.log("Aktueller counter: ", counter);
-            if (TrainConnection.loadingIsFinished() || counter++ >= 10) {
-                console.log("Es wurde alles geladen in ", counter, " Sekunden");
-                timer.stop();
-
-                var journeys = [];
-                var counter = 0;
-                fromStops.forEach(from => {
-                    toStops.forEach(to => {
-                        journeys.push({"From": from, "To": to, "DepTime": TrainConnection.getDepartureTime(counter), "ArrTime": TrainConnection.getArrivalTime(counter), "Index": counter++});
-                    });
+            var journeys = [];
+            var counter = 0;
+            fromStops.forEach(from => {
+                toStops.forEach(to => {
+                    journeys.push({"From": from, "To": to, "DepTime": TrainConnection.getDepartureTime(counter), "ArrTime": TrainConnection.getArrivalTime(counter), "Index": counter++});
                 });
+            });
 
-                journeys.sort(function(a, b) {
-                    const keyA = a.ArrTime;
-                    const keyB = b.ArrTime;
+            journeys.sort(function(a, b) {
+                const keyA = a.ArrTime;
+                const keyB = b.ArrTime;
 
-                    if (keyA < keyB) return -1;
-                    if (keyA > keyB) return 1;
-                    return 0;
+                if (keyA < keyB) return -1;
+                if (keyA > keyB) return 1;
+                return 0;
+            });
+
+            if (journeys.length > 0) {
+                const selectedJourney = journeys[0];
+                selectedJourney.Journey = TrainConnection.getJourney(selectedJourney.Index);
+                // console.log("Json: ", JSON.stringify(selectedJourney), "\n");
+                // console.log('Given Args-String: ', JSON.stringify(args), "\n");
+
+                const argsOrigin = [[origin, {
+                    "arrived": 0,
+                    "destination": 1,
+                    "text": selectedJourney.Journey.sections[0].departure.stopPoint.name, 
+                    "x": selectedJourney.Journey.sections[0].departure.stopPoint.longitude, 
+                    "y": selectedJourney.Journey.sections[0].departure.stopPoint.latitude
+                }], args[1]];
+
+                const argsDestination = [[{
+                    "arrived": 0,
+                    "destination": 0,
+                    "text": selectedJourney.Journey.sections[selectedJourney.Journey.sections.length - 1].arrival.stopPoint.name, 
+                    "x": selectedJourney.Journey.sections[selectedJourney.Journey.sections.length - 1].arrival.stopPoint.longitude, 
+                    "y": selectedJourney.Journey.sections[selectedJourney.Journey.sections.length - 1].arrival.stopPoint.latitude
+                }, destination], args[1]];
+
+                var publicTransportManeuvers = []; var publicTransportX = []; var publicTransportY = []
+                selectedJourney.Journey.sections.forEach(x => {
+                    switch (x.mode) {
+                        case 0:
+                            return {"error": "Journey error", "message": "Journey error"};
+                        case 1:
+                            publicTransportManeuvers.push({
+                                "duration": 0,
+                                "icon": "continue",
+                                "narrative": app.tr("Move to track %1").arg(x.scheduledDeparturePlatform),
+                                "sign": {},
+                                "travel_type": "foot",
+                                "verbal_post": "",
+                                "verbal_pre": app.tr("Move to track %1").arg(x.scheduledDeparturePlatform),
+                                "x": x.from.longitude,
+                                "y": x.from.latitude
+                            });
+                            publicTransportManeuvers.push({
+                                "duration": x.duration,
+                                "icon": "arrive",
+                                "narrative": app.tr("Get on public transport %1 -> %2").arg(x.route.line.name).arg(x.route.direction),
+                                "sign": {},
+                                "travel_type": "transit",
+                                "verbal_post": "",
+                                "verbal_pre": app.tr("Get on public transport %1 -> %2").arg(x.route.line.name).arg(x.route.direction),
+                                "x": x.from.longitude,
+                                "y": x.from.latitude
+                            });
+                            publicTransportX.push(x.from.longitude); publicTransportY.push(x.from.latitude);
+                            publicTransportManeuvers.push({
+                                "duration": 0,
+                                "icon": "depart",
+                                "narrative": app.tr("Get off public transport at %1").arg(x.to.name),
+                                "sign": {},
+                                "travel_type": "foot",
+                                "verbal_post": "",
+                                "verbal_pre": app.tr("Get off public transport at %1").arg(x.to.name),
+                                "x": x.to.longitude,
+                                "y": x.to.latitude
+                            });
+                            publicTransportX.push(x.to.longitude); publicTransportY.push(x.to.latitude);
+                            break;
+                        case 2:
+                        case 4:
+                        case 8:
+                            publicTransportManeuvers.push({
+                                "duration": x.duration,
+                                "icon": "continue",
+                                "narrative": app.tr("Transfer between public transport"),
+                                "sign": {},
+                                "travel_type": "foot",
+                                "verbal_post": "",
+                                "verbal_pre": "",
+                                "x": x.to.longitude,
+                                "y": x.to.latitude
+                            });
+                            publicTransportX.push(x.to.longitude); publicTransportY.push(x.to.latitude);
+                            break;
+                        default:
+                            return {"error": "Unkown journey error", "message": "Unkown journey error"};
+                    }    
                 });
+                
+                app.conf.set("routers.osmscout.type", "pedestrian");
 
-                if (journeys.length > 0) {
-                    const selectedJourney = journeys[0];
-                    selectedJourney.Journey = TrainConnection.getJourney(selectedJourney.Index);
-                    // console.log("Json: ", JSON.stringify(selectedJourney), "\n");
-                    // console.log('Given Args-String: ', JSON.stringify(args), "\n");
+                var routeOrigin = py.call_sync("poor.app.router.route", argsOrigin);
+                if (Array.isArray(routeOrigin) && routeOrigin.length > 0)
+                    routeOrigin = routeOrigin[0];
 
-                    const argsOrigin = [[origin, {
-                        "arrived": 0,
-                        "destination": 1,
-                        "text": selectedJourney.Journey.sections[0].departure.stopPoint.name, 
-                        "x": selectedJourney.Journey.sections[0].departure.stopPoint.longitude, 
-                        "y": selectedJourney.Journey.sections[0].departure.stopPoint.latitude
-                    }], args[1]];
+                var routeDestination = py.call_sync("poor.app.router.route", argsDestination);
+                if (Array.isArray(routeDestination) && routeDestination.length > 0)
+                    routeDestination = routeDestination[0];
 
-                    const argsDestination = [[{
-                        "arrived": 0,
-                        "destination": 0,
-                        "text": selectedJourney.Journey.sections[selectedJourney.Journey.sections.length - 1].arrival.stopPoint.name, 
-                        "x": selectedJourney.Journey.sections[selectedJourney.Journey.sections.length - 1].arrival.stopPoint.longitude, 
-                        "y": selectedJourney.Journey.sections[selectedJourney.Journey.sections.length - 1].arrival.stopPoint.latitude
-                    }, destination], args[1]];
+                // console.log('Origin Route: ', JSON.stringify(routeOrigin), "\n");
+                // console.log('Destin Route: ', JSON.stringify(routeDestination), "\n");
 
-                    var publicTransportManeuvers = []; var publicTransportX = []; var publicTransportY = []
-                    selectedJourney.Journey.sections.forEach(x => {
-                        switch (x.mode) {
-                            case 0:
-                                return {"error": "Journey error", "message": "Journey error"};
-                            case 1:
-                                publicTransportManeuvers.push({
-                                    "duration": 0,
-                                    "icon": "continue",
-                                    "narrative": app.tr("Move to track %1").arg(x.scheduledDeparturePlatform),
-                                    "sign": {},
-                                    "travel_type": "foot",
-                                    "verbal_post": "",
-                                    "verbal_pre": app.tr("Move to track %1").arg(x.scheduledDeparturePlatform),
-                                    "x": x.from.longitude,
-                                    "y": x.from.latitude
-                                });
-                                publicTransportManeuvers.push({
-                                    "duration": x.duration,
-                                    "icon": "arrive",
-                                    "narrative": app.tr("Get on public transport %1 -> %2").arg(x.route.line.name).arg(x.route.direction),
-                                    "sign": {},
-                                    "travel_type": "transit",
-                                    "verbal_post": "",
-                                    "verbal_pre": app.tr("Get on public transport %1 -> %2").arg(x.route.line.name).arg(x.route.direction),
-                                    "x": x.from.longitude,
-                                    "y": x.from.latitude
-                                });
-                                publicTransportX.push(x.from.longitude); publicTransportY.push(x.from.latitude);
-                                publicTransportManeuvers.push({
-                                    "duration": 0,
-                                    "icon": "depart",
-                                    "narrative": app.tr("Get off public transport at %1").arg(x.to.name),
-                                    "sign": {},
-                                    "travel_type": "foot",
-                                    "verbal_post": "",
-                                    "verbal_pre": app.tr("Get off public transport at %1").arg(x.to.name),
-                                    "x": x.to.longitude,
-                                    "y": x.to.latitude
-                                });
-                                publicTransportX.push(x.to.longitude); publicTransportY.push(x.to.latitude);
-                                break;
-                            case 2:
-                            case 4:
-                            case 8:
-                                publicTransportManeuvers.push({
-                                    "duration": x.duration,
-                                    "icon": "continue",
-                                    "narrative": app.tr("Transfer between public transport"),
-                                    "sign": {},
-                                    "travel_type": "foot",
-                                    "verbal_post": "",
-                                    "verbal_pre": "",
-                                    "x": x.to.longitude,
-                                    "y": x.to.latitude
-                                });
-                                publicTransportX.push(x.to.longitude); publicTransportY.push(x.to.latitude);
-                                break;
-                            default:
-                                return {"error": "Unkown journey error", "message": "Unkown journey error"};
-                        }    
-                    });
-                    
-                    app.conf.set("routers.osmscout.type", "pedestrian");
+                const route = {
+                    "language": routeOrigin.language,
+                    "location_indexes": [
+                        routeOrigin.location_indexes[0] + routeDestination.location_indexes[0],
+                        routeOrigin.location_indexes[routeOrigin.location_indexes.length - 1] + routeDestination.location_indexes[routeDestination.location_indexes.length - 1] + publicTransportX.length
+                    ],
+                    "locations": [
+                        routeOrigin.locations[0],
+                        routeDestination.locations[routeDestination.locations.length -1]
+                    ],
+                    "maneuvers": routeOrigin.maneuvers.concat(publicTransportManeuvers, routeDestination.maneuvers),
+                    "mode": routeOrigin.mode,
+                    "optimized": routeOrigin.optimized,
+                    "provider": routeOrigin.provider,
+                    "x": routeOrigin.x.concat(publicTransportX, routeDestination.x),
+                    "y": routeOrigin.y.concat(publicTransportY, routeDestination.y)
 
-                    var routeOrigin = py.call_sync("poor.app.router.route", argsOrigin);
-                    if (Array.isArray(routeOrigin) && routeOrigin.length > 0)
-                        routeOrigin = routeOrigin[0];
+                };
 
-                    var routeDestination = py.call_sync("poor.app.router.route", argsDestination);
-                    if (Array.isArray(routeDestination) && routeDestination.length > 0)
-                        routeDestination = routeDestination[0];
+                // console.log('Final Route: ', JSON.stringify(route), "\n");
+                
+                app.conf.set("routers.osmscout.type", "transit");
 
-                    // console.log('Origin Route: ', JSON.stringify(routeOrigin), "\n");
-                    // console.log('Destin Route: ', JSON.stringify(routeDestination), "\n");
+                return route;
 
-                    const route = {
-                        "language": routeOrigin.language,
-                        "location_indexes": [
-                            routeOrigin.location_indexes[0] + routeDestination.location_indexes[0],
-                            routeOrigin.location_indexes[routeOrigin.location_indexes.length - 1] + routeDestination.location_indexes[routeDestination.location_indexes.length - 1] + publicTransportX.length
-                        ],
-                        "locations": [
-                            routeOrigin.locations[0],
-                            routeDestination.locations[routeDestination.locations.length -1]
-                        ],
-                        "maneuvers": routeOrigin.maneuvers.concat(publicTransportManeuvers, routeDestination.maneuvers),
-                        "mode": routeOrigin.mode,
-                        "optimized": routeOrigin.optimized,
-                        "provider": routeOrigin.provider,
-                        "x": routeOrigin.x.concat(publicTransportX, routeDestination.x),
-                        "y": routeOrigin.y.concat(publicTransportY, routeDestination.y)
-
-                    };
-
-                    // console.log('Final Route: ', JSON.stringify(route), "\n");
-                    
-                    app.conf.set("routers.osmscout.type", "transit");
-
-                    return route;
-
-                } else {
-                    return {"error": "No journey was found. Please try again.", "message": "No journey was found. Please try again."};
-                }
-
+            } else {
+                return {"error": "No journey was found. Please try again.", "message": "No journey was found. Please try again."};
             }
 
-        }, 1000);
+        }, 9000);
 
     }
 
@@ -258,7 +250,7 @@ Item {
         id: timer
         function setTimeout(cb, delayTime) {
             timer.interval = delayTime;
-            timer.repeat = true;
+            timer.repeat = false;
             timer.triggered.connect(cb);
             timer.triggered.connect(function release () {
                 timer.triggered.disconnect(cb);
