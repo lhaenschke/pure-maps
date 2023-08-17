@@ -40,7 +40,7 @@ Item {
         var fromStops = [];
         var toStops   = [];
 
-        getNearbyStopsFromLocation(origin).forEach(x => {
+        getNearbyStopsFromLocation(origin).forEach(x => { console.log("Nerby: ", JSON.stringify(x));
             const kptLocationJsonString = TrainConnection.getJsonLocationFromCoorAndName(x['y'], x['x'], x['title']);
             if (JSON.parse(kptLocationJsonString).name != "Default") fromStops.push({"PoiLocation": x, "KptLocationJson": kptLocationJsonString});
         });
@@ -112,6 +112,7 @@ Item {
                     switch (x.mode) {
                         case 0:
                             callback({"error": "Journey error", "message": "Journey error"});
+                            return;
                         case 1:
                             publicTransportManeuvers.push({
                                 "duration": 0,
@@ -167,6 +168,7 @@ Item {
                             break;
                         default:
                             callback({"error": "Unkown journey error", "message": "Unkown journey error"});
+                            return;
                     }    
                 });
                 
@@ -276,10 +278,10 @@ Item {
             repeater.interval = delayTime;
             repeater.repeat = true;
             repeater.triggered.connect(cb);
-            repeater.triggered.connect(function release () {
-                repeater.triggered.disconnect(cb);
-                repeater.triggered.disconnect(release);
-            });
+            // repeater.triggered.connect(function release () {
+            //     repeater.triggered.disconnect(cb);
+            //     repeater.triggered.disconnect(release);
+            // });
             repeater.start();
         }
     }
