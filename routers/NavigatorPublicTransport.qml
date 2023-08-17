@@ -40,17 +40,18 @@ Item {
         var fromStops = [];
         var toStops   = [];
 
+        console.log("Origin: ", origin, "\n");
+        console.log("Destination: ", destination, "\n");
+
         var counter = 0;
         getNearbyStopsFromLocation(origin).forEach(x => {
             TrainConnection.loadLocationFromCoorAndName(x['y'], x['x'], x['title'], counter++);
             fromStops.push({"PoiLocation": x});
-            console.log("From: ", JSON.stringify(x), "\n");
         });
 
         getNearbyStopsFromLocation(destination).forEach(x => {
             TrainConnection.loadLocationFromCoorAndName(x['y'], x['x'], x['title'], counter++);
             toStops.push({"PoiLocation": x});
-            console.log("From: ", JSON.stringify(x), "\n");
         });
 
         var lcounter = 0;
@@ -67,8 +68,6 @@ Item {
                 for (var i = 0; i < toStops.length; i++) {
                     toStops[i].KptLocation = TrainConnection.getLocation(i + fromStops.length);
                 }
-
-
 
                 var counter = 0;
                 fromStops.forEach(from => {
