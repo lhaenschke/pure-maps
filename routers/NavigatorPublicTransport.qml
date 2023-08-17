@@ -40,7 +40,7 @@ Item {
         var fromStops = [];
         var toStops   = [];
 
-        getNearbyStopsFromLocation(origin).forEach(x => { console.log("Nerby: ", JSON.stringify(x));
+        getNearbyStopsFromLocation(origin).forEach(x => {
             const kptLocationJsonString = TrainConnection.getJsonLocationFromCoorAndName(x['y'], x['x'], x['title']);
             if (JSON.parse(kptLocationJsonString).name != "Default") fromStops.push({"PoiLocation": x, "KptLocationJson": kptLocationJsonString});
         });
@@ -62,7 +62,7 @@ Item {
         repeater.setRepeater(function () {
             console.log("Repeater: ", rcounter++);
             if (rcounter == 4) {
-                repeater.stopRepeater();
+                repeater.stop();
                 console.log("Stop");
             }
         }, 200);
