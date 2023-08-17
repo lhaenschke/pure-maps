@@ -61,11 +61,20 @@ Item {
         var rcounter = 0;
         repeater.setRepeater(function () {
             console.log("Repeater: ", rcounter++);
-            if (rcounter == 4) {
+            if (rcounter == 6) {
                 repeater.stop();
                 console.log("Stop");
             }
-        }, 200);
+        }, 1000);
+
+        var rcounter2 = 0;
+        repeater.setRepeater(function () {
+            console.log("Repeater 2: ", rcounter2++);
+            if (rcounter2 == 6) {
+                repeater.stop();
+                console.log("Stop");
+            }
+        }, 1000);
 
         timer.setTimeout(function () {
             var journeys = [];
