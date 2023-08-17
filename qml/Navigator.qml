@@ -225,7 +225,7 @@ Item {
                     options];
 
         if (app.conf.get("profile") == "offline" && app.conf.get("routers.osmscout.type") == "transit") {
-            var route = publicTransportNavigator.findPublicTransportRoute(args);
+            var route = navigatorPublicTransport.findPublicTransportRoute(args);
 
             if (route && route.error && route.message) {
                 app.notification.flash(app.tr("Routing failed: %1").arg(route.message), notifyId);
@@ -376,8 +376,8 @@ Item {
         saveRoute(route);
     }
 
-    PublicTransportNavigator {
-        id: publicTransportNavigator
+    NavigatorPublicTransport {
+        id: navigatorPublicTransport
     }
 
 }
