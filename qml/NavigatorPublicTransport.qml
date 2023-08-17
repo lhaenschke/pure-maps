@@ -61,9 +61,9 @@ Item {
         var rcounter = 0;
         repeater.setRepeater(function () {
             console.log("Repeater: ", rcounter++);
-            if (rcounter == 4) (
+            if (rcounter == 4) {
                 repeater.stop();
-            )
+            }
         }, 1000);
 
         timer.setTimeout(function () {
