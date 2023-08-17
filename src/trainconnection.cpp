@@ -113,17 +113,17 @@ KPublicTransport::Location TrainConnection::convertJsonStringToLocation(const QS
     return KPublicTransport::Location::fromJson(QJsonDocument::fromJson(jsonString.toUtf8()).object());
 }
 
-QString TrainConnection::convertJourneyToJsonString(const KPublicTransport::Journey &journey)
-{
-    return QJsonDocument(KPublicTransport::Journey::toJson(journey)).toJson(QJsonDocument::Compact);
-}
+// QString TrainConnection::convertJourneyToJsonString(const KPublicTransport::Journey &journey)
+// {
+//     return QJsonDocument(KPublicTransport::Journey::toJson(journey)).toJson(QJsonDocument::Compact);
+// }
 
-KPublicTransport::Journey TrainConnection::convertJsonStringToJourney(const QString &jsonString)
-{
-    return KPublicTransport::Journey::fromJson(QJsonDocument::fromJson(jsonString.toUtf8()).object());
-}
+// KPublicTransport::Journey TrainConnection::convertJsonStringToJourney(const QString &jsonString)
+// {
+//     return KPublicTransport::Journey::fromJson(QJsonDocument::fromJson(jsonString.toUtf8()).object());
+// }
 
-QString TrainConnection::getJsonLocationFromCoorAndName(float lat, float lon, const QString &name)
+void TrainConnection::loadLocationFromCoorAndName(float lat, float lon, const QString &name, const int index)
 {
     KPublicTransport::LocationRequest req;
     req.setBackendIds(m_manager.enabledBackends());
@@ -131,17 +131,31 @@ QString TrainConnection::getJsonLocationFromCoorAndName(float lat, float lon, co
     req.setName(name);
 
     for (auto result: m_manager.queryLocation(req)->result()) {
-        return convertLocationToJsonString(result);
+        m_locations.insert(index, result);
     }
-    return QString("{\"name\":\"Default\"}");
 }
 
-void TrainConnection::loadJourney(const QString &locationFromString, const QString &locationToString, const int index)
+bool TrainConnection::loadingLocationIsFinished()
+{
+    for (int i = 0; i < 6; i++) {
+        if (!m_locations.contains(i)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+KPublicTransport::Location TrainConnection::getLocation(const int index)
+{
+    return m_journeys.value(index);
+}
+
+void TrainConnection::loadJourney(const KPublicTransport::Location &locationFrom, const KPublicTransport::Location &locationTo, const int index)
 {
     KPublicTransport::JourneyRequest req;
     req.setBackendIds(m_manager.enabledBackends());
-    req.setFrom(convertJsonStringToLocation(locationFromString));
-    req.setTo(convertJsonStringToLocation(locationToString));
+    req.setFrom(locationFrom);
+    req.setTo(locationTo);
     QDateTime depTime = QDateTime::currentDateTime();
     depTime = depTime.addSecs(15 * 60);
     req.setDepartureTime(depTime);
@@ -165,7 +179,7 @@ void TrainConnection::loadJourney(const QString &locationFromString, const QStri
     });
 }
 
-bool TrainConnection::loadingIsFinished()
+bool TrainConnection::loadingJourneyIsFinished()
 {
     for (int i = 0; i < 9; i++) {
         if (!m_journeys.contains(i)) {
