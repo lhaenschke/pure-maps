@@ -46,7 +46,6 @@ Item {
             fromStops.push({"PoiLocation": x});
         });
 
-        var counter = 0;
         getNearbyStopsFromLocation(destination).forEach(x => {
             TrainConnection.loadLocationFromCoorAndName(x['y'], x['x'], x['title'], counter++);
             // if (JSON.parse(kptLocationJsonString).name != "Default") toStops.push({"PoiLocation": x, "KptLocationJson": kptLocationJsonString});
