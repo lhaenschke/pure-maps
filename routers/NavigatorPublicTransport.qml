@@ -54,7 +54,7 @@ Item {
         var lcounter = 0;
         locationRepeater.setRepeater(function () {
             console.log("LCounter: ", lcounter);
-            if (TrainConnection.loadingLocationIsFinished()) {
+            if (TrainConnection.loadingLocationIsFinished() || lcounter >= 3) {
                 // Location is Loaded
                 locationRepeater.stop();
                 console.log("Stop");
@@ -77,7 +77,7 @@ Item {
                 var jcounter = 0;
                 journeyRepeater.setTimeout(function () {
                     console.log("JCounter: ", lcounter);
-                    if (TrainConnection.loadingJourneyIsFinished()) {
+                    if (TrainConnection.loadingJourneyIsFinished() || jcounter >= 10) {
                         journeyRepeater.stop();
                         var journeys = [];
                         var counter = 0;
@@ -224,23 +224,9 @@ Item {
                         } else {
                             callback({"error": "No journey was found. Please try again.", "message": "No journey was found. Please try again."});
                         }
-                    } else {
-                        if (jounter++ >= 10) {
-                            journeyRepeater.stop();
-                            callback({"error": "No journey was found. Please try again.", "message": "No journey was found. Please try again."});
-                        }
-                        
-                    }
-
+                    
                 }, 1000);
 
-            } else {
-                if (lcounter++ >= 3){
-                    locationRepeater.stop();
-                    callback({"error": "No nerby Transport-Location was found", "message": "No nerby Transport-Location was found"});
-                }
-                
-            }
         }, 1000);
 
     }
