@@ -38,20 +38,18 @@ Item {
         }
 
         var fromStops = [];
-        var toStops   = [];
+        var toStops = [];
 
         console.log("Origin: ", JSON.stringify(origin), "\n");
         console.log("Destination: ", JSON.stringify(destination), "\n");
 
         var counter = 0;
         getNearbyStopsFromLocation(origin).forEach(x => {
-            console.log("From: ", JSON.stringify(x), "\n");
             TrainConnection.loadLocationFromCoorAndName(x['y'], x['x'], x['title'], counter++);
             fromStops.push({"PoiLocation": x});
         });
 
         getNearbyStopsFromLocation(destination).forEach(x => {
-            console.log("To: ", JSON.stringify(x), "\n");
             TrainConnection.loadLocationFromCoorAndName(x['y'], x['x'], x['title'], counter++);
             toStops.push({"PoiLocation": x});
         });
@@ -60,6 +58,10 @@ Item {
         locationRepeater.setRepeater(function () {
             if (TrainConnection.loadingLocationIsFinished() || lcounter++ >= 3) {
                 // Location is Loaded
+
+                console.log("From: ", JSON.stringify(fromStops), "\n");
+                console.log("To:   ", JSON.stringify(toStops), "\n");
+
                 locationRepeater.stop();
                 console.log("Stop Location");
 
