@@ -65,9 +65,6 @@ Item {
                     toStops[i].KptLocation = TrainConnection.getLocation(i + fromStops.length);
                 }
 
-                console.log("from: ", JSON.stringify(fromStops));
-                console.log("To: ", JSON.stringify(toStops));
-
                 var counter = 0;
                 fromStops.forEach(from => {
                     toStops.forEach(to => {
@@ -98,8 +95,9 @@ Item {
 
                         if (journeys.length > 0) {
                             const selectedJourney = journeys[0];
+                            console.log("Json: ", JSON.stringify(selectedJourney), "\n");
                             selectedJourney.Journey = TrainConnection.getJourney(selectedJourney.Index);
-                            // console.log("Json: ", JSON.stringify(selectedJourney), "\n");
+                            
                             // console.log('Given Args-String: ', JSON.stringify(args), "\n");
 
                             const argsOrigin = [[origin, {
