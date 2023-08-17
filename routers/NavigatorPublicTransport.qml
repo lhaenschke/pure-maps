@@ -276,10 +276,10 @@ Item {
             timer.interval = delayTime;
             timer.repeat = true;
             timer.triggered.connect(cb);
-            timer.triggered.connect(function release () {
-                timer.triggered.disconnect(cb);
-                timer.triggered.disconnect(release);
-            });
+            // timer.triggered.connect(function release () {
+            //     timer.triggered.disconnect(cb);
+            //     timer.triggered.disconnect(release);
+            // });
             timer.start();
         }
     }
