@@ -30,8 +30,8 @@ Item {
         const origin      = args[0][0];
         const destination = args[0][1];
 
-        comsole.log("Origin: ", JSON.stringify(origin));
-        comsole.log("Destin: ", JSON.stringify(destination));
+        console.log("Origin: ", JSON.stringify(origin));
+        console.log("Destin: ", JSON.stringify(destination));
 
         // Enable KPT-Backends
         if (!loadedKPTBackends) {
