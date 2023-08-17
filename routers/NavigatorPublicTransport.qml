@@ -62,7 +62,7 @@ Item {
         repeater.setRepeater(function () {
             console.log("Repeater: ", rcounter++);
             if (rcounter == 4) {
-                repeater.stop();
+                repeater.stopRepeater();
                 console.log("Stop");
             }
         }, 200);
@@ -276,15 +276,11 @@ Item {
             repeater.interval = delayTime;
             repeater.repeat = true;
             repeater.triggered.connect(cb);
-            callback = cb;
             repeater.triggered.connect(function release () {
                 repeater.triggered.disconnect(cb);
                 repeater.triggered.disconnect(release);
             });
             repeater.start();
-        }
-        function stopRepeater() {
-            repeater.stop();
         }
     }
 
