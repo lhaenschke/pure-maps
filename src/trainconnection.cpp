@@ -162,6 +162,7 @@ void TrainConnection::loadJourney(const KPublicTransport::Location &locationFrom
     
     KPublicTransport::JourneyReply *reply = m_manager.queryJourney(req);
     QObject::connect(reply, &KPublicTransport::JourneyReply::finished, this, [reply, index, depTime, this] {
+        std::cout << "Index " << index << " hat gefunden" << std::endl;
         KPublicTransport::Journey earlyJourney;
         QDateTime earlyArrivalTime = QDateTime::currentDateTime();
         earlyArrivalTime = earlyArrivalTime.addYears(10);
