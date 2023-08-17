@@ -44,11 +44,13 @@ Item {
         getNearbyStopsFromLocation(origin).forEach(x => {
             TrainConnection.loadLocationFromCoorAndName(x['y'], x['x'], x['title'], counter++);
             fromStops.push({"PoiLocation": x});
+            console.log("From: ", JSON.stringify(x), "\n");
         });
 
         getNearbyStopsFromLocation(destination).forEach(x => {
             TrainConnection.loadLocationFromCoorAndName(x['y'], x['x'], x['title'], counter++);
             toStops.push({"PoiLocation": x});
+            console.log("From: ", JSON.stringify(x), "\n");
         });
 
         var lcounter = 0;
@@ -56,6 +58,7 @@ Item {
             if (TrainConnection.loadingLocationIsFinished() || lcounter++ >= 3) {
                 // Location is Loaded
                 locationRepeater.stop();
+                console.log("Stop Location");
 
                 for (var i = 0; i < fromStops.length; i++) {
                     fromStops[i].KptLocation = TrainConnection.getLocation(i);
@@ -64,6 +67,8 @@ Item {
                 for (var i = 0; i < toStops.length; i++) {
                     toStops[i].KptLocation = TrainConnection.getLocation(i + fromStops.length);
                 }
+
+
 
                 var counter = 0;
                 fromStops.forEach(from => {
@@ -75,6 +80,7 @@ Item {
                 var jcounter = 0;
                 journeyRepeater.setRepeater(function () {
                     if (TrainConnection.loadingJourneyIsFinished() || jcounter++ >= 10) {
+                        console.log("Stop Journey");
                         journeyRepeater.stop();
                         var journeys = [];
                         var counter = 0;
@@ -95,7 +101,7 @@ Item {
 
                         if (journeys.length > 0) {
                             const selectedJourney = journeys[0];
-                            console.log("Json: ", JSON.stringify(selectedJourney), "\n");
+                            // console.log("Json: ", JSON.stringify(selectedJourney), "\n");
                             selectedJourney.Journey = TrainConnection.getJourney(selectedJourney.Index);
                             
                             // console.log('Given Args-String: ', JSON.stringify(args), "\n");
