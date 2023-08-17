@@ -212,6 +212,8 @@ Item {
 
         }, 7000);
 
+        return {"error": "No journey was found", "message": "No journey was found"};
+
     }
 
     function getNearbyStopsFromLocation(location) {

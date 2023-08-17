@@ -376,4 +376,8 @@ Item {
         saveRoute(route);
     }
 
+    PublicTransportNavigator {
+        id: publicTransportNavigator
+    }
+
 }
