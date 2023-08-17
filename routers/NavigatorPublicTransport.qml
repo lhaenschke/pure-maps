@@ -233,7 +233,12 @@ Item {
                         }
                     }
 
+                    journeyRepeater.destroy();
+
                 }, 1000);
+
+                locationRepeater.destroy();
+
             }
 
         }, 1000);
@@ -288,6 +293,7 @@ Item {
             locationRepeater.triggered.connect(cb);
             locationRepeater.start();
         }
+        
     }
 
     Timer {
