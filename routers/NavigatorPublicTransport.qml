@@ -68,19 +68,19 @@ Item {
 
                 var emptyCounter = 0;
                 fromStops.forEach(x => {
-                    if (TrainConnection.locationIsEmpty(x)) {
+                    if (TrainConnection.locationIsEmpty(x.KptLocation)) {
                         console.log("Is Empty");
                         emptyCounter++;
                     }
                 });
                 toStops.forEach(x => {
-                    if (TrainConnection.locationIsEmpty(x)) {
+                    if (TrainConnection.locationIsEmpty(x.KptLocation)) {
                         console.log("Is Empty");
                         emptyCounter++;
                     }
                 });
                 if (emptyCounter == (fromStops.length + toStops.length)) {
-                    callback({"error": "Location Error. Please try again.", "message": "Location Error. Please try again."});
+                    callback({"error": "Public-Transport-Location Error. Please try again.", "message": "Public-Transport-Location Error. Please try again."});
                     return;
                 }
 
