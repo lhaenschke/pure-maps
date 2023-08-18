@@ -10,19 +10,17 @@
 #include "trainconnection.h"
 
 #include <QQmlApplicationEngine>
-#include <QDateTime>
 #include <QDebug>
-#include <QString>
 #include <QDesktopServices>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonValue>
-#include <QStringList>
 #include <QStandardPaths>
 #include <QUrl>
 
-#include <iostream>
 #include <vector>
+#include <limits>
+#include <iostream>
 
 TrainConnection::TrainConnection(QObject *parent)
     : QObject(parent)
@@ -31,10 +29,10 @@ TrainConnection::TrainConnection(QObject *parent)
 {
     m_departureDate = QDate::currentDate();
     m_departureTime = QTime::currentTime();
-    
+
     m_manager.setAllowInsecureBackends(false);
     m_manager.setBackendsEnabledByDefault(false);
-    
+
     qmlRegisterSingletonInstance<KPublicTransport::Manager>("org.puremaps", 1, 0, "Manager", &m_manager);
 }
 
@@ -104,6 +102,7 @@ void TrainConnection::setStartLocation(float lat, float lon, const QString &name
     }
 }
 
+
 QString TrainConnection::convertLocationToJsonString(const KPublicTransport::Location &location)
 {
     return QJsonDocument(KPublicTransport::Location::toJson(location)).toJson(QJsonDocument::Compact);
@@ -114,12 +113,120 @@ KPublicTransport::Location TrainConnection::convertJsonStringToLocation(const QS
     return KPublicTransport::Location::fromJson(QJsonDocument::fromJson(jsonString.toUtf8()).object());
 }
 
+void TrainConnection::loadLocationFromCoorAndName(float lat, float lon, const QString &name, const int index)
+{
+    KPublicTransport::LocationRequest req;
+    req.setBackendIds(m_manager.enabledBackends());
+    req.setCoordinate(lat, lon);
+    req.setName(name);
+
+    for (auto result: m_manager.queryLocation(req)->result()) {
+        m_locations.insert(index, result);
+    }
+}
+
+bool TrainConnection::loadingLocationIsFinished()
+{
+    for (int i = 0; i < 6; i++) {
+        if (!m_locations.contains(i)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+KPublicTransport::Location TrainConnection::getLocation(const int index)
+{
+    return m_locations.value(index);
+}
+
+bool TrainConnection::locationIsEmpty(const KPublicTransport::Location &location)
+{
+    return location.isEmpty();
+}
+
+void TrainConnection::loadJourney(const KPublicTransport::Location &locationFrom, const KPublicTransport::Location &locationTo, const int index)
+{
+    KPublicTransport::JourneyRequest req;
+    req.setBackendIds(m_manager.enabledBackends());
+    req.setFrom(locationFrom);
+    req.setTo(locationTo);
+    QDateTime depTime = QDateTime::currentDateTime();
+    depTime = depTime.addSecs(15 * 60);
+    req.setDepartureTime(depTime);
+    
+    KPublicTransport::JourneyReply *reply = m_manager.queryJourney(req);
+    QObject::connect(reply, &KPublicTransport::JourneyReply::finished, this, [reply, index, depTime, this] {
+        // std::cout << "Index " << index << " hat gefunden" << std::endl;
+        KPublicTransport::Journey earlyJourney;
+        QDateTime earlyArrivalTime = QDateTime::currentDateTime();
+        earlyArrivalTime = earlyArrivalTime.addYears(10);
+
+        const std::vector<KPublicTransport::Journey> results = reply->result();
+        for (int i = 0; i < results.size() && i < 15; i++) {
+            if (results.at(i).scheduledArrivalTime() < earlyArrivalTime && results.at(i).scheduledDepartureTime() >= depTime) {
+                earlyArrivalTime = results.at(i).scheduledArrivalTime();
+                earlyJourney = results.at(i);
+            }
+            
+        }
+
+        m_journeys.insert(index, earlyJourney);
+    });
+}
+
+bool TrainConnection::loadingJourneyIsFinished()
+{
+    for (int i = 0; i < 9; i++) {
+        if (!m_journeys.contains(i)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+QDateTime TrainConnection::getDepartureTime(const int index)
+{
+    if (m_journeys.contains(index)) {
+        return m_journeys.value(index).scheduledDepartureTime();
+    }
+
+    QDateTime defaultDate = QDateTime::currentDateTime();
+    defaultDate = defaultDate.addYears(10);
+
+    return defaultDate;
+}
+
+QDateTime TrainConnection::getArrivalTime(const int index)
+{
+    if (m_journeys.contains(index)) {
+        return m_journeys.value(index).scheduledArrivalTime();
+    }
+
+    QDateTime defaultDate = QDateTime::currentDateTime();
+    defaultDate = defaultDate.addYears(10);
+
+    return defaultDate;
+}
+
+KPublicTransport::Journey TrainConnection::getJourney(const int index)
+{
+    return m_journeys.value(index);
+}
+
+void TrainConnection::clear()
+{
+    std::cout << "Clear called" << std::endl;
+    m_locations.clear();
+    m_journeys.clear();
+}
+
+
 KPublicTransport::JourneyRequest TrainConnection::createJourneyRequest()
 {
     KPublicTransport::JourneyRequest req;
     req.setFrom(m_start);
     req.setTo(m_destination);
-    req.setDownloadAssets(false);
 
     QDateTime depTime(m_departureDate, m_departureTime);
     req.setDepartureTime(depTime);
