@@ -40,35 +40,48 @@ Item {
         var fromStops = [];
         var toStops = [];
 
-        for (var i = 0; i < 2; i++) {
-            var counter = 0;
-            getNearbyStopsFromLocation(origin).forEach(x => {
-                TrainConnection.loadLocationFromCoorAndName(x['y'], x['x'], x['title'], counter++);
-                fromStops.push({"PoiLocation": x});
-            });
+        var counter = 0;
+        getNearbyStopsFromLocation(origin).forEach(x => {
+            TrainConnection.loadLocationFromCoorAndName(x['y'], x['x'], x['title'], counter++);
+            fromStops.push({"PoiLocation": x});
+        });
 
-            getNearbyStopsFromLocation(destination).forEach(x => {
-                TrainConnection.loadLocationFromCoorAndName(x['y'], x['x'], x['title'], counter++);
-                toStops.push({"PoiLocation": x});
-            });
-        }
-
+        getNearbyStopsFromLocation(destination).forEach(x => {
+            TrainConnection.loadLocationFromCoorAndName(x['y'], x['x'], x['title'], counter++);
+            toStops.push({"PoiLocation": x});
+        });
+            
         var lcounter = 0;
         locationRepeater.setRepeater(function () {
             console.log("Location-Counter: ", lcounter);
             if (TrainConnection.loadingLocationIsFinished() || lcounter++ >= 5) {
                 locationRepeater.stopRepeater();
                 
-                // Location is Loaded
-
+                // Location is Loaded or max waiting time is reached
                 for (var i = 0; i < fromStops.length; i++) {
                     fromStops[i].KptLocation = TrainConnection.getLocation(i);
-                    console.log("From: ", JSON.stringify(TrainConnection.getLocation(i)));
                 }
 
                 for (var i = 0; i < toStops.length; i++) {
                     toStops[i].KptLocation = TrainConnection.getLocation(i + fromStops.length);
-                    console.log("To: ", JSON.stringify(TrainConnection.getLocation(i + fromStops.length)));
+                }
+
+                var emptyCounter = 0;
+                fromStops.forEach(x => {
+                    if (TrainConnection.locationIsEmpty(x)) {
+                        console.log("Is Empty");
+                        emptyCounter++;
+                    }
+                });
+                toStops.forEach(x => {
+                    if (TrainConnection.locationIsEmpty(x)) {
+                        console.log("Is Empty");
+                        emptyCounter++;
+                    }
+                });
+                if (emptyCounter == (fromStops.length + toStops.length)) {
+                    callback({"error": "Location Error. Please try again.", "message": "Location Error. Please try again."});
+                    return;
                 }
 
                 var counter = 0;
@@ -220,6 +233,9 @@ Item {
                                 app.conf.set("routers.osmscout.type", "transit");
 
                                 callback(route);
+
+                            } else {
+                                callback({"error": "No journey was found. Please try again.", "message": "No journey was found. Please try again."});
 
                             }
 

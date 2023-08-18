@@ -140,6 +140,11 @@ KPublicTransport::Location TrainConnection::getLocation(const int index)
     return m_locations.value(index);
 }
 
+bool TrainConnection::locationIsEmpty(const KPublicTransport::Location &location)
+{
+    return location.isEmpty();
+}
+
 void TrainConnection::loadJourney(const KPublicTransport::Location &locationFrom, const KPublicTransport::Location &locationTo, const int index)
 {
     KPublicTransport::JourneyRequest req;
