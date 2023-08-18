@@ -99,7 +99,7 @@ Item {
                             const selectedJourney = journeys[0];
                             selectedJourney.Journey = TrainConnection.getJourney(selectedJourney.Index);
                             
-                            if (selectedJourney.Journey) {
+                            if (selectedJourney.Journey && selectedJourney.Journey.sections.length > 0) {
 
                                 const argsOrigin = [[origin, {
                                     "arrived": 0,
