@@ -53,17 +53,19 @@ Item {
 
         var lcounter = 0;
         locationRepeater.setRepeater(function () {
-            if (TrainConnection.loadingLocationIsFinished() || lcounter++ >= 3) {
+            if (TrainConnection.loadingLocationIsFinished() || lcounter++ >= 5) {
                 locationRepeater.stopRepeater();
                 
                 // Location is Loaded
 
                 for (var i = 0; i < fromStops.length; i++) {
                     fromStops[i].KptLocation = TrainConnection.getLocation(i);
+                    console.log("From: ", JSON.stringify(TrainConnection.getLocation(i)));
                 }
 
                 for (var i = 0; i < toStops.length; i++) {
                     toStops[i].KptLocation = TrainConnection.getLocation(i + fromStops.length);
+                    console.log("To: ", JSON.stringify(TrainConnection.getLocation(i + fromStops.length)));
                 }
 
                 var counter = 0;
@@ -98,7 +100,8 @@ Item {
                         if (journeys.length > 0) {
                             const selectedJourney = journeys[0];
                             selectedJourney.Journey = TrainConnection.getJourney(selectedJourney.Index);
-                            
+                            console.log("To: ", JSON.stringify(TrainConnection.getJourney(selectedJourney.Index)));
+
                             if (selectedJourney.Journey && selectedJourney.Journey.sections.length > 0) {
 
                                 const argsOrigin = [[origin, {
