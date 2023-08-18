@@ -40,16 +40,18 @@ Item {
         var fromStops = [];
         var toStops = [];
 
-        var counter = 0;
-        getNearbyStopsFromLocation(origin).forEach(x => {
-            TrainConnection.loadLocationFromCoorAndName(x['y'], x['x'], x['title'], counter++);
-            fromStops.push({"PoiLocation": x});
-        });
+        for (var i = 0; i < 2; i++) {
+            var counter = 0;
+            getNearbyStopsFromLocation(origin).forEach(x => {
+                TrainConnection.loadLocationFromCoorAndName(x['y'], x['x'], x['title'], counter++);
+                fromStops.push({"PoiLocation": x});
+            });
 
-        getNearbyStopsFromLocation(destination).forEach(x => {
-            TrainConnection.loadLocationFromCoorAndName(x['y'], x['x'], x['title'], counter++);
-            toStops.push({"PoiLocation": x});
-        });
+            getNearbyStopsFromLocation(destination).forEach(x => {
+                TrainConnection.loadLocationFromCoorAndName(x['y'], x['x'], x['title'], counter++);
+                toStops.push({"PoiLocation": x});
+            });
+        }
 
         var lcounter = 0;
         locationRepeater.setRepeater(function () {
