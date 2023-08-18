@@ -53,7 +53,6 @@ Item {
             
         var lcounter = 0;
         locationRepeater.setRepeater(function () {
-            console.log("Location-Counter: ", lcounter);
             if (TrainConnection.loadingLocationIsFinished() || lcounter++ >= 5) {
                 locationRepeater.stopRepeater();
                 
@@ -69,13 +68,11 @@ Item {
                 var emptyCounter = 0;
                 fromStops.forEach(x => {
                     if (TrainConnection.locationIsEmpty(x.KptLocation)) {
-                        console.log("Is Empty");
                         emptyCounter++;
                     }
                 });
                 toStops.forEach(x => {
                     if (TrainConnection.locationIsEmpty(x.KptLocation)) {
-                        console.log("Is Empty");
                         emptyCounter++;
                     }
                 });
@@ -116,7 +113,6 @@ Item {
                         if (journeys.length > 0) {
                             const selectedJourney = journeys[0];
                             selectedJourney.Journey = TrainConnection.getJourney(selectedJourney.Index);
-                            console.log("To: ", JSON.stringify(TrainConnection.getJourney(selectedJourney.Index)));
 
                             if (selectedJourney.Journey && selectedJourney.Journey.sections.length > 0) {
 
