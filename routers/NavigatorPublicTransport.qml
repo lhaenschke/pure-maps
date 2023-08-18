@@ -53,6 +53,7 @@ Item {
 
         var lcounter = 0;
         locationRepeater.setRepeater(function () {
+            console.log("Location-Counter: ", lcounter);
             if (TrainConnection.loadingLocationIsFinished() || lcounter++ >= 5) {
                 locationRepeater.stopRepeater();
                 
