@@ -36,6 +36,7 @@ Item {
             kpt_backends.forEach(x => { TrainConnection.setBackendEnable(x, true); });
             loadedKPTBackends = true;
         }
+        
 
         var fromStops = [];
         var toStops = [];
