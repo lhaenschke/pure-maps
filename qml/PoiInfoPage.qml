@@ -301,7 +301,7 @@ PagePL {
             visible: isPublicTransport
             enabled: true
             icon: styler.iconNavigateTo
-            label: app.tr("Search connection to destination")
+            label: app.tr("Search Connection to Station/Stop")
             onClicked: {
                 app.push(Qt.resolvedUrl("TrainConnectionPage.qml"), {
                     "poi": poi,
