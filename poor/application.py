@@ -49,8 +49,6 @@ class Application:
         self.set_geocoder(poor.conf.geocoder)
         self.set_guide(poor.conf.guide)
         self.set_router(poor.conf.router)
-        self.timetables = poor.TimetableManager()
-        self.trainconnections = poor.TrainConnectionManager()
 
     def get_attribution(self, type, providers):
         """Return attribution entries for given providers."""
