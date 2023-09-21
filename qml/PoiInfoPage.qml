@@ -45,7 +45,8 @@ PagePL {
     property bool hasCoordinate: poi && poi.coordinate ? true : false
     property var  poi
     property bool shortlisted: false
-    property bool isTrainStation: poi && (poi.poiType.indexOf("Railway") != -1) ? true : false
+    property bool isPublicTransport: poi && ((poi.poiType.indexOf("Railway") != -1) ||
+                                             (poi.poiType.indexOf("Bus") != -1)) ? true : false
 
     Column {
         id: column
@@ -281,15 +282,15 @@ PagePL {
 
         SectionHeaderPL {
             height: implicitHeight + styler.themePaddingMedium
-            text: isTrainStation ? app.tr("Traininformations") : ""
+            text: isPublicTransport ? app.tr("Public Transport Informations") : ""
             visible: text
         }
 
         IconListItem {
-            visible: isTrainStation
+            visible: isPublicTransport
             enabled: true
             icon: styler.iconAbout
-            label: app.tr("Load Timetable for Station")
+            label: app.tr("Load Timetable for Station/Stop")
             onClicked: {
                 app.push(Qt.resolvedUrl("TimeTablesPage.qml"), {
                     "poi": poi,
@@ -298,7 +299,7 @@ PagePL {
         }
 
         IconListItem {
-            visible: isTrainStation
+            visible: isPublicTransport
             enabled: true
             icon: styler.iconNavigateTo
             label: app.tr("Search connection to destination")
