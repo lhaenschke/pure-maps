@@ -291,7 +291,7 @@ PagePL {
             icon: styler.iconAbout
             label: app.tr("Load Timetable for Station/Stop")
             onClicked: {
-                app.push(Qt.resolvedUrl("TimeTablesPage.qml"), {
+                app.push(Qt.resolvedUrl("PublicTransportTimeTablesPage.qml"), {
                     "poi": poi,
                 });
             }
@@ -303,7 +303,7 @@ PagePL {
             icon: styler.iconNavigateTo
             label: app.tr("Search Connection to Station/Stop")
             onClicked: {
-                app.push(Qt.resolvedUrl("TrainConnectionPage.qml"), {
+                app.push(Qt.resolvedUrl("PublicTransportConnectionPage.qml"), {
                     "poi": poi,
                 });
             }

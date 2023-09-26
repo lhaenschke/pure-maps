@@ -50,11 +50,7 @@ KEYNAMES = [
     "OPENCAGE_KEY",
 
     # https://docs.stadiamaps.com/
-    "STADIAMAPS_KEY",
-
-    # https://developers.deutschebahn.com/db-api-marketplace/apis/
-    "DBTRAININFORMATION_CLIENT",
-    "DBTRAININFORMATION_SECRET"
+    "STADIAMAPS_KEY"
 ]
 
 HEADERS = {
@@ -64,8 +60,7 @@ HEADERS = {
     "MAPQUEST": HeaderDesc(_('Register at <a href="https://developer.mapquest.com">https://developer.mapquest.com</a> and create your own API key'), "MapQuest"),
     "OPENCAGE": HeaderDesc(_('Register at <a href="https://opencagedata.com">https://opencagedata.com</a> and create your own API key'), "OpenCage"),
     "STADIAMAPS": HeaderDesc(_('Register at <a href="https://stadiamaps.com">https://stadiamaps.com</a> and create your own API key'), "Stadia Maps"),
-    "HERE": HeaderDesc(_('Register at <a href="https://developer.here.com">https://developer.here.com</a> and create your own App API Key'), "HERE"),
-    "DBTRAININFORMATION": HeaderDesc(_('Register at <a href="https://developers.deutschebahn.com">https://developers.deutschebahn.com</a> and create your own Client ID and Client Secret keys'), "DB-Traininformation")
+    "HERE": HeaderDesc(_('Register at <a href="https://developer.here.com">https://developer.here.com</a> and create your own App API Key'), "HERE")
 }
 
 KEYDESC = {
@@ -89,10 +84,6 @@ KEYDESC = {
 
     # here.com
     "HERE_APIKEY": _("HERE API Key"),
-
-    # https://developers.deutschebahn.com/db-api-marketplace/apis/
-    "DBTRAININFORMATION_CLIENT": _("DB-API Client ID"),
-    "DBTRAININFORMATION_SECRET": _("DB-API Client Secret")
 }
 
 # List of keys that are made available only after end user license is

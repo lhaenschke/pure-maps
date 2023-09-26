@@ -7,8 +7,8 @@
  *
  */
 
-#ifndef TRAINCONNECTION_H
-#define TRAINCONNECTION_H
+#ifndef PUBLICTRANSPORT_H
+#define PUBLICTRANSPORT_H
 
 #include <QObject>
 #include <QDate>
@@ -30,7 +30,7 @@
 #include <KPublicTransport/Location>
 #include <KPublicTransport/StopoverRequest>
 
-class TrainConnection : public QObject
+class PublicTransport : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(KPublicTransport::Location start READ start WRITE setStart NOTIFY startChanged)
@@ -39,7 +39,7 @@ class TrainConnection : public QObject
     Q_PROPERTY(QTime departureTime READ departureTime WRITE setDepartureTime NOTIFY departureTimeChanged)
 
 public:
-    explicit TrainConnection(QObject *parent = nullptr);
+    explicit PublicTransport(QObject *parent = nullptr);
 
     KPublicTransport::Location start() const;
     void setStart(const KPublicTransport::Location &start);
@@ -95,4 +95,4 @@ private:
     QTime m_departureTime;
 };
 
-#endif // TRAINCONNECTION_H
+#endif // PUBLICTRANSPORT_H

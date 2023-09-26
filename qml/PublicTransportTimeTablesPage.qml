@@ -49,7 +49,7 @@ PagePL {
             preferredWidth: page.width - (2 * styler.themeHorizontalPageMargin)
             text: TrainConnection.start.name ? TrainConnection.start.name : app.tr("Choose Start")
             onClicked: {
-                app.push(Qt.resolvedUrl("TrainConnectionDestinationQueryPage.qml"), {
+                app.push(Qt.resolvedUrl("PublicTransportConnectionPage.qml"), {
                     "latitude": poi.coordinate.latitude,
                     "longitude": poi.coordinate.longitude,
                     "callback": page.startCallback

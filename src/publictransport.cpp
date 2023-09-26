@@ -7,7 +7,7 @@
  *
  */
 
-#include "trainconnection.h"
+#include "publictransport.h"
 
 #include <QQmlApplicationEngine>
 #include <QDebug>
@@ -22,7 +22,7 @@
 #include <limits>
 #include <iostream>
 
-TrainConnection::TrainConnection(QObject *parent)
+PublicTransport::PublicTransport(QObject *parent)
     : QObject(parent)
     , m_start()
     , m_destination()
@@ -36,34 +36,34 @@ TrainConnection::TrainConnection(QObject *parent)
     qmlRegisterSingletonInstance<KPublicTransport::Manager>("org.puremaps", 1, 0, "Manager", &m_manager);
 }
 
-void TrainConnection::setStart(const KPublicTransport::Location &start)
+void PublicTransport::setStart(const KPublicTransport::Location &start)
 {
     m_start = start;
     Q_EMIT startChanged();
 }
 
-KPublicTransport::Location TrainConnection::start() const
+KPublicTransport::Location PublicTransport::start() const
 {
     return m_start;
 }
 
-void TrainConnection::setDestination(const KPublicTransport::Location &destination)
+void PublicTransport::setDestination(const KPublicTransport::Location &destination)
 {
     m_destination = destination;
     Q_EMIT destinationChanged();
 }
 
-KPublicTransport::Location TrainConnection::destination() const
+KPublicTransport::Location PublicTransport::destination() const
 {
     return m_destination;
 }
 
-QDate TrainConnection::departureDate() const
+QDate PublicTransport::departureDate() const
 {
     return m_departureDate;
 }
 
-void TrainConnection::setDepartureDate(const QDate &date)
+void PublicTransport::setDepartureDate(const QDate &date)
 {
     if (m_departureDate != date) {
         m_departureDate = date;
@@ -71,12 +71,12 @@ void TrainConnection::setDepartureDate(const QDate &date)
     }
 }
 
-QTime TrainConnection::departureTime() const
+QTime PublicTransport::departureTime() const
 {
     return m_departureTime;
 }
 
-void TrainConnection::setDepartureTime(const QTime &time)
+void PublicTransport::setDepartureTime(const QTime &time)
 {
     if (m_departureTime != time) {
         m_departureTime = time;
@@ -84,12 +84,12 @@ void TrainConnection::setDepartureTime(const QTime &time)
     }
 }
 
-void TrainConnection::setBackendEnable(const QString &identifier, bool enabeld)
+void PublicTransport::setBackendEnable(const QString &identifier, bool enabeld)
 {
     m_manager.setBackendEnabled(identifier, enabeld);
 }
 
-void TrainConnection::setStartLocation(float lat, float lon, const QString &name)
+void PublicTransport::setStartLocation(float lat, float lon, const QString &name)
 {
     KPublicTransport::LocationRequest req;
     req.setBackendIds(m_manager.enabledBackends());
@@ -103,17 +103,17 @@ void TrainConnection::setStartLocation(float lat, float lon, const QString &name
 }
 
 
-QString TrainConnection::convertLocationToJsonString(const KPublicTransport::Location &location)
+QString PublicTransport::convertLocationToJsonString(const KPublicTransport::Location &location)
 {
     return QJsonDocument(KPublicTransport::Location::toJson(location)).toJson(QJsonDocument::Compact);
 }
 
-KPublicTransport::Location TrainConnection::convertJsonStringToLocation(const QString &jsonString)
+KPublicTransport::Location PublicTransport::convertJsonStringToLocation(const QString &jsonString)
 {
     return KPublicTransport::Location::fromJson(QJsonDocument::fromJson(jsonString.toUtf8()).object());
 }
 
-void TrainConnection::loadLocationFromCoorAndName(float lat, float lon, const QString &name, const int index)
+void PublicTransport::loadLocationFromCoorAndName(float lat, float lon, const QString &name, const int index)
 {
     KPublicTransport::LocationRequest req;
     req.setBackendIds(m_manager.enabledBackends());
@@ -125,7 +125,7 @@ void TrainConnection::loadLocationFromCoorAndName(float lat, float lon, const QS
     }
 }
 
-bool TrainConnection::loadingLocationIsFinished()
+bool PublicTransport::loadingLocationIsFinished()
 {
     for (int i = 0; i < 6; i++) {
         if (!m_locations.contains(i)) {
@@ -135,17 +135,17 @@ bool TrainConnection::loadingLocationIsFinished()
     return true;
 }
 
-KPublicTransport::Location TrainConnection::getLocation(const int index)
+KPublicTransport::Location PublicTransport::getLocation(const int index)
 {
     return m_locations.value(index);
 }
 
-bool TrainConnection::locationIsEmpty(const KPublicTransport::Location &location)
+bool PublicTransport::locationIsEmpty(const KPublicTransport::Location &location)
 {
     return location.isEmpty();
 }
 
-void TrainConnection::loadJourney(const KPublicTransport::Location &locationFrom, const KPublicTransport::Location &locationTo, const int index)
+void PublicTransport::loadJourney(const KPublicTransport::Location &locationFrom, const KPublicTransport::Location &locationTo, const int index)
 {
     KPublicTransport::JourneyRequest req;
     req.setBackendIds(m_manager.enabledBackends());
@@ -175,7 +175,7 @@ void TrainConnection::loadJourney(const KPublicTransport::Location &locationFrom
     });
 }
 
-bool TrainConnection::loadingJourneyIsFinished()
+bool PublicTransport::loadingJourneyIsFinished()
 {
     for (int i = 0; i < 9; i++) {
         if (!m_journeys.contains(i)) {
@@ -185,7 +185,7 @@ bool TrainConnection::loadingJourneyIsFinished()
     return true;
 }
 
-QDateTime TrainConnection::getDepartureTime(const int index)
+QDateTime PublicTransport::getDepartureTime(const int index)
 {
     if (m_journeys.contains(index)) {
         return m_journeys.value(index).scheduledDepartureTime();
@@ -197,7 +197,7 @@ QDateTime TrainConnection::getDepartureTime(const int index)
     return defaultDate;
 }
 
-QDateTime TrainConnection::getArrivalTime(const int index)
+QDateTime PublicTransport::getArrivalTime(const int index)
 {
     if (m_journeys.contains(index)) {
         return m_journeys.value(index).scheduledArrivalTime();
@@ -209,12 +209,12 @@ QDateTime TrainConnection::getArrivalTime(const int index)
     return defaultDate;
 }
 
-KPublicTransport::Journey TrainConnection::getJourney(const int index)
+KPublicTransport::Journey PublicTransport::getJourney(const int index)
 {
     return m_journeys.value(index);
 }
 
-void TrainConnection::clear()
+void PublicTransport::clear()
 {
     std::cout << "Clear called" << std::endl;
     m_locations.clear();
@@ -222,7 +222,7 @@ void TrainConnection::clear()
 }
 
 
-KPublicTransport::JourneyRequest TrainConnection::createJourneyRequest()
+KPublicTransport::JourneyRequest PublicTransport::createJourneyRequest()
 {
     KPublicTransport::JourneyRequest req;
     req.setFrom(m_start);
@@ -234,7 +234,7 @@ KPublicTransport::JourneyRequest TrainConnection::createJourneyRequest()
     return req;
 }
 
-KPublicTransport::LocationRequest TrainConnection::createLocationRequest(const QString &name)
+KPublicTransport::LocationRequest PublicTransport::createLocationRequest(const QString &name)
 {
     KPublicTransport::LocationRequest req;
     req.setName(name);
@@ -242,7 +242,7 @@ KPublicTransport::LocationRequest TrainConnection::createLocationRequest(const Q
     return req;
 }
 
-KPublicTransport::StopoverRequest TrainConnection::createStopoverRequest()
+KPublicTransport::StopoverRequest PublicTransport::createStopoverRequest()
 {
     KPublicTransport::StopoverRequest req;
     req.setStop(m_start);

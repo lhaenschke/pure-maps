@@ -48,7 +48,7 @@
 #include "navigatordbusadapter.h"
 #include "positionsource.h"
 #include "util.h"
-#include "trainconnection.h"
+#include "publictransport.h"
 
 
 int main(int argc, char *argv[])
@@ -192,8 +192,8 @@ int main(int argc, char *argv[])
   qmlRegisterType<ManeuverModel>("org.puremaps", 1, 0, "ManeuverList");
   qmlRegisterType<PositionSource>("org.puremaps", 1, 0, "PositionSource");
 
-  TrainConnection trainConnection;
-  qmlRegisterSingletonInstance<TrainConnection>("org.puremaps", 1, 0, "TrainConnection", &trainConnection);
+  PublicTransport publicTransport;
+  qmlRegisterSingletonInstance<PublicTransport>("org.puremaps", 1, 0, "PublicTransport", &publicTransport);
 
   qmlRegisterSingletonType<CmdLineParser>("org.puremaps", 1, 0, "CmdLineParser", [](QQmlEngine *, QJSEngine *) -> QObject * {
       return static_cast<QObject *>(CmdLineParser::instance());

@@ -890,7 +890,7 @@ PagePL {
                         preferredWidth: styler.themeButtonWidthLarge
                         text: app.tr("Select Providers")
                         onClicked: {
-                            var dialog = app.push(Qt.resolvedUrl("TrainConnectionProvidersPage.qml"), {});
+                            var dialog = app.push(Qt.resolvedUrl("PublicTransportProvidersPage.qml"), {});
                         }
                     }
 

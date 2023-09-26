@@ -34,7 +34,6 @@ class Application:
         # after handling of all licenses
         random.seed()
         self.history = poor.HistoryManager()
-
         self.magfield = poor.MagField()
         self.sun = poor.Sun()
         self._voice = {}
