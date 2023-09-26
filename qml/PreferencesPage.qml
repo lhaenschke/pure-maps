@@ -875,8 +875,8 @@ PagePL {
 
                     ListItemLabel {
                         color: styler.themeHighlightColor
-                        text: app.tr("You can select the providers which are used to calculate public-transport-routes \
-                                    and see the attributions. By using the public routes, you agree to these attributions.")
+                        text: app.tr("You can select the providers which are used to calculate public-transport-routes " +
+                                     "and see the attributions. By using the public routes, you agree to these attributions.")
                         truncMode: truncModes.none
                         wrapMode: Text.WordWrap
                     }
@@ -888,7 +888,7 @@ PagePL {
                     ButtonPL {
                         anchors.horizontalCenter: parent.horizontalCenter
                         preferredWidth: styler.themeButtonWidthLarge
-                        text: app.tr("Select Providers")
+                        text: app.tr("Select Provider")
                         onClicked: {
                             var dialog = app.push(Qt.resolvedUrl("PublicTransportProvidersPage.qml"), {});
                         }
