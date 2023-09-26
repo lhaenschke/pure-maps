@@ -71,9 +71,9 @@ PageListPL {
 
         onClicked: {
             if (showCache) {
-                callback(TrainConnection.convertJsonStringToLocation(model['json_string']));
+                callback(PublicTransport.convertJsonStringToLocation(model['json_string']));
             } else {
-                py.call_sync("poor.app.history.add_kpt_location", [location.name, TrainConnection.convertLocationToJsonString(location)]);
+                py.call_sync("poor.app.history.add_kpt_location", [location.name, PublicTransport.convertLocationToJsonString(location)]);
                 callback(location);
             }
     
@@ -92,7 +92,7 @@ PageListPL {
                 var newText = searchField.text.trim();
                 showCache = false;
                 if (newText === lastQuery) return;
-                queryModel.request = TrainConnection.createLocationRequest(newText);
+                queryModel.request = PublicTransport.createLocationRequest(newText);
                 lastQuery = newText;
             }
 

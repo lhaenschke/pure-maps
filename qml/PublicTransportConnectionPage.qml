@@ -47,7 +47,7 @@ PagePL {
             id: pickStartButton
             anchors.horizontalCenter: parent.horizontalCenter
             preferredWidth: page.width - (2 * styler.themeHorizontalPageMargin)
-            text: TrainConnection.start.name ? TrainConnection.start.name : app.tr("Choose Start")
+            text: PublicTransport.start.name ? PublicTransport.start.name : app.tr("Choose Start")
             onClicked: {
                 app.push(Qt.resolvedUrl("PublicTransportConnectionPage.qml"), {
                     "latitude": poi.coordinate.latitude,
@@ -70,7 +70,7 @@ PagePL {
             id: pickDestinationButton
             anchors.horizontalCenter: parent.horizontalCenter
             preferredWidth: page.width - (2 * styler.themeHorizontalPageMargin)
-            text: TrainConnection.destination.name ? TrainConnection.destination.name : app.tr("Choose Destination")
+            text: PublicTransport.destination.name ? PublicTransport.destination.name : app.tr("Choose Destination")
             onClicked: {
                 app.push(Qt.resolvedUrl("PublicTransportConnectionPage.qml"), {
                     "latitude": poi.coordinate.latitude,
@@ -99,17 +99,17 @@ PagePL {
             ButtonPL {
                 id: pickDateButton
                 preferredWidth: styler.themeButtonWidthLarge - (2 * styler.themeHorizontalPageMargin)
-                text: Qt.formatDate(TrainConnection.departureDate, Qt.DefaultLocaleShortDate)
+                text: Qt.formatDate(PublicTransport.departureDate, Qt.DefaultLocaleShortDate)
                 onClicked: {
                     var dialog = app.push(Qt.resolvedUrl("../qml/platform/DatePickerDialogPL.qml"), {
-                        "date": TrainConnection.departureDate,
+                        "date": PublicTransport.departureDate,
                         "title": app.tr("Select date")
                     });
                     dialog.accepted.connect(function() {
                         if (dialog.date < new Date()) {
-                            TrainConnection.departureDate = new Date();
+                            PublicTransport.departureDate = new Date();
                         } else {
-                            TrainConnection.departureDate = dialog.date;
+                            PublicTransport.departureDate = dialog.date;
                         }
                         
                     });
@@ -121,7 +121,7 @@ PagePL {
                 preferredWidth: page.width - (pickDateButton.width + 2 * styler.themeHorizontalPageMargin + styler.themePaddingSmall)
                 text: app.tr('Today')
                 onClicked: {
-                    TrainConnection.departureDate = new Date();
+                    PublicTransport.departureDate = new Date();
                 }
             }
 
@@ -146,11 +146,11 @@ PagePL {
             ButtonPL {
                 id: pickTimeButton
                 preferredWidth: styler.themeButtonWidthLarge - (2 * styler.themeHorizontalPageMargin)
-                text: Qt.formatTime(TrainConnection.departureTime, Qt.DefaultLocaleShortDate)
+                text: Qt.formatTime(PublicTransport.departureTime, Qt.DefaultLocaleShortDate)
                 onClicked: {
                     var dialog = app.push(Qt.resolvedUrl("../qml/platform/TimePickerDialogPL.qml"), {
-                        "hour": TrainConnection.departureTime.getHours(),
-                        "minute": TrainConnection.departureTime.getMinutes(),
+                        "hour": PublicTransport.departureTime.getHours(),
+                        "minute": PublicTransport.departureTime.getMinutes(),
                         "title": app.tr("Select time")
                     });
                     dialog.accepted.connect(function() {
@@ -159,9 +159,9 @@ PagePL {
                         time.setMinutes(dialog.minute);
                         time.setSeconds(0);
                         if (time < new Date()) {
-                            TrainConnection.departureTime = new Date();
+                            PublicTransport.departureTime = new Date();
                         } else {
-                            TrainConnection.departureTime = time;
+                            PublicTransport.departureTime = time;
                         }
                     });
                 }
@@ -172,7 +172,7 @@ PagePL {
                 preferredWidth: page.width - (pickTimeButton.width + 2 * styler.themeHorizontalPageMargin + styler.themePaddingSmall)
                 text: app.tr('Now')
                 onClicked: {
-                    TrainConnection.departureTime = new Date();
+                    PublicTransport.departureTime = new Date();
                 }
             }
 
@@ -186,10 +186,10 @@ PagePL {
             id: searchButton
             anchors.horizontalCenter: parent.horizontalCenter
             preferredWidth: styler.themeButtonWidthLarge
-            enabled: TrainConnection.destination.name && TrainConnection.start.name
+            enabled: PublicTransport.destination.name && PublicTransport.start.name
             text: app.tr("Search")
             onClicked: {
-                connectionModel.request = TrainConnection.createJourneyRequest();
+                connectionModel.request = PublicTransport.createJourneyRequest();
             }
         }
 
@@ -426,8 +426,8 @@ PagePL {
     onPageStatusActivating: {
         if (!loaded) {
             const kpt_backends = py.evaluate("poor.app.history.kpt_backends");
-            kpt_backends.forEach( function(x) { TrainConnection.setBackendEnable(x, true); } );
-            TrainConnection.setStartLocation(poi.coordinate.latitude, poi.coordinate.longitude, poi.title);
+            kpt_backends.forEach( function(x) { PublicTransport.setBackendEnable(x, true); } );
+            PublicTransport.setStartLocation(poi.coordinate.latitude, poi.coordinate.longitude, poi.title);
             loaded = true;
         }
         
@@ -446,19 +446,19 @@ PagePL {
     }
 
     function startCallback(data) {
-        TrainConnection.start = data;
+        PublicTransport.start = data;
     }
 
     function destinationCallback(data) {
-        TrainConnection.destination = data;
+        PublicTransport.destination = data;
     }
 
     function dateCallback(data) {
-        TrainConnection.departureDate = data;
+        PublicTransport.departureDate = data;
     }
 
     function timeCallback(data) {
-        TrainConnection.departureTime = data;
+        PublicTransport.departureTime = data;
     }
 
 }

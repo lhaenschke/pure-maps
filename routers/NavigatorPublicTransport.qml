@@ -33,7 +33,7 @@ Item {
         // Enable KPT-Backends
         if (!loadedKPTBackends) {
             const kpt_backends = py.evaluate("poor.app.history.kpt_backends");
-            kpt_backends.forEach(x => { TrainConnection.setBackendEnable(x, true); });
+            kpt_backends.forEach(x => { PublicTransport.setBackendEnable(x, true); });
             loadedKPTBackends = true;
         }
         
@@ -43,37 +43,37 @@ Item {
 
         var counter = 0;
         getNearbyStopsFromLocation(origin).forEach(x => {
-            TrainConnection.loadLocationFromCoorAndName(x['y'], x['x'], x['title'], counter++);
+            PublicTransport.loadLocationFromCoorAndName(x['y'], x['x'], x['title'], counter++);
             fromStops.push({"PoiLocation": x});
         });
 
         getNearbyStopsFromLocation(destination).forEach(x => {
-            TrainConnection.loadLocationFromCoorAndName(x['y'], x['x'], x['title'], counter++);
+            PublicTransport.loadLocationFromCoorAndName(x['y'], x['x'], x['title'], counter++);
             toStops.push({"PoiLocation": x});
         });
             
         var lcounter = 0;
         locationRepeater.setRepeater(function () {
-            if (TrainConnection.loadingLocationIsFinished() || lcounter++ >= 5) {
+            if (PublicTransport.loadingLocationIsFinished() || lcounter++ >= 5) {
                 locationRepeater.stopRepeater();
                 
                 // Location is Loaded or max waiting time is reached
                 for (var i = 0; i < fromStops.length; i++) {
-                    fromStops[i].KptLocation = TrainConnection.getLocation(i);
+                    fromStops[i].KptLocation = PublicTransport.getLocation(i);
                 }
 
                 for (var i = 0; i < toStops.length; i++) {
-                    toStops[i].KptLocation = TrainConnection.getLocation(i + fromStops.length);
+                    toStops[i].KptLocation = PublicTransport.getLocation(i + fromStops.length);
                 }
 
                 var emptyCounter = 0;
                 fromStops.forEach(x => {
-                    if (TrainConnection.locationIsEmpty(x.KptLocation)) {
+                    if (PublicTransport.locationIsEmpty(x.KptLocation)) {
                         emptyCounter++;
                     }
                 });
                 toStops.forEach(x => {
-                    if (TrainConnection.locationIsEmpty(x.KptLocation)) {
+                    if (PublicTransport.locationIsEmpty(x.KptLocation)) {
                         emptyCounter++;
                     }
                 });
@@ -85,20 +85,20 @@ Item {
                 var counter = 0;
                 fromStops.forEach(from => {
                     toStops.forEach(to => {
-                        TrainConnection.loadJourney(from.KptLocation, to.KptLocation, counter++);
+                        PublicTransport.loadJourney(from.KptLocation, to.KptLocation, counter++);
                     });
                 });
                 
                 var jcounter = 0;
                 journeyRepeater.setRepeater(function () {
-                    if (TrainConnection.loadingJourneyIsFinished() || jcounter++ >= 10) {
+                    if (PublicTransport.loadingJourneyIsFinished() || jcounter++ >= 10) {
                         journeyRepeater.stopRepeater();
 
                         var journeys = [];
                         var counter = 0;
                         fromStops.forEach(from => {
                             toStops.forEach(to => {
-                                journeys.push({"From": from, "To": to, "DepTime": TrainConnection.getDepartureTime(counter), "ArrTime": TrainConnection.getArrivalTime(counter), "Index": counter++});
+                                journeys.push({"From": from, "To": to, "DepTime": PublicTransport.getDepartureTime(counter), "ArrTime": PublicTransport.getArrivalTime(counter), "Index": counter++});
                             });
                         });
 
@@ -113,7 +113,7 @@ Item {
 
                         if (journeys.length > 0) {
                             const selectedJourney = journeys[0];
-                            selectedJourney.Journey = TrainConnection.getJourney(selectedJourney.Index);
+                            selectedJourney.Journey = PublicTransport.getJourney(selectedJourney.Index);
 
                             if (selectedJourney.Journey && selectedJourney.Journey.sections.length > 0) {
 

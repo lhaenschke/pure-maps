@@ -247,7 +247,7 @@ Item {
                     rerouteConsecutiveErrors++;
                 }
                 routing = false;
-                TrainConnection.clear();
+                PublicTransport.clear();
             });
 
         } else {
