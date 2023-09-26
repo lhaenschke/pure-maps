@@ -298,7 +298,7 @@ PagePL {
 
     onPageStatusActivating: {
         if (!loaded) {
-            const kpt_backends = py.evaluate("poor.app.history.kpt_backends");
+            const kpt_backends = py.call_sync("poor.app.history.kpt_backends");
             kpt_backends.forEach( function(x) { PublicTransport.setBackendEnable(x, true); } );
             PublicTransport.setStartLocation(poi.coordinate.latitude, poi.coordinate.longitude, poi.title);
             loaded = true;

@@ -59,9 +59,6 @@ public:
     Q_INVOKABLE QString convertLocationToJsonString(const KPublicTransport::Location &location);
     Q_INVOKABLE KPublicTransport::Location convertJsonStringToLocation(const QString &jsonString);
 
-    // Q_INVOKABLE QString convertJourneyToJsonString(const KPublicTransport::Journey &journey);
-    // Q_INVOKABLE KPublicTransport::Journey convertJsonStringToJourney(const QString &jsonString);
-
     Q_INVOKABLE void loadLocationFromCoorAndName(float lat, float lon, const QString &name, const int index);
     Q_INVOKABLE bool loadingLocationIsFinished();
     Q_INVOKABLE KPublicTransport::Location getLocation(const int index);
@@ -88,11 +85,14 @@ Q_SIGNALS:
 private:
     KPublicTransport::Location m_start;
     KPublicTransport::Location m_destination;
-    KPublicTransport::Manager m_manager;
-    QMap<int, KPublicTransport::Location> m_locations;
-    QMap<int, KPublicTransport::Journey> m_journeys;
+
     QDate m_departureDate;
     QTime m_departureTime;
+
+    KPublicTransport::Manager m_manager;
+
+    QMap<int, KPublicTransport::Location> m_locations;
+    QMap<int, KPublicTransport::Journey> m_journeys;
 };
 
 #endif // PUBLICTRANSPORT_H
