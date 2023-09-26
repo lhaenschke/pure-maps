@@ -110,7 +110,7 @@ PageListPL {
     }
 
     onPageStatusActivating: {
-        const kpt_locations = py.call_sync("poor.app.history.kpt_locations");
+        const kpt_locations = py.evaluate("poor.app.history.kpt_locations");
         kpt_locations.forEach( function(x) { chacheModel.append(x); } );
     }
 
