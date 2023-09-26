@@ -202,6 +202,7 @@ int main(int argc, char *argv[])
       return static_cast<QObject *>(Commander::instance());
   });
 
+
 #ifdef IS_SAILFISH_OS
   if (v)
     {
