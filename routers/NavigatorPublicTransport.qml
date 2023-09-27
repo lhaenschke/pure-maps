@@ -229,6 +229,8 @@ Item {
 
                                 app.conf.set("routers.osmscout.type", "transit");
 
+                                console.log(JSON.stringify(route));
+
                                 callback(route);
 
                             } else {
