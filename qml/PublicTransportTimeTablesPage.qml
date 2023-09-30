@@ -193,9 +193,9 @@ PagePL {
 
             LabelPL {
                 id: depDelayHeader
-                width: parent.width / 7
+                width: parent.width / 11
                 horizontalAlignment: Text.AlignLeft
-                text: "Delay"
+                text: ""
                 font.strikeout: cancelled
             }
 
@@ -264,7 +264,7 @@ PagePL {
 
                         LabelPL {
                             id: depDelayLabel
-                            width: parent.width / 7
+                            width: parent.width / 11
                             horizontalAlignment: Text.AlignLeft
                             text: departure.hasExpectedDepartureTime ? " + " + departure.departureDelay : ""
                             color: departure.hasExpectedDepartureTime && lastJourney.departureDelay > 3 ? "red" : "green"
