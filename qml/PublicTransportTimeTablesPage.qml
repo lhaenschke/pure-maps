@@ -250,7 +250,7 @@ PagePL {
                             id: depTimeLabel
                             width: parent.width / 5
                             horizontalAlignment: Text.AlignLeft
-                            text: departure.hasExpectedDepartureTime ? departure.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat) + "+" + departure.departureDelay : departure.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat)
+                            text: departure.hasExpectedDepartureTime ? departure.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat) + " + " + departure.departureDelay : departure.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat)
                             font.strikeout: cancelled
                         }
 
