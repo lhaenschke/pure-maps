@@ -176,7 +176,7 @@ PagePL {
 
         Grid {
             id: headerGrid
-            columns: 3
+            columns: 4
             rows: 1
             anchors.left: parent.left
             anchors.leftMargin: styler.themeHorizontalPageMargin
@@ -186,13 +186,21 @@ PagePL {
 
             LabelPL {
                 id: depTimeHeader
-                width: parent.width / 5.3
+                width: parent.width / 5
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Time")
             }
 
             LabelPL {
-                width: parent.width - (depTimeHeader.width + trackHeader.width)
+                id: depDelayHeader
+                width: parent.width / 7
+                horizontalAlignment: Text.AlignLeft
+                text: "Delay"
+                font.strikeout: cancelled
+            }
+
+            LabelPL {
+                width: parent.width - (depTimeHeader.width + depDelayHeader.width + trackHeader.width)
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Line")
             }
@@ -256,7 +264,7 @@ PagePL {
 
                         LabelPL {
                             id: depDelayLabel
-                            width: parent.width / 1.3
+                            width: parent.width / 7
                             horizontalAlignment: Text.AlignLeft
                             text: departure.hasExpectedDepartureTime ? " + " + departure.departureDelay : ""
                             color: departure.hasExpectedDepartureTime && lastJourney.departureDelay > 3 ? "red" : "green"
