@@ -186,7 +186,7 @@ PagePL {
 
             LabelPL {
                 id: depTimeHeader
-                width: parent.width / 5.8
+                width: parent.width / 5.7
                 horizontalAlignment: Text.AlignLeft
                 text: app.tr("Time")
             }
