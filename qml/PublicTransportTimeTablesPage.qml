@@ -255,7 +255,7 @@ PagePL {
                         }
 
                         LabelPL {
-                            id: depTimeLabel
+                            id: depDelayLabel
                             width: parent.width / 1.3
                             horizontalAlignment: Text.AlignLeft
                             text: departure.hasExpectedDepartureTime ? " + " + departure.departureDelay : ""
@@ -264,7 +264,7 @@ PagePL {
                         }
 
                         LabelPL {
-                            width: parent.width - (depTimeLabel.width + trackLabel.width + 16)
+                            width: parent.width - (depTimeLabel.width + depDelayLabel.width + trackLabel.width + 16)
                             horizontalAlignment: Text.AlignLeft
                             text: departure.route.line.name + " -> " + departure.route.direction
                             truncMode: truncModes.elide
