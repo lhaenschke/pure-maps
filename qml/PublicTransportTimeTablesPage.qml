@@ -239,7 +239,7 @@ PagePL {
 
                     Grid {
                         id: trainsGrid
-                        columns: 3
+                        columns: 4
                         rows: 1
                         anchors.left: parent.left
                         anchors.leftMargin: 8
@@ -248,9 +248,18 @@ PagePL {
 
                         LabelPL {
                             id: depTimeLabel
-                            width: parent.width / 4
+                            width: parent.width / 5.3
                             horizontalAlignment: Text.AlignLeft
-                            text: departure.hasExpectedDepartureTime ? departure.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat) + " + " + departure.departureDelay : departure.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat)
+                            text: departure.scheduledDepartureTime.toLocaleTimeString(Locale.ShortFormat)
+                            font.strikeout: cancelled
+                        }
+
+                        LabelPL {
+                            id: depTimeLabel
+                            width: parent.width / 1.3
+                            horizontalAlignment: Text.AlignLeft
+                            text: departure.hasExpectedDepartureTime ? " + " + departure.departureDelay : ""
+                            color: departure.hasExpectedDepartureTime && lastJourney.departureDelay > 3 ? "red" : "green"
                             font.strikeout: cancelled
                         }
 
