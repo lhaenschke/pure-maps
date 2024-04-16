@@ -306,6 +306,8 @@ PagePL {
             
         }
 
+
+
     }
 
     KPT.StopoverQueryModel {
@@ -317,7 +319,7 @@ PagePL {
         if (!loaded) {
             const kpt_backends = py.evaluate("poor.app.history.kpt_backends");
 
-            console.log('Count: ' + kpt_backends.count)
+            console.log('Count: ' + kpt_backends.length)
 
             kpt_backends.forEach( function(x) { PublicTransport.setBackendEnable(x, true); } );
             PublicTransport.setStartLocation(poi.coordinate.latitude, poi.coordinate.longitude, poi.title);
