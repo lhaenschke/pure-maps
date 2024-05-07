@@ -29,6 +29,7 @@ PagePL {
 
     property var  poi
     property bool loaded: false
+    property bool showNoPrividerWarning: false
 
     Column {
         id: column
@@ -318,11 +319,10 @@ PagePL {
     onPageStatusActivating: {
         if (!loaded) {
             const kpt_backends = py.evaluate("poor.app.history.kpt_backends");
-
-            console.log('Count: ' + kpt_backends.length)
-
             kpt_backends.forEach( function(x) { PublicTransport.setBackendEnable(x, true); } );
             PublicTransport.setStartLocation(poi.coordinate.latitude, poi.coordinate.longitude, poi.title);
+            showNoPrividerWarning = kpt_backends.length == 0;
+            console.log('No Priver Warning: ' + showNoPrividerWarning);
             loaded = true;
         }
         
