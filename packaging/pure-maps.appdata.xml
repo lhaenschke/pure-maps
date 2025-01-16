@@ -3,6 +3,7 @@
  <id>io.github.rinigus.PureMaps</id>
  <name>Pure Maps</name>
  <summary>Maps and navigation</summary>
+ <developer_name>Rinigus</developer_name>
  <description>
    <p>Pure Maps is an application to display vector and raster maps, places, routes, and provide navigation instructions with a flexible selection of data and service providers.</p>
    <p>Depending on the used service provider, Pure Maps can rely fully either on online services or, together with OSM Scout Server, provide fully offline maps</p>
@@ -32,12 +33,40 @@
    <image>https://raw.githubusercontent.com/rinigus/pure-maps/master/screenshots/menu.png</image>
   </screenshot>
   <screenshot>
-   <capion>Support for languages by address parser</capion>
+   <caption>Support for languages by address parser</caption>
    <image>https://raw.githubusercontent.com/rinigus/pure-maps/master/screenshots/navigation.png</image>
   </screenshot>
  </screenshots>
  <metadata_license>CC-BY-SA-3.0</metadata_license>
  <releases>
+   <release  version="3.4.0" date="2024-10-22">
+     <description>
+       <ul>
+	 <li>Add OpenFreeMap and set it as default map tiles provider</li>
+	 <li>Add Ordnance Survey (UK) maps [james1465]</li>
+	 <li>Update building against s2geometry [tpikonen]</li>
+	 <li>Digitransit (Finland) update to new API [tpikonen]</li>
+         <li>Update translations</li>
+	 <li>[ubuntu touch] Update build scripts [jonnius]</li>
+       </ul>
+     </description>
+   </release>
+   <release  version="3.3.0" date="2024-02-25">
+     <description>
+       <ul>
+         <li>Update translations</li>
+	 <li>Add extended geo URI handling</li>
+	 <li>Activate main window on external search</li>
+	 <li>Add checks for OSM Scout Server styles loading</li>
+	 <li>Allow to use system-wide flexible-polyline package [Vedingrot]</li>
+	 <li>Small other changes</li>
+	 <li>[ubuntu touch] Update packaging scripts [jonnius]</li>
+	 <li>[ubuntu touch] Add workaround for squeezed icons on UT [jonnius]</li>
+	 <li>[sfos] Update URI handler desktop file</li>
+	 <li>[flatpak] Update Appdata</li>
+       </ul>
+     </description>
+   </release>
    <release  version="3.2.0" date="2023-01-26">
      <description>
        <ul>
@@ -482,7 +511,6 @@
    </release>
  </releases>
  <custom>
-   <value key="Purism::form_factor">workstation</value>
    <value key="Purism::form_factor">mobile</value>
  </custom>
 </component>

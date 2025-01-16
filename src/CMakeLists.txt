@@ -32,14 +32,6 @@ if (APP_VARIANT_JOLLA_STORE)
        )
 endif()
 
-if(S2INCLUDES)
-    include_directories(${S2INCLUDES})
-endif()
-
-if(S2LIBS)
-    link_directories(${S2LIBS})
-endif()
-
 if(QML_IMPORT_PATH)
     add_definitions(-DQML_IMPORT_PATH=${QML_IMPORT_PATH})
 endif()
@@ -70,7 +62,7 @@ target_link_libraries(${APP_NAME}
     Qt5::Quick
     Qt5::Positioning
     Qt5::DBus
-    s2
+    s2::s2
     KPublicTransport)
 
 set(LINKING_FLAVORS

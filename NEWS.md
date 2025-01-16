@@ -1,3 +1,27 @@
+2024-10-22: Pure Maps 3.4.0
+===========================
+
+* Add OpenFreeMap and set it as default map tiles provider
+* Add Ordnance Survey (UK) maps [james1465]
+* Update building against s2geometry [tpikonen]
+* Digitransit (Finland) update to new API [tpikonen]
+* Update translations
+* [ubuntu touch] Update build scripts [jonnius]
+
+2024-02-25: Pure Maps 3.3.0
+===========================
+
+* Update translations
+* Add extended geo URI handling
+* Activate main window on external search
+* Add checks for OSM Scout Server styles loading
+* Allow to use system-wide flexible-polyline package [Vedingrot]
+* Small other changes
+* [ubuntu touch] Update packaging scripts [jonnius]
+* [ubuntu touch] Add workaround for squeezed icons on UT [jonnius]
+* [sfos] Update URI handler desktop file
+* [flatpak] Update Appdata
+
 2023-01-26: Pure Maps 3.2.0
 ===========================
 

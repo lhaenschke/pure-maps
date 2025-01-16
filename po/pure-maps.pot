@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-24 22:19+0200\n"
+"POT-Creation-Date: 2024-10-22 21:34+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,7 +51,7 @@ msgid "Connection timed out"
 msgstr ""
 
 #: poor/history.py:33 qml/GeocodeItem.qml:210 qml/GeocodeItem.qml:544
-#: qml/MenuPage.qml:87 qml/Navigator.qml:214 qml/NearbyPage.qml:30
+#: qml/MenuPage.qml:87 qml/Navigator.qml:215 qml/NearbyPage.qml:30
 #: qml/NearbyPage.qml:161 qml/NearbyPage.qml:176 qml/RoutePage.qml:40
 #: qml/RoutePage.qml:42 qml/RoutePage.qml:102 qml/RoutePage.qml:461
 #: qml/RoutePage.qml:466 qml/RoutePage.qml:694 qml/RoutePage.qml:723
@@ -59,81 +59,91 @@ msgstr ""
 msgid "Current position"
 msgstr ""
 
-#: poor/keystore.py:57
+#: poor/keystore.py:60
 msgid ""
 "Register at <a href=\"https://developer.foursquare.com\">https://developer."
 "foursquare.com</a> and create your own Client ID and Client Secret keys"
 msgstr ""
 
-#: poor/keystore.py:58
+#: poor/keystore.py:61
 msgid ""
 "Register at <a href=\"https://www.mapbox.com\">https://www.mapbox.com</a> "
 "and create your own API key"
 msgstr ""
 
-#: poor/keystore.py:59
+#: poor/keystore.py:62
 msgid ""
 "Register at <a href=\"https://maptiler.com\">https://maptiler.com</a> and "
 "create your own API key"
 msgstr ""
 
-#: poor/keystore.py:60
+#: poor/keystore.py:63
 msgid ""
 "Register at <a href=\"https://developer.mapquest.com\">https://developer."
 "mapquest.com</a> and create your own API key"
 msgstr ""
 
-#: poor/keystore.py:61
+#: poor/keystore.py:64
 msgid ""
 "Register at <a href=\"https://opencagedata.com\">https://opencagedata.com</"
 "a> and create your own API key"
 msgstr ""
 
-#: poor/keystore.py:62
+#: poor/keystore.py:65
 msgid ""
 "Register at <a href=\"https://stadiamaps.com\">https://stadiamaps.com</a> "
 "and create your own API key"
 msgstr ""
 
-#: poor/keystore.py:63
+#: poor/keystore.py:66
 msgid ""
 "Register at <a href=\"https://developer.here.com\">https://developer.here."
 "com</a> and create your own App API Key"
 msgstr ""
 
 #: poor/keystore.py:67
-msgid "Foursquare Client ID"
-msgstr ""
-
-#: poor/keystore.py:68
-msgid "Foursquare Client Secret"
+msgid ""
+"Register at <a href=\"https://osdatahub.os.uk/\">https://osdatahub.os.uk</a> "
+"and create your own App API Key"
 msgstr ""
 
 #: poor/keystore.py:71
+msgid "Foursquare Client ID"
+msgstr ""
+
+#: poor/keystore.py:72
+msgid "Foursquare Client Secret"
+msgstr ""
+
+#: poor/keystore.py:75
 msgid "Mapbox API key"
 msgstr ""
 
-#: poor/keystore.py:74
+#: poor/keystore.py:78
 msgid "MapTiler API key"
 msgstr ""
 
-#: poor/keystore.py:77
+#: poor/keystore.py:81
 msgid "MapQuest API key"
 msgstr ""
 
-#: poor/keystore.py:80
+#: poor/keystore.py:84
 msgid "OpenCage API key"
 msgstr ""
 
-#: poor/keystore.py:83
+#: poor/keystore.py:87
 msgid "Stadia Maps API key"
 msgstr ""
 
-#: poor/keystore.py:86
+#: poor/keystore.py:90
 msgid "HERE API Key"
 msgstr ""
 
-#: poor/keystore.py:94
+#: poor/keystore.py:93
+msgid "Ordnance Survey API Key"
+msgstr ""
+
+#: poor/keystore.py:101
 #, python-brace-format
 msgid ""
 "<p>Your Pure Maps installation has enabled support for HERE services.</"
@@ -153,7 +163,7 @@ msgid ""
 "accepting the terms in Preferences under Licenses.</p>"
 msgstr ""
 
-#: poor/keystore.py:109
+#: poor/keystore.py:116
 msgid "HERE End-User Terms"
 msgstr ""
 
@@ -664,8 +674,8 @@ msgstr ""
 msgid "Points of Interest (%1)"
 msgstr ""
 
-#: qml/GeocodeItem.qml:484 qml/Navigator.qml:301 qml/Navigator.qml:303
-#: qml/PoiBlock.qml:407 qml/PoiInfoPage.qml:26 qml/PoiPage.qml:47
+#: qml/GeocodeItem.qml:484 qml/Navigator.qml:302 qml/Navigator.qml:304
+#: qml/PoiBlock.qml:411 qml/PoiInfoPage.qml:26 qml/PoiPage.qml:47
 #: qml/RoutePage.qml:595 qml/RoutePage.qml:597 qml/RoutePoint.qml:66
 msgid "Unnamed point"
 msgstr ""
@@ -813,12 +823,12 @@ msgstr ""
 msgid "Stop navigation to select POI"
 msgstr ""
 
-#: qml/Map.qml:650 qml/NavigationPage.qml:207 qml/PoiBlock.qml:254
+#: qml/Map.qml:650 qml/NavigationPage.qml:207 qml/PoiBlock.qml:258
 #: qml/RoutePage.qml:173
 msgid "Origin"
 msgstr ""
 
-#: qml/Map.qml:652 qml/NavigationPage.qml:210 qml/PoiBlock.qml:274
+#: qml/Map.qml:652 qml/NavigationPage.qml:210 qml/PoiBlock.qml:278
 msgid "Final destination"
 msgstr ""
 
@@ -941,7 +951,7 @@ msgstr ""
 msgid "Estimated time of arrival"
 msgstr ""
 
-#: qml/NavigationPage.qml:161 qml/Navigator.qml:89
+#: qml/NavigationPage.qml:161 qml/Navigator.qml:90
 msgid "Destination reached"
 msgstr ""
 
@@ -986,61 +996,61 @@ msgstr ""
 msgid "EXIT"
 msgstr ""
 
-#: qml/Navigator.qml:81
+#: qml/Navigator.qml:82
 msgid "Destination %1 reached"
 msgstr ""
 
-#: qml/Navigator.qml:82
+#: qml/Navigator.qml:83
 msgid "Waypoint %1 reached"
 msgstr ""
 
-#: qml/Navigator.qml:151
+#: qml/Navigator.qml:152
 msgid "Voice navigation on"
 msgstr ""
 
-#: qml/Navigator.qml:156
+#: qml/Navigator.qml:157
 msgid ""
 "Voice navigation unavailable: missing Text-to-Speech (TTS) engine for "
 "selected language"
 msgstr ""
 
-#: qml/Navigator.qml:207
+#: qml/Navigator.qml:208
 msgid "Routing failed: current position not known"
 msgstr ""
 
-#: qml/Navigator.qml:213
+#: qml/Navigator.qml:214
 msgid "Rerouting position"
 msgstr ""
 
-#: qml/Navigator.qml:221
+#: qml/Navigator.qml:222
 msgid "Routing"
 msgstr ""
 
-#: qml/Navigator.qml:232
+#: qml/Navigator.qml:233
 msgid "Routing failed: %1"
 msgstr ""
 
-#: qml/Navigator.qml:237 src/navigator.cpp:1099
+#: qml/Navigator.qml:238 src/navigator.cpp:1099
 msgid "Traffic and route updated"
 msgstr ""
 
-#: qml/Navigator.qml:237 src/navigator.cpp:1096
+#: qml/Navigator.qml:238 src/navigator.cpp:1096
 msgid "New route found"
 msgstr ""
 
-#: qml/Navigator.qml:238
+#: qml/Navigator.qml:239
 msgid "Route found"
 msgstr ""
 
-#: qml/Navigator.qml:249 src/navigator.cpp:1098
+#: qml/Navigator.qml:250 src/navigator.cpp:1098
 msgid "Routing failed"
 msgstr ""
 
-#: qml/Navigator.qml:281
+#: qml/Navigator.qml:282
 msgid "Updating traffic"
 msgstr ""
 
-#: qml/Navigator.qml:281 src/navigator.cpp:1097
+#: qml/Navigator.qml:282 src/navigator.cpp:1097
 msgid "Rerouting"
 msgstr ""
 
@@ -1149,35 +1159,35 @@ msgstr ""
 msgid "More info: %1"
 msgstr ""
 
-#: qml/PoiBlock.qml:233
+#: qml/PoiBlock.qml:237
 msgid "Set as or Replace"
 msgstr ""
 
-#: qml/PoiBlock.qml:233
+#: qml/PoiBlock.qml:237
 msgid "Set as"
 msgstr ""
 
-#: qml/PoiBlock.qml:293
+#: qml/PoiBlock.qml:297
 msgid "Insert as"
 msgstr ""
 
-#: qml/PoiBlock.qml:298
+#: qml/PoiBlock.qml:302
 msgid "New origin"
 msgstr ""
 
-#: qml/PoiBlock.qml:311
+#: qml/PoiBlock.qml:315
 msgid "New final destination"
 msgstr ""
 
-#: qml/PoiBlock.qml:323
+#: qml/PoiBlock.qml:327
 msgid "First intermediate destination"
 msgstr ""
 
-#: qml/PoiBlock.qml:336
+#: qml/PoiBlock.qml:340
 msgid "Last intermediate destination"
 msgstr ""
 
-#: qml/PoiBlock.qml:337
+#: qml/PoiBlock.qml:341
 msgid "Intermediate destination"
 msgstr ""
 
@@ -2843,15 +2853,15 @@ msgstr ""
 msgid "Alternatives"
 msgstr ""
 
-#: src/cmdlineparser.cpp:18
+#: src/cmdlineparser.cpp:20
 msgid "Displays help on commandline options."
 msgstr ""
 
-#: src/cmdlineparser.cpp:20
+#: src/cmdlineparser.cpp:22
 msgid "Displays version information."
 msgstr ""
 
-#: src/cmdlineparser.cpp:23
+#: src/cmdlineparser.cpp:25
 msgid "Show location given by geo:latitude,longitude URI or perform search."
 msgstr ""
 
@@ -2902,65 +2912,65 @@ msgstr ""
 msgid "Position available"
 msgstr ""
 
-#: standard input:1
+#: ⁨standard input⁩:1
 msgid "Search in Finland. Supports autocomplete"
 msgstr ""
 
-#: standard input:2
+#: ⁨standard input⁩:2
 msgid "Search based on HERE data. Supports autocomplete"
 msgstr ""
 
-#: standard input:3
+#: ⁨standard input⁩:3
 msgid "Search based on open data sources"
 msgstr ""
 
-#: standard input:4
+#: ⁨standard input⁩:4
 msgid "Search based on open data sources. Supports autocomplete"
 msgstr ""
 
-#: standard input:5
+#: ⁨standard input⁩:5
 msgid "Search based on OpenStreetMap data. Supports autocomplete"
 msgstr ""
 
-#: standard input:6
+#: ⁨standard input⁩:6
 msgid "Venues listed and reviewed by Foursquare users"
 msgstr ""
 
-#: standard input:7 standard input:8
+#: ⁨standard input⁩:7
 msgid "Points of interest from OpenStreetMap data"
 msgstr ""
 
-#: standard input:9
+#: ⁨standard input⁩:8
 msgid "Routing along GPX track"
 msgstr ""
 
-#: standard input:10 standard input:12 standard input:14 standard input:16
-#: standard input:18 standard input:20 standard input:22
+#: ⁨standard input⁩:9 ⁨standard input⁩:11 ⁨standard input⁩:13 ⁨standard input⁩:15
+#: ⁨standard input⁩:17 ⁨standard input⁩:19 ⁨standard input⁩:21
 msgid "car"
 msgstr ""
 
-#: standard input:10 standard input:12 standard input:14 standard input:16
-#: standard input:18 standard input:22
+#: ⁨standard input⁩:9 ⁨standard input⁩:11 ⁨standard input⁩:13 ⁨standard input⁩:15
+#: ⁨standard input⁩:17 ⁨standard input⁩:21
 msgid "bicycle"
 msgstr ""
 
-#: standard input:10 standard input:12 standard input:14 standard input:16
-#: standard input:18 standard input:22
+#: ⁨standard input⁩:9 ⁨standard input⁩:11 ⁨standard input⁩:13 ⁨standard input⁩:15
+#: ⁨standard input⁩:17 ⁨standard input⁩:21
 msgid "foot"
 msgstr ""
 
-#: standard input:11
+#: ⁨standard input⁩:10
 msgid "Routing along GPX track processed by OSM Scout Server"
 msgstr ""
 
-#: standard input:13
+#: ⁨standard input⁩:12
 msgid "Routing by HERE"
 msgstr ""
 
-#: standard input:15 standard input:17 standard input:19
+#: ⁨standard input⁩:14 ⁨standard input⁩:16 ⁨standard input⁩:18
 msgid "Routing based on OpenStreetMap data"
 msgstr ""
 
-#: standard input:21
+#: ⁨standard input⁩:20
 msgid "Routing by Valhalla based on OpenStreetMap data"
 msgstr ""

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.5.1) # Latest version as supported by Ubuntu Touch
 
 project(pure-maps
-    VERSION 3.2.0
+    VERSION 3.4.0
     DESCRIPTION "Maps and navigation")
 
 # options
@@ -12,15 +12,14 @@ set(FLAVOR "kirigami" CACHE STRING "Platform to build support for. Supported pla
 option(APP_VARIANT_JOLLA_STORE "Set if compiling for Sailfish Jolla Store" OFF)
 set(PYTHON_EXE "auto" CACHE STRING "Set python3 executable. If set to 'auto', cmake will try to find it.")
 option(RUN_FROM_SOURCE "Run from source, this is mainly intended for easy development" OFF)
-set(S2INCLUDES "" CACHE STRING "Custom installed location for s2geometry, includes")
-set(S2LIBS "" CACHE STRING "Custom installed location for s2geometry, libs")
 option(USE_BUNDLED_GPXPY "Use a bundled version of GPXPY rather than a system-wide version" ON)
 option(USE_BUNDLED_GEOMAG "Use a bundled version of geomag rather than a system-wide version" ON)
+option(USE_BUNDLED_FLEXPOLYLINE "Use a bundled version of flexible-polyline rather than a system-wide version" ON)
 option(USE_BUNDLED_GEOCLUE2 "Use a bundled version of Geoclue2 Qt plugin with bugfixes" OFF)
 set(QML_IMPORT_PATH "" CACHE STRING "Additional QML import path")
 
 set(DEFAULT_PROFILE "online" CACHE STRING "Default profile. Supported profile selection: online, offline")
-set(DEFAULT_BASEMAP "MapTiler" CACHE STRING "Default basemap for online profile")
+set(DEFAULT_BASEMAP "OpenFreeMap Bright" CACHE STRING "Default basemap for online profile")
 set(DEFAULT_GEOCODER "photon" CACHE STRING "Default geocoder for online profile")
 set(DEFAULT_GUIDE "foursquare" CACHE STRING "Default guide for online profile")
 set(DEFAULT_ROUTER "stadiamaps" CACHE STRING "Default router for online profile")
@@ -113,6 +112,9 @@ elseif(FLAVOR STREQUAL "silica")
     include(FindPkgConfig)
     pkg_search_module(SAILFISH sailfishapp REQUIRED)
 endif()
+
+# s2
+find_package(s2 REQUIRED)
 
 # handle request for running from source dir
 if(RUN_FROM_SOURCE)
