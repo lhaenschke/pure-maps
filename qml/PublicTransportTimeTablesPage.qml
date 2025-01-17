@@ -310,8 +310,7 @@ PagePL {
         ListItemLabel {
             color: styler.themeHighlightColor
             height: implicitHeight + styler.themePaddingLarge
-            text: app.tr('No Public-Transpor-Provider selected. You need to activate at ' + 
-                         'least one to use this feature. Providers can be selected in preferences.')
+            text: showNoPrividerWarning ? app.tr('No Public-Transpor-Provider selected. You need to activate at least one to use this feature. Providers can be selected in preferences.') : ""
             truncMode: truncModes.none
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
