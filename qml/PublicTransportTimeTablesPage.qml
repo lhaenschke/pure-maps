@@ -310,8 +310,7 @@ PagePL {
         ListItemLabel {
             color: styler.themeHighlightColor
             height: implicitHeight + styler.themePaddingLarge
-            text: app.tr('No Public-Transpor-Provider selected. You need to activate at ' + 
-                         'least one to use this feature. Providers can be selected in preferences.')
+            text: showNoPrividerWarning ? app.tr('No Public-Transpor-Provider selected. You need to activate at least one to use this feature. Providers can be selected in preferences.') : ""
             truncMode: truncModes.none
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
@@ -328,7 +327,6 @@ PagePL {
     onPageStatusActivating: {
         if (!loaded) {
             const kpt_backends = py.evaluate("poor.app.history.kpt_backends");
-            console.log('Backends' + kpt_backends);
             kpt_backends.forEach( function(x) { PublicTransport.setBackendEnable(x, true); } );
             PublicTransport.setStartLocation(poi.coordinate.latitude, poi.coordinate.longitude, poi.title);
             showNoPrividerWarning = kpt_backends.length == 0;
